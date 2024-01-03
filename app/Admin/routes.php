@@ -16,5 +16,7 @@ Route::group([
 //    $router->resource('offers', OfferController::class);
     $router->resource('product', ProductController::class);
     $router->resource('offer', 'OfferController')->names('admin.Offer');
-    $router->resource('product/show', 'ProductController')->names('admin.Product');
+    //$router->resource('product/show', 'ProductController')->names('admin.Product');
+
+    $router->get('product/show', "ProductController@show")->name('admin.product');
 });

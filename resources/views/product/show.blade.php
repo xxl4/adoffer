@@ -24,23 +24,6 @@
     <link rel="stylesheet" href="/vendor/laravel-admin/test/links_img.css">
     <!-- END CORE CSS FRAMEWORK -->
 
-
-
-    <!-- TEXT EDITOR -->
-    <script>
-
-
-        $.fn.modal.Constructor.prototype.enforceFocus = function() {
-            modal_this = this
-            $(document).on('focusin.modal', function (e) {
-                if (modal_this.$element[0] !== e.target && !modal_this.$element.has(e.target).length
-                    && !$(e.target.parentNode).hasClass('cke_dialog_ui_input_select')
-                    && !$(e.target.parentNode).hasClass('cke_dialog_ui_input_text')) {
-                    modal_this.$element.focus()
-                }
-            })
-        };
-    </script>
     <style>.cke{visibility:hidden;}</style>
     <script src="u5" type="text/javascript"></script>
     <!-- TEXT EDITOR -->
@@ -55,7 +38,7 @@
         window.selectedRole = '';
     </script>
 
-    <meta http-equiv="origin-trial" content="A41wt2Lsq30A9Ox/WehogvJckPI4aY9RoSxhb8FMtVnqaUle1AtI6Yf7Wk+7+Wm0AfDDOkMX+Wn6wnDpBWYgWwYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Fkcm9sbC5jb206NDQzIiwiZmVhdHVyZSI6IkludGVyZXN0Q29ob3J0QVBJIiwiZXhwaXJ5IjoxNjI2MjIwNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><script type="text/javascript" src="/vendor/laravel-admin/test/BBRDVRROJ5B3ZCI2VHENNY"></script><div style="width: 1px; height: 1px; display: inline; position: absolute;"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(1)"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(2)"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(3)"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(4)"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(5)"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(6)"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(7)"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(8)"><img height="1" width="1" style="border-style:none;" alt="" src="https://d.adroll.com/cm/taboola/out?adroll_fpc=92bc931bf5d7f43636e8f96391e19f1a-1703472508422&amp;flg=1&amp;pv=97633057271.67235&amp;arrfrr=https%3A%2F%2Fm4trix.network%2FReporting-platform%2FReporting-platform.php%3Fid%3Doffer&amp;advertisable=BBRDVRROJ5B3ZCI2VHENNY"><img height="1" width="1" style="border-style:none;" alt="" src="https://d.adroll.com/cm/triplelift/out?adroll_fpc=92bc931bf5d7f43636e8f96391e19f1a-1703472508422&amp;flg=1&amp;pv=97633057271.67235&amp;arrfrr=https%3A%2F%2Fm4trix.network%2FReporting-platform%2FReporting-platform.php%3Fid%3Doffer&amp;advertisable=BBRDVRROJ5B3ZCI2VHENNY"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(9)"></div>
+    
     <div style="width: 1px; height: 1px; display: inline; position: absolute;"></div></head>
 
 
@@ -87,8 +70,6 @@
 
                                 <!--内容开始-->
                                <div class="categories_offer_left ">
-
-
 
                                    @foreach ($product as $key=>$item)
 

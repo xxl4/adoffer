@@ -21,10 +21,6 @@ class ProductController extends AdminController
     public function show($id, Content $content)
     {
 
-
-
-
-
         $product = Product::where('offer_status',1)->get()->toArray();
 
 //        print_r("<pre/>");
