@@ -1,27 +1,27 @@
 
-    <link href="http://127.0.0.1:8000/vendor/laravel-admin/test/select2.css" rel="stylesheet" type="text/css" media="screen">
-    <link href="http://127.0.0.1:8000/vendor/laravel-admin/test/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen">
-    <link href="http://127.0.0.1:8000/vendor/laravel-admin/test/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="http://127.0.0.1:8000/vendor/laravel-admin/test/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/vendor/laravel-admin/test/demo.css">
-    <link href="http://127.0.0.1:8000/vendor/laravel-admin/test/font-awesome.css" rel="stylesheet" type="text/css">
-    <link href="http://127.0.0.1:8000/vendor/laravel-admin/test/animate.min.css" rel="stylesheet" type="text/css">
-    <link href="http://127.0.0.1:8000/vendor/laravel-admin/test/jquery.scrollbar.css" rel="stylesheet" type="text/css">
-    <link href="http://127.0.0.1:8000/vendor/laravel-admin/test/datepicker.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="http://127.0.0.1:8000/vendor/laravel-admin/test/sweet-alert.css">
-    <link rel="stylesheet" href="http://127.0.0.1:8000/vendor/laravel-admin/test/rickshaw.css" type="text/css" media="screen">
-    <link rel="stylesheet" href="http://127.0.0.1:8000/vendor/laravel-admin/test/mapplic.css" type="text/css" media="screen">
-    <link rel="stylesheet" href="http://127.0.0.1:8000/vendor/laravel-admin/test/ionicons.css" type="text/css">
-    <link href="http://127.0.0.1:8000/vendor/laravel-admin/test/messenger.css" rel="stylesheet" type="text/css" media="screen">
-    <link href="http://127.0.0.1:8000/vendor/laravel-admin/test/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="/vendor/laravel-admin/test/select2.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="/vendor/laravel-admin/test/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="/vendor/laravel-admin/test/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/vendor/laravel-admin/test/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/test/demo.css">
+    <link href="/vendor/laravel-admin/test/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="/vendor/laravel-admin/test/animate.min.css" rel="stylesheet" type="text/css">
+    <link href="/vendor/laravel-admin/test/jquery.scrollbar.css" rel="stylesheet" type="text/css">
+    <link href="/vendor/laravel-admin/test/datepicker.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/vendor/laravel-admin/test/sweet-alert.css">
+    <link rel="stylesheet" href="/vendor/laravel-admin/test/rickshaw.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/vendor/laravel-admin/test/mapplic.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/vendor/laravel-admin/test/ionicons.css" type="text/css">
+    <link href="/vendor/laravel-admin/test/messenger.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="/vendor/laravel-admin/test/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen">
     <link rel="icon" type="image/png" href="https://m4trix.network/Reporting-platform/images/favicon.png">
-    <link href="http://127.0.0.1:8000/vendor/laravel-admin/test/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="/vendor/laravel-admin/test/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" media="screen">
     <!-- END PLUGIN CSS -->
     <!-- BEGIN CORE CSS FRAMEWORK -->
-    <link href="http://127.0.0.1:8000/vendor/laravel-admin/test/icon" rel="stylesheet">
-    <link href="http://127.0.0.1:8000/vendor/laravel-admin/test/webarch.css" rel="stylesheet" type="text/css">
-    <link href="http://127.0.0.1:8000/vendor/laravel-admin/test/custom.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="http://127.0.0.1:8000/vendor/laravel-admin/test/links_img.css">
+    <link href="/vendor/laravel-admin/test/icon" rel="stylesheet">
+    <link href="/vendor/laravel-admin/test/webarch.css" rel="stylesheet" type="text/css">
+    <link href="/vendor/laravel-admin/test/custom.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/vendor/laravel-admin/test/links_img.css">
     <!-- END CORE CSS FRAMEWORK -->
 
 
@@ -46,7 +46,7 @@
     <!-- TEXT EDITOR -->
 
     <script>var switch_theme = 0;</script>
-    <link href=";http://127.0.0.1:8000/vendor/laravel-admin/test/lity.css" rel="stylesheet">
+    <link href="/vendor/laravel-admin/test/lity.css" rel="stylesheet">
 
     <script>
         window.networks = [{"net":"net","name":"All networks","uid":"","role":""}];
@@ -55,7 +55,7 @@
         window.selectedRole = '';
     </script>
 
-    <meta http-equiv="origin-trial" content="A41wt2Lsq30A9Ox/WehogvJckPI4aY9RoSxhb8FMtVnqaUle1AtI6Yf7Wk+7+Wm0AfDDOkMX+Wn6wnDpBWYgWwYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Fkcm9sbC5jb206NDQzIiwiZmVhdHVyZSI6IkludGVyZXN0Q29ob3J0QVBJIiwiZXhwaXJ5IjoxNjI2MjIwNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><script type="text/javascript" src="http://127.0.0.1:8000/vendor/laravel-admin/test/BBRDVRROJ5B3ZCI2VHENNY"></script><div style="width: 1px; height: 1px; display: inline; position: absolute;"><img height="1" width="1" style="border-style:none;" alt="" src="http://127.0.0.1:8000/vendor/laravel-admin/test/out"><img height="1" width="1" style="border-style:none;" alt="" src="http://127.0.0.1:8000/vendor/laravel-admin/test/out(1)"><img height="1" width="1" style="border-style:none;" alt="" src="http://127.0.0.1:8000/vendor/laravel-admin/test/out(2)"><img height="1" width="1" style="border-style:none;" alt="" src="http://127.0.0.1:8000/vendor/laravel-admin/test/out(3)"><img height="1" width="1" style="border-style:none;" alt="" src="http://127.0.0.1:8000/vendor/laravel-admin/test/out(4)"><img height="1" width="1" style="border-style:none;" alt="" src="http://127.0.0.1:8000/vendor/laravel-admin/test/out(5)"><img height="1" width="1" style="border-style:none;" alt="" src="http://127.0.0.1:8000/vendor/laravel-admin/test/out(6)"><img height="1" width="1" style="border-style:none;" alt="" src="http://127.0.0.1:8000/vendor/laravel-admin/test/out(7)"><img height="1" width="1" style="border-style:none;" alt="" src="http://127.0.0.1:8000/vendor/laravel-admin/test/out(8)"><img height="1" width="1" style="border-style:none;" alt="" src="https://d.adroll.com/cm/taboola/out?adroll_fpc=92bc931bf5d7f43636e8f96391e19f1a-1703472508422&amp;flg=1&amp;pv=97633057271.67235&amp;arrfrr=https%3A%2F%2Fm4trix.network%2FReporting-platform%2FReporting-platform.php%3Fid%3Doffer&amp;advertisable=BBRDVRROJ5B3ZCI2VHENNY"><img height="1" width="1" style="border-style:none;" alt="" src="https://d.adroll.com/cm/triplelift/out?adroll_fpc=92bc931bf5d7f43636e8f96391e19f1a-1703472508422&amp;flg=1&amp;pv=97633057271.67235&amp;arrfrr=https%3A%2F%2Fm4trix.network%2FReporting-platform%2FReporting-platform.php%3Fid%3Doffer&amp;advertisable=BBRDVRROJ5B3ZCI2VHENNY"><img height="1" width="1" style="border-style:none;" alt="" src="http://127.0.0.1:8000/vendor/laravel-admin/test/out(9)"></div>
+    <meta http-equiv="origin-trial" content="A41wt2Lsq30A9Ox/WehogvJckPI4aY9RoSxhb8FMtVnqaUle1AtI6Yf7Wk+7+Wm0AfDDOkMX+Wn6wnDpBWYgWwYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Fkcm9sbC5jb206NDQzIiwiZmVhdHVyZSI6IkludGVyZXN0Q29ob3J0QVBJIiwiZXhwaXJ5IjoxNjI2MjIwNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><script type="text/javascript" src="/vendor/laravel-admin/test/BBRDVRROJ5B3ZCI2VHENNY"></script><div style="width: 1px; height: 1px; display: inline; position: absolute;"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(1)"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(2)"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(3)"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(4)"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(5)"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(6)"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(7)"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(8)"><img height="1" width="1" style="border-style:none;" alt="" src="https://d.adroll.com/cm/taboola/out?adroll_fpc=92bc931bf5d7f43636e8f96391e19f1a-1703472508422&amp;flg=1&amp;pv=97633057271.67235&amp;arrfrr=https%3A%2F%2Fm4trix.network%2FReporting-platform%2FReporting-platform.php%3Fid%3Doffer&amp;advertisable=BBRDVRROJ5B3ZCI2VHENNY"><img height="1" width="1" style="border-style:none;" alt="" src="https://d.adroll.com/cm/triplelift/out?adroll_fpc=92bc931bf5d7f43636e8f96391e19f1a-1703472508422&amp;flg=1&amp;pv=97633057271.67235&amp;arrfrr=https%3A%2F%2Fm4trix.network%2FReporting-platform%2FReporting-platform.php%3Fid%3Doffer&amp;advertisable=BBRDVRROJ5B3ZCI2VHENNY"><img height="1" width="1" style="border-style:none;" alt="" src="/vendor/laravel-admin/test/out(9)"></div>
     <div style="width: 1px; height: 1px; display: inline; position: absolute;"></div></head>
 
 
@@ -76,7 +76,7 @@
             <span class="va-sub">Network</span>
         </div>
     </div>
-            <link href="http://127.0.0.1:8000/vendor/laravel-admin/test/network.css" rel="stylesheet" type="text/css">
+            <link href="/vendor/laravel-admin/test/network.css" rel="stylesheet" type="text/css">
             <div class="col-sm-12">
                 <div class="row">
                     <h4> <span class="semi-bold"></span></h4>
@@ -123,7 +123,7 @@
                                                             <thead class="cf">
                                                             <tr><th><a href="https://popularhitech.com/intl/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}" target="_blank">
                                                                         <span class="offer-product-img-container" data-original-title="" title="">
-                                                                            <img src="http://127.0.0.1:8000/vendor/laravel-admin/test/main.png" alt="CozyTime Pro">
+                                                                            <img src="/vendor/laravel-admin/test/main.png" alt="CozyTime Pro">
                                                                         </span>Offer Preview
                                                                         <i class="icon ion-eye"></i>
                                                                     </a>
@@ -177,7 +177,7 @@
                                                                     <div class="col-xs-12 col-md-6 col-lg-4 use_small_padding">
                                                                         <div class="row">
                                                                             <div class="col-xs-12">
-                                                                                <select class="list_date select2_list padding_left" data-suffix="geo" style="margin-bottom: 10px;" name="date" id=""><option value="today">Today</option><option value="yester">Yesterday</option><option value="week">Current Week</option><option value="month">Current Month</option><option value="year">Year To Date</option><option value="l_week">Last Week</option><option value="l_month">Last Month</option><option value="calendar">Custom</option></select></div></div></div><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding calendar_padding"><div class="col-xs-4 col-sm-4"><div class="row"><div class="about_color"><p class="about_inputs">Start</p></div></div></div><div class="input-append success col-xs-8 col-sm-8"><div class="row"><input type="text" class="form-control date_start"><span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span></div></div></div><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding calendar_padding"><div class="col-xs-4 col-sm-4"><div class="row"><div class="about_color"><p class="about_inputs">End</p></div></div></div><div class="input-append success col-xs-8 col-sm-8"><div class="row"><input type="text" class="form-control date_end"><span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span></div></div></div><table class="table no-more-tables geo_table"><thead><tr><th style="width:30%">COUNTRY</th><th style="width:20%">Percentage</th><th style="width:50%">Distribution</th></tr></thead><tbody></tbody></table><div style="display:none;" class="geo_date_no_data"><p>Morpheus: Throughout human history, we have been dependent on machines to survive. Fate, it seems, is not without a sense of irony.</p></div></div></div></div></div></div><div class="wait_loader"><img src="http://127.0.0.1:8000/vendor/laravel-admin/test/squares-preloader-gif.svg" alt=""></div></div>
+                                                                                <select class="list_date select2_list padding_left" data-suffix="geo" style="margin-bottom: 10px;" name="date" id=""><option value="today">Today</option><option value="yester">Yesterday</option><option value="week">Current Week</option><option value="month">Current Month</option><option value="year">Year To Date</option><option value="l_week">Last Week</option><option value="l_month">Last Month</option><option value="calendar">Custom</option></select></div></div></div><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding calendar_padding"><div class="col-xs-4 col-sm-4"><div class="row"><div class="about_color"><p class="about_inputs">Start</p></div></div></div><div class="input-append success col-xs-8 col-sm-8"><div class="row"><input type="text" class="form-control date_start"><span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span></div></div></div><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding calendar_padding"><div class="col-xs-4 col-sm-4"><div class="row"><div class="about_color"><p class="about_inputs">End</p></div></div></div><div class="input-append success col-xs-8 col-sm-8"><div class="row"><input type="text" class="form-control date_end"><span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span></div></div></div><table class="table no-more-tables geo_table"><thead><tr><th style="width:30%">COUNTRY</th><th style="width:20%">Percentage</th><th style="width:50%">Distribution</th></tr></thead><tbody></tbody></table><div style="display:none;" class="geo_date_no_data"><p>Morpheus: Throughout human history, we have been dependent on machines to survive. Fate, it seems, is not without a sense of irony.</p></div></div></div></div></div></div><div class="wait_loader"><img src="/vendor/laravel-admin/test/squares-preloader-gif.svg" alt=""></div></div>
                                             <!-- 第四个tab内容 end-->
 
 
@@ -442,7 +442,7 @@
 
 
                                             <!-- 第八个tab内容 start-->
-                                            <div class="tab-pane" id="tab0Pixel_Postback"><div class="wait_loader offers-tab-pixels-loader" data-offer-id="277"><img src="http://127.0.0.1:8000/vendor/laravel-admin/test/squares-preloader-gif.svg" alt="preloader"></div><div class="offers-tab-pixels-container" data-offer-id="277"></div></div>
+                                            <div class="tab-pane" id="tab0Pixel_Postback"><div class="wait_loader offers-tab-pixels-loader" data-offer-id="277"><img src="/vendor/laravel-admin/test/squares-preloader-gif.svg" alt="preloader"></div><div class="offers-tab-pixels-container" data-offer-id="277"></div></div>
 
                                             <!-- 第八个tab内容 end-->
 
@@ -477,7 +477,7 @@
 
                                 <div class="categories_offer_right ">
                                     <div class="col-md-12 accord" data-offer_db="Skincare">
-                                    <ul class="nav nav-tabs" role="tablist"><li class="active"><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Offer" role="tab" data-toggle="tab">Summary</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Description" role="tab" data-toggle="tab">Description</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Geos" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Top_Geos" class="tab_top_geo" role="tab" data-toggle="tab">Top Geos</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Tracking" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1ProductsFeed" role="tab" data-toggle="tab">Products Data Feed</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Creative" role="tab" data-toggle="tab">Creatives</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Pixel_Postback" class="offers-tab-pixels" data-offer-id="276" role="tab" data-toggle="tab">Pixels/Postbacks</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab1Offer"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="https://bioresponse.co/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}" target="_blank"><span class="offer-product-img-container" data-original-title="" title=""><img src="http://127.0.0.1:8000/vendor/laravel-admin/test/skincare-logo.png" alt="Skincare"></span>Offer Preview <i class="icon ion-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">E-commerce - SkinBliss INTL - All Languages - EXCLUSIVE</td><td width="25%">$65 Per Sale</td><td width="20%"><span class="label label-success">Live</span></td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab1Description"><div class="row"><div class="col-md-12"><p></p><p><strong>E-commerce - SkinBliss INTL - All Languages - EXCLUSIVE</strong></p>
+                                    <ul class="nav nav-tabs" role="tablist"><li class="active"><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Offer" role="tab" data-toggle="tab">Summary</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Description" role="tab" data-toggle="tab">Description</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Geos" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Top_Geos" class="tab_top_geo" role="tab" data-toggle="tab">Top Geos</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Tracking" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1ProductsFeed" role="tab" data-toggle="tab">Products Data Feed</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Creative" role="tab" data-toggle="tab">Creatives</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Pixel_Postback" class="offers-tab-pixels" data-offer-id="276" role="tab" data-toggle="tab">Pixels/Postbacks</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab1Offer"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="https://bioresponse.co/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}" target="_blank"><span class="offer-product-img-container" data-original-title="" title=""><img src="/vendor/laravel-admin/test/skincare-logo.png" alt="Skincare"></span>Offer Preview <i class="icon ion-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">E-commerce - SkinBliss INTL - All Languages - EXCLUSIVE</td><td width="25%">$65 Per Sale</td><td width="20%"><span class="label label-success">Live</span></td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab1Description"><div class="row"><div class="col-md-12"><p></p><p><strong>E-commerce - SkinBliss INTL - All Languages - EXCLUSIVE</strong></p>
 
                                     <p><em>What is SkinBliss?</em></p>
 
@@ -495,7 +495,7 @@
                                     <p></p></div></div></div><div class="tab-pane" id="tab1Geos"><div class="row"><div class="col-md-12"><p></p><p>Accepted Destinations:</p>
 
                                     <p>Contact your affiliate account manager to inquire about specific not supported Geos.</p>
-                                    <p></p><p>Andorra, United States</p></div></div></div><div class="tab-pane top_geos_tab" id="tab1Top_Geos"><div class="row"><div class="col-md-12"><div class="top_geos_graph"><div class="col-xs-12"><div class="row"><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding"><div class="row"><div class="col-xs-12"><select class="list_date select2_list padding_left" data-suffix="geo" style="margin-bottom: 10px;" name="date" id=""><option value="today">Today</option><option value="yester">Yesterday</option><option value="week">Current Week</option><option value="month">Current Month</option><option value="year">Year To Date</option><option value="l_week">Last Week</option><option value="l_month">Last Month</option><option value="calendar">Custom</option></select></div></div></div><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding calendar_padding"><div class="col-xs-4 col-sm-4"><div class="row"><div class="about_color"><p class="about_inputs">Start</p></div></div></div><div class="input-append success col-xs-8 col-sm-8"><div class="row"><input type="text" class="form-control date_start"><span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span></div></div></div><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding calendar_padding"><div class="col-xs-4 col-sm-4"><div class="row"><div class="about_color"><p class="about_inputs">End</p></div></div></div><div class="input-append success col-xs-8 col-sm-8"><div class="row"><input type="text" class="form-control date_end"><span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span></div></div></div><table class="table no-more-tables geo_table"><thead><tr><th style="width:30%">COUNTRY</th><th style="width:20%">Percentage</th><th style="width:50%">Distribution</th></tr></thead><tbody></tbody></table><div style="display:none;" class="geo_date_no_data"><p>Morpheus: Throughout human history, we have been dependent on machines to survive. Fate, it seems, is not without a sense of irony.</p></div></div></div></div></div></div><div class="wait_loader"><img src="http://127.0.0.1:8000/vendor/laravel-admin/test/squares-preloader-gif.svg" alt=""></div></div>
+                                    <p></p><p>Andorra, United States</p></div></div></div><div class="tab-pane top_geos_tab" id="tab1Top_Geos"><div class="row"><div class="col-md-12"><div class="top_geos_graph"><div class="col-xs-12"><div class="row"><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding"><div class="row"><div class="col-xs-12"><select class="list_date select2_list padding_left" data-suffix="geo" style="margin-bottom: 10px;" name="date" id=""><option value="today">Today</option><option value="yester">Yesterday</option><option value="week">Current Week</option><option value="month">Current Month</option><option value="year">Year To Date</option><option value="l_week">Last Week</option><option value="l_month">Last Month</option><option value="calendar">Custom</option></select></div></div></div><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding calendar_padding"><div class="col-xs-4 col-sm-4"><div class="row"><div class="about_color"><p class="about_inputs">Start</p></div></div></div><div class="input-append success col-xs-8 col-sm-8"><div class="row"><input type="text" class="form-control date_start"><span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span></div></div></div><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding calendar_padding"><div class="col-xs-4 col-sm-4"><div class="row"><div class="about_color"><p class="about_inputs">End</p></div></div></div><div class="input-append success col-xs-8 col-sm-8"><div class="row"><input type="text" class="form-control date_end"><span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span></div></div></div><table class="table no-more-tables geo_table"><thead><tr><th style="width:30%">COUNTRY</th><th style="width:20%">Percentage</th><th style="width:50%">Distribution</th></tr></thead><tbody></tbody></table><div style="display:none;" class="geo_date_no_data"><p>Morpheus: Throughout human history, we have been dependent on machines to survive. Fate, it seems, is not without a sense of irony.</p></div></div></div></div></div></div><div class="wait_loader"><img src="/vendor/laravel-admin/test/squares-preloader-gif.svg" alt=""></div></div>
                                     <div class="tab-pane" id="tab1Tracking">
                                         <div class="row">
                                             <div class="col-md-12">
@@ -631,7 +631,7 @@
                                         <p>Advertorial Page Source Code:</p>
 
                                         <p><a href="https://www.dropbox.com/scl/fi/4iq7ph7jy3q37ezwz99qq/SkinBliss-Advertorial.zip?rlkey=caixl5aolpksita3nj5k9htxe&amp;dl=0" target="_blank">https://www.dropbox.com/scl/fi/4iq7ph7jy3q37ezwz99qq/SkinBliss-Advertorial.zip?rlkey=caixl5aolpksita3nj5k9htxe&amp;dl=0</a></p>
-                                        <p></p></div></div></div><div class="tab-pane" id="tab1Pixel_Postback"><div class="wait_loader offers-tab-pixels-loader" data-offer-id="276"><img src="http://127.0.0.1:8000/vendor/laravel-admin/test/squares-preloader-gif.svg" alt="preloader"></div><div class="offers-tab-pixels-container" data-offer-id="276"></div></div></div></div>
+                                        <p></p></div></div></div><div class="tab-pane" id="tab1Pixel_Postback"><div class="wait_loader offers-tab-pixels-loader" data-offer-id="276"><img src="/vendor/laravel-admin/test/squares-preloader-gif.svg" alt="preloader"></div><div class="offers-tab-pixels-container" data-offer-id="276"></div></div></div></div>
                                     </div>
 
 
@@ -671,8 +671,8 @@
             </div>
         </div>
 
-{{--        <script src="http://127.0.0.1:8000/vendor/laravel-admin/test/js_offer_top_geos.js.下载"></script>--}}
-{{--        <script src="http://127.0.0.1:8000/vendor/laravel-admin/test/offer.js"></script>--}}
+{{--        <script src="/vendor/laravel-admin/test/js_offer_top_geos.js.下载"></script>--}}
+{{--        <script src="/vendor/laravel-admin/test/offer.js"></script>--}}
 
     </div>
 
@@ -716,7 +716,7 @@
             <!--<div class="loader-spinner"></div>-->
 
             <!--M4trix Loader-->
-            <img src="http://127.0.0.1:8000/vendor/laravel-admin/test/squares-preloader-gif.svg" alt="">
+            <img src="/vendor/laravel-admin/test/squares-preloader-gif.svg" alt="">
         </div>
         <div class="input-container">
             <input type="text" id="userInput" placeholder="Type your message...">
