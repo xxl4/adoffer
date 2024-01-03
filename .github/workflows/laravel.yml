@@ -50,7 +50,7 @@ jobs:
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       run: vendor/bin/phpunit
     - name: Sync to Server and Do it
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v1.0.2
       env:
         GITHUB_SHA_X: ${GITHUB_SHA}
       with:
