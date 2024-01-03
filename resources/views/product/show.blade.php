@@ -79,11 +79,16 @@
                                             <li class="active"><a href="#tab0Offer_<?php echo $key;?>" role="tab" data-toggle="tab" onclick="openTab('{{$item['id'].'_'.$item['offer_name']}}')">Summary</a></li>
                                             <li><a href="#tab0Description_<?php echo $key;?>" role="tab" data-toggle="tab"  onclick="openTab('{{$item['id'].'_'.$item['des']}}')">Description</a></li>
                                             <li><a href="#tab0Geos_<?php echo $key;?>" role="tab" data-toggle="tab">Accepted Geos</a></li>
-                                            <li><a href="#tab0Top_Geos_<?php echo $key;?>" class="tab_top_geo" role="tab" data-toggle="tab">Top Geos</a></li>
+
+{{--                                            Top_Geos暂时拿掉--}}
+{{--                                            <li><a href="#tab0Top_Geos_<?php echo $key;?>" class="tab_top_geo" role="tab" data-toggle="tab">Top Geos</a></li>--}}
+
+
+
                                             <li><a href="#tab0Tracking_<?php echo $key;?>" role="tab" data-toggle="tab">Tracking Links</a></li>
-                                            <li><a href="#tab0ProductsFeed_<?php echo $key;?>" role="tab" data-toggle="tab">Products Data Feed</a></li>
+{{--                                            <li><a href="#tab0ProductsFeed_<?php echo $key;?>" role="tab" data-toggle="tab">Products Data Feed</a></li>--}}
                                             <li><a href="#tab0Creative_<?php echo $key;?>" role="tab" data-toggle="tab">Creatives</a></li>
-                                            <li><a href="#tab0Pixel_Postback_<?php echo $key;?>" class="offers-tab-pixels" data-offer-id="277" role="tab" data-toggle="tab">Pixels/Postbacks</a></li>
+{{--                                            <li><a href="#tab0Pixel_Postback_<?php echo $key;?>" class="offers-tab-pixels" data-offer-id="277" role="tab" data-toggle="tab">Pixels/Postbacks</a></li>--}}
                                         </ul>
                                         <div class="tools">
                                             <a href="javascript:;" class="collapse"></a>
@@ -133,14 +138,14 @@
                                             <!-- 第三个tab内容 start-->
                                             <div class="tab-pane" id="tab0Geos_<?php echo $key;?>">
                                                 <div class="row"><div class="col-md-12">
-                                                <p></p><p>All Geos Accepted.</p>
-                                                <p></p><p>Albania, Zambia</p>
+                                                <p></p><p>{{$item['accepted_area']}}</p>
+
                                                     </div></div></div>
                                             <!-- 第三个tab内容 end-->
 
 
                                             <!-- 第四个tab内容 start-->
-                                            <div class="tab-pane top_geos_tab" id="tab0Top_Geos_<?php echo $key;?>">
+                                   <!--         <div class="tab-pane top_geos_tab" id="tab0Top_Geos_<?php echo $key;?>">
                                                 <div class="row"><div class="col-md-12">
                                                         <div class="top_geos_graph">
                                                             <div class="col-xs-12">
@@ -149,6 +154,7 @@
                                                                         <div class="row">
                                                                             <div class="col-xs-12">
                                                                                 <select class="list_date select2_list padding_left" data-suffix="geo" style="margin-bottom: 10px;" name="date" id=""><option value="today">Today</option><option value="yester">Yesterday</option><option value="week">Current Week</option><option value="month">Current Month</option><option value="year">Year To Date</option><option value="l_week">Last Week</option><option value="l_month">Last Month</option><option value="calendar">Custom</option></select></div></div></div><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding calendar_padding"><div class="col-xs-4 col-sm-4"><div class="row"><div class="about_color"><p class="about_inputs">Start</p></div></div></div><div class="input-append success col-xs-8 col-sm-8"><div class="row"><input type="text" class="form-control date_start"><span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span></div></div></div><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding calendar_padding"><div class="col-xs-4 col-sm-4"><div class="row"><div class="about_color"><p class="about_inputs">End</p></div></div></div><div class="input-append success col-xs-8 col-sm-8"><div class="row"><input type="text" class="form-control date_end"><span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span></div></div></div><table class="table no-more-tables geo_table"><thead><tr><th style="width:30%">COUNTRY</th><th style="width:20%">Percentage</th><th style="width:50%">Distribution</th></tr></thead><tbody></tbody></table><div style="display:none;" class="geo_date_no_data"><p>Morpheus: Throughout human history, we have been dependent on machines to survive. Fate, it seems, is not without a sense of irony.</p></div></div></div></div></div></div><div class="wait_loader"><img src="/vendor/laravel-admin/test/squares-preloader-gif.svg" alt=""></div></div>
+                                                                                 -->
                                             <!-- 第四个tab内容 end-->
 
 
@@ -168,7 +174,8 @@
                                                 <br>
                                                 <p>Traffic sources sometimes block certain URLs and/or companies, we offer different tracking domains to choose from.</p>
 
-                                                <!-- dropdown domains -->
+                                                <!-- dropdown domains  tracking 下拉暂时拿掉 -->
+                                                <!--
                                                 <div class="btn-group m-b-30">
                                                     <a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="?id=offer#">Select your tracking domain<span class="caret"></span></a>
                                                     <ul class="dropdown-menu domains-menu">
@@ -188,6 +195,7 @@
                                                         <li><a href="?id=offer#" class="offersDomain" data-domain="https://todaystech.co">https://todaystech.co</a></li>
                                                     </ul>
                                                 </div>
+                                                -->
                                                 <!-- end dropdown domains -->
 
                                                 <div class="row">
@@ -350,14 +358,17 @@
 
 
                                             <!-- 第六个tab内容 start-->
-                                    <div class="tab-pane" id="tab0ProductsFeed_<?php echo $key;?>">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <p>Want to Sell on More Channels? Tap into the power of product listing optimization and import our entire product list.</p>
-                                                <p>You can find below the entire catalogue automated Products Data Feed, for easy submit to shopping channels and all the major marketplaces.</p>
-                                            </div>
-                                            <div class="col-md-12">
+{{--                                    <div class="tab-pane" id="tab0ProductsFeed_<?php echo $key;?>">--}}
+{{--                                        <div class="row">--}}
+{{--                                            <div class="col-md-12">--}}
+{{--                                                <p>Want to Sell on More Channels? Tap into the power of product listing optimization and import our entire product list.</p>--}}
+{{--                                                <p>You can find below the entire catalogue automated Products Data Feed, for easy submit to shopping channels and all the major marketplaces1.</p>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col-md-12">--}}
                                                 <!-- dropdown domains -->
+
+                                                <!-- tracking下拉暂时拿掉 -->
+                                                <!--
                                                 <div class="btn-group m-b-30">
                                                     <a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="?id=offer#">Select your Products Feed domain<span class="caret"></span></a>
                                                     <ul class="dropdown-menu domains-menu domains-menu-feed">
@@ -377,20 +388,25 @@
                                                         <li><a href="?id=offer#" class="offersDomain" data-domain="https://todaystech.co">https://todaystech.co</a></li>
                                                     </ul>
                                                 </div>
+                                                -->
+
+
                                                 <!-- end dropdown domains -->
-                                            </div>
+{{--                                            </div>--}}
 
-                                            <div class="col-md-12">
-                                                <div>Products Feed - All Products</div>
-                                                <input readonly="" type="text" class="form-control trecking_link clipboard-ProductsFeed-0 dynamicDomainTrackingLink" value="https://popularhitech.com/feed?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}">
-                                                <a href="https://popularhitech.com/feed?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}" target="_blank" class="dynamicDomainTrackingLink">
-                                                    <i class="icon ion-eye pull-right"></i>
-                                                </a>
-                                                <button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-ProductsFeed-0">Copy</button>
-                                            </div>
+{{--                                            <div class="col-md-12">--}}
+{{--                                                <div>Products Feed - All Products</div>--}}
+{{--                                                <input readonly="" type="text" class="form-control trecking_link clipboard-ProductsFeed-0 dynamicDomainTrackingLink" value="https://popularhitech.com/feed?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}">--}}
+{{--                                                <a href="https://popularhitech.com/feed?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}" target="_blank" class="dynamicDomainTrackingLink">--}}
+{{--                                                    <i class="icon ion-eye pull-right"></i>--}}
+{{--                                                </a>--}}
+{{--                                                <button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-ProductsFeed-0">Copy</button>--}}
+{{--                                            </div>--}}
 
-                                        </div>
-                                    </div>
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+
+
                                             <!-- 第六个tab内容 end-->
 
 
@@ -413,7 +429,7 @@
 
 
                                             <!-- 第八个tab内容 start-->
-                                            <div class="tab-pane" id="tab0Pixel_Postback_<?php echo $key;?>"><div class="wait_loader offers-tab-pixels-loader" data-offer-id="277"><img src="/vendor/laravel-admin/test/squares-preloader-gif.svg" alt="preloader"></div><div class="offers-tab-pixels-container" data-offer-id="277"></div></div>
+{{--                                            <div class="tab-pane" id="tab0Pixel_Postback_<?php echo $key;?>"><div class="wait_loader offers-tab-pixels-loader" data-offer-id="277"><img src="/vendor/laravel-admin/test/squares-preloader-gif.svg" alt="preloader"></div><div class="offers-tab-pixels-container" data-offer-id="277"></div></div>--}}
 
                                             <!-- 第八个tab内容 end-->
 
