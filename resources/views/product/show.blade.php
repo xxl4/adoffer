@@ -38,7 +38,7 @@
         window.selectedRole = '';
     </script>
 
-    
+
     <div style="width: 1px; height: 1px; display: inline; position: absolute;"></div></head>
 
 
@@ -413,7 +413,7 @@
 
 
                                             <!-- 第八个tab内容 start-->
-                                            <div class="tab-pane" id="tab0Pixel_Postback"><div class="wait_loader offers-tab-pixels-loader" data-offer-id="277"><img src="/vendor/laravel-admin/test/squares-preloader-gif.svg" alt="preloader"></div><div class="offers-tab-pixels-container" data-offer-id="277"></div></div>
+                                            <div class="tab-pane" id="tab0Pixel_Postback_<?php echo $key;?>"><div class="wait_loader offers-tab-pixels-loader" data-offer-id="277"><img src="/vendor/laravel-admin/test/squares-preloader-gif.svg" alt="preloader"></div><div class="offers-tab-pixels-container" data-offer-id="277"></div></div>
 
                                             <!-- 第八个tab内容 end-->
 
