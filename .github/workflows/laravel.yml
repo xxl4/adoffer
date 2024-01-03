@@ -59,7 +59,7 @@ jobs:
         password: ${{ secrets.SSH_PASSWORD }}
         port: ${{secrets.SSH_PORT }}
         script: |
-          cd ${{ secrets.WWW_DIR }} && sudo -u www git pull
-          sudo -u www php74 artisan migrate
-          sudo -u www php74 composer.phar update
-          sudo -u www vendor/bin/phpunit 
+          cd ${{ secrets.WWW_DIR }} && sudo -u www-data git pull
+          sudo -u www-data php81 artisan migrate
+          sudo -u www-data php81 composer.phar update
+          sudo -u www-data vendor/bin/phpunit 
