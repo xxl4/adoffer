@@ -50,7 +50,7 @@
 
 <div class="page-container row-fluid">
 
-    <a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="scrollup">Scroll</a>
+    <a href="?id=offer#" class="scrollup">Scroll</a>
     <div class="footer-widget">
         <div class="pull-right">
             <a class="exit" href="javascript:void(0);"><i class="material-icons">power_settings_new</i></a>
@@ -76,28 +76,24 @@
                                     <div class="col-md-12 accord" data-offer_db="CozyTime Pro" data-marker-id="{{$item['id']}}">
 
                                         <ul class="nav nav-tabs" role="tablist">
-                                            <li class="active"><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab0Offer" role="tab" data-toggle="tab" onclick="openTab('{{$item['id'].'_'.$item['offer_name']}}')">Summary</a></li>
-                                            <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab0Description" role="tab" data-toggle="tab"  onclick="openTab('{{$item['id'].'_'.$item['des']}}')">Description</a></li>
-                                            <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab0Geos" role="tab" data-toggle="tab">Accepted Geos</a></li>
-                                            <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab0Top_Geos" class="tab_top_geo" role="tab" data-toggle="tab">Top Geos</a></li>
-                                            <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab0Tracking" role="tab" data-toggle="tab">Tracking Links</a></li>
-                                            <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab0ProductsFeed" role="tab" data-toggle="tab">Products Data Feed</a></li>
-                                            <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab0Creative" role="tab" data-toggle="tab">Creatives</a></li>
-                                            <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab0Pixel_Postback" class="offers-tab-pixels" data-offer-id="277" role="tab" data-toggle="tab">Pixels/Postbacks</a></li>
+                                            <li class="active"><a href="#tab0Offer_<?php echo $key;?>" role="tab" data-toggle="tab" onclick="openTab('{{$item['id'].'_'.$item['offer_name']}}')">Summary</a></li>
+                                            <li><a href="#tab0Description_<?php echo $key;?>" role="tab" data-toggle="tab"  onclick="openTab('{{$item['id'].'_'.$item['des']}}')">Description</a></li>
+                                            <li><a href="#tab0Geos_<?php echo $key;?>" role="tab" data-toggle="tab">Accepted Geos</a></li>
+                                            <li><a href="#tab0Top_Geos_<?php echo $key;?>" class="tab_top_geo" role="tab" data-toggle="tab">Top Geos</a></li>
+                                            <li><a href="#tab0Tracking_<?php echo $key;?>" role="tab" data-toggle="tab">Tracking Links</a></li>
+                                            <li><a href="#tab0ProductsFeed_<?php echo $key;?>" role="tab" data-toggle="tab">Products Data Feed</a></li>
+                                            <li><a href="#tab0Creative_<?php echo $key;?>" role="tab" data-toggle="tab">Creatives</a></li>
+                                            <li><a href="#tab0Pixel_Postback_<?php echo $key;?>" class="offers-tab-pixels" data-offer-id="277" role="tab" data-toggle="tab">Pixels/Postbacks</a></li>
                                         </ul>
-
-
-
-
                                         <div class="tools">
                                             <a href="javascript:;" class="collapse"></a>
-                                            <a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#grid-config" data-toggle="modal" class="config"></a>
+                                            <a href="?id=offer#grid-config" data-toggle="modal" class="config"></a>
                                             <a href="javascript:;" class="reload"></a>
                                             <a href="javascript:;" class="remove"></a>
                                         </div>
                                         <div class="tab-content">
                                             <!-- 第一个tab内容 start-->
-                                            <div class="tab-pane active" id="tab0Offer">
+                                            <div class="tab-pane active" id="tab0Offer_<?php echo $key;?>">
                                                 <div class="row column-seperation">
                                                     <div class="col-md-12">
                                                         <table class="table table-striped table-flip-scroll cf">
@@ -127,19 +123,15 @@
 
 
                                             <!-- 第二个tab内容 start-->
-                                            <div class="tab-pane" id="tab0Description"><div class="row"><div class="col-md-12"><p></p><p>
+                                            <div class="tab-pane" id="tab0Description_<?php echo $key;?>"><div class="row"><div class="col-md-12"><p></p><p>
                                             <strong>E-commerce - CozyTime Pro INTL - All Languages - EXCLUSIVE</strong></p>
                                             <p>{{$item['des']}}</p>
                                             <p></p></div></div></div>
                                             <!-- 第二个tab内容 end-->
 
 
-
-
-
-
                                             <!-- 第三个tab内容 start-->
-                                            <div class="tab-pane" id="tab0Geos">
+                                            <div class="tab-pane" id="tab0Geos_<?php echo $key;?>">
                                                 <div class="row"><div class="col-md-12">
                                                 <p></p><p>All Geos Accepted.</p>
                                                 <p></p><p>Albania, Zambia</p>
@@ -147,10 +139,8 @@
                                             <!-- 第三个tab内容 end-->
 
 
-
-
                                             <!-- 第四个tab内容 start-->
-                                            <div class="tab-pane top_geos_tab" id="tab0Top_Geos">
+                                            <div class="tab-pane top_geos_tab" id="tab0Top_Geos_<?php echo $key;?>">
                                                 <div class="row"><div class="col-md-12">
                                                         <div class="top_geos_graph">
                                                             <div class="col-xs-12">
@@ -167,7 +157,7 @@
 
 
                                             <!-- 第五个tab内容 start-->
-                                    <div class="tab-pane" id="tab0Tracking">
+                                    <div class="tab-pane" id="tab0Tracking_<?php echo $key;?>">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <p>These links are unique to you, use them to generate traffic.</p>
@@ -180,22 +170,22 @@
 
                                                 <!-- dropdown domains -->
                                                 <div class="btn-group m-b-30">
-                                                    <a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#">Select your tracking domain<span class="caret"></span></a>
+                                                    <a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="?id=offer#">Select your tracking domain<span class="caret"></span></a>
                                                     <ul class="dropdown-menu domains-menu">
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://urgoodeal.com">https://urgoodeal.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://xtechgadget.com">https://xtechgadget.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://popularhitech.com">https://popularhitech.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://buysmartproduct.com">https://buysmartproduct.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://storepx.com">https://storepx.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://airportxshop.com">https://airportxshop.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://flightxshop.com">https://flightxshop.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://blackfridaytechs.com">https://blackfridaytechs.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://techchristmasgift.com">https://techchristmasgift.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://gadgetronixs.com">https://gadgetronixs.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://luxurygadgetx.com">https://luxurygadgetx.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://newxventions.com">https://newxventions.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://appgogadget.com">https://appgogadget.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://todaystech.co">https://todaystech.co</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://urgoodeal.com">https://urgoodeal.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://xtechgadget.com">https://xtechgadget.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://popularhitech.com">https://popularhitech.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://buysmartproduct.com">https://buysmartproduct.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://storepx.com">https://storepx.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://airportxshop.com">https://airportxshop.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://flightxshop.com">https://flightxshop.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://blackfridaytechs.com">https://blackfridaytechs.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://techchristmasgift.com">https://techchristmasgift.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://gadgetronixs.com">https://gadgetronixs.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://luxurygadgetx.com">https://luxurygadgetx.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://newxventions.com">https://newxventions.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://appgogadget.com">https://appgogadget.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://todaystech.co">https://todaystech.co</a></li>
                                                     </ul>
                                                 </div>
                                                 <!-- end dropdown domains -->
@@ -207,10 +197,10 @@
                                                         <div class="tabbable tabs-left tabs-bg">
                                                             <ul class="nav nav-tabs" role="tablist">
                                                                 <li class="active">
-                                                                    <a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#provenorderpages-0" role="tab" data-toggle="tab">Proven Order Pages</a>
+                                                                    <a href="?id=offer#provenorderpages-0" role="tab" data-toggle="tab">Proven Order Pages</a>
                                                                 </li>
                                                                 <li>
-                                                                    <a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#splittestorderpages-0" role="tab" data-toggle="tab">Split-Test Order Pages</a>
+                                                                    <a href="?id=offer#splittestorderpages-0" role="tab" data-toggle="tab">Split-Test Order Pages</a>
                                                                 </li>
                                                             </ul>
                                                             <div class="tab-content">
@@ -360,7 +350,7 @@
 
 
                                             <!-- 第六个tab内容 start-->
-                                    <div class="tab-pane" id="tab0ProductsFeed">
+                                    <div class="tab-pane" id="tab0ProductsFeed_<?php echo $key;?>">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <p>Want to Sell on More Channels? Tap into the power of product listing optimization and import our entire product list.</p>
@@ -369,22 +359,22 @@
                                             <div class="col-md-12">
                                                 <!-- dropdown domains -->
                                                 <div class="btn-group m-b-30">
-                                                    <a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#">Select your Products Feed domain<span class="caret"></span></a>
+                                                    <a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="?id=offer#">Select your Products Feed domain<span class="caret"></span></a>
                                                     <ul class="dropdown-menu domains-menu domains-menu-feed">
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://urgoodeal.com">https://urgoodeal.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://xtechgadget.com">https://xtechgadget.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://popularhitech.com">https://popularhitech.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://buysmartproduct.com">https://buysmartproduct.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://storepx.com">https://storepx.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://airportxshop.com">https://airportxshop.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://flightxshop.com">https://flightxshop.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://blackfridaytechs.com">https://blackfridaytechs.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://techchristmasgift.com">https://techchristmasgift.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://gadgetronixs.com">https://gadgetronixs.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://luxurygadgetx.com">https://luxurygadgetx.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://newxventions.com">https://newxventions.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://appgogadget.com">https://appgogadget.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://todaystech.co">https://todaystech.co</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://urgoodeal.com">https://urgoodeal.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://xtechgadget.com">https://xtechgadget.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://popularhitech.com">https://popularhitech.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://buysmartproduct.com">https://buysmartproduct.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://storepx.com">https://storepx.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://airportxshop.com">https://airportxshop.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://flightxshop.com">https://flightxshop.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://blackfridaytechs.com">https://blackfridaytechs.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://techchristmasgift.com">https://techchristmasgift.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://gadgetronixs.com">https://gadgetronixs.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://luxurygadgetx.com">https://luxurygadgetx.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://newxventions.com">https://newxventions.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://appgogadget.com">https://appgogadget.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://todaystech.co">https://todaystech.co</a></li>
                                                     </ul>
                                                 </div>
                                                 <!-- end dropdown domains -->
@@ -405,7 +395,7 @@
 
 
                                             <!-- 第七个tab内容 start-->
-                                            <div class="tab-pane" id="tab0Creative"><div class="row"><div class="col-md-12"><p></p><p>Product creatives:</p>
+                                            <div class="tab-pane" id="tab0Creative_<?php echo $key;?>"><div class="row"><div class="col-md-12"><p></p><p>Product creatives:</p>
 
                                         <p><a href="https://www.dropbox.com/scl/fo/fyoovooys02dhqnd4tcy3/h?rlkey=1jyre8331r9m5y723ztcudped&amp;dl=0" target="_blank">https://www.dropbox.com/scl/fo/fyoovooys02dhqnd4tcy3/h?rlkey=1jyre8331r9m5y723ztcudped&amp;dl=0</a></p>
 
@@ -458,7 +448,7 @@
 
                                 <div class="categories_offer_right ">
                                     <div class="col-md-12 accord" data-offer_db="Skincare">
-                                    <ul class="nav nav-tabs" role="tablist"><li class="active"><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Offer" role="tab" data-toggle="tab">Summary</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Description" role="tab" data-toggle="tab">Description</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Geos" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Top_Geos" class="tab_top_geo" role="tab" data-toggle="tab">Top Geos</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Tracking" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1ProductsFeed" role="tab" data-toggle="tab">Products Data Feed</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Creative" role="tab" data-toggle="tab">Creatives</a></li><li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#tab1Pixel_Postback" class="offers-tab-pixels" data-offer-id="276" role="tab" data-toggle="tab">Pixels/Postbacks</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab1Offer"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="https://bioresponse.co/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}" target="_blank"><span class="offer-product-img-container" data-original-title="" title=""><img src="/vendor/laravel-admin/test/skincare-logo.png" alt="Skincare"></span>Offer Preview <i class="icon ion-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">E-commerce - SkinBliss INTL - All Languages - EXCLUSIVE</td><td width="25%">$65 Per Sale</td><td width="20%"><span class="label label-success">Live</span></td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab1Description"><div class="row"><div class="col-md-12"><p></p><p><strong>E-commerce - SkinBliss INTL - All Languages - EXCLUSIVE</strong></p>
+                                    <ul class="nav nav-tabs" role="tablist"><li class="active"><a href="?id=offer#tab1Offer" role="tab" data-toggle="tab">Summary</a></li><li><a href="?id=offer#tab1Description" role="tab" data-toggle="tab">Description</a></li><li><a href="?id=offer#tab1Geos" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="?id=offer#tab1Top_Geos" class="tab_top_geo" role="tab" data-toggle="tab">Top Geos</a></li><li><a href="?id=offer#tab1Tracking" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="?id=offer#tab1ProductsFeed" role="tab" data-toggle="tab">Products Data Feed</a></li><li><a href="?id=offer#tab1Creative" role="tab" data-toggle="tab">Creatives</a></li><li><a href="?id=offer#tab1Pixel_Postback" class="offers-tab-pixels" data-offer-id="276" role="tab" data-toggle="tab">Pixels/Postbacks</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="?id=offer#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab1Offer"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="https://bioresponse.co/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}" target="_blank"><span class="offer-product-img-container" data-original-title="" title=""><img src="/vendor/laravel-admin/test/skincare-logo.png" alt="Skincare"></span>Offer Preview <i class="icon ion-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">E-commerce - SkinBliss INTL - All Languages - EXCLUSIVE</td><td width="25%">$65 Per Sale</td><td width="20%"><span class="label label-success">Live</span></td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab1Description"><div class="row"><div class="col-md-12"><p></p><p><strong>E-commerce - SkinBliss INTL - All Languages - EXCLUSIVE</strong></p>
 
                                     <p><em>What is SkinBliss?</em></p>
 
@@ -491,22 +481,22 @@
 
                                                 <!-- dropdown domains -->
                                                 <div class="btn-group m-b-30">
-                                                    <a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#">Select your tracking domain<span class="caret"></span></a>
+                                                    <a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="?id=offer#">Select your tracking domain<span class="caret"></span></a>
                                                     <ul class="dropdown-menu domains-menu">
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://urgoodeal.com">https://urgoodeal.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://xtechgadget.com">https://xtechgadget.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://popularhitech.com">https://popularhitech.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://buysmartproduct.com">https://buysmartproduct.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://storepx.com">https://storepx.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://airportxshop.com">https://airportxshop.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://flightxshop.com">https://flightxshop.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://blackfridaytechs.com">https://blackfridaytechs.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://techchristmasgift.com">https://techchristmasgift.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://gadgetronixs.com">https://gadgetronixs.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://luxurygadgetx.com">https://luxurygadgetx.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://newxventions.com">https://newxventions.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://appgogadget.com">https://appgogadget.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://todaystech.co">https://todaystech.co</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://urgoodeal.com">https://urgoodeal.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://xtechgadget.com">https://xtechgadget.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://popularhitech.com">https://popularhitech.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://buysmartproduct.com">https://buysmartproduct.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://storepx.com">https://storepx.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://airportxshop.com">https://airportxshop.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://flightxshop.com">https://flightxshop.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://blackfridaytechs.com">https://blackfridaytechs.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://techchristmasgift.com">https://techchristmasgift.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://gadgetronixs.com">https://gadgetronixs.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://luxurygadgetx.com">https://luxurygadgetx.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://newxventions.com">https://newxventions.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://appgogadget.com">https://appgogadget.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://todaystech.co">https://todaystech.co</a></li>
                                                     </ul>
                                                 </div>
                                                 <!-- end dropdown domains -->
@@ -518,10 +508,10 @@
                                                         <div class="tabbable tabs-left tabs-bg">
                                                             <ul class="nav nav-tabs" role="tablist">
                                                                 <li class="active">
-                                                                    <a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#advertorialpages-1" role="tab" data-toggle="tab">Advertorial Pages</a>
+                                                                    <a href="?id=offer#advertorialpages-1" role="tab" data-toggle="tab">Advertorial Pages</a>
                                                                 </li>
                                                                 <li>
-                                                                    <a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#homepages-1" role="tab" data-toggle="tab">Home Pages</a>
+                                                                    <a href="?id=offer#homepages-1" role="tab" data-toggle="tab">Home Pages</a>
                                                                 </li>
                                                             </ul>
                                                             <div class="tab-content">
@@ -574,22 +564,22 @@
                                             <div class="col-md-12">
                                                 <!-- dropdown domains -->
                                                 <div class="btn-group m-b-30">
-                                                    <a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#">Select your Products Feed domain<span class="caret"></span></a>
+                                                    <a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="?id=offer#">Select your Products Feed domain<span class="caret"></span></a>
                                                     <ul class="dropdown-menu domains-menu domains-menu-feed">
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://urgoodeal.com">https://urgoodeal.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://xtechgadget.com">https://xtechgadget.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://popularhitech.com">https://popularhitech.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://buysmartproduct.com">https://buysmartproduct.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://storepx.com">https://storepx.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://airportxshop.com">https://airportxshop.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://flightxshop.com">https://flightxshop.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://blackfridaytechs.com">https://blackfridaytechs.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://techchristmasgift.com">https://techchristmasgift.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://gadgetronixs.com">https://gadgetronixs.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://luxurygadgetx.com">https://luxurygadgetx.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://newxventions.com">https://newxventions.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://appgogadget.com">https://appgogadget.com</a></li>
-                                                        <li><a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" class="offersDomain" data-domain="https://todaystech.co">https://todaystech.co</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://urgoodeal.com">https://urgoodeal.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://xtechgadget.com">https://xtechgadget.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://popularhitech.com">https://popularhitech.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://buysmartproduct.com">https://buysmartproduct.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://storepx.com">https://storepx.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://airportxshop.com">https://airportxshop.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://flightxshop.com">https://flightxshop.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://blackfridaytechs.com">https://blackfridaytechs.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://techchristmasgift.com">https://techchristmasgift.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://gadgetronixs.com">https://gadgetronixs.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://luxurygadgetx.com">https://luxurygadgetx.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://newxventions.com">https://newxventions.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://appgogadget.com">https://appgogadget.com</a></li>
+                                                        <li><a href="?id=offer#" class="offersDomain" data-domain="https://todaystech.co">https://todaystech.co</a></li>
                                                     </ul>
                                                 </div>
                                                 <!-- end dropdown domains -->
@@ -634,7 +624,7 @@
                         <h4 class="modal-title">Change Tracking</h4>
                     </div>
                     <div class="modal-body">
-                        <form class="offer_user_tracking" action="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer" id="offer_user_tracking">
+                        <form class="offer_user_tracking" action="?id=offer" id="offer_user_tracking">
                             <input hidden="" type="text" id="u_id" name="u_id" value="933d42b67e4cf2968f3b0c90f1e2ec79">
                             <div style="text-align: center;">
                                 <input class="btn btn-primary btn-cons" type="button" id="add_pixel" value="Add Pixel">
@@ -712,7 +702,7 @@
     <div class="modal-dialog">
 
         <div class="modal-content wantAnOfferModalContent">
-            <form id="formWantOffer" name="formWantOffer" action="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer#" role="form" autocomplete="off" class="validate" novalidate="novalidate">
+            <form id="formWantOffer" name="formWantOffer" action="?id=offer#" role="form" autocomplete="off" class="validate" novalidate="novalidate">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h4 id="wantAnOfferModalLabel" class="semi-bold">
@@ -799,9 +789,9 @@
                 <h3 class="modal-title text-left" id="userTutorialExploreModalLabel">Ready to get started?</h3>
             </div>
             <div class="modal-body text-left">
-                <p>Go to <a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=offer" class="text-info">Offers</a> to pick your winning campaign!</p>
+                <p>Go to <a href="?id=offer" class="text-info">Offers</a> to pick your winning campaign!</p>
                 <p>Your Affiliate Manager is available to get you started on the M4TRIX Journey, get to know each other!</p>
-                <p class="m-0">For any other inquiry, visit our <a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=faq" class="text-info">Help Center</a> or report directly to our communication deck at <span class="text-info">crew@m4trix.network</span></p>
+                <p class="m-0">For any other inquiry, visit our <a href="?id=faq" class="text-info">Help Center</a> or report directly to our communication deck at <span class="text-info">crew@m4trix.network</span></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
