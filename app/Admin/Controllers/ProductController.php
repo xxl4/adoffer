@@ -27,8 +27,8 @@ class ProductController extends AdminController
 
         $product = Product::where('offer_status',1)->get()->toArray();
 
-        print_r("<pre/>");
-        print_r($product);exit;
+//        print_r("<pre/>");
+//        print_r($product);exit;
 
         return $content->title('详情')
             ->description('简介')
