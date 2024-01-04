@@ -38,7 +38,6 @@
         window.selectedRole = '';
     </script>
 
-
     <div style="width: 1px; height: 1px; display: inline; position: absolute;"></div></head>
 
 
