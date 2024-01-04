@@ -137,9 +137,9 @@ class OfferController extends AdminController
         $form->datetime('create_at', __('Create at'))->default(date('Y-m-d H:i:s'));
         $form->datetime('update_at', __('Update at'))->default(date('Y-m-d H:i:s'));
 
-        $form->saving(function (Form $form) {
-            $form->cate_id = 1;
-        });
+//        $form->saving(function (Form $form) {
+//            $form->cate_id = 1;
+//        });
 
 
 

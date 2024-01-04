@@ -10,25 +10,25 @@ class Offer extends Model
 {
     use HasApiTokens, HasFactory;
 
-    protected $fillable = [
-        'offer_name',
-        'cate_id'
-    ];
-
-//    public function category()
+//    protected $fillable = [
+//        'offer_name',
+//        'cate_id'
+//    ];
+//
+////    public function category()
+////    {
+////        return $this->belongsToMany(Category::class);
+////    }
+//
+//
+//
+//    public function getTagsAttribute($value)
 //    {
-//        return $this->belongsToMany(Category::class);
+//        return explode(',', $value);
 //    }
-
-
-
-    public function getTagsAttribute($value)
-    {
-        return explode(',', $value);
-    }
-
-    public function setTagsAttribute($value)
-    {
-        $this->attributes['cate_id'] = implode(',', $value);
-    }
+//
+//    public function setTagsAttribute($value)
+//    {
+//        $this->attributes['cate_id'] = implode(',', $value);
+//    }
 }
