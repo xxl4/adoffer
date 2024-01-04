@@ -90,7 +90,7 @@ class OfferController extends AdminController
 
         $product = Offer::get()->toArray();
 
-        print_r($product);exit;
+//        print_r($product);exit;
 
 
         foreach ($product as $key => $value) {
