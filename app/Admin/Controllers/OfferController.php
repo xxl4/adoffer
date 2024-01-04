@@ -90,6 +90,9 @@ class OfferController extends AdminController
 
         $product = Offer::get()->toArray();
 
+        print_r($product);exit;
+
+
         foreach ($product as $key => $value) {
             $product[$key]['track_list'] = OfferTracks::where('offer_id', $value['id'])->get()->toArray();
             $product[$key]['creatives'] = Creatives::where('offer_id', $value['id'])->get()->toArray();
