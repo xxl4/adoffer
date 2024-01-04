@@ -88,8 +88,7 @@ class OfferController extends AdminController
     {
 
 
-        $product = Offer::whereIn('offer_status', [0,1])
-            ->get()->toArray();
+        $product = Offer::get()->toArray();
 
         foreach ($product as $key => $value) {
             $product[$key]['track_list'] = OfferTracks::where('offer_id', $value['id'])->get()->toArray();
