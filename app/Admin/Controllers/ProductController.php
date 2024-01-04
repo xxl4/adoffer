@@ -2,12 +2,17 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Creatives;
+use App\Models\Offer;
+use App\Models\OfferTracks;
 use App\Models\Product;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 use Encore\Admin\Layout\Content;
+use Illuminate\Support\Facades\DB;
+
 class ProductController extends AdminController
 {
     /**
@@ -21,7 +26,18 @@ class ProductController extends AdminController
     public function show($id, Content $content)
     {
 
-        $product = Product::where('offer_status',1)->get()->toArray();
+
+        $product = Offer::whereIn('offer_status', [0,1])
+            ->get()->toArray();
+
+
+
+
+        foreach ($product as $key => $value) {
+            $product[$key]['track_list'] = OfferTracks::where('offer_id', $value['id'])->get()->toArray();
+            $product[$key]['creatives'] = Creatives::where('offer_id', $value['id'])->get()->toArray();
+        }
+
 
 //        print_r("<pre/>");
 //        print_r($product);exit;
@@ -30,8 +46,6 @@ class ProductController extends AdminController
             ->description('简介')
             ->view('product.show', compact('product'));
     }
-
-
 
 
     /**
@@ -55,7 +69,6 @@ class ProductController extends AdminController
 
         return $grid;
     }
-
 
 
     /**
@@ -101,7 +114,6 @@ class ProductController extends AdminController
 
         return $form;
     }
-
 
 
 }

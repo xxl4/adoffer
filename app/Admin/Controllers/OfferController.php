@@ -1,8 +1,11 @@
 <?php
-
 namespace App\Admin\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Creatives;
 use App\Models\Offer;
+use App\Models\OfferTracks;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -20,18 +23,6 @@ class OfferController extends AdminController
      */
     protected $title = 'Offer';
 
-
-    public function handle(Model $model)
-    {
-        // 这里调用模型的`replicate`方法复制数据，再调用`save`方法保存
-        $model->replicate()->save();
-
-        // 返回一个内容为`复制成功`的成功信息，并且刷新页面
-        return $this->response()->success('复制成功.')->refresh();
-    }
-
-
-
     /**
      * Make a grid builder.
      *
@@ -45,9 +36,12 @@ class OfferController extends AdminController
         $grid->column('offer_name', __('Offer name'));
         $grid->column('cate_id', __('Cate id'));
         $grid->column('des', __('Des'));
-        $grid->column('offer_link', __('Offer link'));
+        $grid->column('offer_link', __('Offer link'))->link();
         $grid->column('offer_price', __('Offer price'));
-        $grid->column('offer_status', __('Offer status'));
+        $grid->column('offer_status', __('Offer status'))->using(['0' => 'Live', '1' => 'Paused'])->label([
+            0 => 'success',
+            1 => 'danger',
+        ]);
         $grid->column('create_at', __('Create at'));
         $grid->column('update_at', __('Update at'));
         $grid->actions(function ($actions) {
@@ -55,7 +49,6 @@ class OfferController extends AdminController
         });
         return $grid;
     }
-
 
 
     /**
@@ -81,6 +74,33 @@ class OfferController extends AdminController
         return $show;
     }
 
+    public function create(Content $content)
+    {
+
+        return $content
+            ->title($this->title())
+            ->description($this->description['create'] ?? trans('admin.create'))
+            ->body($this->form());
+    }
+
+
+    public function show($id, Content $content)
+    {
+
+
+        $product = Offer::whereIn('offer_status', [0,1])
+            ->get()->toArray();
+
+        foreach ($product as $key => $value) {
+            $product[$key]['track_list'] = OfferTracks::where('offer_id', $value['id'])->get()->toArray();
+            $product[$key]['creatives'] = Creatives::where('offer_id', $value['id'])->get()->toArray();
+        }
+
+        return $content->title('详情')
+            ->description('简介')
+            ->view('product.show', compact('product'));
+    }
+
     /**
      * Make a form builder.
      *
@@ -89,15 +109,39 @@ class OfferController extends AdminController
     protected function form()
     {
         $form = new Form(new Offer());
+        $data = Category::get()->toArray();
 
+        foreach ($data as $item){
+            $_item=$item["id"];
+            $_item1=$item["category_name"];
+            $arr[$_item]=$_item1;
+        }
+
+        $form->multipleSelect('cate_id')->options($arr);
+
+
+
+        //multiple
         $form->text('offer_name', __('Offer name'));
-        $form->number('cate_id', __('Cate id'));
         $form->textarea('des', __('Des'));
-        $form->text('offer_link', __('Offer link'));
+        $form->url('offer_link', __('Offer link'));
+        $form->textarea('track_des', __('Track Des'));
+        $form->text('accepted_area', __('Accepted Area'));
+        $form->image('image', __('Offer Image'))->downloadable();
+
+
+
+
         $form->decimal('offer_price', __('Offer price'));
         $form->switch('offer_status', __('Offer status'))->default(1);
         $form->datetime('create_at', __('Create at'))->default(date('Y-m-d H:i:s'));
         $form->datetime('update_at', __('Update at'))->default(date('Y-m-d H:i:s'));
+
+        $form->saving(function (Form $form) {
+            $form->cate_id = 1;
+        });
+
+
 
         return $form;
     }

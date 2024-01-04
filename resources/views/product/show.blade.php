@@ -103,9 +103,10 @@
                                                     <div class="col-md-12">
                                                         <table class="table table-striped table-flip-scroll cf">
                                                             <thead class="cf">
-                                                            <tr><th><a href="https://popularhitech.com/intl/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}" target="_blank">
+                                                            <tr><th><a href="@if(!empty($item['track_list'][0]['track_link'])){{$item['track_list'][0]['track_link']}}
+                                                             @else'' @endif" target="_blank">
                                                                         <span class="offer-product-img-container" data-original-title="" title="">
-                                                                            <img src="/vendor/laravel-admin/test/main.png" alt="CozyTime Pro">
+                                                                            <img src="{{$item['image']}}" alt="CozyTime Pro">
                                                                         </span>Offer Preview
                                                                         <i class="icon ion-eye"></i>
                                                                     </a>
@@ -116,13 +117,19 @@
                                                             <tbody>
                                                             <tr>
                                                                 <td width="55%">{{$item['offer_name']}}</td>
-                                                                <td width="25%">$40 Per Sale</td>
-                                                                <td width="20%">mc
+                                                                <td width="25%">${{$item['offer_price']}} Per Sale</td>
+                                                                <td width="20%">
+
+                                                                    @if($item['offer_status']==1)
                                                                     <span class="label label-success">Live</span>
+                                                                    @else
+                                                                    <span class="label label-warning">Paused</span>
+                                                                    @endif
+
                                                                 </td></tr
                                                             ></tbody></table></div></div>
                                             </div>
-                                            <!-- 第一个tab内容 end-->
+                                            <!-- 第一个tab内容 end  warning-->
 
 
 
@@ -166,13 +173,13 @@
                                     <div class="tab-pane" id="tab0Tracking_<?php echo $key;?>">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <p>These links are unique to you, use them to generate traffic.</p>
-                                                <p>You can use any of the 3 custom parameters agnostically.</p>
-                                                <p>Replace {AFFID}, {SUBID}, {CLICKID} with your own tracking variables and get them feed-backed in your pixel/postback.</p>
+                                                <p>{{$item['track_des']}}</p>
+{{--                                                <p>You can use any of the 3 custom parameters agnostically.</p>--}}
+{{--                                                <p>Replace {AFFID}, {SUBID}, {CLICKID} with your own tracking variables and get them feed-backed in your pixel/postback.</p>--}}
                                             </div>
                                             <div class="col-md-12">
                                                 <br>
-                                                <p>Traffic sources sometimes block certain URLs and/or companies, we offer different tracking domains to choose from.</p>
+{{--                                                <p>Traffic sources sometimes block certain URLs and/or companies, we offer different tracking domains to choose from.</p>--}}
 
                                                 <!-- dropdown domains  tracking 下拉暂时拿掉 -->
                                                 <!--
@@ -203,27 +210,33 @@
 
                                                         <!-- filter tabs -->
                                                         <div class="tabbable tabs-left tabs-bg">
-                                                            <ul class="nav nav-tabs" role="tablist">
-                                                                <li class="active">
-                                                                    <a href="?id=offer#provenorderpages-0" role="tab" data-toggle="tab">Proven Order Pages</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="?id=offer#splittestorderpages-0" role="tab" data-toggle="tab">Split-Test Order Pages</a>
-                                                                </li>
-                                                            </ul>
+{{--                                                            <ul class="nav nav-tabs" role="tablist">--}}
+{{--                                                                <li class="active">--}}
+{{--                                                                    <a href="?id=offer#provenorderpages-0" role="tab" data-toggle="tab">Proven Order Pages</a>--}}
+{{--                                                                </li>--}}
+{{--                                                                <li>--}}
+{{--                                                                    <a href="?id=offer#splittestorderpages-0" role="tab" data-toggle="tab">Split-Test Order Pages</a>--}}
+{{--                                                                </li>--}}
+{{--                                                            </ul>--}}
                                                             <div class="tab-content">
+
+
+
                                                                 <div class="tab-pane active" id="provenorderpages-0">
                                                                     <div class="row">
                                                                         <div class="col-md-12">
+
+
+                                                                            @foreach ($item['track_list'] as $k=>$i)
                                                                             <div class="padding-for_links">
-                                                                                <div>Order Page 1.0 - The Classic</div>
-                                                                                <input readonly="" type="text" class="form-control trecking_link clipboard-0-0-0 dynamicDomainTrackingLink" value="https://popularhitech.com/intl/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}">
-                                                                                <a href="https://popularhitech.com/intl/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}" target="_blank" class=" dynamicDomainTrackingLink">
+                                                                                <div>{{$i['track_name']}}</div>
+                                                                                <input readonly="" type="text" class="form-control trecking_link clipboard-0-0-0 dynamicDomainTrackingLink" value="{{$i['track_link']}}" target="_blank" class=" dynamicDomainTrackingLink">
                                                                                     <i class="icon ion-eye pull-right"></i>
                                                                                 </a>
                                                                                 <button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-0-0">Copy</button>
                                                                             </div>
-                                                                            <div class="padding-for_links">
+                                                                            @endforeach
+                                                                       <!--     <div class="padding-for_links">
                                                                                 <div>Order Page 5.0 - The Minimalist</div>
                                                                                 <input readonly="" type="text" class="form-control trecking_link clipboard-0-0-1 dynamicDomainTrackingLink" value="https://popularhitech.com/intl_5/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}">
                                                                                 <a href="https://popularhitech.com/intl_5/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}" target="_blank" class=" dynamicDomainTrackingLink">
@@ -247,9 +260,14 @@
                                                                                 </a>
                                                                                 <button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-0-3">Copy</button>
                                                                             </div>
+
+                                                                            -->
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+<!--
+
                                                                 <div class="tab-pane" id="splittestorderpages-0">
                                                                     <div class="row">
                                                                         <div class="col-md-12">
@@ -280,6 +298,9 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+                                                                -->
+
                                                                 <div class="tab-pane" id="archivedorderpages-0">
                                                                     <div class="row">
                                                                         <div class="col-md-12">
@@ -411,18 +432,45 @@
 
 
                                             <!-- 第七个tab内容 start-->
-                                            <div class="tab-pane" id="tab0Creative_<?php echo $key;?>"><div class="row"><div class="col-md-12"><p></p><p>Product creatives:</p>
+                                            <div class="tab-pane" id="tab0Creative_<?php echo $key;?>">
+                                                <div class="row">
+                                                    <div class="col-md-12">
 
-                                        <p><a href="https://www.dropbox.com/scl/fo/fyoovooys02dhqnd4tcy3/h?rlkey=1jyre8331r9m5y723ztcudped&amp;dl=0" target="_blank">https://www.dropbox.com/scl/fo/fyoovooys02dhqnd4tcy3/h?rlkey=1jyre8331r9m5y723ztcudped&amp;dl=0</a></p>
+                                                        @foreach ($item['creatives'] as $k1=>$i1)
 
-                                        <p>Advertorial Page Source Code:</p>
 
-                                        <p><a href="https://www.dropbox.com/scl/fi/wu3kjml7omdm52rvb9hsy/CozyTime-Pro-ADV.zip?rlkey=7ufd4jcprlf677g1wmynswpxd&amp;dl=0" target="_blank">https://www.dropbox.com/scl/fi/wu3kjml7omdm52rvb9hsy/CozyTime-Pro-ADV.zip?rlkey=7ufd4jcprlf677g1wmynswpxd&amp;dl=0</a></p>
+                                                        <p></p><p>{{$i1['name']}}</p>
 
-                                        <p>Sale Page Source Code:</p>
+                                        <p><a href="https://www.dropbox.com/scl/fo/fyoovooys02dhqnd4tcy3/h?rlkey=1jyre8331r9m5y723ztcudped&amp;dl=0" target="_blank">{{$i1['link']}}</a></p>
 
-                                        <p><a href="https://www.dropbox.com/scl/fi/iheou1zvxzcct93022ykh/Cozytime-sales.zip?rlkey=7janon2h35d60k2xlkxnsymzq&amp;dl=0" target="_blank">https://www.dropbox.com/scl/fi/iheou1zvxzcct93022ykh/Cozytime-sales.zip?rlkey=7janon2h35d60k2xlkxnsymzq&amp;dl=0</a></p>
-                                        <p></p></div></div></div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+
+
+
+
+
+{{--                                                <div class="row">--}}
+{{--                                                    <div class="col-md-12">--}}
+
+
+{{--                                                        <p></p><p>Product creatives:</p>--}}
+
+{{--                                                        <p><a href="https://www.dropbox.com/scl/fo/fyoovooys02dhqnd4tcy3/h?rlkey=1jyre8331r9m5y723ztcudped&amp;dl=0" target="_blank">https://www.dropbox.com/scl/fo/fyoovooys02dhqnd4tcy3/h?rlkey=1jyre8331r9m5y723ztcudped&amp;dl=0</a></p>--}}
+
+{{--                                                        <p>Advertorial Page Source Code:</p>--}}
+
+{{--                                                        <p><a href="https://www.dropbox.com/scl/fi/wu3kjml7omdm52rvb9hsy/CozyTime-Pro-ADV.zip?rlkey=7ufd4jcprlf677g1wmynswpxd&amp;dl=0" target="_blank">https://www.dropbox.com/scl/fi/wu3kjml7omdm52rvb9hsy/CozyTime-Pro-ADV.zip?rlkey=7ufd4jcprlf677g1wmynswpxd&amp;dl=0</a></p>--}}
+
+{{--                                                        <p>Sale Page Source Code:</p>--}}
+
+{{--                                                        <p><a href="https://www.dropbox.com/scl/fi/iheou1zvxzcct93022ykh/Cozytime-sales.zip?rlkey=7janon2h35d60k2xlkxnsymzq&amp;dl=0" target="_blank">https://www.dropbox.com/scl/fi/iheou1zvxzcct93022ykh/Cozytime-sales.zip?rlkey=7janon2h35d60k2xlkxnsymzq&amp;dl=0</a></p>--}}
+{{--                                                        <p></p></div>--}}
+{{--                                                </div>--}}
+
+
+                                            </div>
                                             <!-- 第七个tab内容 end-->
 
 
@@ -822,24 +870,20 @@
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"><div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div></div><div><div class="sweet-overlay" tabindex="-1"></div><div class="sweet-alert" tabindex="-1"><div class="icon error"><span class="x-mark"><span class="line left"></span><span class="line right"></span></span></div><div class="icon warning"> <span class="body"></span> <span class="dot"></span> </div> <div class="icon info"></div> <div class="icon success"> <span class="line tip"></span> <span class="line long"></span> <div class="placeholder"></div> <div class="fix"></div> </div> <div class="icon custom"></div> <h2>Title</h2><p class="lead text-muted">Text</p><p><button class="cancel btn btn-lg" tabindex="2">Cancel</button> <button class="confirm btn btn-lg" tabindex="1">OK</button></p></div></div>
 <script>
 
-    function openTab(tabId) {
+    $(document).ready(function() {
+        $('.copp pull-right btn btn-success btn-cons').on('click', function() {
+            // 选择文本
+            $('#textToCopy').select();
 
+            // 复制文本
+            document.execCommand('copy');
 
+            // 取消选择
+            window.getSelection().removeAllRanges();
 
-        const tabs = document.querySelectorAll('.tab-content');
-
-
-        console.log('数据返回',tabs)
-
-
-
-        tabs.forEach(tab => {
-            tab.classList.remove('active');
+            console.log('复制成功');
         });
-
-        const activeTab = document.getElementById(tabId);
-        activeTab.classList.add('active');
-    }
+    });
 
 
 </script>

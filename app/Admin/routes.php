@@ -19,4 +19,7 @@ Route::group([
     //$router->resource('product/show', 'ProductController')->names('admin.Product');
 
     $router->get('product/show', "ProductController@show")->name('admin.product');
+    $router->get('offer/show', "OfferController@show")->name('admin.offer');
+
+//    $router->get('offer', "OfferController@index")->name('admin.offer');
 });

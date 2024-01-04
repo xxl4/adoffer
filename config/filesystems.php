@@ -56,6 +56,11 @@ return [
             'throw' => false,
         ],
 
+        'admin' => [
+            'driver' => 'local',
+            'root' => storage_path('app/admin'), // 可根据需求修改存储路径
+        ],
+
     ],
 
     /*
