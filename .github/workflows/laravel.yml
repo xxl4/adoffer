@@ -61,5 +61,5 @@ jobs:
         script: |
           cd ${{ secrets.WWW_DIR }} && git pull
            php81 artisan migrate
-           php81 composer.phar update
+           composer update
            vendor/bin/phpunit 
