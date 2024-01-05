@@ -22,6 +22,8 @@
     <link href="/vendor/laravel-admin/test/webarch.css" rel="stylesheet" type="text/css">
     <link href="/vendor/laravel-admin/test/custom.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="/vendor/laravel-admin/test/links_img.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
     <!-- END CORE CSS FRAMEWORK -->
 
     <style>.cke{visibility:hidden;}</style>
@@ -59,6 +61,57 @@
         </div>
     </div>
             <link href="/vendor/laravel-admin/test/network.css" rel="stylesheet" type="text/css">
+
+
+
+    <div class="form-group">
+
+        <div class="col-sm-4" style="width: 20%!important;">
+            <select id="usertype" name="usertype" class="selectpicker show-tick form-control" multiple data-max-options="3" data-live-search="true" data-none-selected-text="Select Offers Categories">
+                <option value="0" data-content="<span class='label label-success'>菠萝</span>">苹果</option>
+                <option value="1" data-content="<span class='label label-success'>菠萝</span>">菠萝</option>
+                <option value="2" data-content="<span class='label label-success'>香蕉</span>">香蕉</option>
+                <option value="3" data-content="<span class='label label-success'>火龙果</span>">火龙果</option>
+                <option value="4" data-content="<span class='label label-success'>梨子</span>">梨子</option>
+
+            </select>
+        </div>
+
+
+
+        <div class="col-sm-4" style="width: 20%!important;">
+            <select id="usertype" name="usertype" class="selectpicker show-tick form-control" multiple data-max-options="3" data-live-search="true" data-none-selected-text="Select Offers Geos">
+                <option value="0" data-content="<span class='label label-success'>菠萝</span>">苹果</option>
+                <option value="1" data-content="<span class='label label-success'>菠萝</span>">菠萝</option>
+                <option value="2" data-content="<span class='label label-success'>香蕉</span>">香蕉</option>
+                <option value="3" data-content="<span class='label label-success'>火龙果</span>">火龙果</option>
+                <option value="4" data-content="<span class='label label-success'>梨子</span>">梨子</option>
+            </select>
+        </div>
+
+
+
+        <div class="col-sm-4" style="width: 20%!important;">
+            <select id="usertype" name="usertype" class="selectpicker show-tick form-control" multiple data-max-options="3" data-live-search="true" data-none-selected-text="Order By">
+                <option value="0" data-content="<span class='label label-success'>Release Date (Newest on Top)</span>">Release Date (Newest on Top)</option>
+                <option value="1" data-content="<span class='label label-success'>Release Date (Oldest on Top)</span>">Release Date (Oldest on Top)</option>
+                <option value="2" data-content="<span class='label label-success'>Payout (High to Low)</span>">Payout (High to Low)</option>
+                <option value="3" data-content="<span class='label label-success'>Payout (Low to High)</span>">Payout (Low to High)</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4" style="width: 20%!important;">
+                <input type="text" class="form-control" id="search" placeholder="搜索...">
+            </div>
+            <button id="searchBtn" class="btn btn-primary">搜索</button>
+        </div>
+
+
+    </div>
+
+
+
             <div class="col-sm-12">
                 <div class="row">
                     <h4> <span class="semi-bold"></span></h4>

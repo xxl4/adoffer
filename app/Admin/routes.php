@@ -20,6 +20,10 @@ Route::group([
 
     $router->get('product/show', "ProductController@show")->name('admin.product');
     $router->get('offer/show', "OfferController@show")->name('admin.offer');
+    $router->post('offer/formList', "OfferController@show", 'admin.formList');
 
-//    $router->get('offer', "OfferController@index")->name('admin.offer');
+
+    $router->any('offer/submitForm', 'OfferController@submitForm')->name('admin.submitForm');
+
+
 });

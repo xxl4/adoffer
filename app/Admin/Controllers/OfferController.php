@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Creatives;
+use App\Models\Geos;
 use App\Models\Offer;
 use App\Models\OfferTracks;
 use Encore\Admin\Controllers\AdminController;
@@ -14,6 +16,9 @@ use Encore\Admin\Layout\Content;
 use Encore\Admin\Widgets\Table;
 use Encore\Admin\Actions\RowAction;
 use App\Admin\Actions\Post\Replicate;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 class OfferController extends AdminController
 {
     /**
@@ -87,21 +92,85 @@ class OfferController extends AdminController
     public function show($id, Content $content)
     {
 
+        $request_data = $_GET;
 
-        $product = Offer::get()->toArray();
+//        print_r("<pre/>");
+//        print_r($request_data);
+//        exit;
 
-//        print_r($product);exit;
 
 
-        foreach ($product as $key => $value) {
-            $product[$key]['track_list'] = OfferTracks::where('offer_id', $value['id'])->get()->toArray();
-            $product[$key]['creatives'] = Creatives::where('offer_id', $value['id'])->get()->toArray();
+
+        $keyword = '';
+
+        if (isset($request_data['keyword']) && !empty($request_data['keyword'])) {
+            $keyword =trim($request_data['keyword']);
         }
+
+
+
+
+        $offer = Offer::where('offer_name','like',"%".$keyword."%")->orderBy('id','desc')->get()->toArray();
+
+
+
+
+
+
+
+        $geos_list = Geos::get()->toArray();
+        $category_list = Category::get()->toArray();
+
+        foreach ($offer as $key => $value) {
+            $offer[$key]['track_list'] = OfferTracks::where('offer_id', $value['id'])->get()->toArray();
+            $offer[$key]['creatives'] = Creatives::where('offer_id', $value['id'])->get()->toArray();
+        }
+
+        $data = [
+            'offer' => $offer,
+            'geos_list' => $geos_list,
+            'category_list' => $category_list
+        ];
 
         return $content->title('详情')
             ->description('简介')
-            ->view('product.show', compact('product'));
+            ->view('offer.show', compact('data'));
     }
+
+    public function submitForm(Request $request)
+    {
+        // 处理表单提交逻辑
+        $data = $request->all();
+
+
+        $offer = Offer::where('id', 1)->get()->toArray();
+        $geos_list = Geos::get()->toArray();
+        $category_list = Category::get()->toArray();
+
+
+        foreach ($offer as $key => $value) {
+            $offer[$key]['track_list'] = OfferTracks::where('offer_id', $value['id'])->get()->toArray();
+            $offer[$key]['creatives'] = Creatives::where('offer_id', $value['id'])->get()->toArray();
+        }
+
+        $data = [
+
+            'offer' => $offer,
+            'geos_list' => $geos_list,
+            'category_list' => $category_list
+        ];
+
+        return $data;
+
+//        return view('offer.show', ['data' => $data,'message'=>200]);
+
+
+//        return $content->title('详情')
+//            ->description('简介')
+//            ->view('offer.show', compact('data'));
+
+    }
+
 
     /**
      * Make a form builder.
@@ -113,14 +182,13 @@ class OfferController extends AdminController
         $form = new Form(new Offer());
         $data = Category::get()->toArray();
 
-        foreach ($data as $item){
-            $_item=$item["id"];
-            $_item1=$item["category_name"];
-            $arr[$_item]=$_item1;
+        foreach ($data as $item) {
+            $_item = $item["id"];
+            $_item1 = $item["category_name"];
+            $arr[$_item] = $_item1;
         }
 
         $form->multipleSelect('cate_id')->options($arr);
-
 
 
         //multiple
@@ -130,8 +198,6 @@ class OfferController extends AdminController
         $form->textarea('track_des', __('Track Des'));
         $form->text('accepted_area', __('Accepted Area'));
         $form->image('image', __('Offer Image'))->downloadable();
-
-
 
 
         $form->decimal('offer_price', __('Offer price'));
@@ -144,10 +210,8 @@ class OfferController extends AdminController
 //        });
 
 
-
         return $form;
     }
-
 
 
 }

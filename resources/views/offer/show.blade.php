@@ -16,6 +16,8 @@
     <link href="/vendor/laravel-admin/test/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen">
     <link rel="icon" type="image/png" href="https://m4trix.network/Reporting-platform/images/favicon.png">
     <link href="/vendor/laravel-admin/test/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
     <!-- END PLUGIN CSS -->
     <!-- BEGIN CORE CSS FRAMEWORK -->
     <link href="/vendor/laravel-admin/test/icon" rel="stylesheet">
@@ -38,8 +40,11 @@
         window.selectedRole = '';
     </script>
 
+{{--    <?php--}}
 
-    <div style="width: 1px; height: 1px; display: inline; position: absolute;"></div></head>
+{{--    print_r("<pre/>");--}}
+{{--    print_r($data);exit;--}}
+{{--    ?>--}}
 
 
 
@@ -47,7 +52,7 @@
     <div class="pace-progress-inner"></div>
 </div>
     <div class="pace-activity"></div></div>
-
+    <form method="POST" id="form_id">
 <div class="page-container row-fluid">
 
     <a href="?id=offer#" class="scrollup">Scroll</a>
@@ -60,6 +65,51 @@
         </div>
     </div>
             <link href="/vendor/laravel-admin/test/network.css" rel="stylesheet" type="text/css">
+
+    <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
+    <div class="form-group">
+
+        <div class="col-sm-4" style="width: 20%!important;">
+            <select id="category" name="usertype" class="selectpicker show-tick form-control" multiple data-max-options="3" data-live-search="true" data-none-selected-text="Select Offers Categories"  data-size="10">
+                @foreach ($data['category_list'] as $key=>$item)
+                <option value="{{$item['id']}}" data-content="<span class='label label-success'>{{$item['category_name']}}</span>">{{$item['category_name']}}</option>
+                @endforeach
+            </select>
+        </div>
+
+
+        <div class="col-sm-4" style="width: 20%!important;">
+            <select id="geos" name="usertype" class="selectpicker show-tick form-control" multiple data-max-options="3" data-live-search="true" data-none-selected-text="Select Offers Geos"  data-size="10">
+                @foreach ($data['geos_list'] as $key=>$item)
+                <option value="{{$item['id']}}" data-content="<span class='label label-success'>{{$item['country']}}</span>">{{$item['country']}}</option>
+                @endforeach
+
+            </select>
+        </div>
+
+
+
+        <div class="col-sm-4" style="width: 20%!important;">
+            <select id="sort" name="usertype" class="selectpicker show-tick form-control"  data-max-options="3" data-live-search="true" data-none-selected-text="Order By">
+
+                <option value="0" data-content="<span class='label label-success'>Release Date (Newest on Top)</span>">Release Date (Newest on Top)</option>
+                <option value="1" data-content="<span class='label label-success'>Release Date (Oldest on Top)</span>">Release Date (Oldest on Top)</option>
+                <option value="2" data-content="<span class='label label-success'>Payout (High to Low)</span>">Payout (High to Low)</option>
+                <option value="3" data-content="<span class='label label-success'>Payout (Low to High)</span>">Payout (Low to High)</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4" style="width: 20%!important;">
+                <input type="text" class="form-control" id="keyword" value="" placeholder="搜索...">
+            </div>
+            <button id="searchBtn" class="btn btn-primary">搜索</button>
+        </div>
+    </div>
+
+
+
+
             <div class="col-sm-12">
                 <div class="row">
                     <h4> <span class="semi-bold"></span></h4>
@@ -71,7 +121,7 @@
                                 <!--内容开始-->
                                <div class="categories_offer_left ">
 
-                                   @foreach ($product as $key=>$item)
+                                   @foreach ($data['offer'] as $key=>$item)
 
                                     <div class="col-md-12 accord" data-offer_db="CozyTime Pro" data-marker-id="{{$item['id']}}">
 
@@ -868,22 +918,45 @@
 
 
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"><div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div></div><div><div class="sweet-overlay" tabindex="-1"></div><div class="sweet-alert" tabindex="-1"><div class="icon error"><span class="x-mark"><span class="line left"></span><span class="line right"></span></span></div><div class="icon warning"> <span class="body"></span> <span class="dot"></span> </div> <div class="icon info"></div> <div class="icon success"> <span class="line tip"></span> <span class="line long"></span> <div class="placeholder"></div> <div class="fix"></div> </div> <div class="icon custom"></div> <h2>Title</h2><p class="lead text-muted">Text</p><p><button class="cancel btn btn-lg" tabindex="2">Cancel</button> <button class="confirm btn btn-lg" tabindex="1">OK</button></p></div></div>
+
+    </form>
 <script>
 
-    $(document).ready(function() {
-        $('.copp pull-right btn btn-success btn-cons').on('click', function() {
-            // 选择文本
-            $('#textToCopy').select();
 
-            // 复制文本
-            document.execCommand('copy');
 
-            // 取消选择
-            window.getSelection().removeAllRanges();
+    $('#searchBtn').click(function(e) {
 
-            console.log('复制成功');
+
+
+        e.preventDefault();
+        var formData = $('#form_id').serialize();
+
+        var keyword = $('#keyword').val();
+        var _token = $('#_token').val();
+        var category = $('#category').val();
+        var geos = $('#geos').val();
+        var sort = $('#sort').val();
+
+        $.ajax({
+            type: 'get',
+            url: '/admin/offer/show',
+            data:{
+                keyword:keyword,
+                _token:_token,
+                category:category,
+                geos:geos,
+                sort:sort,
+            },
+            success: function(data) {
+
+
+                location.reload();
+
+               // console.info('返回数据',data)
+               // console.info('返回数据1')
+                // do something with the response data
+            }
         });
     });
-
 
 </script>
