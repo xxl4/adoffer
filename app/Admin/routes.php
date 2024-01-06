@@ -23,7 +23,7 @@ Route::group([
     $router->post('offer/formList', "OfferController@show", 'admin.formList');
 
 
-    $router->any('offer/submitForm', 'OfferController@submitForm')->name('admin.submitForm');
+    $router->post('offer/query', 'OfferController@query')->name('admin.query');
 
 
 });
