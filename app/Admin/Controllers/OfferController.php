@@ -275,28 +275,129 @@ class OfferController extends AdminController
                 break;
         }
 
-
-        $offer = Offer::where($where)->orderBy($field, $order)->where('offer_status', 1)->get()->toArray();
+/*
+        $offer = Offer::where($where)->orderBy($field, $order)->where('offer_status', 1)->whereIn('id',[1,2])->get()->toArray();
         foreach ($offer as $key => $value) {
-            $offer[$key]['track_list'] = OfferTracks::where('offer_id', $value['id'])->get()->toArray();
+            $offer[$key]['track_list'] = OfferTracks::where('track_type_id', $value['id'])->get()->toArray();
             $offer[$key]['creatives'] = Creatives::where('offer_id', $value['id'])->get()->toArray();
+        }
+
+        */
+
+
+        $filteredDataArray = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
+
+        foreach ($filteredDataArray as $key => $value) {
+
+            $track_cate = OfferTracksCate::whereIn('id',explode(',',$value['track_cate_id']))->select('id','track_cate')->get()->toArray();
+
+
+            foreach ($track_cate as $k=>$v){
+                $finalArray[$k] = OfferTracks::where('track_type_id',$v['id'])->get()->toArray();// $finalArray[$v['track_cate'].'_'.$k]
+            }
+
+            $filteredDataArray[$key]['track_list'] = $finalArray;
+            $filteredDataArray[$key]['creatives'] = Creatives::where('offer_id', $value['id'])->get()->toArray();
         }
 
 
 
-//        print_r($where);exit;
 
-
-        $result = $this->htmlSplice($offer);
+        $result = $this->htmlSpliceCopy($filteredDataArray);
         return response()->json($result);
 
     }
 
 
 
-    
 
 
+    protected function htmlSpliceCopy($offer)
+    {
+
+
+            print_r("<pre/>");
+            print_r($offer);exit;
+
+
+        $result = '';
+        foreach ($offer as $key => $item) {
+
+            $first = '<div class="col-md-12 accord" data-offer_db="CozyTime Pro" data-marker-id="' . $item['id'] . '"><ul class="nav nav-tabs" role="tablist"><li class="active"><a href="#tab0Offer_' . $key . '" role="tab" data-toggle="tab">Summary</a></li><li><a href="#tab0Description_' . $key . '" role="tab" data-toggle="tab">Description</a></li><li><a href="#tab0Geos_' . $key . '" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="#tab0Tracking_' . $key . '" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="#tab0Creative_' . $key . '" role="tab" data-toggle="tab">Creatives</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="?id=offer#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab0Offer_' . $key . '"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="123" target="_blank">' . '<span class="offer-product-img-container" data-original-title="" title=""><img src="' . $item['image'] . '" alt="CozyTime Pro"></span>Offer Preview<i class="icon ion-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">' . $item['offer_name'] . '</td><td width="25%">$' . $item['offer_price'] . ' Per Sale</td><td width="20%"><span class="label label-success">Live</span></td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab0Description_' . $key . '"><div class="row"><div class="col-md-12"><p></p><p><strong>E-commerce - CozyTime Pro INTL - All Languages - EXCLUSIVE</strong></p><p>"' . $item['des'] . '"</p><p></p></div></div></div><div class="tab-pane" id="tab0Geos_' . $key . '"><div class="row"><div class="col-md-12"><p></p><p>' . $item['accepted_area'] . '</p></div></div></div><div class="tab-pane" id="tab0Tracking_' . $key . '"><div class="row"><div class="col-md-12"><p>' . $item['track_des'] . '</p></div><div class="col-md-12"><div class="row"><div class="col-md-12"><div class="tabbable tabs-left tabs-bg"><ul class="nav nav-tabs" role="tablist">';
+
+
+            //追踪链接的tab
+            $track_tab = '';
+            foreach ($item['track_list'] as $key2=>$item2) {
+                if($key2 ==0){
+                    $track_tab .=  '<li class="active"><a href="?id=offer#advertorialpages12-1'.$key2.$key.'" role="tab" data-toggle="tab">Advertorial Pages'.$key2.$key.'</a></li>';
+                }else{
+                    $track_tab .=  '<li><a href="?id=offer#advertorialpages12-1'.$key2.$key.'" role="tab" data-toggle="tab">Advertorial Pages'.$key2.$key.'</a></li>';
+                }
+
+            }
+
+//            print_r("<pre/>");
+//            print_r($track_tab);exit;
+
+            $tab_content = '</ul><div class="tab-content">';
+
+
+
+            //追踪链接的tab 对应内容
+            $track1 = '';
+            $track = '';
+            foreach ($item['track_list'] as $k => $i) {
+
+//                var_dump($k==0);
+//
+                if($k==0){
+                    $track1 = '<div class="tab-pane active" id="advertorialpages12-1'. $k.$key.'">';
+                }else{
+                    $track1 = '<div class="tab-pane" id="advertorialpages12-1'. $k.$key.'">';
+                }
+
+                $row = '<div class="row">';
+
+                $data1 = '';
+                foreach ($i as $key4=>$item4){
+                    $data1 .=   '<div class="col-md-12"><div class="padding-for_links"><div>'.$item4['track_name'].'</div><input readonly="" type="text" class="form-control trecking_link clipboard-1-0-0 dynamicDomainTrackingLink" value="'.$item4['track_link'].'"><a href="'.$item4['track_link'].'"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0">Copy</button></div></div>';
+
+//                    $data1 .=$data1;
+                }
+
+
+                $data_div = ' </div></div>';
+                $track .= $track1.$row.$data1.$data_div;
+            }
+
+
+
+
+            $third = '</div></div></div><div class="clearfix"></div></div></div></div></div></div><div class="tab-pane" id="tab0Creative_' . $key . '"><div class="row"><div class="col-md-12">';
+
+            $forth = '';
+            foreach ($item['creatives'] as $k1 => $i1) {
+                $forth = '<p></p><p>' . $i1['name'] . '</p><p><a href="' . $i1['link'] . '" target="_blank">' . $i1['link'] . '</a></p>';
+                $forth .= $forth;
+            }
+
+            $sixth = ' </div></div></div></div></div>';
+            $result .= $first.$track_tab.$tab_content.$track.$track.$third.$forth.$sixth;
+
+
+
+        }
+
+
+
+        print_r($result);
+        exit;
+
+
+        return $result;
+
+    }
 
 
     /**

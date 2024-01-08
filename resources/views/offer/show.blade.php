@@ -145,10 +145,6 @@
                             <!--内容开始-->
                             <div class="categories_offer_left">
 
-{{--                                <?php--}}
-{{--                                print_r("<pre/>");--}}
-{{--                                print_r($data['offer']);exit;--}}
-{{--                                ?>--}}
 
 
                                 @foreach ($data['offer'] as $key=>$item)
@@ -251,33 +247,16 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
 
-
-
-
-
-
                                                                 <!-- filter tabs -->
                                                                 <div class="tabbable tabs-left tabs-bg">
                                                                     <ul class="nav nav-tabs" role="tablist">
 
-
-{{--                                                                        @php--}}
-{{--                                                                            @$index = 0;--}}
-{{--                                                                        @endphp--}}
                                                                         @foreach ($item['track_list'] as $key2=>$item2)
-
-
-{{--                                                                            @php--}}
-{{--                                                                                echo $index++;--}}
-{{--                                                                            @endphp--}}
-
-
                                                                             @if($key2 ==0)
                                                                                 <li class="active"><a href="?id=offer#advertorialpages12-1<?php echo $key2.$key?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$key?></a></li>
                                                                             @else
                                                                                 <li><a href="?id=offer#advertorialpages12-1<?php echo $key2.$key?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$key?></a></li>
                                                                             @endif
-                                                                            {{--                                                                            <li><a href="?id=offer#homepages-1<?php echo $key2?>" role="tab" data-toggle="tab">Home Pages<?php echo $key2?></a></li>--}}
                                                                         @endforeach
                                                                     </ul>
                                                                     <div class="tab-content">
@@ -305,40 +284,9 @@
                                                                                             </div>
                                                                                         </div>
                                                                                         @endforeach
-
-
-
-                                                                                        {{--                                                                        <div class="tab-pane" id="homepages-1<?php echo $key2?>">--}}
-                                                                                        {{--                                                                            <div class="row">--}}
-                                                                                        {{--                                                                                <div class="col-md-12">--}}
-                                                                                        {{--                                                                                    <div class="padding-for_links">--}}
-                                                                                        {{--                                                                                        <div>Master Landing Page</div>--}}
-                                                                                        {{--                                                                                        <input readonly="" type="text"--}}
-                                                                                        {{--                                                                                               class="form-control trecking_link clipboard-1-1-0"--}}
-                                                                                        {{--                                                                                               value="https://bioresponse.co/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}">--}}
-                                                                                        {{--                                                                                        <a href="https://bioresponse.co/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}"--}}
-                                                                                        {{--                                                                                           target="_blank" class="">--}}
-                                                                                        {{--                                                                                            <i class="icon ion-eye pull-right"></i>--}}
-                                                                                        {{--                                                                                        </a>--}}
-                                                                                        {{--                                                                                        <button--}}
-                                                                                        {{--                                                                                            class="copp pull-right btn btn-success btn-cons"--}}
-                                                                                        {{--                                                                                            data-clipboard-action="copy"--}}
-                                                                                        {{--                                                                                            data-clipboard-target=".clipboard-1-1-0">--}}
-                                                                                        {{--                                                                                            Copy--}}
-                                                                                        {{--                                                                                        </button>--}}
-                                                                                        {{--                                                                                    </div>--}}
-                                                                                        {{--                                                                                </div>--}}
-                                                                                        {{--                                                                            </div>--}}
-                                                                                        {{--                                                                        </div>--}}
-
-
                                                                                 </div>
-
-                                                                                {{--                                                                    @endforeach--}}
-
-
                                                                     </div>
-                                                                <!-- end filter tabs -->
+                                                                    <!-- end filter tabs -->
 
 
 
@@ -348,536 +296,536 @@
 
 
 
-                                                                <div class="clearfix"></div>
+                                                                    <div class="clearfix"></div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="tab-pane" id="tab0Creative_<?php echo $key;?>">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        @foreach ($item['creatives'] as $k1=>$i1)
-                                                            <p></p><p>{{$i1['name']}}</p>
-                                                            <p>
-                                                                <a href="https://www.dropbox.com/scl/fo/fyoovooys02dhqnd4tcy3/h?rlkey=1jyre8331r9m5y723ztcudped&amp;dl=0"
-                                                                   target="_blank">{{$i1['link']}}</a></p>
-                                                        @endforeach
+                                                <div class="tab-pane" id="tab0Creative_<?php echo $key;?>">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            @foreach ($item['creatives'] as $k1=>$i1)
+                                                                <p></p><p>{{$i1['name']}}</p>
+                                                                <p>
+                                                                    <a href="https://www.dropbox.com/scl/fo/fyoovooys02dhqnd4tcy3/h?rlkey=1jyre8331r9m5y723ztcudped&amp;dl=0"
+                                                                       target="_blank">{{$i1['link']}}</a></p>
+                                                            @endforeach
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        @endforeach
                                     </div>
-                                @endforeach
+                                    <!--内容结束-->
                             </div>
-                            <!--内容结束-->
                         </div>
-                    </div>
 
 
-                    <div class="col-mlg-6">
-                        <div class="row">
+                        <div class="col-mlg-6">
+                            <div class="row">
 
-                            <!--内容开始-->
+                                <!--内容开始-->
 
-                            <div class="categories_offer_right ">
-
-
+                                <div class="categories_offer_right ">
 
 
 
-                                @foreach ($data['offer1'] as $key1=>$item1)
 
-                                    <div class="col-md-12 accord" data-offer_db="Skincare">
-                                        <ul class="nav nav-tabs" role="tablist">
-                                            <li class="active"><a href="?id=offer#tab1Offer<?php echo $key1;?>"
-                                                                  role="tab"
-                                                                  data-toggle="tab">Summary</a></li>
-                                            <li><a href="?id=offer#tab1Description<?php echo $key1;?>" role="tab"
-                                                   data-toggle="tab">Description</a></li>
-                                            <li><a href="?id=offer#tab1Geos<?php echo $key1;?>" role="tab"
-                                                   data-toggle="tab">Accepted Geos</a></li>
-                                            <li><a href="?id=offer#tab1Tracking<?php echo $key1;?>" role="tab"
-                                                   data-toggle="tab">Tracking Links</a></li>
-                                            <li><a href="?id=offer#tab1Creative<?php echo $key1;?>" role="tab"
-                                                   data-toggle="tab">Creatives</a></li>
-                                        </ul>
-                                        <div class="tools">
-                                            <a href="javascript:;" class="collapse"></a>
-                                            <a href="?id=offer#grid-config" data-toggle="modal" class="config"></a>
-                                            <a href="javascript:;" class="reload"></a>
-                                            <a href="javascript:;" class="remove"></a>
-                                        </div>
-                                        <div class="tab-content">
 
-                                            <!--第一部分 start-->
+                                    @foreach ($data['offer1'] as $key1=>$item1)
 
-                                            <div class="tab-pane active" id="tab1Offer<?php echo $key1;?>">
-                                                <div class="row column-seperation">
-                                                    <div class="col-md-12">
-                                                        <table class="table table-striped table-flip-scroll cf">
-                                                            <thead class="cf">
-                                                            <tr>
-                                                                <th>
-                                                                    <a href="@if(!empty($item1['track_list'][0]['track_link'])){{$item1['track_list'][0]['track_link']}}
+                                        <div class="col-md-12 accord" data-offer_db="Skincare">
+                                            <ul class="nav nav-tabs" role="tablist">
+                                                <li class="active"><a href="?id=offer#tab1Offer<?php echo $key1;?>"
+                                                                      role="tab"
+                                                                      data-toggle="tab">Summary</a></li>
+                                                <li><a href="?id=offer#tab1Description<?php echo $key1;?>" role="tab"
+                                                       data-toggle="tab">Description</a></li>
+                                                <li><a href="?id=offer#tab1Geos<?php echo $key1;?>" role="tab"
+                                                       data-toggle="tab">Accepted Geos</a></li>
+                                                <li><a href="?id=offer#tab1Tracking<?php echo $key1;?>" role="tab"
+                                                       data-toggle="tab">Tracking Links</a></li>
+                                                <li><a href="?id=offer#tab1Creative<?php echo $key1;?>" role="tab"
+                                                       data-toggle="tab">Creatives</a></li>
+                                            </ul>
+                                            <div class="tools">
+                                                <a href="javascript:;" class="collapse"></a>
+                                                <a href="?id=offer#grid-config" data-toggle="modal" class="config"></a>
+                                                <a href="javascript:;" class="reload"></a>
+                                                <a href="javascript:;" class="remove"></a>
+                                            </div>
+                                            <div class="tab-content">
+
+                                                <!--第一部分 start-->
+
+                                                <div class="tab-pane active" id="tab1Offer<?php echo $key1;?>">
+                                                    <div class="row column-seperation">
+                                                        <div class="col-md-12">
+                                                            <table class="table table-striped table-flip-scroll cf">
+                                                                <thead class="cf">
+                                                                <tr>
+                                                                    <th>
+                                                                        <a href="@if(!empty($item1['track_list'][0]['track_link'])){{$item1['track_list'][0]['track_link']}}
                                                              @else'' @endif" target="_blank">
                                                                         <span class="offer-product-img-container"
                                                                               data-original-title="" title="">
                                                                             <img src="{{$item1['image']}}"
                                                                                  alt="Skincare">
                                                                         </span>Offer Preview
-                                                                        <i class="icon ion-eye"></i>
-                                                                    </a>
-                                                                </th>
-                                                                <th>Payout</th>
-                                                                <th>Status</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr>
-                                                                <td width="55%">{{$item1['offer_name']}}</td>
-                                                                <td width="25%">${{$item1['offer_price']}} Per Sale</td>
-                                                                <td width="20%">
-                                                                    @if($item1['offer_status']==1)
-                                                                        <span class="label label-success">Live</span>
-                                                                    @else
-                                                                        <span class="label label-warning">Paused</span>
-                                                                    @endif
-                                                                </td>
-                                                            </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!--第一部分 end-->
-
-                                            <!--第二部分 start-->
-                                            <div class="tab-pane" id="tab1Description<?php echo $key1;?>">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <p></p>
-                                                        <p><strong>E-commerce - SkinBliss INTL - All Languages -
-                                                                EXCLUSIVE</strong></p>
-                                                        <p>{{$item1['des']}}</p>
-                                                        <p></p></div>
-                                                </div>
-                                            </div>
-                                            <!--第二部分 end-->
-
-                                            <!--第三部分 start-->
-                                            <div class="tab-pane" id="tab1Geos<?php echo $key1;?>">
-                                                <div class="row">
-                                                    <div class="col-md-12"><p></p>
-                                                        <p>{{$item1['accepted_area']}}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--第三部分 end-->
-
-                                            <!--第五部分 start-->
-                                            <div class="tab-pane" id="tab1Tracking<?php echo $key1;?>">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <p>{{$item1['track_des']}}</p>
-{{--                                                        <p>You can use any of the 3 custom parameters agnostically.</p>--}}
-{{--                                                        <p>Replace {AFFID}, {SUBID}, {CLICKID} with your own tracking--}}
-{{--                                                            variables and get them feed-backed in your--}}
-{{--                                                            pixel/postback.</p>--}}
-                                                    </div>
-                                                    <div class="col-md-12">
-
-                                                        <br>
-{{--                                                        <p>Traffic sources sometimes block certain URLs and/or--}}
-{{--                                                            companies, we--}}
-{{--                                                            offer different tracking domains to choose from.</p>--}}
-
-                                                        <!-- dropdown domains -->
-                                                        <!--
-                                                        <div class="btn-group m-b-30">
-                                                            <a class="btn btn-success dropdown-toggle m-b-5"
-                                                               data-toggle="dropdown" href="?id=offer#">Select your
-                                                                tracking
-                                                                domain<span class="caret"></span></a>
-                                                            <ul class="dropdown-menu domains-menu">
-                                                                <li><a href="?id=offer#" class="offersDomain"
-                                                                       data-domain="https://urgoodeal.com">https://urgoodeal.com</a>
-                                                                </li>
-                                                                <li><a href="?id=offer#" class="offersDomain"
-                                                                       data-domain="https://xtechgadget.com">https://xtechgadget.com</a>
-                                                                </li>
-                                                                <li><a href="?id=offer#" class="offersDomain"
-                                                                       data-domain="https://popularhitech.com">https://popularhitech.com</a>
-                                                                </li>
-                                                                <li><a href="?id=offer#" class="offersDomain"
-                                                                       data-domain="https://buysmartproduct.com">https://buysmartproduct.com</a>
-                                                                </li>
-                                                                <li><a href="?id=offer#" class="offersDomain"
-                                                                       data-domain="https://storepx.com">https://storepx.com</a>
-                                                                </li>
-                                                                <li><a href="?id=offer#" class="offersDomain"
-                                                                       data-domain="https://airportxshop.com">https://airportxshop.com</a>
-                                                                </li>
-                                                                <li><a href="?id=offer#" class="offersDomain"
-                                                                       data-domain="https://flightxshop.com">https://flightxshop.com</a>
-                                                                </li>
-                                                                <li><a href="?id=offer#" class="offersDomain"
-                                                                       data-domain="https://blackfridaytechs.com">https://blackfridaytechs.com</a>
-                                                                </li>
-                                                                <li><a href="?id=offer#" class="offersDomain"
-                                                                       data-domain="https://techchristmasgift.com">https://techchristmasgift.com</a>
-                                                                </li>
-                                                                <li><a href="?id=offer#" class="offersDomain"
-                                                                       data-domain="https://gadgetronixs.com">https://gadgetronixs.com</a>
-                                                                </li>
-                                                                <li><a href="?id=offer#" class="offersDomain"
-                                                                       data-domain="https://luxurygadgetx.com">https://luxurygadgetx.com</a>
-                                                                </li>
-                                                                <li><a href="?id=offer#" class="offersDomain"
-                                                                       data-domain="https://newxventions.com">https://newxventions.com</a>
-                                                                </li>
-                                                                <li><a href="?id=offer#" class="offersDomain"
-                                                                       data-domain="https://appgogadget.com">https://appgogadget.com</a>
-                                                                </li>
-                                                                <li><a href="?id=offer#" class="offersDomain"
-                                                                       data-domain="https://todaystech.co">https://todaystech.co</a>
-                                                                </li>
-                                                            </ul>
+                                                                            <i class="icon ion-eye"></i>
+                                                                        </a>
+                                                                    </th>
+                                                                    <th>Payout</th>
+                                                                    <th>Status</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td width="55%">{{$item1['offer_name']}}</td>
+                                                                    <td width="25%">${{$item1['offer_price']}} Per Sale</td>
+                                                                    <td width="20%">
+                                                                        @if($item1['offer_status']==1)
+                                                                            <span class="label label-success">Live</span>
+                                                                        @else
+                                                                            <span class="label label-warning">Paused</span>
+                                                                        @endif
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
-                                                        -->
-                                                        <!-- end dropdown domains -->
+                                                    </div>
+                                                </div>
 
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                                <!-- filter tabs -->
-                                                 <div class="tabbable tabs-left tabs-bg">
-                                                        <ul class="nav nav-tabs" role="tablist">
+                                                <!--第一部分 end-->
 
-                                                            @foreach ($item1['track_list'] as $key2=>$item2)
+                                                <!--第二部分 start-->
+                                                <div class="tab-pane" id="tab1Description<?php echo $key1;?>">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <p></p>
+                                                            <p><strong>E-commerce - SkinBliss INTL - All Languages -
+                                                                    EXCLUSIVE</strong></p>
+                                                            <p>{{$item1['des']}}</p>
+                                                            <p></p></div>
+                                                    </div>
+                                                </div>
+                                                <!--第二部分 end-->
 
-                                                                @if($key2==0)
-                                                                <li class="active"><a href="?id=offer#advertorialpages1-1<?php echo $key2.$key1?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$key1?></a></li>
-                                                                @else
-                                                                        <li><a href="?id=offer#advertorialpages1-1<?php echo $key2.$key1?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$key1?></a></li>
-                                                                    @endif
-{{--                                                                            <li><a href="?id=offer#homepages-1<?php echo $key2?>" role="tab" data-toggle="tab">Home Pages<?php echo $key2?></a></li>--}}
-                                                            @endforeach
-                                        </ul>
-                                                    <div class="tab-content">
+                                                <!--第三部分 start-->
+                                                <div class="tab-pane" id="tab1Geos<?php echo $key1;?>">
+                                                    <div class="row">
+                                                        <div class="col-md-12"><p></p>
+                                                            <p>{{$item1['accepted_area']}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--第三部分 end-->
 
-                                                        @foreach ($item1['track_list'] as $key3=>$item3)
+                                                <!--第五部分 start-->
+                                                <div class="tab-pane" id="tab1Tracking<?php echo $key1;?>">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <p>{{$item1['track_des']}}</p>
+                                                            {{--                                                        <p>You can use any of the 3 custom parameters agnostically.</p>--}}
+                                                            {{--                                                        <p>Replace {AFFID}, {SUBID}, {CLICKID} with your own tracking--}}
+                                                            {{--                                                            variables and get them feed-backed in your--}}
+                                                            {{--                                                            pixel/postback.</p>--}}
+                                                        </div>
+                                                        <div class="col-md-12">
 
-                                                            @if($key3==0)
-                                                        <div class="tab-pane active" id="advertorialpages1-1<?php echo $key3.$key1?>">
-                                                            @else
-                                                                <div class="tab-pane" id="advertorialpages1-1<?php echo $key3.$key1?>">
-                                                                    @endif
+                                                            <br>
+                                                            {{--                                                        <p>Traffic sources sometimes block certain URLs and/or--}}
+                                                            {{--                                                            companies, we--}}
+                                                            {{--                                                            offer different tracking domains to choose from.</p>--}}
+
+                                                            <!-- dropdown domains -->
+                                                            <!--
+                                                            <div class="btn-group m-b-30">
+                                                                <a class="btn btn-success dropdown-toggle m-b-5"
+                                                                   data-toggle="dropdown" href="?id=offer#">Select your
+                                                                    tracking
+                                                                    domain<span class="caret"></span></a>
+                                                                <ul class="dropdown-menu domains-menu">
+                                                                    <li><a href="?id=offer#" class="offersDomain"
+                                                                           data-domain="https://urgoodeal.com">https://urgoodeal.com</a>
+                                                                    </li>
+                                                                    <li><a href="?id=offer#" class="offersDomain"
+                                                                           data-domain="https://xtechgadget.com">https://xtechgadget.com</a>
+                                                                    </li>
+                                                                    <li><a href="?id=offer#" class="offersDomain"
+                                                                           data-domain="https://popularhitech.com">https://popularhitech.com</a>
+                                                                    </li>
+                                                                    <li><a href="?id=offer#" class="offersDomain"
+                                                                           data-domain="https://buysmartproduct.com">https://buysmartproduct.com</a>
+                                                                    </li>
+                                                                    <li><a href="?id=offer#" class="offersDomain"
+                                                                           data-domain="https://storepx.com">https://storepx.com</a>
+                                                                    </li>
+                                                                    <li><a href="?id=offer#" class="offersDomain"
+                                                                           data-domain="https://airportxshop.com">https://airportxshop.com</a>
+                                                                    </li>
+                                                                    <li><a href="?id=offer#" class="offersDomain"
+                                                                           data-domain="https://flightxshop.com">https://flightxshop.com</a>
+                                                                    </li>
+                                                                    <li><a href="?id=offer#" class="offersDomain"
+                                                                           data-domain="https://blackfridaytechs.com">https://blackfridaytechs.com</a>
+                                                                    </li>
+                                                                    <li><a href="?id=offer#" class="offersDomain"
+                                                                           data-domain="https://techchristmasgift.com">https://techchristmasgift.com</a>
+                                                                    </li>
+                                                                    <li><a href="?id=offer#" class="offersDomain"
+                                                                           data-domain="https://gadgetronixs.com">https://gadgetronixs.com</a>
+                                                                    </li>
+                                                                    <li><a href="?id=offer#" class="offersDomain"
+                                                                           data-domain="https://luxurygadgetx.com">https://luxurygadgetx.com</a>
+                                                                    </li>
+                                                                    <li><a href="?id=offer#" class="offersDomain"
+                                                                           data-domain="https://newxventions.com">https://newxventions.com</a>
+                                                                    </li>
+                                                                    <li><a href="?id=offer#" class="offersDomain"
+                                                                           data-domain="https://appgogadget.com">https://appgogadget.com</a>
+                                                                    </li>
+                                                                    <li><a href="?id=offer#" class="offersDomain"
+                                                                           data-domain="https://todaystech.co">https://todaystech.co</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            -->
+                                                            <!-- end dropdown domains -->
+
                                                             <div class="row">
-                                                                @foreach ($item3 as $key4=>$item4)
                                                                 <div class="col-md-12">
-                                                                        <div class="padding-for_links">
-                                                                            <div>{{$item4['track_name']}}</div>
-                                                                            <input readonly="" type="text" class="form-control trecking_link clipboard-1-0-0 dynamicDomainTrackingLink" value="{{$item4['track_link']}}">
-                                                                            <a href="{{$item4['track_name']}}" target="_blank" class=" dynamicDomainTrackingLink">
-                                                                                <i class="icon ion-eye pull-right"></i>
-                                                                            </a>
-                                                                            <button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0">Copy</button>
+                                                                    <!-- filter tabs -->
+                                                                    <div class="tabbable tabs-left tabs-bg">
+                                                                        <ul class="nav nav-tabs" role="tablist">
+
+                                                                            @foreach ($item1['track_list'] as $key2=>$item2)
+
+                                                                                @if($key2==0)
+                                                                                    <li class="active"><a href="?id=offer#advertorialpages1-1<?php echo $key2.$key1?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$key1?></a></li>
+                                                                                @else
+                                                                                    <li><a href="?id=offer#advertorialpages1-1<?php echo $key2.$key1?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$key1?></a></li>
+                                                                                @endif
+                                                                                {{--                                                                            <li><a href="?id=offer#homepages-1<?php echo $key2?>" role="tab" data-toggle="tab">Home Pages<?php echo $key2?></a></li>--}}
+                                                                            @endforeach
+                                                                        </ul>
+                                                                        <div class="tab-content">
+
+                                                                            @foreach ($item1['track_list'] as $key3=>$item3)
+
+                                                                                @if($key3==0)
+                                                                                    <div class="tab-pane active" id="advertorialpages1-1<?php echo $key3.$key1?>">
+                                                                                        @else
+                                                                                            <div class="tab-pane" id="advertorialpages1-1<?php echo $key3.$key1?>">
+                                                                                                @endif
+                                                                                                <div class="row">
+                                                                                                    @foreach ($item3 as $key4=>$item4)
+                                                                                                        <div class="col-md-12">
+                                                                                                            <div class="padding-for_links">
+                                                                                                                <div>{{$item4['track_name']}}</div>
+                                                                                                                <input readonly="" type="text" class="form-control trecking_link clipboard-1-0-0 dynamicDomainTrackingLink" value="{{$item4['track_link']}}">
+                                                                                                                <a href="{{$item4['track_name']}}" target="_blank" class=" dynamicDomainTrackingLink">
+                                                                                                                    <i class="icon ion-eye pull-right"></i>
+                                                                                                                </a>
+                                                                                                                <button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0">Copy</button>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    @endforeach
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            @endforeach
+
+                                                                                    </div>
+
                                                                         </div>
-                                                                </div>
-                                                                @endforeach
-                                                            </div>
-                                                        </div>
-                                                        @endforeach
+                                                                        <!-- end filter tabs -->
 
+                                                                        <div class="clearfix"></div>
                                                                     </div>
-
                                                                 </div>
-                                                                <!-- end filter tabs -->
-
-                                                                <div class="clearfix"></div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
 
-                                            <!--第五部分 end-->
+                                                    <!--第五部分 end-->
 
 
-                                            <!--第七部分 start-->
-                                            <div class="tab-pane" id="tab1Creative<?php echo $key1;?>">
-                                                <div class="row">
-                                                    <div class="col-md-12"><p></p>
+                                                    <!--第七部分 start-->
+                                                    <div class="tab-pane" id="tab1Creative<?php echo $key1;?>">
+                                                        <div class="row">
+                                                            <div class="col-md-12"><p></p>
 
 
-                                                        @foreach ($item1['creatives'] as $k1=>$i1)
+                                                                @foreach ($item1['creatives'] as $k1=>$i1)
 
-                                                        <p>{{$i1['name']}}</p>
+                                                                    <p>{{$i1['name']}}</p>
 
-                                                        <p>
-                                                            <a href="{{$i1['link']}}"
-                                                               target="_blank">{{$i1['link']}}</a>
-                                                        </p>
+                                                                    <p>
+                                                                        <a href="{{$i1['link']}}"
+                                                                           target="_blank">{{$i1['link']}}</a>
+                                                                    </p>
 
-                                                        <p></p>
+                                                                    <p></p>
 
-                                                        @endforeach
+                                                                @endforeach
 
+                                                            </div>
+                                                        </div>
                                                     </div>
+
+                                                    <!--第七部分 end-->
+
+
                                                 </div>
                                             </div>
 
-                                            <!--第七部分 end-->
-
-
+                                            @endforeach
                                         </div>
-                                    </div>
+                                </div>
+                            </div>
 
-                                @endforeach
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div id="change_tracking" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                <h4 class="modal-title">Change Tracking</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form class="offer_user_tracking" action="?id=offer" id="offer_user_tracking">
+                                    <input hidden="" type="text" id="u_id" name="u_id" value="933d42b67e4cf2968f3b0c90f1e2ec79">
+                                    <div style="text-align: center;">
+                                        <input class="btn btn-primary btn-cons" type="button" id="add_pixel" value="Add Pixel">
+                                        <input class="btn btn-primary btn-cons" type="button" id="add_postback"
+                                               value="Add Post Back">
+                                    </div>
+                                    <div class="pixels">
+
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <input class="btn btn-success btn-cons save_pixels hidden" type="submit" value="submit">
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-            </div>
-        </div>
-        <!-- Modal -->
-        <div id="change_tracking" class="modal fade" role="dialog">
-            <div class="modal-dialog">
 
-                <!-- Modal content-->
+                {{--        <script src="/vendor/laravel-admin/test/js_offer_top_geos.js.下载"></script>--}}
+                {{--        <script src="/vendor/laravel-admin/test/offer.js"></script>--}}
+
+            </div>
+
+        </div>
+
+        <!-- END PAGE CONTAINER -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="notification_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">×</button>
-                        <h4 class="modal-title">Change Tracking</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form class="offer_user_tracking" action="?id=offer" id="offer_user_tracking">
-                            <input hidden="" type="text" id="u_id" name="u_id" value="933d42b67e4cf2968f3b0c90f1e2ec79">
-                            <div style="text-align: center;">
-                                <input class="btn btn-primary btn-cons" type="button" id="add_pixel" value="Add Pixel">
-                                <input class="btn btn-primary btn-cons" type="button" id="add_postback"
-                                       value="Add Post Back">
-                            </div>
-                            <div class="pixels">
-
-                            </div>
-                            <div style="text-align: center;">
-                                <input class="btn btn-success btn-cons save_pixels hidden" type="submit" value="submit">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{--        <script src="/vendor/laravel-admin/test/js_offer_top_geos.js.下载"></script>--}}
-        {{--        <script src="/vendor/laravel-admin/test/offer.js"></script>--}}
-
-    </div>
-
-    </div>
-
-    <!-- END PAGE CONTAINER -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="notification_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <br>
-                    <div class="cbp_tmicon primary animated bounceIn notification_modal_image">
-                        <!-- Notification image-->
-                    </div>
-                    <div class="notification_modal_head_block">
-                        <h4 id="notification_modal_Label" class="semi-bold text-info"></h4>
-                        <p><span class="data_notification"></span> <span class="time_notification"></span></p>
-                        <p class="m-10"></p>
-                        <div class="container_notify">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-
-    <div id="chat-panel">
-        <div class="chat-outer">
-            <div class="chat-container" id="chatContainer"></div>
-            <div id="loader" class="loader-overlay">
-                <!--Rounded loader-->
-                <!--<div class="loader-spinner"></div>-->
-
-                <!--M4trix Loader-->
-                <img src="/vendor/laravel-admin/test/squares-preloader-gif.svg" alt="">
-            </div>
-            <div class="input-container">
-                <input type="text" id="userInput" placeholder="Type your message...">
-                <button id="sendButton"
-                '="">Send</button>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="modal fade" id="wantAnOfferModal" tabindex="-1" role="dialog" aria-labelledby="wantAnOfferModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-
-            <div class="modal-content wantAnOfferModalContent">
-                <form id="formWantOffer" name="formWantOffer" action="?id=offer#" role="form" autocomplete="off"
-                      class="validate" novalidate="novalidate">
-                    <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 id="wantAnOfferModalLabel" class="semi-bold">
-                            Can’t Find What You Are Looking For?
-                            <br>
-                            Submit a Product/Offer to the M4TRIX.
-                        </h4>
-                        <p class="no-margin">We can onboard any E-Commerce offers within a few days.</p>
-                        <p class="no-margin">Kindly share as much details as possible to allow our team to find your
-                            product faster.</p>
-                        <p class="no-margin">Useful information include product name, description, listing &amp;
-                            pictures.</p>
                         <br>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row form-row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label">Enter the details about the product(s) you would like to
-                                        Onboard on the M4TRIX</label>
-                                    <textarea rows="5" name="wantOffer[message]" class="form-control" required=""
-                                              aria-required="true"></textarea>
-                                </div>
-                            </div>
+                        <div class="cbp_tmicon primary animated bounceIn notification_modal_image">
+                            <!-- Notification image-->
                         </div>
-                        <div class="row form-row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label">Product/Offer Link(s)</label>
-                                    <input name="wantOffer[product]" class="form-control input-sm" type="text"
-                                           placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row form-row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Expected Payout</label>
-                                    <input name="wantOffer[expPayout]" class="form-control input-sm" type="text"
-                                           placeholder="">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Expected Volume</label>
-                                    <input name="wantOffer[expVolume]" class="form-control input-sm" type="text"
-                                           placeholder="">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Geo(s)</label>
-                                    <input name="wantOffer[geos]" class="form-control input-sm" type="text"
-                                           placeholder="">
-                                </div>
+                        <div class="notification_modal_head_block">
+                            <h4 id="notification_modal_Label" class="semi-bold text-info"></h4>
+                            <p><span class="data_notification"></span> <span class="time_notification"></span></p>
+                            <p class="m-10"></p>
+                            <div class="container_notify">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Request The Offer</button>
+                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
                     </div>
-                </form>
+                </div>
+                <!-- /.modal-content -->
             </div>
-
-            <div class="modal-content wantAnOfferModalResultContent hidden">
-                <div class="modal-body body-success hidden">
-                    <h4 class="semi-bold">Thank you <span class="name"></span>!</h4>
-                    <p>Your Offer Request was transmitted successfully to one of our product team analyst.</p>
-                    <p>We will get back to your directly via E-mail or Skype regarding the setup of the offer.</p>
-                    <p>The M4TRIX shall use a vast amount of human power to respond to your query as soon as
-                        possible.</p>
-                    <p>Let us lead the fight against the machines.</p>
-                </div>
-                <div class="modal-body body-error hidden">
-                    <p>This does not happen often, The M4TRIX just had a glitch :(</p>
-                    <p>Your message was lost in the inner space of CPU and RAM Power. The Machines have won this round I
-                        am afraid.</p>
-                    <p>Kindly try re-sending it. If the error persists, please contact <span class="sendToEmail"></span>.
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-
-            <!-- /.modal-content -->
+            <!-- /.modal-dialog -->
         </div>
-        <!-- /.modal-dialog -->
-    </div>        <!-- Modal -->
-    <div class="modal fade modal-v-center" id="userTutorialExploreModal" tabindex="-1" role="dialog"
-         aria-labelledby="userTutorialExploreModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">×</span></button>
-                    <h3 class="modal-title text-left" id="userTutorialExploreModalLabel">Ready to get started?</h3>
+        <!-- /.modal -->
+
+        <div id="chat-panel">
+            <div class="chat-outer">
+                <div class="chat-container" id="chatContainer"></div>
+                <div id="loader" class="loader-overlay">
+                    <!--Rounded loader-->
+                    <!--<div class="loader-spinner"></div>-->
+
+                    <!--M4trix Loader-->
+                    <img src="/vendor/laravel-admin/test/squares-preloader-gif.svg" alt="">
                 </div>
-                <div class="modal-body text-left">
-                    <p>Go to <a href="?id=offer" class="text-info">Offers</a> to pick your winning campaign!</p>
-                    <p>Your Affiliate Manager is available to get you started on the M4TRIX Journey, get to know each
-                        other!</p>
-                    <p class="m-0">For any other inquiry, visit our <a href="?id=faq" class="text-info">Help Center</a>
-                        or report directly to our communication deck at <span
-                            class="text-info">crew@m4trix.network</span></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
-                    <button type="button" class="btn btn-primary btnTutorialDone" data-explore="1">Get Started</button>
+                <div class="input-container">
+                    <input type="text" id="userInput" placeholder="Type your message...">
+                    <button id="sendButton"
+                    '="">Send</button>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <div
-        style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+        <div class="modal fade" id="wantAnOfferModal" tabindex="-1" role="dialog" aria-labelledby="wantAnOfferModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+
+                <div class="modal-content wantAnOfferModalContent">
+                    <form id="formWantOffer" name="formWantOffer" action="?id=offer#" role="form" autocomplete="off"
+                          class="validate" novalidate="novalidate">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 id="wantAnOfferModalLabel" class="semi-bold">
+                                Can’t Find What You Are Looking For?
+                                <br>
+                                Submit a Product/Offer to the M4TRIX.
+                            </h4>
+                            <p class="no-margin">We can onboard any E-Commerce offers within a few days.</p>
+                            <p class="no-margin">Kindly share as much details as possible to allow our team to find your
+                                product faster.</p>
+                            <p class="no-margin">Useful information include product name, description, listing &amp;
+                                pictures.</p>
+                            <br>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row form-row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Enter the details about the product(s) you would like to
+                                            Onboard on the M4TRIX</label>
+                                        <textarea rows="5" name="wantOffer[message]" class="form-control" required=""
+                                                  aria-required="true"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Product/Offer Link(s)</label>
+                                        <input name="wantOffer[product]" class="form-control input-sm" type="text"
+                                               placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Expected Payout</label>
+                                        <input name="wantOffer[expPayout]" class="form-control input-sm" type="text"
+                                               placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Expected Volume</label>
+                                        <input name="wantOffer[expVolume]" class="form-control input-sm" type="text"
+                                               placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Geo(s)</label>
+                                        <input name="wantOffer[geos]" class="form-control input-sm" type="text"
+                                               placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Request The Offer</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-content wantAnOfferModalResultContent hidden">
+                    <div class="modal-body body-success hidden">
+                        <h4 class="semi-bold">Thank you <span class="name"></span>!</h4>
+                        <p>Your Offer Request was transmitted successfully to one of our product team analyst.</p>
+                        <p>We will get back to your directly via E-mail or Skype regarding the setup of the offer.</p>
+                        <p>The M4TRIX shall use a vast amount of human power to respond to your query as soon as
+                            possible.</p>
+                        <p>Let us lead the fight against the machines.</p>
+                    </div>
+                    <div class="modal-body body-error hidden">
+                        <p>This does not happen often, The M4TRIX just had a glitch :(</p>
+                        <p>Your message was lost in the inner space of CPU and RAM Power. The Machines have won this round I
+                            am afraid.</p>
+                        <p>Kindly try re-sending it. If the error persists, please contact <span class="sendToEmail"></span>.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>        <!-- Modal -->
+        <div class="modal fade modal-v-center" id="userTutorialExploreModal" tabindex="-1" role="dialog"
+             aria-labelledby="userTutorialExploreModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        <h3 class="modal-title text-left" id="userTutorialExploreModalLabel">Ready to get started?</h3>
+                    </div>
+                    <div class="modal-body text-left">
+                        <p>Go to <a href="?id=offer" class="text-info">Offers</a> to pick your winning campaign!</p>
+                        <p>Your Affiliate Manager is available to get you started on the M4TRIX Journey, get to know each
+                            other!</p>
+                        <p class="m-0">For any other inquiry, visit our <a href="?id=faq" class="text-info">Help Center</a>
+                            or report directly to our communication deck at <span
+                                class="text-info">crew@m4trix.network</span></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
+                        <button type="button" class="btn btn-primary btnTutorialDone" data-explore="1">Get Started</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div
-            style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
-    </div>
-    <div>
-        <div class="sweet-overlay" tabindex="-1"></div>
-        <div class="sweet-alert" tabindex="-1">
-            <div class="icon error"><span class="x-mark"><span class="line left"></span><span class="line right"></span></span>
-            </div>
-            <div class="icon warning"><span class="body"></span> <span class="dot"></span></div>
-            <div class="icon info"></div>
-            <div class="icon success"><span class="line tip"></span> <span class="line long"></span>
-                <div class="placeholder"></div>
-                <div class="fix"></div>
-            </div>
-            <div class="icon custom"></div>
-            <h2>Title</h2>
-            <p class="lead text-muted">Text</p>
-            <p>
-                <button class="cancel btn btn-lg" tabindex="2">Cancel</button>
-                <button class="confirm btn btn-lg" tabindex="1">OK</button>
-            </p>
+            style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+            <div
+                style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
         </div>
-    </div>
+        <div>
+            <div class="sweet-overlay" tabindex="-1"></div>
+            <div class="sweet-alert" tabindex="-1">
+                <div class="icon error"><span class="x-mark"><span class="line left"></span><span class="line right"></span></span>
+                </div>
+                <div class="icon warning"><span class="body"></span> <span class="dot"></span></div>
+                <div class="icon info"></div>
+                <div class="icon success"><span class="line tip"></span> <span class="line long"></span>
+                    <div class="placeholder"></div>
+                    <div class="fix"></div>
+                </div>
+                <div class="icon custom"></div>
+                <h2>Title</h2>
+                <p class="lead text-muted">Text</p>
+                <p>
+                    <button class="cancel btn btn-lg" tabindex="2">Cancel</button>
+                    <button class="confirm btn btn-lg" tabindex="1">OK</button>
+                </p>
+            </div>
+        </div>
 
 </form>
 <script>
