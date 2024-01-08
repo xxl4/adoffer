@@ -8,6 +8,7 @@ use App\Models\Creatives;
 use App\Models\Geos;
 use App\Models\Offer;
 use App\Models\OfferTracks;
+use App\Models\OfferTracksCate;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -92,62 +93,130 @@ class OfferController extends AdminController
     public function show($id, Content $content)
     {
 
-        $offer = Offer::where('offer_status', 1)->whereIn('id',[1,2])->orderBy('id', 'desc')->get()->toArray();
+//        $array = [
+//            'apple' => ['color' => 'red'],
+//            'banana' => ['color' => 'yellow'],
+//            'orange' => ['color' => 'orange'],
+//        ];
+//
+//        $index = 0;
+//
+//        foreach ($array as $key => $value) {
+//            // 获取整数顺序
+//            echo "Index: $index, Key: $key, Color: {$value['color']}\n";
+//            $index++;
+//        }
+//exit;
+
 
         $geos_list = Geos::get()->toArray();
         $category_list = Category::get()->toArray();
 
-        foreach ($offer as $key => $value) {
-            $offer[$key]['track_list'] = OfferTracks::where('offer_id', $value['id'])->get()->toArray();
-            $offer[$key]['creatives'] = Creatives::where('offer_id', $value['id'])->get()->toArray();
+
+        $filteredDataArray = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
+        $filteredDataArrayCopy = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
+
+
+
+
+
+
+
+
+        foreach ($filteredDataArray as $key => $value) {
+
+            $track_cate = OfferTracksCate::whereIn('id',explode(',',$value['track_cate_id']))->select('id','track_cate')->get()->toArray();
+
+
+//            $fieldToSwap = 'track_cate';
+//            //// 使用 array_map 函数进行互换
+//            $swappedArray = array_map(function ($key, $item) use ($fieldToSwap) {
+//                return [$item[$fieldToSwap] => array_merge(['key' => $key], $item)];
+//            }, array_keys($track_cate), $track_cate);
+//            // 将结果数组进行合并
+//            $finalArray = array_merge(...$swappedArray);
+
+//            print_r("<pre/>");
+//            print_r($track_cate);exit;
+
+
+            foreach ($track_cate as $k=>$v){
+                $finalArray[$k] = OfferTracks::where('track_type_id',$v['id'])->get()->toArray();// $finalArray[$v['track_cate'].'_'.$k]
+            }
+
+            $filteredDataArray[$key]['track_list'] = $finalArray;
+            $filteredDataArray[$key]['creatives'] = Creatives::where('offer_id', $value['id'])->get()->toArray();
         }
 
 
+        foreach ($filteredDataArrayCopy as $key => $value) {
 
-        $offer1 = Offer::where('offer_status', 1)->whereIn('id',[1,2])->orderBy('id', 'desc')->get()->toArray();
-
-        $geos_list1 = Geos::get()->toArray();
-        $category_list1 = Category::get()->toArray();
-
-        foreach ($offer1 as $key1 => $value1) {
-            $offer1[$key1]['track_list']['order'] = OfferTracks::where('offer_id', $value1['id'])->get()->toArray();
-            $offer1[$key1]['track_list']['confirm'] = OfferTracks::whereIn('id', [3,4,5])->get()->toArray();
+            $track_cate = OfferTracksCate::whereIn('id',explode(',',$value['track_cate_id']))->select('id','track_cate')->get()->toArray();
 
 
-            $offer1[$key1]['creatives'] = Creatives::where('offer_id', $value1['id'])->get()->toArray();
+//            $fieldToSwap = 'track_cate';
+//            //// 使用 array_map 函数进行互换
+//            $swappedArray = array_map(function ($key, $item) use ($fieldToSwap) {
+//                return [$item[$fieldToSwap] => array_merge(['key' => $key], $item)];
+//            }, array_keys($track_cate), $track_cate);
+//            // 将结果数组进行合并
+//            $finalArray = array_merge(...$swappedArray);
+
+
+            foreach ($track_cate as $k=>$v){
+                $finalArrayCopy[$k] = OfferTracks::where('track_type_id',$v['id'])->get()->toArray();//$v['track_cate'].'_'.$k
+            }
+
+            $filteredDataArrayCopy[$key]['track_list'] = $finalArrayCopy;
+            $filteredDataArrayCopy[$key]['creatives'] = Creatives::where('offer_id', $value['id'])->get()->toArray();
         }
 
 
+        $filteredDataArray = array_values($filteredDataArray);
+        $filteredDataArrayCopy = array_values($filteredDataArrayCopy);
 
 
+//        $offer1 = Offer::where('offer_status', 1)->whereIn('id',[1,2])->orderBy('id', 'desc')->get()->toArray();
+//
+//
+//        foreach ($offer1 as $key1 => $value1) {
+//            $offer1[$key1]['track_list'][0] = OfferTracks::whereIn('id', [11,12,13])->get()->toArray();
+//            $offer1[$key1]['track_list'][1] = OfferTracks::whereIn('id', [3,4,5])->get()->toArray();
+//
+//
+//            $offer1[$key1]['creatives'] = Creatives::where('offer_id', $value1['id'])->get()->toArray();
+//        }
+
+//        print_r("<pre/>");
+//print_r($offer1);exit;
+
+
+//
+//        $data = [
+//            'offer' => $offer1,
+//            'geos_list' => $geos_list,
+//            'category_list' => $category_list,
+//
+//            'offer1' => $offer1,
+////            'geos_list1' => $geos_list1,
+////            'category_list1' => $category_list1,
+//
+//        ];
+
+//        print_r("<pre/>");
+//        print_r($data);exit;
+////
         $data = [
-            'offer' => $offer,
+            'offer' => $filteredDataArray,
             'geos_list' => $geos_list,
             'category_list' => $category_list,
-
-            'offer1' => $offer1,
-//            'geos_list1' => $geos_list1,
-//            'category_list1' => $category_list1,
+            'offer1' => $filteredDataArrayCopy,
 
         ];
 
-
-
-//        foreach ($offer1 as $key1=>$item1){
-//
-//          foreach ($item1['track_list'] as $key2=>$item2){
-//
-//              print_r("<pre/>");
-//              print_r($item2);exit;
-//
-//          }
-//        }
-
-
-//        $keys = array_keys($offer1);
 //
 //        print_r("<pre/>");
-//        print_r($offer1);exit;
+//        print_r($data);exit;
 
 
         return $content->title('详情')
@@ -222,6 +291,12 @@ class OfferController extends AdminController
         return response()->json($result);
 
     }
+
+
+
+    
+
+
 
 
     /**

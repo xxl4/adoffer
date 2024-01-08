@@ -145,6 +145,12 @@
                             <!--内容开始-->
                             <div class="categories_offer_left">
 
+{{--                                <?php--}}
+{{--                                print_r("<pre/>");--}}
+{{--                                print_r($data['offer']);exit;--}}
+{{--                                ?>--}}
+
+
                                 @foreach ($data['offer'] as $key=>$item)
                                     <div class="col-md-12 accord" data-offer_db="CozyTime Pro"
                                          data-marker-id="{{$item['id']}}">
@@ -205,8 +211,7 @@
                                                                     @endif
 
                                                                 </td>
-                                                            </tr
-                                                            >
+                                                            </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -246,150 +251,103 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
 
+
+
+
+
+
                                                                 <!-- filter tabs -->
                                                                 <div class="tabbable tabs-left tabs-bg">
+                                                                    <ul class="nav nav-tabs" role="tablist">
+
+
+{{--                                                                        @php--}}
+{{--                                                                            @$index = 0;--}}
+{{--                                                                        @endphp--}}
+                                                                        @foreach ($item['track_list'] as $key2=>$item2)
+
+
+{{--                                                                            @php--}}
+{{--                                                                                echo $index++;--}}
+{{--                                                                            @endphp--}}
+
+
+                                                                            @if($key2 ==0)
+                                                                                <li class="active"><a href="?id=offer#advertorialpages12-1<?php echo $key2.$key?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$key?></a></li>
+                                                                            @else
+                                                                                <li><a href="?id=offer#advertorialpages12-1<?php echo $key2.$key?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$key?></a></li>
+                                                                            @endif
+                                                                            {{--                                                                            <li><a href="?id=offer#homepages-1<?php echo $key2?>" role="tab" data-toggle="tab">Home Pages<?php echo $key2?></a></li>--}}
+                                                                        @endforeach
+                                                                    </ul>
                                                                     <div class="tab-content">
-                                                                        <div class="tab-pane active"
-                                                                             id="provenorderpages-0">
-                                                                            <div class="row">
-                                                                                <div class="col-md-12">
+
+                                                                        @foreach ($item['track_list'] as $key3=>$item3)
+
+                                                                            @if($key3==0)
+                                                                                <div class="tab-pane active" id="advertorialpages12-1<?php echo $key3.$key?>">
+                                                                                    @else
+                                                                                        <div class="tab-pane" id="advertorialpages12-1<?php echo $key3.$key?>">
+                                                                                            @endif
+                                                                                            <div class="row">
+                                                                                                @foreach ($item3 as $key4=>$item4)
+                                                                                                    <div class="col-md-12">
+                                                                                                        <div class="padding-for_links">
+                                                                                                            <div>{{$item4['track_name']}}</div>
+                                                                                                            <input readonly="" type="text" class="form-control trecking_link clipboard-1-0-0 dynamicDomainTrackingLink" value="{{$item4['track_link']}}">
+                                                                                                            <a href="{{$item4['track_link']}}">
+                                                                                                                <i class="icon ion-eye pull-right"></i>
+                                                                                                            </a>
+                                                                                                            <button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0">Copy</button>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                @endforeach
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        @endforeach
 
 
-                                                                                    @foreach ($item['track_list'] as $k=>$i)
-                                                                                        <div class="padding-for_links">
-                                                                                            <div>{{$i['track_name']}}</div>
-                                                                                            <input readonly=""
-                                                                                                   type="text"
-                                                                                                   class="form-control trecking_link clipboard-0-0-0 dynamicDomainTrackingLink"
-                                                                                                   value="{{$i['track_link']}}"
-                                                                                                   target="_blank"
-                                                                                                   class=" dynamicDomainTrackingLink">
-                                                                                            <i class="icon ion-eye pull-right"></i>
-                                                                                            </a>
-                                                                                            <button
-                                                                                                class="copp pull-right btn btn-success btn-cons"
-                                                                                                data-clipboard-action="copy"
-                                                                                                data-clipboard-target=".clipboard-0-0-0">
-                                                                                                Copy
-                                                                                            </button>
-                                                                                        </div>
-                                                                                    @endforeach
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+
+                                                                                        {{--                                                                        <div class="tab-pane" id="homepages-1<?php echo $key2?>">--}}
+                                                                                        {{--                                                                            <div class="row">--}}
+                                                                                        {{--                                                                                <div class="col-md-12">--}}
+                                                                                        {{--                                                                                    <div class="padding-for_links">--}}
+                                                                                        {{--                                                                                        <div>Master Landing Page</div>--}}
+                                                                                        {{--                                                                                        <input readonly="" type="text"--}}
+                                                                                        {{--                                                                                               class="form-control trecking_link clipboard-1-1-0"--}}
+                                                                                        {{--                                                                                               value="https://bioresponse.co/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}">--}}
+                                                                                        {{--                                                                                        <a href="https://bioresponse.co/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}"--}}
+                                                                                        {{--                                                                                           target="_blank" class="">--}}
+                                                                                        {{--                                                                                            <i class="icon ion-eye pull-right"></i>--}}
+                                                                                        {{--                                                                                        </a>--}}
+                                                                                        {{--                                                                                        <button--}}
+                                                                                        {{--                                                                                            class="copp pull-right btn btn-success btn-cons"--}}
+                                                                                        {{--                                                                                            data-clipboard-action="copy"--}}
+                                                                                        {{--                                                                                            data-clipboard-target=".clipboard-1-1-0">--}}
+                                                                                        {{--                                                                                            Copy--}}
+                                                                                        {{--                                                                                        </button>--}}
+                                                                                        {{--                                                                                    </div>--}}
+                                                                                        {{--                                                                                </div>--}}
+                                                                                        {{--                                                                            </div>--}}
+                                                                                        {{--                                                                        </div>--}}
 
 
-                                                                        <div class="tab-pane" id="archivedorderpages-0">
-                                                                            <div class="row">
-                                                                                <div class="col-md-12">
-                                                                                    <div class="padding-for_links">
-                                                                                        <div>Order Page 2.0 - The N00b
-                                                                                        </div>
-                                                                                        <input readonly="" type="text"
-                                                                                               class="form-control trecking_link clipboard-0-2-0 dynamicDomainTrackingLink"
-                                                                                               value="https://popularhitech.com/intl_2/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}">
-                                                                                        <a href="https://popularhitech.com/intl_2/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}"
-                                                                                           target="_blank"
-                                                                                           class=" dynamicDomainTrackingLink">
-                                                                                            <i class="icon ion-eye pull-right"></i>
-                                                                                        </a>
-                                                                                        <button
-                                                                                            class="copp pull-right btn btn-success btn-cons"
-                                                                                            data-clipboard-action="copy"
-                                                                                            data-clipboard-target=".clipboard-0-2-0">
-                                                                                            Copy
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="padding-for_links">
-                                                                                        <div>Order Page 3.0 - The
-                                                                                            Multi-Step
-                                                                                        </div>
-                                                                                        <input readonly="" type="text"
-                                                                                               class="form-control trecking_link clipboard-0-2-1 dynamicDomainTrackingLink"
-                                                                                               value="https://popularhitech.com/intl_3/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}">
-                                                                                        <a href="https://popularhitech.com/intl_3/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}"
-                                                                                           target="_blank"
-                                                                                           class=" dynamicDomainTrackingLink">
-                                                                                            <i class="icon ion-eye pull-right"></i>
-                                                                                        </a>
-                                                                                        <button
-                                                                                            class="copp pull-right btn btn-success btn-cons"
-                                                                                            data-clipboard-action="copy"
-                                                                                            data-clipboard-target=".clipboard-0-2-1">
-                                                                                            Copy
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="padding-for_links">
-                                                                                        <div>Order Page 11.0 - The Money
-                                                                                            Maker
-                                                                                        </div>
-                                                                                        <input readonly="" type="text"
-                                                                                               class="form-control trecking_link clipboard-0-2-2 dynamicDomainTrackingLink"
-                                                                                               value="https://popularhitech.com/intl_11/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}">
-                                                                                        <a href="https://popularhitech.com/intl_11/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}"
-                                                                                           target="_blank"
-                                                                                           class=" dynamicDomainTrackingLink">
-                                                                                            <i class="icon ion-eye pull-right"></i>
-                                                                                        </a>
-                                                                                        <button
-                                                                                            class="copp pull-right btn btn-success btn-cons"
-                                                                                            data-clipboard-action="copy"
-                                                                                            data-clipboard-target=".clipboard-0-2-2">
-                                                                                            Copy
-                                                                                        </button>
-                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="tab-pane" id="advertorialpages-0">
-                                                                            <div class="row">
-                                                                                <div class="col-md-12">
-                                                                                    <div class="padding-for_links">
-                                                                                        <div>Advertorial | EN</div>
-                                                                                        <input readonly="" type="text"
-                                                                                               class="form-control trecking_link clipboard-0-3-0 dynamicDomainTrackingLink"
-                                                                                               value="https://popularhitech.com/advertorial/cozytimepro/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}">
-                                                                                        <a href="https://popularhitech.com/advertorial/cozytimepro/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}"
-                                                                                           target="_blank"
-                                                                                           class=" dynamicDomainTrackingLink">
-                                                                                            <i class="icon ion-eye pull-right"></i>
-                                                                                        </a>
-                                                                                        <button
-                                                                                            class="copp pull-right btn btn-success btn-cons"
-                                                                                            data-clipboard-action="copy"
-                                                                                            data-clipboard-target=".clipboard-0-3-0">
-                                                                                            Copy
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="tab-pane" id="salespages-0">
-                                                                            <div class="row">
-                                                                                <div class="col-md-12">
-                                                                                    <div class="padding-for_links">
-                                                                                        <div>Sale Page | EN</div>
-                                                                                        <input readonly="" type="text"
-                                                                                               class="form-control trecking_link clipboard-0-4-0 dynamicDomainTrackingLink"
-                                                                                               value="https://popularhitech.com/salespage/cozytimepro/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}">
-                                                                                        <a href="https://popularhitech.com/salespage/cozytimepro/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}"
-                                                                                           target="_blank"
-                                                                                           class=" dynamicDomainTrackingLink">
-                                                                                            <i class="icon ion-eye pull-right"></i>
-                                                                                        </a>
-                                                                                        <button
-                                                                                            class="copp pull-right btn btn-success btn-cons"
-                                                                                            data-clipboard-action="copy"
-                                                                                            data-clipboard-target=".clipboard-0-4-0">
-                                                                                            Copy
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+
+                                                                                {{--                                                                    @endforeach--}}
+
+
                                                                     </div>
-                                                                </div>
                                                                 <!-- end filter tabs -->
+
+
+
+
+
+
+
+
+
                                                                 <div class="clearfix"></div>
                                                             </div>
                                                         </div>
@@ -425,6 +383,10 @@
 
                             <div class="categories_offer_right ">
 
+
+
+
+
                                 @foreach ($data['offer1'] as $key1=>$item1)
 
                                     <div class="col-md-12 accord" data-offer_db="Skincare">
@@ -436,13 +398,10 @@
                                                    data-toggle="tab">Description</a></li>
                                             <li><a href="?id=offer#tab1Geos<?php echo $key1;?>" role="tab"
                                                    data-toggle="tab">Accepted Geos</a></li>
-                                            {{--                                        <li><a href="?id=offer#tab1Top_Geos" class="tab_top_geo" role="tab" data-toggle="tab">Top Geos</a></li>--}}
                                             <li><a href="?id=offer#tab1Tracking<?php echo $key1;?>" role="tab"
                                                    data-toggle="tab">Tracking Links</a></li>
-                                            {{--                                        <li><a href="?id=offer#tab1ProductsFeed" role="tab" data-toggle="tab">Products Data Feed</a></li>--}}
                                             <li><a href="?id=offer#tab1Creative<?php echo $key1;?>" role="tab"
                                                    data-toggle="tab">Creatives</a></li>
-                                            {{--                                        <li><a href="?id=offer#tab1Pixel_Postback" class="offers-tab-pixels" data-offer-id="276" role="tab" data-toggle="tab">Pixels/Postbacks</a></li>--}}
                                         </ul>
                                         <div class="tools">
                                             <a href="javascript:;" class="collapse"></a>
@@ -480,7 +439,7 @@
                                                                 <td width="55%">{{$item1['offer_name']}}</td>
                                                                 <td width="25%">${{$item1['offer_price']}} Per Sale</td>
                                                                 <td width="20%">
-                                                                    @if($item['offer_status']==1)
+                                                                    @if($item1['offer_status']==1)
                                                                         <span class="label label-success">Live</span>
                                                                     @else
                                                                         <span class="label label-warning">Paused</span>
@@ -502,23 +461,17 @@
                                                         <p></p>
                                                         <p><strong>E-commerce - SkinBliss INTL - All Languages -
                                                                 EXCLUSIVE</strong></p>
-
-
                                                         <p>{{$item1['des']}}</p>
                                                         <p></p></div>
                                                 </div>
                                             </div>
-
-
                                             <!--第二部分 end-->
-
 
                                             <!--第三部分 start-->
                                             <div class="tab-pane" id="tab1Geos<?php echo $key1;?>">
                                                 <div class="row">
                                                     <div class="col-md-12"><p></p>
                                                         <p>{{$item1['accepted_area']}}</p>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -528,21 +481,21 @@
                                             <div class="tab-pane" id="tab1Tracking<?php echo $key1;?>">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <p>These links are unique to you, use them to generate
-                                                            traffic.</p>
-                                                        <p>You can use any of the 3 custom parameters agnostically.</p>
-                                                        <p>Replace {AFFID}, {SUBID}, {CLICKID} with your own tracking
-                                                            variables and get them feed-backed in your
-                                                            pixel/postback.</p>
+                                                        <p>{{$item1['track_des']}}</p>
+{{--                                                        <p>You can use any of the 3 custom parameters agnostically.</p>--}}
+{{--                                                        <p>Replace {AFFID}, {SUBID}, {CLICKID} with your own tracking--}}
+{{--                                                            variables and get them feed-backed in your--}}
+{{--                                                            pixel/postback.</p>--}}
                                                     </div>
                                                     <div class="col-md-12">
 
                                                         <br>
-                                                        <p>Traffic sources sometimes block certain URLs and/or
-                                                            companies, we
-                                                            offer different tracking domains to choose from.</p>
+{{--                                                        <p>Traffic sources sometimes block certain URLs and/or--}}
+{{--                                                            companies, we--}}
+{{--                                                            offer different tracking domains to choose from.</p>--}}
 
                                                         <!-- dropdown domains -->
+                                                        <!--
                                                         <div class="btn-group m-b-30">
                                                             <a class="btn btn-success dropdown-toggle m-b-5"
                                                                data-toggle="dropdown" href="?id=offer#">Select your
@@ -593,100 +546,52 @@
                                                                 </li>
                                                             </ul>
                                                         </div>
+                                                        -->
                                                         <!-- end dropdown domains -->
 
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-
+                                            <div class="row">
+                                                <div class="col-md-12">
                                                                 <!-- filter tabs -->
-                                                                <div class="tabbable tabs-left tabs-bg">
+                                                 <div class="tabbable tabs-left tabs-bg">
+                                                        <ul class="nav nav-tabs" role="tablist">
 
+                                                            @foreach ($item1['track_list'] as $key2=>$item2)
 
-                                                                    <ul class="nav nav-tabs" role="tablist">
+                                                                @if($key2==0)
+                                                                <li class="active"><a href="?id=offer#advertorialpages1-1<?php echo $key2.$key1?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$key1?></a></li>
+                                                                @else
+                                                                        <li><a href="?id=offer#advertorialpages1-1<?php echo $key2.$key1?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$key1?></a></li>
+                                                                    @endif
+{{--                                                                            <li><a href="?id=offer#homepages-1<?php echo $key2?>" role="tab" data-toggle="tab">Home Pages<?php echo $key2?></a></li>--}}
+                                                            @endforeach
+                                        </ul>
+                                                    <div class="tab-content">
 
-                                                                        @foreach ($item1['track_list'] as $key2=>$item2)
+                                                        @foreach ($item1['track_list'] as $key3=>$item3)
 
-
-
-                                                                            <li class="active"><a
-                                                                                    href="?id=offer#advertorialpages-1<?php echo $key2?>"
-                                                                                    role="tab" data-toggle="tab">Advertorial
-                                                                                    Pages</a></li>
-                                                                            <li>
-
-
-                                                                                <a href="?id=offer#homepages-1<?php echo $key2?>"
-                                                                                   role="tab" data-toggle="tab">Home
-                                                                                    Pages</a>
-                                                                            </li>
-
-
-                                                                    </ul>
-                                                                    <div class="tab-content">
-
-                                                                        <div class="tab-pane active"
-                                                                             id="advertorialpages-1<?php echo $key2?>">
-
-
-                                                                            <div class="row">
-                                                                                <div class="col-md-12">
-
-                                                                                    @foreach ($item2 as $key3=>$item3)
-
-                                                                                        <div class="padding-for_links">
-                                                                                            <div>Advertorial | EN</div>
-                                                                                            <input readonly=""
-                                                                                                   type="text"
-                                                                                                   class="form-control trecking_link clipboard-1-0-0 dynamicDomainTrackingLink"
-                                                                                                   value="{{$item3['track_link']}}">
-                                                                                            <a href="https://popularhitech.com/advertorial/skinbliss/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}"
-                                                                                               target="_blank"
-                                                                                               class=" dynamicDomainTrackingLink">
-                                                                                                <i class="icon ion-eye pull-right"></i>
-                                                                                            </a>
-                                                                                            <button
-                                                                                                class="copp pull-right btn btn-success btn-cons"
-                                                                                                data-clipboard-action="copy"
-                                                                                                data-clipboard-target=".clipboard-1-0-0">
-                                                                                                Copy
-                                                                                            </button>
-                                                                                        </div>
-                                                                                    @endforeach
-
-
-                                                                                </div>
-                                                                            </div>
+                                                            @if($key3==0)
+                                                        <div class="tab-pane active" id="advertorialpages1-1<?php echo $key3.$key1?>">
+                                                            @else
+                                                                <div class="tab-pane" id="advertorialpages1-1<?php echo $key3.$key1?>">
+                                                                    @endif
+                                                            <div class="row">
+                                                                @foreach ($item3 as $key4=>$item4)
+                                                                <div class="col-md-12">
+                                                                        <div class="padding-for_links">
+                                                                            <div>{{$item4['track_name']}}</div>
+                                                                            <input readonly="" type="text" class="form-control trecking_link clipboard-1-0-0 dynamicDomainTrackingLink" value="{{$item4['track_link']}}">
+                                                                            <a href="{{$item4['track_name']}}" target="_blank" class=" dynamicDomainTrackingLink">
+                                                                                <i class="icon ion-eye pull-right"></i>
+                                                                            </a>
+                                                                            <button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0">Copy</button>
                                                                         </div>
-
-
-                                                                        <div class="tab-pane" id="homepages-1<?php echo $key2?>">
-                                                                            <div class="row">
-                                                                                <div class="col-md-12">
-                                                                                    <div class="padding-for_links">
-                                                                                        <div>Master Landing Page</div>
-                                                                                        <input readonly="" type="text"
-                                                                                               class="form-control trecking_link clipboard-1-1-0"
-                                                                                               value="https://bioresponse.co/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}">
-                                                                                        <a href="https://bioresponse.co/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}"
-                                                                                           target="_blank" class="">
-                                                                                            <i class="icon ion-eye pull-right"></i>
-                                                                                        </a>
-                                                                                        <button
-                                                                                            class="copp pull-right btn btn-success btn-cons"
-                                                                                            data-clipboard-action="copy"
-                                                                                            data-clipboard-target=".clipboard-1-1-0">
-                                                                                            Copy
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
+                                                                </div>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                        @endforeach
 
                                                                     </div>
-
-                                                                    @endforeach
-
 
                                                                 </div>
                                                                 <!-- end filter tabs -->
@@ -705,20 +610,22 @@
                                             <div class="tab-pane" id="tab1Creative<?php echo $key1;?>">
                                                 <div class="row">
                                                     <div class="col-md-12"><p></p>
-                                                        <p>Offer's Creatives:</p>
+
+
+                                                        @foreach ($item1['creatives'] as $k1=>$i1)
+
+                                                        <p>{{$i1['name']}}</p>
 
                                                         <p>
-                                                            <a href="https://www.dropbox.com/scl/fo/8agbyixyi92qzn5926u2z/h?rlkey=cu6kwyx9ngegmzix88o4x7bmp&amp;dl=0"
-                                                               target="_blank">https://www.dropbox.com/scl/fo/8agbyixyi92qzn5926u2z/h?rlkey=cu6kwyx9ngegmzix88o4x7bmp&amp;dl=0</a>
+                                                            <a href="{{$i1['link']}}"
+                                                               target="_blank">{{$i1['link']}}</a>
                                                         </p>
 
-                                                        <p>Advertorial Page Source Code:</p>
+                                                        <p></p>
 
-                                                        <p>
-                                                            <a href="https://www.dropbox.com/scl/fi/4iq7ph7jy3q37ezwz99qq/SkinBliss-Advertorial.zip?rlkey=caixl5aolpksita3nj5k9htxe&amp;dl=0"
-                                                               target="_blank">https://www.dropbox.com/scl/fi/4iq7ph7jy3q37ezwz99qq/SkinBliss-Advertorial.zip?rlkey=caixl5aolpksita3nj5k9htxe&amp;dl=0</a>
-                                                        </p>
-                                                        <p></p></div>
+                                                        @endforeach
+
+                                                    </div>
                                                 </div>
                                             </div>
 
