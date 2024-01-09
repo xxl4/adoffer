@@ -857,9 +857,10 @@
                 // $("#test").html()
 
                 $('.categories_offer_left').empty();
+                $('.categories_offer_right').empty();
 
-                $('.categories_offer_left').html(data);
-
+                $('.categories_offer_left').html(data.left_data);
+                $('.categories_offer_right').html(data.right_data);
 
                 console.info('返回数据', data)
                 // console.info('返回数据1')
