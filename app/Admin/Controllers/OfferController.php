@@ -43,6 +43,7 @@ class OfferController extends AdminController
         $grid->column('id', __('Id'));
         $grid->column('offer_name', __('Offer name'));
         $grid->column('cate_id', __('Cate id'));
+        $grid->column('image', __('Image'))->image();;
         $grid->column('des', __('Des'));
         $grid->column('offer_link', __('Offer link'))->link();
         $grid->column('offer_price', __('Offer price'));
@@ -97,6 +98,7 @@ class OfferController extends AdminController
         $show->field('offer_link', __('Offer link'));
         $show->field('offer_price', __('Offer price'));
         $show->field('offer_status', __('Offer status'));
+        $show->field('image', __('Image'));
         $show->field('created_at', __('Create at'));
         $show->field('updated_at', __('Update at'));
 
@@ -116,6 +118,9 @@ class OfferController extends AdminController
     public function store()
     {
 
+//        echo phpinfo();exit;
+
+        print_r($_REQUEST);exit;
         $cate_id = implode(',', $_REQUEST['cate_id']);
         $accepted_area = implode(',', $_REQUEST['accepted_area']);
         $creatives_id = implode(',', $_REQUEST['creatives_id']);
@@ -123,6 +128,13 @@ class OfferController extends AdminController
         $des = !empty($_REQUEST['des']) ? $_REQUEST['des']:'';
         $track_des = !empty($_REQUEST['track_des']) ? $_REQUEST['track_des']:'';
         $offer_price = !empty($_REQUEST['offer_price']) ? $_REQUEST['offer_price'] :'';
+        $image = !empty($_REQUEST['image']) ? $_REQUEST['image'] :'';
+
+
+
+
+
+
         if ($_REQUEST['offer_status']) {
             $offer_status = 1;
         } else {
@@ -139,6 +151,7 @@ class OfferController extends AdminController
             'accepted_area' => trim($accepted_area, ','),
             'offer_price' => $offer_price,
             'offer_status' => $offer_status,
+            'image' => $image,
         ]);
 
 //        // 打印添加的数据
@@ -150,7 +163,7 @@ class OfferController extends AdminController
 
     public function show($id, Content $content)
     {
-
+//        echo phpinfo();exit;
 
         $geos_list = Geos::get()->toArray();
         $category_list = Category::get()->toArray();
@@ -570,7 +583,7 @@ class OfferController extends AdminController
         $form->textarea('des', __('Offer Des'));
         $form->textarea('track_des', __('Track Des'));
 
-        $form->image('image', __('Offer Image'))->downloadable()->required();
+        $form->image('image', __('Offer Image'));
         $form->currency('offer_price', __('Payout'))->required();
         $form->switch('offer_status', __('Offer status'))->default(1);
 

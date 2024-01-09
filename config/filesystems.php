@@ -59,6 +59,11 @@ return [
         'admin' => [
             'driver' => 'local',
             'root' => storage_path('app/admin'), // 可根据需求修改存储路径
+//            'root' => public_path('upload'),
+            'visibility' => 'public',
+            'url'=>env('APP_URL').'/public/upload/',
+
+
         ],
 
     ],
