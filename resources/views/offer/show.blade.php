@@ -288,14 +288,6 @@
                                                                     </div>
                                                                     <!-- end filter tabs -->
 
-
-
-
-
-
-
-
-
                                                                     <div class="clearfix"></div>
                                                                 </div>
                                                             </div>
@@ -309,7 +301,7 @@
                                                             @foreach ($item['creatives'] as $k1=>$i1)
                                                                 <p></p><p>{{$i1['name']}}</p>
                                                                 <p>
-                                                                    <a href="https://www.dropbox.com/scl/fo/fyoovooys02dhqnd4tcy3/h?rlkey=1jyre8331r9m5y723ztcudped&amp;dl=0"
+                                                                    <a href="{{$i1['link']}}"
                                                                        target="_blank">{{$i1['link']}}</a></p>
                                                             @endforeach
                                                         </div>

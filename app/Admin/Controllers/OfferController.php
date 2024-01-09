@@ -113,12 +113,13 @@ class OfferController extends AdminController
         $category_list = Category::get()->toArray();
 
 
-        $filteredDataArray = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
-        $filteredDataArrayCopy = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
+//        $filteredDataArray = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
+//        $filteredDataArrayCopy = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
 
 
 
-
+        $filteredDataArray = Offer::where('offer_status', 1)->whereIn('id',[1,2])->get()->toArray();//奇数
+        $filteredDataArrayCopy = Offer::where('offer_status', 1)->whereIn('id',[1,2])->get()->toArray();//偶数
 
 
 
@@ -285,7 +286,9 @@ class OfferController extends AdminController
         */
 
 
-        $filteredDataArray = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
+//        $filteredDataArray = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
+
+        $filteredDataArray = Offer::where('offer_status', 1)->whereIn('id',[1,2])->get()->toArray();//奇数
 
         foreach ($filteredDataArray as $key => $value) {
 
@@ -316,8 +319,8 @@ class OfferController extends AdminController
     {
 
 
-            print_r("<pre/>");
-            print_r($offer);exit;
+//            print_r("<pre/>");
+//            print_r($offer);exit;
 
 
         $result = '';
@@ -334,7 +337,6 @@ class OfferController extends AdminController
                 }else{
                     $track_tab .=  '<li><a href="?id=offer#advertorialpages12-1'.$key2.$key.'" role="tab" data-toggle="tab">Advertorial Pages'.$key2.$key.'</a></li>';
                 }
-
             }
 
 //            print_r("<pre/>");
@@ -349,8 +351,7 @@ class OfferController extends AdminController
             $track = '';
             foreach ($item['track_list'] as $k => $i) {
 
-//                var_dump($k==0);
-//
+
                 if($k==0){
                     $track1 = '<div class="tab-pane active" id="advertorialpages12-1'. $k.$key.'">';
                 }else{
@@ -374,7 +375,7 @@ class OfferController extends AdminController
 
 
 
-            $third = '</div></div></div><div class="clearfix"></div></div></div></div></div></div><div class="tab-pane" id="tab0Creative_' . $key . '"><div class="row"><div class="col-md-12">';
+            $third = '</div></div><div class="clearfix"></div></div></div></div></div><div class="tab-pane" id="tab0Creative_' . $key . '"><div class="row"><div class="col-md-12">';
 
             $forth = '';
             foreach ($item['creatives'] as $k1 => $i1) {
@@ -383,7 +384,7 @@ class OfferController extends AdminController
             }
 
             $sixth = ' </div></div></div></div></div>';
-            $result .= $first.$track_tab.$tab_content.$track.$track.$third.$forth.$sixth;
+            $result .= $first.$track_tab.$tab_content.$track.$third.$forth.$sixth;
 
 
 
@@ -391,11 +392,11 @@ class OfferController extends AdminController
 
 
 
-        print_r($result);
-        exit;
+//        print_r($result);
+//        exit;
 
 
-        return $result;
+        return $result.'</div>';
 
     }
 
