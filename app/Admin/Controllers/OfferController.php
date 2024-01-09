@@ -9,6 +9,7 @@ use App\Models\Geos;
 use App\Models\Offer;
 use App\Models\OfferTracks;
 use App\Models\OfferTracksCate;
+use App\Models\TagsModel;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -19,6 +20,7 @@ use Encore\Admin\Actions\RowAction;
 use App\Admin\Actions\Post\Replicate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class OfferController extends AdminController
 {
@@ -37,22 +39,43 @@ class OfferController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Offer());
-
+        $grid->model()->orderBy('id', 'desc');
         $grid->column('id', __('Id'));
         $grid->column('offer_name', __('Offer name'));
         $grid->column('cate_id', __('Cate id'));
         $grid->column('des', __('Des'));
         $grid->column('offer_link', __('Offer link'))->link();
         $grid->column('offer_price', __('Offer price'));
-        $grid->column('offer_status', __('Offer status'))->using(['0' => 'Live', '1' => 'Paused'])->label([
-            0 => 'success',
-            1 => 'danger',
+        $grid->column('offer_status', __('Offer status'))->using(['1' => 'Live', '2' => 'Paused'])->label([
+            1 => 'success',
+            2 => 'danger',
         ]);
-        $grid->column('create_at', __('Create at'));
-        $grid->column('update_at', __('Update at'));
+        $grid->column('created_at', __('Create at'));
+        $grid->column('updated_at', __('Update at'));
         $grid->actions(function ($actions) {
             $actions->add(new Replicate);
         });
+
+        // 在主模型表格中展示一对多关系的子模型
+//        $grid->comments('Comments')->display(function ($comments) {
+//
+//            print_r($comments);exit;
+//
+//
+//            $comments = Category::whereIn('id', $comments)->pluck('category_name')->map(function ($comments) {
+//                return "<span class='label label-success'>{$comments}</span>";
+//            });
+//
+//            return $comments->implode('&nbsp;');
+//        });
+        $grid->column('cate_id', 'Categories')->display(function () {
+            $categoryIds = explode(',', $this->cate_id);
+            $categories = Category::whereIn('id', $categoryIds)->pluck('category_name')->toArray();
+
+            return implode(', ', $categories);
+        })->label();
+
+        $grid->paginate(10);
         return $grid;
     }
 
@@ -74,8 +97,8 @@ class OfferController extends AdminController
         $show->field('offer_link', __('Offer link'));
         $show->field('offer_price', __('Offer price'));
         $show->field('offer_status', __('Offer status'));
-        $show->field('create_at', __('Create at'));
-        $show->field('update_at', __('Update at'));
+        $show->field('created_at', __('Create at'));
+        $show->field('updated_at', __('Update at'));
 
         return $show;
     }
@@ -90,9 +113,43 @@ class OfferController extends AdminController
     }
 
 
-    public function show($id, Content $content)
+    public function store()
     {
 
+        $cate_id = implode(',', $_REQUEST['cate_id']);
+        $accepted_area = implode(',', $_REQUEST['accepted_area']);
+        $creatives_id = implode(',', $_REQUEST['creatives_id']);
+        $offer_name = !empty($_REQUEST['offer_name']) ? $_REQUEST['offer_name'] :'';
+        $des = !empty($_REQUEST['des']) ? $_REQUEST['des']:'';
+        $track_des = !empty($_REQUEST['track_des']) ? $_REQUEST['track_des']:'';
+        $offer_price = !empty($_REQUEST['offer_price']) ? $_REQUEST['offer_price'] :'';
+        if ($_REQUEST['offer_status']) {
+            $offer_status = 1;
+        } else {
+            $offer_status = 2;
+        }
+
+//        // 通过Eloquent模型创建新的文章记录
+        $Offer = Offer::create([
+            'cate_id' => trim($cate_id, ','),
+            'offer_name' => $offer_name,
+            'des' => $des,
+            'creatives_id' => trim($creatives_id, ','),
+            'track_des' => $track_des,
+            'accepted_area' => trim($accepted_area, ','),
+            'offer_price' => $offer_price,
+            'offer_status' => $offer_status,
+        ]);
+
+//        // 打印添加的数据
+        Log::info('New Offer added:', $Offer->toArray());
+
+        return redirect('/admin/offer');
+    }
+
+
+    public function show($id, Content $content)
+    {
 
 
         $geos_list = Geos::get()->toArray();
@@ -103,12 +160,9 @@ class OfferController extends AdminController
         $filteredDataArrayCopy = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
 
 
-
-
-
         foreach ($filteredDataArray as $key => $value) {
 
-            $track_cate = OfferTracksCate::whereIn('id',explode(',',$value['track_cate_id']))->select('id','track_cate')->get()->toArray();
+            $track_cate = OfferTracksCate::whereIn('id', explode(',', $value['track_cate_id']))->select('id', 'track_cate')->get()->toArray();
 
 
 //            $fieldToSwap = 'track_cate';
@@ -123,8 +177,8 @@ class OfferController extends AdminController
 //            print_r($track_cate);exit;
 
 
-            foreach ($track_cate as $k=>$v){
-                $finalArray[$k] = OfferTracks::where('track_type_id',$v['id'])->get()->toArray();// $finalArray[$v['track_cate'].'_'.$k]
+            foreach ($track_cate as $k => $v) {
+                $finalArray[$k] = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();// $finalArray[$v['track_cate'].'_'.$k]
             }
 
             $filteredDataArray[$key]['track_list'] = $finalArray;
@@ -134,7 +188,7 @@ class OfferController extends AdminController
 
         foreach ($filteredDataArrayCopy as $key => $value) {
 
-            $track_cate = OfferTracksCate::whereIn('id',explode(',',$value['track_cate_id']))->select('id','track_cate')->get()->toArray();
+            $track_cate = OfferTracksCate::whereIn('id', explode(',', $value['track_cate_id']))->select('id', 'track_cate')->get()->toArray();
 
 
 //            $fieldToSwap = 'track_cate';
@@ -146,8 +200,8 @@ class OfferController extends AdminController
 //            $finalArray = array_merge(...$swappedArray);
 
 
-            foreach ($track_cate as $k=>$v){
-                $finalArrayCopy[$k] = OfferTracks::where('track_type_id',$v['id'])->get()->toArray();//$v['track_cate'].'_'.$k
+            foreach ($track_cate as $k => $v) {
+                $finalArrayCopy[$k] = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();//$v['track_cate'].'_'.$k
             }
 
             $filteredDataArrayCopy[$key]['track_list'] = $finalArrayCopy;
@@ -217,17 +271,17 @@ class OfferController extends AdminController
         $sort = $request->input('sort');
         $where = [];
         if (!empty($keyword)) {
-            $where[] = ['offer_name','like', "%$keyword%"];
+            $where[] = ['offer_name', 'like', "%$keyword%"];
         }
 
         if (!empty($category)) {
             $category = implode(',', $category);
-            $where[] = ['offer_cate','like', "%$category%"];
+            $where[] = ['offer_cate', 'like', "%$category%"];
         }
 
         if (!empty($geos)) {
             $geos = implode(',', $geos);
-            $where[] = ['accepted_area','like', "%$geos%"];
+            $where[] = ['accepted_area', 'like', "%$geos%"];
         }
 
         switch ($sort) {
@@ -258,14 +312,14 @@ class OfferController extends AdminController
                 break;
         }
 
-/*
-        $offer = Offer::where($where)->orderBy($field, $order)->where('offer_status', 1)->whereIn('id',[1,2])->get()->toArray();
-        foreach ($offer as $key => $value) {
-            $offer[$key]['track_list'] = OfferTracks::where('track_type_id', $value['id'])->get()->toArray();
-            $offer[$key]['creatives'] = Creatives::where('offer_id', $value['id'])->get()->toArray();
-        }
+        /*
+                $offer = Offer::where($where)->orderBy($field, $order)->where('offer_status', 1)->whereIn('id',[1,2])->get()->toArray();
+                foreach ($offer as $key => $value) {
+                    $offer[$key]['track_list'] = OfferTracks::where('track_type_id', $value['id'])->get()->toArray();
+                    $offer[$key]['creatives'] = Creatives::where('offer_id', $value['id'])->get()->toArray();
+                }
 
-        */
+                */
 
 
 //        $filteredDataArray = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
@@ -275,19 +329,18 @@ class OfferController extends AdminController
 //        $filteredDataArrayCopy = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
 
 
-        $filteredDataArray = Offer::where('offer_status', 1)->where($where)->orderBy($field,$order)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
-        $filteredDataArrayCopy = Offer::where('offer_status', 1)->where($where)->orderBy($field,$order)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
+        $filteredDataArray = Offer::where('offer_status', 1)->where($where)->orderBy($field, $order)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
+        $filteredDataArrayCopy = Offer::where('offer_status', 1)->where($where)->orderBy($field, $order)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
 
 
 //        print_r($filteredDataArrayCopy);exit;
 
 
-
         foreach ($filteredDataArray as $key => $value) {
 
-            $track_cate = OfferTracksCate::whereIn('id',explode(',',$value['track_cate_id']))->select('id','track_cate')->get()->toArray();
-            foreach ($track_cate as $k=>$v){
-                $finalArray[$k] = OfferTracks::where('track_type_id',$v['id'])->get()->toArray();// $finalArray[$v['track_cate'].'_'.$k]
+            $track_cate = OfferTracksCate::whereIn('id', explode(',', $value['track_cate_id']))->select('id', 'track_cate')->get()->toArray();
+            foreach ($track_cate as $k => $v) {
+                $finalArray[$k] = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();// $finalArray[$v['track_cate'].'_'.$k]
             }
 
             $filteredDataArray[$key]['track_list'] = $finalArray;
@@ -296,9 +349,9 @@ class OfferController extends AdminController
 
         foreach ($filteredDataArrayCopy as $key => $value) {
 
-            $track_cate = OfferTracksCate::whereIn('id',explode(',',$value['track_cate_id']))->select('id','track_cate')->get()->toArray();
-            foreach ($track_cate as $k=>$v){
-                $finalArray[$k] = OfferTracks::where('track_type_id',$v['id'])->get()->toArray();// $finalArray[$v['track_cate'].'_'.$k]
+            $track_cate = OfferTracksCate::whereIn('id', explode(',', $value['track_cate_id']))->select('id', 'track_cate')->get()->toArray();
+            foreach ($track_cate as $k => $v) {
+                $finalArray[$k] = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();// $finalArray[$v['track_cate'].'_'.$k]
             }
 
             $filteredDataArrayCopy[$key]['track_list'] = $finalArray;
@@ -311,16 +364,12 @@ class OfferController extends AdminController
 
 
         $result = [
-            'left_data'=>$filteredDataArray,
-            'right_data'=>$filteredDataArrayCopy,
+            'left_data' => $filteredDataArray,
+            'right_data' => $filteredDataArrayCopy,
         ];
 
         return response()->json($result);
     }
-
-
-
-
 
 
     protected function htmlSpliceCopy($offer)
@@ -334,11 +383,11 @@ class OfferController extends AdminController
 
             //追踪链接的tab
             $track_tab = '';
-            foreach ($item['track_list'] as $key2=>$item2) {
-                if($key2 ==0){
-                    $track_tab .=  '<li class="active"><a href="?id=offer#advertorialpages12-1'.$key2.$key.'" role="tab" data-toggle="tab">Advertorial Pages'.$key2.$key.'</a></li>';
-                }else{
-                    $track_tab .=  '<li><a href="?id=offer#advertorialpages12-1'.$key2.$key.'" role="tab" data-toggle="tab">Advertorial Pages'.$key2.$key.'</a></li>';
+            foreach ($item['track_list'] as $key2 => $item2) {
+                if ($key2 == 0) {
+                    $track_tab .= '<li class="active"><a href="?id=offer#advertorialpages12-1' . $key2 . $key . '" role="tab" data-toggle="tab">Advertorial Pages' . $key2 . $key . '</a></li>';
+                } else {
+                    $track_tab .= '<li><a href="?id=offer#advertorialpages12-1' . $key2 . $key . '" role="tab" data-toggle="tab">Advertorial Pages' . $key2 . $key . '</a></li>';
                 }
             }
 
@@ -347,22 +396,22 @@ class OfferController extends AdminController
             $track1 = '';
             $track = '';
             foreach ($item['track_list'] as $k => $i) {
-                if($k==0){
-                    $track1 = '<div class="tab-pane active" id="advertorialpages12-1'. $k.$key.'">';
-                }else{
-                    $track1 = '<div class="tab-pane" id="advertorialpages12-1'. $k.$key.'">';
+                if ($k == 0) {
+                    $track1 = '<div class="tab-pane active" id="advertorialpages12-1' . $k . $key . '">';
+                } else {
+                    $track1 = '<div class="tab-pane" id="advertorialpages12-1' . $k . $key . '">';
                 }
                 $row = '<div class="row">';
                 $data1 = '';
-                foreach ($i as $key4=>$item4){
-                    $data1 .=   '<div class="col-md-12"><div class="padding-for_links"><div>'.$item4['track_name'].'</div><input readonly="" type="text" class="form-control trecking_link clipboard-1-0-0 dynamicDomainTrackingLink" value="'.$item4['track_link'].'"><a href="'.$item4['track_link'].'"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0">Copy</button></div></div>';
+                foreach ($i as $key4 => $item4) {
+                    $data1 .= '<div class="col-md-12"><div class="padding-for_links"><div>' . $item4['track_name'] . '</div><input readonly="" type="text" class="form-control trecking_link clipboard-1-0-0 dynamicDomainTrackingLink" value="' . $item4['track_link'] . '"><a href="' . $item4['track_link'] . '"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0">Copy</button></div></div>';
 
 //                    $data1 .=$data1;
                 }
 
 
                 $data_div = ' </div></div>';
-                $track .= $track1.$row.$data1.$data_div;
+                $track .= $track1 . $row . $data1 . $data_div;
             }
 
             $third = '</div></div><div class="clearfix"></div></div></div></div></div></div><div class="tab-pane" id="tab0Creative_' . $key . '"><div class="row"><div class="col-md-12">';
@@ -374,12 +423,10 @@ class OfferController extends AdminController
             }
 
             $sixth = ' </div></div></div></div></div></div>';
-            $result .= $first.$track_tab.$tab_content.$track.$third.$forth.$sixth;
-
+            $result .= $first . $track_tab . $tab_content . $track . $third . $forth . $sixth;
 
 
         }
-
 
 
 //        print_r($result);
@@ -389,9 +436,6 @@ class OfferController extends AdminController
         return $result;
 
     }
-
-
-
 
 
     protected function htmlSpliceCopy1($offer)
@@ -405,11 +449,11 @@ class OfferController extends AdminController
 
             //追踪链接的tab
             $track_tab = '';
-            foreach ($item['track_list'] as $key2=>$item2) {
-                if($key2 ==0){
-                    $track_tab .=  '<li class="active"><a href="?id=offer#advertorialpages128-1'.$key2.$key.'" role="tab" data-toggle="tab">Advertorial Pages'.$key2.$key.'</a></li>';
-                }else{
-                    $track_tab .=  '<li><a href="?id=offer#advertorialpages128-1'.$key2.$key.'" role="tab" data-toggle="tab">Advertorial Pages'.$key2.$key.'</a></li>';
+            foreach ($item['track_list'] as $key2 => $item2) {
+                if ($key2 == 0) {
+                    $track_tab .= '<li class="active"><a href="?id=offer#advertorialpages128-1' . $key2 . $key . '" role="tab" data-toggle="tab">Advertorial Pages' . $key2 . $key . '</a></li>';
+                } else {
+                    $track_tab .= '<li><a href="?id=offer#advertorialpages128-1' . $key2 . $key . '" role="tab" data-toggle="tab">Advertorial Pages' . $key2 . $key . '</a></li>';
                 }
             }
 
@@ -418,22 +462,22 @@ class OfferController extends AdminController
             $track1 = '';
             $track = '';
             foreach ($item['track_list'] as $k => $i) {
-                if($k==0){
-                    $track1 = '<div class="tab-pane active" id="advertorialpages128-1'. $k.$key.'">';
-                }else{
-                    $track1 = '<div class="tab-pane" id="advertorialpages128-1'. $k.$key.'">';
+                if ($k == 0) {
+                    $track1 = '<div class="tab-pane active" id="advertorialpages128-1' . $k . $key . '">';
+                } else {
+                    $track1 = '<div class="tab-pane" id="advertorialpages128-1' . $k . $key . '">';
                 }
                 $row = '<div class="row">';
                 $data1 = '';
-                foreach ($i as $key4=>$item4){
-                    $data1 .=   '<div class="col-md-12"><div class="padding-for_links"><div>'.$item4['track_name'].'</div><input readonly="" type="text" class="form-control trecking_link clipboard-1-0-0 dynamicDomainTrackingLink" value="'.$item4['track_link'].'"><a href="'.$item4['track_link'].'"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0">Copy</button></div></div>';
+                foreach ($i as $key4 => $item4) {
+                    $data1 .= '<div class="col-md-12"><div class="padding-for_links"><div>' . $item4['track_name'] . '</div><input readonly="" type="text" class="form-control trecking_link clipboard-1-0-0 dynamicDomainTrackingLink" value="' . $item4['track_link'] . '"><a href="' . $item4['track_link'] . '"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0">Copy</button></div></div>';
 
 //                    $data1 .=$data1;
                 }
 
 
                 $data_div = ' </div></div>';
-                $track .= $track1.$row.$data1.$data_div;
+                $track .= $track1 . $row . $data1 . $data_div;
             }
 
             $third = '</div></div><div class="clearfix"></div></div></div></div></div></div><div class="tab-pane" id="tab0Creative_8' . $key . '"><div class="row"><div class="col-md-12">';
@@ -445,12 +489,10 @@ class OfferController extends AdminController
             }
 
             $sixth = ' </div></div></div></div></div></div>';
-            $result .= $first.$track_tab.$tab_content.$track.$third.$forth.$sixth;
-
+            $result .= $first . $track_tab . $tab_content . $track . $third . $forth . $sixth;
 
 
         }
-
 
 
 //        print_r($result);
@@ -460,6 +502,7 @@ class OfferController extends AdminController
         return $result;
 
     }
+
     /**
      * 内容拼接
      * @param Request $request
@@ -490,9 +533,8 @@ class OfferController extends AdminController
             }
 
             $sixth = ' </div></div></div></div></div>';
-            $result .= $first.$track.$third.$forth.$sixth;
+            $result .= $first . $track . $third . $forth . $sixth;
         }
-
 
 
         print_r($result);
@@ -520,27 +562,17 @@ class OfferController extends AdminController
             $arr[$_item] = $_item1;
         }
 
-        $form->multipleSelect('cate_id')->options($arr);
+        $form->multipleSelect('cate_id', __('Offer Category'))->options($arr)->required();
+        $form->multipleSelect('accepted_area', __('Accepted Area'))->options(Geos::all()->pluck('country', 'id'))->required();
+        $form->multipleSelect('creatives_id', __('Creatives'))->options(Creatives::all()->pluck('name', 'id'))->required();
 
-
-        //multiple
-        $form->text('offer_name', __('Offer name'));
-        $form->textarea('des', __('Des'));
-        $form->url('offer_link', __('Offer link'));
+        $form->text('offer_name', __('Offer name'))->required();
+        $form->textarea('des', __('Offer Des'));
         $form->textarea('track_des', __('Track Des'));
-        $form->text('accepted_area', __('Accepted Area'));
-        $form->image('image', __('Offer Image'))->downloadable();
 
-
-        $form->decimal('offer_price', __('Offer price'));
+        $form->image('image', __('Offer Image'))->downloadable()->required();
+        $form->currency('offer_price', __('Payout'))->required();
         $form->switch('offer_status', __('Offer status'))->default(1);
-        $form->datetime('create_at', __('Create at'))->default(date('Y-m-d H:i:s'));
-        $form->datetime('update_at', __('Update at'))->default(date('Y-m-d H:i:s'));
-
-//        $form->saving(function (Form $form) {
-//            $form->cate_id = 1;
-//        });
-
 
         return $form;
     }

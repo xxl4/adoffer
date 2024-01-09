@@ -551,11 +551,8 @@
                                                         <div class="row">
                                                             <div class="col-md-12"><p></p>
 
-
                                                                 @foreach ($item1['creatives'] as $k1=>$i1)
-
                                                                     <p>{{$i1['name']}}</p>
-
                                                                     <p>
                                                                         <a href="{{$i1['link']}}"
                                                                            target="_blank">{{$i1['link']}}</a>
@@ -825,10 +822,8 @@
 
     $('#searchBtn').click(function (e) {
 
-
         e.preventDefault();
         var formData = $('#form_id').serialize();
-
         var keyword = $('#keyword').val();
         var _token = $('#_token').val();
         var category = $('#category').val();
