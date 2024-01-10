@@ -43,18 +43,7 @@
     window.selectedRole = '';
 </script>
 
-{{--    <?php--}}
 
-{{--    print_r("<pre/>");--}}
-{{--    print_r($data);exit;--}}
-{{--    ?>--}}
-
-
-{{--@php--}}
-
-{{--print_r(env('APP_URL').':81//upload/');exit;--}}
-
-{{-- @endphp--}}
 
 
 <div class="pace  pace-inactive">
@@ -226,8 +215,7 @@
                                                 <div class="row">
                                                     <div class="col-md-12"><p></p>
                                                         <p>
-                                                            <strong>E-commerce - CozyTime Pro INTL - All Languages -
-                                                                EXCLUSIVE</strong></p>
+                                                            <strong></strong></p>
                                                         <p>{{$item['des']}}</p>
                                                         <p></p></div>
                                                 </div>
@@ -278,14 +266,31 @@
                                                                                             <div class="row">
                                                                                                 @foreach ($item3 as $key4=>$item4)
                                                                                                     <div class="col-md-12">
+{{--                                                                                                        <div class="padding-for_links">--}}
+{{--                                                                                                            <div>{{$item4['track_name']}}</div>--}}
+{{--                                                                                                            <input  style="width: calc(100% - 100px)"  readonly="" type="text" class="clipboard-1-0-0-1-2{{$key3.'-'.$key4}}" value="{{$item4['track_link']}}">--}}
+{{--                                                                                                            <a href=""  target="_blank" class=" dynamicDomainTrackingLink">--}}
+{{--                                                                                                                <i class="icon ion-eye pull-right"></i>--}}
+{{--                                                                                                            </a>--}}
+{{--                                                                                                            <a class="copp pull-right btn btn-success btn-cons copy-button1" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-2{{$key3.$key4}}">Copy</a>--}}
+{{--                                                                                                        </div>--}}
+
+
+
                                                                                                         <div class="padding-for_links">
                                                                                                             <div>{{$item4['track_name']}}</div>
-                                                                                                            <input readonly="" type="text" class="form-control trecking_link clipboard-1-0-0 dynamicDomainTrackingLink" value="{{$item4['track_link']}}">
-                                                                                                            <a href="{{$item4['track_link']}}">
+                                                                                                            <input readonly="" style="width: calc(100% - 100px)" type="text" class="clipboard-1-0-0-1{{$key2.'-'.$key3.'-'.$key4}}" value="{{$item4['track_link']}}">
+                                                                                                            <a href="" target="_blank" class=" dynamicDomainTrackingLink">
                                                                                                                 <i class="icon ion-eye pull-right"></i>
                                                                                                             </a>
-                                                                                                            <button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0">Copy</button>
+                                                                                                            <a class="copp pull-right btn btn-success btn-cons copy-button" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-1{{$key2.'-'.$key3.'-'.$key4}}">Copy</a>
                                                                                                         </div>
+
+
+
+
+
+
                                                                                                     </div>
                                                                                                 @endforeach
                                                                                             </div>
@@ -405,8 +410,7 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <p></p>
-                                                            <p><strong>E-commerce - SkinBliss INTL - All Languages -
-                                                                    EXCLUSIVE</strong></p>
+                                                            <p><strong></strong></p>
                                                             <p>{{$item1['des']}}</p>
                                                             <p></p></div>
                                                     </div>
@@ -525,11 +529,11 @@
                                                                                                         <div class="col-md-12">
                                                                                                             <div class="padding-for_links">
                                                                                                                 <div>{{$item4['track_name']}}</div>
-                                                                                                                <input readonly="" type="text" class="clipboard-1-0-0-1" value="{{$item4['track_link']}}">
+                                                                                                                <input readonly="" style="width: calc(100% - 100px)" type="text" class="clipboard-1-0-0-4{{$key1.'-'.$key2.'-'.$key3.'-4'.$key4}}" value="{{$item4['track_link']}}">
                                                                                                                 <a href="" target="_blank" class=" dynamicDomainTrackingLink">
                                                                                                                     <i class="icon ion-eye pull-right"></i>
                                                                                                                 </a>
-                                                                                                                <button class="copp pull-right btn btn-success btn-cons copy-button" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-1">Copy</button>
+                                                                                                                <a class="copp pull-right btn btn-success btn-cons copy-button2" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-4{{$key1.'-'.$key2.'-'.$key3.'-4'.$key4}}">Copy</a>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     @endforeach
@@ -825,14 +829,18 @@
 </form>
 <script>
 
+    $(function () {
+        $('.selectpicker').selectpicker();
+    });
 
     $(document).ready(function() {
         // 初始化 Clipboard.js
+
         var clipboard = new ClipboardJS('.copy-button');
 
         // 处理复制成功事件
         clipboard.on('success', function(e) {
-            alert('Copied!');
+            alert('复制成功!');
             e.clearSelection(); // 清除选定文本
         });
 
@@ -840,7 +848,32 @@
         clipboard.on('error', function(e) {
             alert('Copy failed. Please try again.');
         });
+
+
+
     });
+
+
+    $(document).ready(function() {
+        // 初始化 Clipboard.js
+
+        var clipboard = new ClipboardJS('.copy-button2');
+
+        // 处理复制成功事件
+        clipboard.on('success', function(e) {
+            alert('复制成功1!');
+            e.clearSelection(); // 清除选定文本
+        });
+
+        // 处理复制失败事件
+        clipboard.on('error', function(e) {
+            alert('Copy failed. Please try again.');
+        });
+
+
+
+    });
+
 
 
 
