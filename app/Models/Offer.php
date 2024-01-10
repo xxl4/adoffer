@@ -30,8 +30,55 @@ class Offer extends Model
     {
         return $this->hasMany(Category::class);
     }
-    public function tags()
+//    public function tags()
+//    {
+//        return $this->belongsToMany(Geos::class);
+//    }
+
+    public function getCateIdAttribute($value)
     {
-        return $this->belongsToMany(Geos::class);
+        return explode(',', $value);
     }
+
+    public function setCateIdAttribute($value)
+    {
+        $this->attributes['cate_id'] = implode(',', $value);
+    }
+
+
+    public function getAcceptedAreaAttribute($value)
+    {
+        return explode(',', $value);
+    }
+
+    public function setAcceptedAreaAttribute($value)
+    {
+        $this->attributes['Accepted_Area'] = implode(',', $value);
+    }
+
+
+    public function getCreativesIdAttribute($value)
+    {
+        return explode(',', $value);
+    }
+
+    public function setCreativesIdAttribute($value)
+    {
+        $this->attributes['creatives_id'] = implode(',', $value);
+    }
+
+
+
+    public function getTrackCateIdAttribute($value)
+    {
+        return explode(',', $value);
+    }
+
+    public function setTrackCateIdAttribute($value)
+    {
+        $this->attributes['track_cate_id'] = implode(',', $value);
+    }
+
+
+
 }

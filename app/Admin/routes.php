@@ -24,6 +24,7 @@ Route::group([
 
 
     $router->post('offer/query', 'OfferController@query')->name('admin.query');
-
-
+    $router->resource('offer_track', 'OfferTrackController')->names('admin.OfferTrack');
+    $router->resource('offer_track_cate', 'OfferTrackCatesController')->names('admin.OfferTrackCates');
+    $router->resource('creatives', 'CreativesController')->names('admin.Creatives');
 });

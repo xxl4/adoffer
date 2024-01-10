@@ -55,16 +55,14 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
-
+        // 添加的代码
         'admin' => [
-            'driver' => 'local',
-            'root' => storage_path('app/admin'), // 可根据需求修改存储路径
-//            'root' => public_path('upload'),
+            'driver'     => 'local',
+            'root'       => public_path('upload'),
             'visibility' => 'public',
-            'url'=>env('APP_URL').'/public/upload/',
-
-
+            'url' => env('APP_URL').':81/upload/',
         ],
+
 
     ],
 

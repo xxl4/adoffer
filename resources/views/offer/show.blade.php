@@ -18,6 +18,7 @@
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
 <!-- END PLUGIN CSS -->
 <!-- BEGIN CORE CSS FRAMEWORK -->
 <link href="/vendor/laravel-admin/test/icon" rel="stylesheet">
@@ -49,6 +50,13 @@
 {{--    ?>--}}
 
 
+{{--@php--}}
+
+{{--print_r(env('APP_URL').':81//upload/');exit;--}}
+
+{{-- @endphp--}}
+
+
 <div class="pace  pace-inactive">
     <div class="pace-progress" data-progress-text="100%" data-progress="99"
          style="transform: translate3d(100%, 0px, 0px);">
@@ -78,7 +86,7 @@
                         data-max-options="3" data-live-search="true" data-none-selected-text="Select Offers Categories"
                         data-size="10">
                     @foreach ($data['category_list'] as $key=>$item)
-                        <option value="{{$item['category_name']}}"
+                        <option value="{{$item['id']}}"
                                 data-content="<span class='label label-success'>{{$item['category_name']}}</span>">{{$item['category_name']}}</option>
                     @endforeach
                 </select>
@@ -90,7 +98,7 @@
                         data-max-options="3"
                         data-live-search="true" data-none-selected-text="Select Offers Geos" data-size="10">
                     @foreach ($data['geos_list'] as $key=>$item)
-                        <option value="{{$item['country']}}"
+                        <option value="{{$item['id']}}"
                                 data-content="<span class='label label-success'>{{$item['country']}}</span>">{{$item['country']}}</option>
                     @endforeach
 
@@ -184,8 +192,7 @@
                                                              @else'' @endif" target="_blank">
                                                                         <span class="offer-product-img-container"
                                                                               data-original-title="" title="">
-                                                                            <img src="{{$item['image']}}"
-                                                                                 alt="CozyTime Pro">
+                                                                            <img src="{{env('APP_URL').':81//upload/'.$item['image']}}">
                                                                         </span>Offer Preview
                                                                         <i class="icon ion-eye"></i>
                                                                     </a>
@@ -364,8 +371,7 @@
                                                              @else'' @endif" target="_blank">
                                                                         <span class="offer-product-img-container"
                                                                               data-original-title="" title="">
-                                                                            <img src="{{$item1['image']}}"
-                                                                                 alt="Skincare">
+                                                                            <img src="{{env('APP_URL').':81//upload/'.$item1['image']}}">
                                                                         </span>Offer Preview
                                                                             <i class="icon ion-eye"></i>
                                                                         </a>
@@ -519,11 +525,11 @@
                                                                                                         <div class="col-md-12">
                                                                                                             <div class="padding-for_links">
                                                                                                                 <div>{{$item4['track_name']}}</div>
-                                                                                                                <input readonly="" type="text" class="form-control trecking_link clipboard-1-0-0 dynamicDomainTrackingLink" value="{{$item4['track_link']}}">
-                                                                                                                <a href="{{$item4['track_name']}}" target="_blank" class=" dynamicDomainTrackingLink">
+                                                                                                                <input readonly="" type="text" class="clipboard-1-0-0-1" value="{{$item4['track_link']}}">
+                                                                                                                <a href="" target="_blank" class=" dynamicDomainTrackingLink">
                                                                                                                     <i class="icon ion-eye pull-right"></i>
                                                                                                                 </a>
-                                                                                                                <button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0">Copy</button>
+                                                                                                                <button class="copp pull-right btn btn-success btn-cons copy-button" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-1">Copy</button>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     @endforeach
@@ -818,6 +824,24 @@
 
 </form>
 <script>
+
+
+    $(document).ready(function() {
+        // 初始化 Clipboard.js
+        var clipboard = new ClipboardJS('.copy-button');
+
+        // 处理复制成功事件
+        clipboard.on('success', function(e) {
+            alert('Copied!');
+            e.clearSelection(); // 清除选定文本
+        });
+
+        // 处理复制失败事件
+        clipboard.on('error', function(e) {
+            alert('Copy failed. Please try again.');
+        });
+    });
+
 
 
     $('#searchBtn').click(function (e) {
