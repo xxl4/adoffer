@@ -336,6 +336,10 @@
                                 <div class="categories_offer_right ">
 
 
+                                                                                                                @php
+                                                                                                                $index = 0;
+                                                                                                                $index1 = 0;
+                                                                                                                 @endphp
 
 
 
@@ -504,14 +508,19 @@
                                                                     <!-- filter tabs -->
                                                                     <div class="tabbable tabs-left tabs-bg">
                                                                         <ul class="nav nav-tabs" role="tablist">
-
                                                                             @foreach ($item1['track_list'] as $key2=>$item2)
 
-                                                                                @if($key2==0)
-                                                                                    <li class="active"><a href="?id=offer#advertorialpages1-1<?php echo $key2.$key1?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$key1?></a></li>
+                                                                                @if($index==0)
+                                                                                    <li class="active"><a href="?id=offer#advertorialpages1-1<?php echo $key2.$index?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$index?></a></li>
                                                                                 @else
-                                                                                    <li><a href="?id=offer#advertorialpages1-1<?php echo $key2.$key1?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$key1?></a></li>
+                                                                                    <li><a href="?id=offer#advertorialpages1-1<?php echo $key2.$index?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$index?></a></li>
                                                                                 @endif
+
+
+                                                                                    @php
+                                                                                        $index ++;
+                                                                                    @endphp
+
                                                                                 {{--                                                                            <li><a href="?id=offer#homepages-1<?php echo $key2?>" role="tab" data-toggle="tab">Home Pages<?php echo $key2?></a></li>--}}
                                                                             @endforeach
                                                                         </ul>
@@ -519,11 +528,17 @@
 
                                                                             @foreach ($item1['track_list'] as $key3=>$item3)
 
-                                                                                @if($key3==0)
-                                                                                    <div class="tab-pane active" id="advertorialpages1-1<?php echo $key3.$key1?>">
+                                                                                @if($index1==0)
+                                                                                    <div class="tab-pane active" id="advertorialpages1-1<?php echo $key3.$index1?>">
                                                                                         @else
-                                                                                            <div class="tab-pane" id="advertorialpages1-1<?php echo $key3.$key1?>">
+                                                                                            <div class="tab-pane" id="advertorialpages1-1<?php echo $key3.$index1?>">
                                                                                                 @endif
+
+
+                                                                                                @php
+                                                                                                    $index1 ++;
+                                                                                                @endphp
+
                                                                                                 <div class="row">
                                                                                                     @foreach ($item3 as $key4=>$item4)
                                                                                                         <div class="col-md-12">

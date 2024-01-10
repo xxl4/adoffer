@@ -146,18 +146,18 @@ class OfferController extends AdminController
 
 
 //            print_r("<pre/>");
-//            print_r($track_cate);
+//            print_r($track_cate);exit;
 
 //            $fieldToSwap = 'track_cate';
 //            //// 使用 array_map 函数进行互换
-//            $swappedArray = array_map(function ($key, $item) use ($fieldToSwap) {
-//                return [$item[$fieldToSwap] => array_merge(['key' => $key], $item)];
+//            $swappedArray = array_map(function ($key1, $item) use ($fieldToSwap) {
+//                return [$item[$fieldToSwap] => array_merge(['key' => $key1], $item)];
 //            }, array_keys($track_cate), $track_cate);
 //            // 将结果数组进行合并
 //            $finalArray = array_merge(...$swappedArray);
 
 //            print_r("<pre/>");
-//            print_r($track_cate);exit;
+//            print_r($finalArray);exit;
 
 
             foreach ($track_cate as $k => $v) {
@@ -193,11 +193,14 @@ class OfferController extends AdminController
 
 //            $fieldToSwap = 'track_cate';
 //            //// 使用 array_map 函数进行互换
-//            $swappedArray = array_map(function ($key, $item) use ($fieldToSwap) {
-//                return [$item[$fieldToSwap] => array_merge(['key' => $key], $item)];
+//            $swappedArray = array_map(function ($key1, $item) use ($fieldToSwap) {
+//                return [$item[$fieldToSwap] => array_merge(['key' => $key1], $item)];
 //            }, array_keys($track_cate), $track_cate);
 //            // 将结果数组进行合并
-//            $finalArray = array_merge(...$swappedArray);
+//            $finalArrayCopy = array_merge(...$swappedArray);
+
+//            print_r("<pre/>");
+//            print_r($track_cate);exit;
 
 
             foreach ($track_cate as $k => $v) {
