@@ -60,7 +60,7 @@ return [
             'driver'     => 'local',
             'root'       => public_path('upload'),
             'visibility' => 'public',
-            'url' => env('APP_URL').':81/upload/',
+            'url' => env('APP_URL').':8009/upload/',
         ],
 
 
