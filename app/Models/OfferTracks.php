@@ -7,4 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class OfferTracks extends Model
 {
-    use HasFactory;   }
+    use HasFactory;
+
+
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+
+        return $date->format('Y-m-d H:i:s');
+
+    }
+
+}
