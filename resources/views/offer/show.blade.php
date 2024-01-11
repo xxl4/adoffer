@@ -181,7 +181,7 @@
                                                              @else'' @endif" target="_blank">
                                                                         <span class="offer-product-img-container"
                                                                               data-original-title="" title="">
-                                                                            <img src="{{env('APP_URL').':81//upload/'.$item['image']}}">
+                                                                            <img src="{{env('APP_URL').'/upload/'.$item['image']}}">
                                                                         </span>Offer Preview
                                                                         <i class="icon ion-eye"></i>
                                                                     </a>
@@ -380,7 +380,7 @@
                                                              @else'' @endif" target="_blank">
                                                                         <span class="offer-product-img-container"
                                                                               data-original-title="" title="">
-                                                                            <img src="{{env('APP_URL').':81//upload/'.$item1['image']}}">
+                                                                            <img src="{{env('APP_URL').'/upload/'.$item1['image']}}">
                                                                         </span>Offer Preview
                                                                             <i class="icon ion-eye"></i>
                                                                         </a>
