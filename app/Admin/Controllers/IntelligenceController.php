@@ -23,14 +23,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class OfferController extends AdminController
+class IntelligenceController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'Offer';
+    protected $title = 'Intelligence';
 
     /**
      * Make a grid builder.
@@ -76,6 +76,22 @@ class OfferController extends AdminController
         $grid->paginate(10);
         return $grid;
     }
+
+
+
+    public function echat(Content $content)
+    {
+
+//        return view('intelligence.echat');
+
+        $data = [];
+        return $content->title('详情')
+            ->description('简介')
+            ->view('intelligence.echat', compact('data'));
+
+
+    }
+
 
 
     /**
