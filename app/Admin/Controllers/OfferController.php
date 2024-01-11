@@ -65,8 +65,13 @@ class OfferController extends AdminController
             return implode(', ', $categories);
         })->label();
         $grid->batchActions(function ($batch) {
-            $batch->disableDelete();
+//            $batch->disableDelete();
         });
+
+        $grid->actions(function ($actions) {
+            $actions->disableView();
+        });
+
 
         $grid->paginate(10);
         return $grid;
