@@ -242,7 +242,7 @@ class OfferController extends AdminController
 
     public function query(Request $request)
     {
-       // print_r($request->input());exit;
+
 
         // 处理表单提交逻辑
         $keyword = $request->input('keyword');
@@ -251,20 +251,22 @@ class OfferController extends AdminController
         $sort = $request->input('sort');
         $where = [];
 
-//        var_dump(!empty($keyword));exit;
+      if(!empty($category)){
+          $category = implode(',', $category);
+      }else{
+          $category = '';
+      }
+
+        if(!empty($geos)){
+            $geos = implode(',', $geos);
+        }else{
+            $geos = '';
+        }
+
+
         $where[] = ['offer_status','=', 1];
         if (!empty($keyword)) {
             $where[] = ['offer_name', 'like', "%$keyword%"];
-        }
-
-        if (!empty($category)) {
-            $category = implode(',', $category);
-            $where[] = ['offer_cate', 'like', "%$category%"];
-        }
-
-        if (!empty($geos)) {
-            $geos = implode(',', $geos);
-            $where[] = ['accepted_area', 'like', "%$geos%"];
         }
 
         switch ($sort) {
@@ -300,15 +302,48 @@ class OfferController extends AdminController
 
 
 
+        $filteredDataArray = Offer::where(function ($query) use ($geos) {
+            $values = explode(',', $geos);
+            foreach ($values as $value) {
+                $query->orWhere('accepted_area', 'like', "%$value%");
+            }
+        })
+        ->Orwhere(function ($query) use ($category) {
+                $values2 = explode(',', $category);
+                foreach ($values2 as $value2) {
+                    $query->orWhere('cate_id', 'like', "%$value2%");
+                }
+            })->whereRaw('MOD(id, 2) = 1')->where($where)
+            ->orderBy($field, $order)->get()->toArray();//奇数
 
 
-        $filteredDataArray = Offer::where($where)->orderBy($field, $order)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
-        $filteredDataArrayCopy = Offer::where($where)->orderBy($field, $order)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
 
+        $filteredDataArrayCopy = Offer::where(function ($query) use ($geos) {
+            $values = explode(',', $geos);
+            foreach ($values as $value) {
+                $query->orWhere('accepted_area', 'like', "%$value%");
+            }
+        })
+            ->Orwhere(function ($query) use ($category) {
+                $values2 = explode(',', $category);
+                foreach ($values2 as $value2) {
+                    $query->orWhere('cate_id', 'like', "%$value2%");
+                }
+            })->whereRaw('MOD(id, 2) = 0')->where($where)
+            ->orderBy($field, $order)->get()->toArray();//奇数
+
+
+
+
+//
+//        $filteredDataArray = Offer::where($where)->orderBy($field, $order)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
+//        $filteredDataArrayCopy = Offer::where($where)->orderBy($field, $order)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
+//
+//
+//
+//        $filteredDataArray = Offer::where($where)->orderBy($field, $order)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
 
 //        print_r($filteredDataArrayCopy);exit;
-
-
 //        var_dump(!empty($filteredDataArray));exit;
 
         if(!empty($filteredDataArray)) {
@@ -321,11 +356,6 @@ class OfferController extends AdminController
                     $accepted_area_data .= $v['country'] . ',';
                 }
                 $filteredDataArray[$key]['accepted_area'] = trim($accepted_area_data, ',');
-
-//
-//                print_r($filteredDataArray);
-//                exit;
-
 
                 $track_cate = OfferTracksCates::whereIn('id', $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
                 foreach ($track_cate as $k => $v) {
@@ -375,17 +405,11 @@ class OfferController extends AdminController
         }
 
 
-
-
-
         $result = [
             'left_data' => $filteredDataArray,
             'right_data' => $filteredDataArrayCopy,
         ];
 
-
-
-//        print_r($result);exit;
 
 
 
@@ -399,7 +423,14 @@ class OfferController extends AdminController
         $result = '';
         foreach ($offer as $key => $item) {
 
-            $first = '<div class="col-md-12 accord" data-offer_db="CozyTime Pro" data-marker-id="' . $item['id'] . '"><ul class="nav nav-tabs" role="tablist"><li class="active"><a href="#tab0Offer_' . $key . '" role="tab" data-toggle="tab">Summary</a></li><li><a href="#tab0Description_' . $key . '" role="tab" data-toggle="tab">Description</a></li><li><a href="#tab0Geos_' . $key . '" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="#tab0Tracking_' . $key . '" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="#tab0Creative_' . $key . '" role="tab" data-toggle="tab">Creatives</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="?id=offer#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab0Offer_' . $key . '"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="123" target="_blank">' . '<span class="offer-product-img-container" data-original-title="" title=""><img src="'.env('APP_URL').'/upload/' . $item['image'] . '"></span>Offer Preview<i class="icon ion-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">' . $item['offer_name'] . '</td><td width="25%">$' . $item['offer_price'] . ' Per Sale</td><td width="20%"><span class="label label-success">Live</span></td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab0Description_' . $key . '"><div class="row"><div class="col-md-12"><p></p><p><strong></strong></p><p>"' . $item['des'] . '"</p><p></p></div></div></div><div class="tab-pane" id="tab0Geos_' . $key . '"><div class="row"><div class="col-md-12"><p></p><p>' . $item['accepted_area'] . '</p></div></div></div><div class="tab-pane" id="tab0Tracking_' . $key . '"><div class="row"><div class="col-md-12"><p>' . $item['track_des'] . '</p></div><div class="col-md-12"><div class="row"><div class="col-md-12"><div class="tabbable tabs-left tabs-bg"><ul class="nav nav-tabs" role="tablist">';
+
+           if($item['offer_status']==1) $lable_status = '<span class="label label-success">Live</span>'; else $lable_status='<span class="label label-warning">Paused</span>';
+
+
+            if(!empty($item['track_list'][0][0]['track_link'])) $main_link = $item['track_list'][0][0]['track_link']; else $main_link = '';
+
+
+            $first = '<div class="col-md-12 accord" data-offer_db="CozyTime Pro" data-marker-id="' . $item['id'] . '"><ul class="nav nav-tabs" role="tablist"><li class="active"><a href="#tab0Offer_' . $key . '" role="tab" data-toggle="tab">Summary</a></li><li><a href="#tab0Description_' . $key . '" role="tab" data-toggle="tab">Description</a></li><li><a href="#tab0Geos_' . $key . '" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="#tab0Tracking_' . $key . '" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="#tab0Creative_' . $key . '" role="tab" data-toggle="tab">Creatives</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="?id=offer#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab0Offer_' . $key . '"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="'.$main_link.'" target="_blank">' . '<span class="offer-product-img-container" data-original-title="" title=""><img src="'.env('APP_URL').'/upload/' . $item['image'] . '"></span>Offer Preview<i class="icon ion-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">' . $item['offer_name'] . '</td><td width="25%">$' . $item['offer_price'] . ' Per Sale</td><td width="20%">'.$lable_status.'</td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab0Description_' . $key . '"><div class="row"><div class="col-md-12"><p></p><p><strong></strong></p><p>"' . $item['des'] . '"</p><p></p></div></div></div><div class="tab-pane" id="tab0Geos_' . $key . '"><div class="row"><div class="col-md-12"><p></p><p>' . $item['accepted_area'] . '</p></div></div></div><div class="tab-pane" id="tab0Tracking_' . $key . '"><div class="row"><div class="col-md-12"><p>' . $item['track_des'] . '</p></div><div class="col-md-12"><div class="row"><div class="col-md-12"><div class="tabbable tabs-left tabs-bg"><ul class="nav nav-tabs" role="tablist">';
 
 
             //追踪链接的tab
@@ -462,10 +493,22 @@ class OfferController extends AdminController
     protected function htmlSpliceCopy1($offer)
     {
 
+
+//        print_r($offer);exit;
+
         $result = '';
         foreach ($offer as $key => $item) {
 
-            $first = '<div class="col-md-12 accord" data-offer_db="CozyTime Pro" data-marker-id="' . $item['id'] . '"><ul class="nav nav-tabs" role="tablist"><li class="active"><a href="#tab0Offer_8' . $key . '" role="tab" data-toggle="tab">Summary</a></li><li><a href="#tab0Description_8' . $key . '" role="tab" data-toggle="tab">Description</a></li><li><a href="#tab0Geos_8' . $key . '" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="#tab0Tracking_8' . $key . '" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="#tab0Creative_8' . $key . '" role="tab" data-toggle="tab">Creatives</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="?id=offer#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab0Offer_8' . $key . '"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="123" target="_blank">' . '<span class="offer-product-img-container" data-original-title="" title=""><img src="'.env('APP_URL').'/upload/' . $item['image'] . '"></span>Offer Preview<i class="icon ion-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">' . $item['offer_name'] . '</td><td width="25%">$' . $item['offer_price'] . ' Per Sale</td><td width="20%"><span class="label label-success">Live</span></td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab0Description_8' . $key . '"><div class="row"><div class="col-md-12"><p></p><p><strong></strong></p><p>"' . $item['des'] . '"</p><p></p></div></div></div><div class="tab-pane" id="tab0Geos_8' . $key . '"><div class="row"><div class="col-md-12"><p></p><p>' . $item['accepted_area'] . '</p></div></div></div><div class="tab-pane" id="tab0Tracking_8' . $key . '"><div class="row"><div class="col-md-12"><p>' . $item['track_des'] . '</p></div><div class="col-md-12"><div class="row"><div class="col-md-12"><div class="tabbable tabs-left tabs-bg"><ul class="nav nav-tabs" role="tablist">';
+
+            if($item['offer_status']==1) $lable_status = '<span class="label label-success">Live</span>'; else $lable_status='<span class="label label-warning">Paused</span>';
+            if(!empty($item['track_list'][0][0]['track_link'])) $main_link = $item['track_list'][0][0]['track_link']; else $main_link = '';
+
+
+
+
+
+
+            $first = '<div class="col-md-12 accord" data-offer_db="CozyTime Pro" data-marker-id="' . $item['id'] . '"><ul class="nav nav-tabs" role="tablist"><li class="active"><a href="#tab0Offer_8' . $key . '" role="tab" data-toggle="tab">Summary</a></li><li><a href="#tab0Description_8' . $key . '" role="tab" data-toggle="tab">Description</a></li><li><a href="#tab0Geos_8' . $key . '" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="#tab0Tracking_8' . $key . '" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="#tab0Creative_8' . $key . '" role="tab" data-toggle="tab">Creatives</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="?id=offer#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab0Offer_8' . $key . '"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="'.$main_link.'" target="_blank">' . '<span class="offer-product-img-container" data-original-title="" title=""><img src="'.env('APP_URL').'/upload/' . $item['image'] . '"></span>Offer Preview<i class="icon ion-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">' . $item['offer_name'] . '</td><td width="25%">$' . $item['offer_price'] . ' Per Sale</td><td width="20%">'.$lable_status.'</td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab0Description_8' . $key . '"><div class="row"><div class="col-md-12"><p></p><p><strong></strong></p><p>"' . $item['des'] . '"</p><p></p></div></div></div><div class="tab-pane" id="tab0Geos_8' . $key . '"><div class="row"><div class="col-md-12"><p></p><p>' . $item['accepted_area'] . '</p></div></div></div><div class="tab-pane" id="tab0Tracking_8' . $key . '"><div class="row"><div class="col-md-12"><p>' . $item['track_des'] . '</p></div><div class="col-md-12"><div class="row"><div class="col-md-12"><div class="tabbable tabs-left tabs-bg"><ul class="nav nav-tabs" role="tablist">';
 
 
             //追踪链接的tab

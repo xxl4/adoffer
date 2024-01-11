@@ -177,7 +177,7 @@
                                                         <table class="table table-striped table-flip-scroll cf">
                                                             <thead class="cf">
                                                             <tr>
-                                                                <th><a href="@if(!empty($item['track_list'][0]['track_link'])){{$item['track_list'][0]['track_link']}}
+                                                                <th><a href="@if(!empty($item['track_list'][0][0]['track_link'])){{$item['track_list'][0][0]['track_link']}}
                                                              @else'' @endif" target="_blank">
                                                                         <span class="offer-product-img-container"
                                                                               data-original-title="" title="">
@@ -376,7 +376,7 @@
                                                                 <thead class="cf">
                                                                 <tr>
                                                                     <th>
-                                                                        <a href="@if(!empty($item1['track_list'][0]['track_link'])){{$item1['track_list'][0]['track_link']}}
+                                                                        <a href="@if(!empty($item1['track_list'][0][0]['track_link'])){{$item1['track_list'][0][0]['track_link']}}
                                                              @else'' @endif" target="_blank">
                                                                         <span class="offer-product-img-container"
                                                                               data-original-title="" title="">
