@@ -9,6 +9,7 @@
         "encore/laravel-admin": "1.*",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "3.2.3",
+        "laravel-admin-ext/chartjs": "^1.0",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7"

@@ -15,6 +15,21 @@ class OfferLog extends Model
         return $this->belongsTo(Offer::class);
     }
 
+    public function offerData()
+    {
+        return $this->belongsTo(Offer::class, 'offer_id', 'id');
+    }
+
+    public function geos()
+    {
+        return $this->belongsTo(Geos::class, 'country_id', 'id');
+    }
+
+
+    public function comments()
+    {
+        return $this->hasMany(Offer::class);
+    }
 
     public function country()
     {

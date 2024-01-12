@@ -2,18 +2,12 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Creatives;
-use App\Models\Offer;
 use App\Models\OfferLog;
-use App\Models\OfferTracks;
 use App\Models\OfferTracksCates;
-use App\Models\Product;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
-use Encore\Admin\Layout\Content;
-use Illuminate\Support\Facades\DB;
 
 class OfferLogController extends AdminController
 {
@@ -33,7 +27,7 @@ class OfferLogController extends AdminController
         $grid = new Grid(new OfferLog());
 
 //        $grid->column('id', __('Id'));
-        $grid->column('created_at', __('Create at'))->date('Y-m-d');
+        $grid->column('created_at', __('Create at'));
         $grid->column('offer.offer_name', __('OFFER'));
         $grid->column('country.country', __('COUNTRY'));
         $grid->column('ip', __('IP'))->ip();
@@ -44,6 +38,12 @@ class OfferLogController extends AdminController
         $grid->column('offer.offer_price', __('REVENUE'))->currency();
         $grid->disableActions();
         $grid->disableCreation();
+        $grid->disablePagination();//禁用分页
+        $grid->model()->orderBy('id','desc')->limit(20);
+        $grid->disableExport();
+        $grid->disableColumnSelector();
+        $grid->disableFilter();
+
         return $grid;
     }
 

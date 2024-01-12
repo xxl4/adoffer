@@ -7,7 +7,7 @@
 <link href="/vendor/laravel-admin/test/animate.min.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/test/jquery.scrollbar.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/test/datepicker.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="/vendor/laravel-admin/test/sweet-alert.css">
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/test/sweet-alert.css">--}}
 <link rel="stylesheet" href="/vendor/laravel-admin/test/rickshaw.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/test/mapplic.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/test/ionicons.css" type="text/css">
@@ -15,8 +15,7 @@
 <link href="/vendor/laravel-admin/test/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen">
 <link rel="icon" type="image/png" href="https://m4trix.network/Reporting-platform/images/favicon.png">
 <link href="/vendor/laravel-admin/test/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" media="screen">
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
 <!-- END PLUGIN CSS -->
@@ -820,26 +819,7 @@
             <div
                 style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
         </div>
-        <div>
-            <div class="sweet-overlay" tabindex="-1"></div>
-            <div class="sweet-alert" tabindex="-1">
-                <div class="icon error"><span class="x-mark"><span class="line left"></span><span class="line right"></span></span>
-                </div>
-                <div class="icon warning"><span class="body"></span> <span class="dot"></span></div>
-                <div class="icon info"></div>
-                <div class="icon success"><span class="line tip"></span> <span class="line long"></span>
-                    <div class="placeholder"></div>
-                    <div class="fix"></div>
-                </div>
-                <div class="icon custom"></div>
-                <h2>Title</h2>
-                <p class="lead text-muted">Text</p>
-                <p>
-                    <button class="cancel btn btn-lg" tabindex="2">Cancel</button>
-                    <button class="confirm btn btn-lg" tabindex="1">OK</button>
-                </p>
-            </div>
-        </div>
+
 
 </form>
 <script>

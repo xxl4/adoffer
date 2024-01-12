@@ -16,6 +16,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 use Encore\Admin\Layout\Content;
+use Encore\Admin\Widgets\Box;
 use Encore\Admin\Widgets\Table;
 use Encore\Admin\Actions\RowAction;
 use App\Admin\Actions\Post\Replicate;
@@ -31,6 +32,34 @@ class IntelligenceController extends AdminController
      * @var string
      */
     protected $title = 'Intelligence';
+
+
+    public function index(Content $content)
+    {
+//
+
+
+        return $content
+            ->header('Chartjs')
+            ->body(new Box('Bar chart', view('admin.intelligence.echart')));
+    }
+
+
+    public function echat($id, Content $content)
+    {
+echo 1234;exit;
+        $geos_list = Geos::get()->toArray();
+        $category_list = Ca::get()->toArray();
+        $category_list = Offer::get()->toArray();
+
+        print_r($category_list);exit;
+
+        return $content
+            ->header('Chartjs')
+            ->body(new Box('Bar chart', view('admin.intelligence.echart')));
+    }
+
+
 
     /**
      * Make a grid builder.
@@ -78,19 +107,6 @@ class IntelligenceController extends AdminController
     }
 
 
-
-    public function echat(Content $content)
-    {
-
-//        return view('intelligence.echat');
-
-        $data = [];
-        return $content->title('详情')
-            ->description('简介')
-            ->view('intelligence.echat', compact('data'));
-
-
-    }
 
 
 

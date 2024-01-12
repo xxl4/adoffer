@@ -26,5 +26,11 @@ Route::group([
     $router->resource('offer_track_cate', 'OfferTrackCatesController')->names('admin.OfferTrackCates');
     $router->resource('creatives', 'CreativesController')->names('admin.Creatives');
     $router->resource('offer_log', 'OfferLogController')->names('admin.OfferLog');
-    $router->get('intelligence/echat', "IntelligenceController@echat")->name('admin.intelligence.echat');
+
+
+
+    $router->get('intelligence/echat1', "IntelligenceController@echat1")->name('admin.intelligence');
+
+
+    $router->resource('offer_advanced', 'OfferAdvancedController')->names('admin.OfferAdvanced');
 });
