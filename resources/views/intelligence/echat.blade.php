@@ -1,6 +1,57 @@
-<div class="card" style="background-color: #fff;height: 300px" >
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"></script>
+
+
+
+<style>
+    table {
+        width: 50%;
+        border-collapse: collapse;
+        margin: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .progress-bar {
+        height: 20px;
+        background-color: #f1f1f1;
+        margin-top: 5px;
+    }
+
+    .progress-bar-fill {
+        height: 100%;
+        width: 50%; /* 初始进度为50% */
+        background-color: #4caf50; /* 进度条颜色 */
+    }
+</style>
+{{--<div class="form-group">--}}
+
+
+{{--    <div class="container mt-5">--}}
+{{--        <div class="col-sm-4" style="width: 20%!important;">--}}
+{{--            <select id="geos" name="usertype" class="selectpicker show-tick form-control" multiple data-max-options="3"--}}
+{{--                    data-live-search="true" data-none-selected-text="Select Offers Geos" data-size="10">--}}
+{{--                @foreach ($data['geos_list'] as $key=>$item)--}}
+{{--                    <option value="{{$item['id']}}"--}}
+{{--                            data-content="<span class='label label-success'>{{$item['country']}}</span>">{{$item['country']}}</option>--}}
+{{--                @endforeach--}}
+{{--            </select>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
+
+
+
+<div class="card">
     <div class="card-header">
-        <h4></h4>
+        <h4>1234556</h4>
     </div>
     <div class="card-body">
         <canvas id="visitors-chart"></canvas>
@@ -8,9 +59,237 @@
 </div>
 
 
-<script src="//cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<div class="card">
+
+    <div class="card-body">
+        <canvas id="myPieChart" width="200" height="200"></canvas>
+    </div>
+
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th class="text-center">OFFER</th>
+            <th class="text-center">PERCENTAGE</th>
+            <th class="text-center">DISTRIBUTION</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="text-center">项目 1</td>
+            <td class="text-center">30%</td>
+            <td>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0"
+                         aria-valuemax="100" style="width: 30%;background-color: #0090d9"></div>
+                </div>
+                <span class="percentage">30%</span>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="text-center">项目 2</td>
+            <td class="text-center">60%</td>
+            <td>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                         aria-valuemax="100" style="width: 60%;background-color: #0090d9"></div>
+                </div>
+                <span class="percentage">60%</span>
+            </td>
+        </tr>
+        <!-- 添加更多行，根据需要修改百分比和进度条宽度 -->
+        </tbody>
+    </table>
+</div>
+
+
+<div class="container">
+    {{--    <div class="card-header">--}}
+    {{--        <h2 style="float:left;">Monthly Top 3 Offers</h2>--}}
+    {{--        <h3 style="margin-left: 15px;">Monthly Progression Of The Top 3 Chart</h3>--}}
+    {{--        <h4>This section gives you a high level view on the top 3 offers evolution across the current year.</h4>--}}
+    {{--    </div>--}}
+    <div class="row">
+        <div class="col-md-6" style="width: 100%;">
+            <canvas id="myBarChart"></canvas>
+        </div>
+    </div>
+</div>
+
+
+
+{{--<div class="container">--}}
+
+{{--</div>--}}
+
 
 <script>
+
+    var frontendData = @json($data);
+
+
+
+
+
+    $(function () {
+        $.get('/admin/intelligence/echat', function (e) {
+
+            console.log('数据接收',frontendData.original.data.offer_sale);
+            // console.log('数据值',e)
+
+
+
+            var barChartData = {
+                labels: frontendData.original.data.offer_sale.offer,
+                datasets: [{
+                    label: '柱状图数据1',
+                    backgroundColor: '#3498db', // 柱状图颜色
+                    data: [80, 60, 90], // 每个柱状图的高度
+                    borderWidth: 1,
+                    barPercentage: 0.1
+                }, {
+                    label: '柱状图数据2',
+                    backgroundColor: '#3498db', // 柱状图颜色
+                    data: [80, 60, 90], // 每个柱状图的高度
+                    borderWidth: 1,
+                    barPercentage: 0.1
+                }, {
+                    label: '柱状图数据3',
+                    backgroundColor: '#3498db', // 柱状图颜色
+                    data: [80, 60, 90], // 每个柱状图的高度
+                    borderWidth: 1,
+                    barPercentage: 0.1
+                }
+                ]
+            };
+
+            // 配置项
+            var barChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            };
+
+            // 获取画布上下文
+            var ctx = document.getElementById('myBarChart').getContext('2d');
+
+            // 创建柱状图
+            var myBarChart = new Chart(ctx, {
+                type: 'bar',
+                data: barChartData,
+                options: barChartOptions
+            });
+
+
+        });
+
+
+        // console.log(data)
+
+
+        // 使用jQuery的ajax方法调用PHP接口获取数据
+        //     $.ajax({
+        //         url: '/admin/intelligence/echat',
+        //         type: 'POST',
+        //         dataType: 'json',
+        //         success: function(data) {
+        //             // 获取数据成功后，调用ECharts绘制图表
+        //             // 数据
+        //
+        //
+        //             console.log(data)
+        //
+        //             alert(222)
+        //             var barChartData = {
+        //                 labels: ['项目1', '项目2', '项目3'],
+        //                 datasets: [{
+        //                     label: '柱状图数据1',
+        //                     backgroundColor: '#3498db', // 柱状图颜色
+        //                     data: [80, 60, 90], // 每个柱状图的高度
+        //                     borderWidth:1,
+        //                     barPercentage:0.1
+        //                 },{
+        //                     label: '柱状图数据2',
+        //                     backgroundColor: '#3498db', // 柱状图颜色
+        //                     data: [80, 60, 90], // 每个柱状图的高度
+        //                     borderWidth:1,
+        //                     barPercentage:0.1
+        //                 },{
+        //                     label: '柱状图数据3',
+        //                     backgroundColor: '#3498db', // 柱状图颜色
+        //                     data: [80, 60, 90], // 每个柱状图的高度
+        //                     borderWidth:1,
+        //                     barPercentage:0.1
+        //                 }
+        //                 ]
+        //             };
+        //
+        //             // 配置项
+        //             var barChartOptions = {
+        //                 responsive: true,
+        //                 maintainAspectRatio: false,
+        //                 scales: {
+        //                     yAxes: [{
+        //                         ticks: {
+        //                             beginAtZero: true
+        //                         }
+        //                     }]
+        //                 }
+        //             };
+        //
+        //             // 获取画布上下文
+        //             var ctx = document.getElementById('myBarChart').getContext('2d');
+        //
+        //             // 创建柱状图
+        //             var myBarChart = new Chart(ctx, {
+        //                 type: 'bar',
+        //                 data: barChartData,
+        //                 options: barChartOptions
+        //             });
+        //
+        //
+        //
+        //         }
+        //     });
+    });
+
+
+</script>
+
+
+<script>
+    // 引入 Chart.js 库
+    var ctx = document.getElementById('myPieChart').getContext('2d');
+    var pieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Red', 'Blue', 'Green', 'Yellow'],
+            datasets: [{
+                data: [10, 20, 30, 40],
+                backgroundColor: ['red', 'blue', 'green', 'yellow'],
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+        }
+    });
+</script>
+
+<script>
+
+
+    $(function () {
+        $('.selectpicker').selectpicker();
+    });
+
     var visitorsChart = new Chart($('#visitors-chart'), {
         data: {
             labels: ['18th', '20th', '22nd', '24th', '26th', '28th', '30th'],
@@ -35,7 +314,6 @@
         },
         options: {
             maintainAspectRatio: false,
-
             legend: {
                 display: false
             },
@@ -52,9 +330,6 @@
         height: 300px;
     }
 </style>
-
-
-
 
 
 {{--    <link href="/vendor/laravel-admin/test/select2.css" rel="stylesheet" type="text/css" media="screen">--}}
@@ -1157,9 +1432,6 @@
 {{--        </script>--}}
 
 
-
-
-
 {{--</div>--}}
 {{--    <div id="tooltip" style="position: absolute; display: none; border: 1px solid rgb(240, 240, 240); padding: 2px; background-color: rgb(255, 255, 255); z-index: 99999; opacity: 0.8;">--}}
 
@@ -1247,7 +1519,6 @@
 {{--        </div>--}}
 {{--    </div>--}}
 {{--</div>--}}
-
 
 
 {{--<!-- Modal -->--}}

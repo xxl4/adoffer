@@ -29,8 +29,9 @@ Route::group([
 
 
 
-    $router->get('intelligence/echat1', "IntelligenceController@echat1")->name('admin.intelligence');
+    $router->get('intelligence/echat', "IntelligenceController@echat")->name('admin.intelligence');
 
 
     $router->resource('offer_advanced', 'OfferAdvancedController')->names('admin.OfferAdvanced');
+    $router->post('intelligence/query', 'IntelligenceController@query')->name('admin.query');
 });

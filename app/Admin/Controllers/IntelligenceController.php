@@ -2,15 +2,18 @@
 
 namespace App\Admin\Controllers;
 
+use AlibabaCloud\Tea\Response;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Creatives;
 use App\Models\Geos;
 use App\Models\Offer;
+use App\Models\OfferLog;
 use App\Models\OfferTracks;
 use App\Models\OfferTracksCate;
 use App\Models\OfferTracksCates;
 use App\Models\TagsModel;
+use Carbon\Carbon;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -45,20 +48,132 @@ class IntelligenceController extends AdminController
     }
 
 
-    public function echat($id, Content $content)
+    public function echat(Content $content)
     {
-echo 1234;exit;
+//echo 1234;exit;
         $geos_list = Geos::get()->toArray();
-        $category_list = Ca::get()->toArray();
-        $category_list = Offer::get()->toArray();
+        $category_list = Category::get()->toArray();
 
-        print_r($category_list);exit;
+
+        $startDate = Carbon::now()->startOfMonth();
+        $endDate = Carbon::now()->endOfMonth();
+
+// 查询当前月的销售记录并按数量降序排列
+        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+            ->select('offer_id', DB::raw('SUM(revenue) as total_sales'))
+            ->groupBy('offer_id')
+            ->orderByDesc('total_sales')
+            ->take(3)
+            ->get()->toArray();
+
+
+
+        // 输出结果
+//        print_r("<pre/>");
+//        print_r($result);exit;
+
+
+
+
+        $offer_id = array_column($offer_sale, 'offer_id');
+        $total_sales = array_column($offer_sale, 'total_sales');
+
+
+        $sale = [
+            'offer'=>$offer_id,
+            'sale'=>$total_sales
+        ];
+
+
+
+
+//        $category_list = Offer::get()->toArray();
+//        print_r($category_list);exit;
+
+
+        $data = [
+            "geos_list"=>$geos_list,
+            "category_lis"=>$category_list,
+            "offer_sale"=>$sale
+        ];
+
+
+
+        $data =  response()->json(['data' => $data]);
+
+
+//        print_r($data);exit;
+
 
         return $content
             ->header('Chartjs')
-            ->body(new Box('Bar chart', view('admin.intelligence.echart')));
+            ->body(new Box('Bar chart', view('intelligence.echat',['data'=>$data])));
+
+//        return $content->title('详情')
+//            ->description('简介')
+//            ->view('offer.show', compact('data'));
+
+//        return response()->json($data);
+
+//        return view('intelligence.echat',['data'=>$data]);
+//
+//        return $content->title('详情')
+//            ->description('简介')
+//            ->view('intelligence.echat', compact('data'));
+
+
+
+
     }
 
+
+
+
+    public function query(Request $request)
+    {
+//echo 1234;exit;
+        $geos_list = Geos::get()->toArray();
+        $category_list = Category::get()->toArray();
+
+
+        $startDate = Carbon::now()->startOfMonth();
+        $endDate = Carbon::now()->endOfMonth();
+
+// 查询当前月的销售记录并按数量降序排列
+        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+            ->select('offer_id', DB::raw('SUM(revenue) as total_sales'))
+            ->groupBy('offer_id')
+            ->orderByDesc('total_sales')
+            ->take(3)
+            ->get()->toArray();
+
+
+
+        // 输出结果
+//        print_r("<pre/>");
+//        print_r($result);exit;
+
+
+
+
+
+
+//        $category_list = Offer::get()->toArray();
+//        print_r($category_list);exit;
+
+
+
+        $data = [
+
+            'geos_list'=>$geos_list,
+            'category_lis'=>$category_list,
+            'offer_sale'=>$offer_sale
+
+        ];
+
+
+        return response()->json($data);
+    }
 
 
     /**
@@ -279,169 +394,6 @@ echo 1234;exit;
     }
 
 
-    public function query(Request $request)
-    {
-
-
-        // 处理表单提交逻辑
-        $keyword = $request->input('keyword');
-        $category = $request->input('category');
-        $geos = $request->input('geos');
-        $sort = $request->input('sort');
-        $where = [];
-
-      if(!empty($category)){
-          $category = implode(',', $category);
-      }else{
-          $category = '';
-      }
-
-        if(!empty($geos)){
-            $geos = implode(',', $geos);
-        }else{
-            $geos = '';
-        }
-
-
-        $where[] = ['offer_status','=', 1];
-        if (!empty($keyword)) {
-            $where[] = ['offer_name', 'like', "%$keyword%"];
-        }
-
-        switch ($sort) {
-            case '0':
-                # code...
-                $field = 'create_at';
-                $order = 'desc';
-                break;
-            case '1':
-                # code...
-                $field = 'create_at';
-                $order = 'asc';
-                break;
-            case '2':
-                # code...
-                $field = 'offer_price';
-                $order = 'desc';
-                break;
-            case '3':
-                # code...
-                $field = 'offer_price';
-                $order = 'asc';
-                break;
-            default:
-                # code...
-                $field = 'create_at';
-                $order = 'desc';
-                break;
-        }
-
-//        $filteredDataArray = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
-//        $filteredDataArrayCopy = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
-
-
-
-        $filteredDataArray = Offer::where(function ($query) use ($geos) {
-            $values = explode(',', $geos);
-            foreach ($values as $value) {
-                $query->orWhere('accepted_area', 'like', "%$value%");
-            }
-        })
-        ->Orwhere(function ($query) use ($category) {
-                $values2 = explode(',', $category);
-                foreach ($values2 as $value2) {
-                    $query->orWhere('cate_id', 'like', "%$value2%");
-                }
-            })->whereRaw('MOD(id, 2) = 1')->where($where)
-            ->orderBy($field, $order)->get()->toArray();//奇数
-
-
-
-        $filteredDataArrayCopy = Offer::where(function ($query) use ($geos) {
-            $values = explode(',', $geos);
-            foreach ($values as $value) {
-                $query->orWhere('accepted_area', 'like', "%$value%");
-            }
-        })
-            ->Orwhere(function ($query) use ($category) {
-                $values2 = explode(',', $category);
-                foreach ($values2 as $value2) {
-                    $query->orWhere('cate_id', 'like', "%$value2%");
-                }
-            })->whereRaw('MOD(id, 2) = 0')->where($where)
-            ->orderBy($field, $order)->get()->toArray();//奇数
-
-
-
-        if(!empty($filteredDataArray)) {
-            foreach ($filteredDataArray as $key => $value) {
-
-
-                $accepted_area = Geos::whereIn('id', $value['accepted_area'])->select('country')->get()->toArray();
-                $accepted_area_data = '';
-                foreach ($accepted_area as $k => $v) {
-                    $accepted_area_data .= $v['country'] . ',';
-                }
-                $filteredDataArray[$key]['accepted_area'] = trim($accepted_area_data, ',');
-
-                $track_cate = OfferTracksCates::whereIn('id', $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
-                foreach ($track_cate as $k => $v) {
-                    $finalArray[$k] = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();// $finalArray[$v['track_cate'].'_'.$k]
-                }
-
-                $filteredDataArray[$key]['track_list'] = $finalArray;
-                $filteredDataArray[$key]['creatives'] = Creatives::whereIn('id', $value['creatives_id'])->get()->toArray();
-            }
-            $filteredDataArray = $this->htmlSpliceCopy($filteredDataArray);
-        }else{
-            $filteredDataArray = '';
-        }
-
-        if(!empty($filteredDataArrayCopy)){
-
-
-
-        foreach ($filteredDataArrayCopy as $key => $value) {
-            $accepted_area =Geos::whereIn('id',$value['accepted_area'])->select('country')->get()->toArray();
-            $accepted_area_data = '';
-            foreach ($accepted_area as $k=>$v){
-                $accepted_area_data .=$v['country'].',';
-            }
-            $filteredDataArrayCopy[$key]['accepted_area'] = trim($accepted_area_data,',');
-
-
-
-
-            $track_cate = OfferTracksCates::whereIn('id',  $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
-            foreach ($track_cate as $k => $v) {
-                $finalArray[$k] = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();// $finalArray[$v['track_cate'].'_'.$k]
-            }
-
-            $filteredDataArrayCopy[$key]['track_list'] = $finalArray;
-            $filteredDataArrayCopy[$key]['creatives'] = Creatives::whereIn('id', $value['creatives_id'])->get()->toArray();
-
-
-        }
-
-//            print_r($filteredDataArrayCopy);exit;
-
-
-            $filteredDataArrayCopy = $this->htmlSpliceCopy1($filteredDataArrayCopy);
-        }else{
-            $filteredDataArrayCopy = '';
-        }
-
-
-        $result = [
-            'left_data' => $filteredDataArray,
-            'right_data' => $filteredDataArrayCopy,
-        ];
-
-
-
-
-        return response()->json($result);
-    }
 
 
     protected function htmlSpliceCopy($offer)
