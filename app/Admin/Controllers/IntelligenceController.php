@@ -50,82 +50,207 @@ class IntelligenceController extends AdminController
 
     public function echat(Content $content)
     {
-//echo 1234;exit;
-        $geos_list = Geos::get()->toArray();
-        $category_list = Category::get()->toArray();
+
+        $geos_list = Geos::get()->toArray();//国家列表
 
 
         $startDate = Carbon::now()->startOfMonth();
         $endDate = Carbon::now()->endOfMonth();
 
-// 查询当前月的销售记录并按数量降序排列
+
+        //查询当前月的销售金额记录并按数量降序排列
         $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
-            ->select('offer_id', DB::raw('SUM(revenue) as total_sales'))
+            ->select(DB::raw('SUM(revenue) as total_sales'), 'offer_id')
+            ->groupBy('offer_id')
+            ->orderByDesc('total_sales')
+            ->take(3)
+            ->get()
+            ->toArray();
+
+
+        foreach ($offer_sale as $key => $value) {
+            $offer_sale[$key]['offer_id'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+        }
+
+        $offer_id = array_column($offer_sale, 'offer_id');
+        $total_sales = array_column($offer_sale, 'total_sales');
+        //使用 array_map 和 array_values 删除键，只保留键值
+        $newArray = array_map('array_values', $offer_sale);
+        $month = date('M');
+
+
+        $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+            ->select(DB::raw('count(id) as total_quantity'), 'offer_id')
+            ->groupBy('offer_id')
+            ->orderByDesc('total_quantity')
+            ->take(3)
+            ->get()
+            ->toArray();
+
+
+        $total_count = OfferLog::count();
+
+
+
+
+        foreach ($offer_count as $key => $value) {
+            $offer_count[$key]['offer_top'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+            $offer_count[$key]['offer_percent'] = round($value['total_quantity'] / $total_count * 100) . "%";
+        }
+
+        $offer_top = array_column($offer_count, 'offer_top');
+        $total_quantity = array_column($offer_count, 'total_quantity');
+        $offer_percent = array_column($offer_count, 'offer_percent');
+
+
+//        print_r("<pre/>");
+//        print_r($offer_count);
+//        exit;
+
+
+//        print_r("<pre/>");
+//        print_r($total_quantity);exit;
+//
+//        //使用 array_map 和 array_values 删除键，只保留键值
+//        $newArray = array_map('array_values', $offer_count);
+//
+//
+//        print_r("<pre/>");
+//        print_r($offer_top);exit;
+
+
+        $sale = [
+            'offer' => $offer_id,
+            'sale' => $total_sales,
+            'sale_data' => $newArray,
+            'total_quantity' => $total_quantity,
+            'offer_percent' => $offer_percent,
+
+        ];
+
+
+
+
+        $data = [
+            "geos_list" => $geos_list,
+            "offer_sale" => $sale,
+            'month' => $month
+        ];
+        $data = response()->json(['data' => $data]);
+
+        return $content
+            ->header('Chartjs')
+            ->body(new Box('Bar chart', view('intelligence.echat', ['data' => $data, 'category_lis' => $geos_list,'offer_count'=>$offer_count])));
+
+    }
+
+
+    public function offerPie(Request$request)
+    {
+
+        $end_date = $request->input('end_date');
+//        var_dump($end_date);exit;
+        $geos_list = Geos::get()->toArray();
+
+
+        $startDate = Carbon::now()->startOfMonth();
+        $endDate = Carbon::now()->endOfMonth();
+
+
+        $startDate = '2024-01-01';
+        $endDate = '2024-01-09';
+
+        //查询当前月的销售记录并按数量降序排列
+        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+            ->select(DB::raw('SUM(revenue) as total_sales'), 'offer_id')
             ->groupBy('offer_id')
             ->orderByDesc('total_sales')
             ->take(3)
             ->get()->toArray();
 
 
-
-        // 输出结果
 //        print_r("<pre/>");
-//        print_r($result);exit;
+//        print_r($offer_sale);exit;
 
 
-
+        foreach ($offer_sale as $key => $value) {
+            $offer_sale[$key]['offer_id'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+        }
 
         $offer_id = array_column($offer_sale, 'offer_id');
         $total_sales = array_column($offer_sale, 'total_sales');
+        //使用 array_map 和 array_values 删除键，只保留键值
+        $newArray = array_map('array_values', $offer_sale);
+        $month = date('M');
+
+
+
+        $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+            ->select(DB::raw('count(id) as total_quantity'), 'offer_id')
+            ->groupBy('offer_id')
+            ->orderByDesc('total_quantity')
+            ->take(3)
+            ->get()
+            ->toArray();
+
+        $total_count = OfferLog::count();
+
+        foreach ($offer_count as $key => $value) {
+            $offer_count[$key]['offer_top'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+            $offer_count[$key]['offer_percent'] = round($value['total_quantity'] / $total_count * 100) . "%";
+        }
+
+        $offer_top = array_column($offer_count, 'offer_top');
+        $total_quantity = array_column($offer_count, 'total_quantity');
+        $offer_percent = array_column($offer_count, 'offer_percent');
+
+
+        $total_sales_html = $this->html($offer_count);
+
+
+//        print_r($total_sales);exit;
 
 
         $sale = [
-            'offer'=>$offer_id,
-            'sale'=>$total_sales
+            'offer' => $offer_id,
+            'sale' => $total_sales,
+            'sale_data' => $offer_count,
+            'total_quantity' => $total_quantity,
+            'offer_percent' => $offer_percent,
+            'total_sales_html'=>$total_sales_html
         ];
 
 
-
-
-//        $category_list = Offer::get()->toArray();
-//        print_r($category_list);exit;
+//        print_r("<pre/>");
+//        print_r($sale);exit;
 
 
         $data = [
-            "geos_list"=>$geos_list,
-            "category_lis"=>$category_list,
-            "offer_sale"=>$sale
+            "offer_sale" => $sale,
         ];
 
-
-
-        $data =  response()->json(['data' => $data]);
-
-
-//        print_r($data);exit;
-
-
-        return $content
-            ->header('Chartjs')
-            ->body(new Box('Bar chart', view('intelligence.echat',['data'=>$data])));
-
-//        return $content->title('详情')
-//            ->description('简介')
-//            ->view('offer.show', compact('data'));
-
-//        return response()->json($data);
-
-//        return view('intelligence.echat',['data'=>$data]);
-//
-//        return $content->title('详情')
-//            ->description('简介')
-//            ->view('intelligence.echat', compact('data'));
-
-
-
+        return response()->json(['data' => $data]);
 
     }
 
+
+
+    //html拼接
+    protected function html($res)
+    {
+
+
+        $html = '';
+        foreach ($res as $key=>$item){
+
+            $data = '<tr><td class="text-center">'.$item['offer_top'].'</td><td class="text-center">'.$item['offer_percent'].'</td><td><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: '.$item['offer_percent'].';background-color: #0090d9"></div></div><span class="percentage">'.$item['offer_percent'].'</span></td></tr>';
+            $html .=$data;
+        }
+
+
+
+        return $html;
+    }
 
 
 
@@ -141,33 +266,28 @@ class IntelligenceController extends AdminController
 
 // 查询当前月的销售记录并按数量降序排列
         $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
-            ->select('offer_id', DB::raw('SUM(revenue) as total_sales'))
+            ->select(DB::raw('SUM(revenue) as total_sales'), 'offer_id')
             ->groupBy('offer_id')
             ->orderByDesc('total_sales')
             ->take(3)
             ->get()->toArray();
 
 
-
         // 输出结果
-//        print_r("<pre/>");
-//        print_r($result);exit;
-
-
-
-
+        print_r("<pre/>");
+        print_r($offer_sale);
+        exit;
 
 
 //        $category_list = Offer::get()->toArray();
 //        print_r($category_list);exit;
 
 
-
         $data = [
 
-            'geos_list'=>$geos_list,
-            'category_lis'=>$category_list,
-            'offer_sale'=>$offer_sale
+            'geos_list' => $geos_list,
+            'category_lis' => $category_list,
+            'offer_sale' => $offer_sale
 
         ];
 
@@ -188,7 +308,7 @@ class IntelligenceController extends AdminController
         $grid->column('id', __('Id'));
         $grid->column('offer_name', __('Offer name'));
         $grid->column('cate_id', __('Cate id'));
-        $grid->column('image', __('Image'))->image('',50,50);
+        $grid->column('image', __('Image'))->image('', 50, 50);
         $grid->column('des', __('Des'));
         $grid->column('offer_link', __('Offer link'))->link();
         $grid->column('offer_price', __('Offer price'));
@@ -204,7 +324,7 @@ class IntelligenceController extends AdminController
 
         $grid->column('cate_id', 'Categories')->display(function () {
 //            $categoryIds = explode(',', $this->cate_id);
-            $categories = Category::whereIn('id',  $this->cate_id)->pluck('category_name')->toArray();
+            $categories = Category::whereIn('id', $this->cate_id)->pluck('category_name')->toArray();
 
             return implode(', ', $categories);
         })->label();
@@ -220,9 +340,6 @@ class IntelligenceController extends AdminController
         $grid->paginate(10);
         return $grid;
     }
-
-
-
 
 
     /**
@@ -259,7 +376,6 @@ class IntelligenceController extends AdminController
     }
 
 
-
     /**
      * Offer List
      *
@@ -278,30 +394,26 @@ class IntelligenceController extends AdminController
         $filteredDataArrayCopy = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
 
 
-
         foreach ($filteredDataArray as $key => $value) {
 
 
-            $accepted_area =Geos::whereIn('id',$value['accepted_area'])->select('country')->get()->toArray();
+            $accepted_area = Geos::whereIn('id', $value['accepted_area'])->select('country')->get()->toArray();
 
 //            print_r("<pre/>");
 //            print_r($accepted_area);exit;
 
             $accepted_area_data = '';
-            foreach ($accepted_area as $k=>$v){
-                $accepted_area_data .=$v['country'].',';
+            foreach ($accepted_area as $k => $v) {
+                $accepted_area_data .= $v['country'] . ',';
             }
 //            print_r($accepted_area_data);exit;
 
-            $filteredDataArray[$key]['accepted_area'] = trim($accepted_area_data,',');
+            $filteredDataArray[$key]['accepted_area'] = trim($accepted_area_data, ',');
 
 
-
-
-            $track_cate = OfferTracksCates::whereIn('id',  $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
+            $track_cate = OfferTracksCates::whereIn('id', $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
 //            print_r("<pre/>");
 //            print_r($track_cate);exit;
-
 
 
 //            print_r("<pre/>");
@@ -325,7 +437,7 @@ class IntelligenceController extends AdminController
 
 
             $filteredDataArray[$key]['track_list'] = $finalArray;
-            $filteredDataArray[$key]['creatives'] = Creatives::whereIn('id',$value['creatives_id'])->get()->toArray();
+            $filteredDataArray[$key]['creatives'] = Creatives::whereIn('id', $value['creatives_id'])->get()->toArray();
         }
 
 
@@ -335,20 +447,19 @@ class IntelligenceController extends AdminController
 //            print_r($value['track_cate_id']);exit;
 
 
-
             $track_cate = OfferTracksCates::whereIn('id', $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
 
 
 //            $filteredDataArrayCopy[$key]['accepted_area'] = Geos::whereIn('id',$value['accepted_area'])->get()->toArray();
 
-            $accepted_area =Geos::whereIn('id',$value['accepted_area'])->get()->toArray();
+            $accepted_area = Geos::whereIn('id', $value['accepted_area'])->get()->toArray();
 
             $accepted_area_data = '';
-            foreach ($accepted_area as $k=>$v){
-                $accepted_area_data .=$v['country'].',';
+            foreach ($accepted_area as $k => $v) {
+                $accepted_area_data .= $v['country'] . ',';
             }
 
-            $filteredDataArrayCopy[$key]['accepted_area'] = trim($accepted_area_data,',');
+            $filteredDataArrayCopy[$key]['accepted_area'] = trim($accepted_area_data, ',');
 
 //            $fieldToSwap = 'track_cate';
 //            //// 使用 array_map 函数进行互换
@@ -394,8 +505,6 @@ class IntelligenceController extends AdminController
     }
 
 
-
-
     protected function htmlSpliceCopy($offer)
     {
 
@@ -403,13 +512,13 @@ class IntelligenceController extends AdminController
         foreach ($offer as $key => $item) {
 
 
-           if($item['offer_status']==1) $lable_status = '<span class="label label-success">Live</span>'; else $lable_status='<span class="label label-warning">Paused</span>';
+            if ($item['offer_status'] == 1) $lable_status = '<span class="label label-success">Live</span>'; else $lable_status = '<span class="label label-warning">Paused</span>';
 
 
-            if(!empty($item['track_list'][0][0]['track_link'])) $main_link = $item['track_list'][0][0]['track_link']; else $main_link = '';
+            if (!empty($item['track_list'][0][0]['track_link'])) $main_link = $item['track_list'][0][0]['track_link']; else $main_link = '';
 
 
-            $first = '<div class="col-md-12 accord" data-offer_db="CozyTime Pro" data-marker-id="' . $item['id'] . '"><ul class="nav nav-tabs" role="tablist"><li class="active"><a href="#tab0Offer_' . $key . '" role="tab" data-toggle="tab">Summary</a></li><li><a href="#tab0Description_' . $key . '" role="tab" data-toggle="tab">Description</a></li><li><a href="#tab0Geos_' . $key . '" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="#tab0Tracking_' . $key . '" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="#tab0Creative_' . $key . '" role="tab" data-toggle="tab">Creatives</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="?id=offer#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab0Offer_' . $key . '"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="'.$main_link.'" target="_blank">' . '<span class="offer-product-img-container" data-original-title="" title=""><img src="'.env('APP_URL').'/upload/' . $item['image'] . '"></span>Offer Preview<i class="icon ion-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">' . $item['offer_name'] . '</td><td width="25%">$' . $item['offer_price'] . ' Per Sale</td><td width="20%">'.$lable_status.'</td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab0Description_' . $key . '"><div class="row"><div class="col-md-12"><p></p><p><strong></strong></p><p>"' . $item['des'] . '"</p><p></p></div></div></div><div class="tab-pane" id="tab0Geos_' . $key . '"><div class="row"><div class="col-md-12"><p></p><p>' . $item['accepted_area'] . '</p></div></div></div><div class="tab-pane" id="tab0Tracking_' . $key . '"><div class="row"><div class="col-md-12"><p>' . $item['track_des'] . '</p></div><div class="col-md-12"><div class="row"><div class="col-md-12"><div class="tabbable tabs-left tabs-bg"><ul class="nav nav-tabs" role="tablist">';
+            $first = '<div class="col-md-12 accord" data-offer_db="CozyTime Pro" data-marker-id="' . $item['id'] . '"><ul class="nav nav-tabs" role="tablist"><li class="active"><a href="#tab0Offer_' . $key . '" role="tab" data-toggle="tab">Summary</a></li><li><a href="#tab0Description_' . $key . '" role="tab" data-toggle="tab">Description</a></li><li><a href="#tab0Geos_' . $key . '" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="#tab0Tracking_' . $key . '" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="#tab0Creative_' . $key . '" role="tab" data-toggle="tab">Creatives</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="?id=offer#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab0Offer_' . $key . '"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="' . $main_link . '" target="_blank">' . '<span class="offer-product-img-container" data-original-title="" title=""><img src="' . env('APP_URL') . '/upload/' . $item['image'] . '"></span>Offer Preview<i class="icon ion-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">' . $item['offer_name'] . '</td><td width="25%">$' . $item['offer_price'] . ' Per Sale</td><td width="20%">' . $lable_status . '</td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab0Description_' . $key . '"><div class="row"><div class="col-md-12"><p></p><p><strong></strong></p><p>"' . $item['des'] . '"</p><p></p></div></div></div><div class="tab-pane" id="tab0Geos_' . $key . '"><div class="row"><div class="col-md-12"><p></p><p>' . $item['accepted_area'] . '</p></div></div></div><div class="tab-pane" id="tab0Tracking_' . $key . '"><div class="row"><div class="col-md-12"><p>' . $item['track_des'] . '</p></div><div class="col-md-12"><div class="row"><div class="col-md-12"><div class="tabbable tabs-left tabs-bg"><ul class="nav nav-tabs" role="tablist">';
 
 
             //追踪链接的tab
@@ -435,7 +544,7 @@ class IntelligenceController extends AdminController
                 $row = '<div class="row">';
                 $data1 = '';
                 foreach ($i as $key4 => $item4) {
-                    $data1 .= '<div class="col-md-12"><div class="padding-for_links"><div>' . $item4['track_name'] . '</div><input  style="width: calc(100% - 100px)" readonly="" type="text" class="clipboard-1-0-0-1'.$k.'-1'.$key4.'" value="' . $item4['track_link'] . '"><a href="' . $item4['track_link'] . '"><i class="icon ion-eye pull-right"></i></a><a class="copp pull-right btn btn-success btn-cons copy-button" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-1'.$k.'-1'.$key4.'">Copy</a></div></div>';
+                    $data1 .= '<div class="col-md-12"><div class="padding-for_links"><div>' . $item4['track_name'] . '</div><input  style="width: calc(100% - 100px)" readonly="" type="text" class="clipboard-1-0-0-1' . $k . '-1' . $key4 . '" value="' . $item4['track_link'] . '"><a href="' . $item4['track_link'] . '"><i class="icon ion-eye pull-right"></i></a><a class="copp pull-right btn btn-success btn-cons copy-button" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-1' . $k . '-1' . $key4 . '">Copy</a></div></div>';
 
 //                    $data1 .=$data1;
                 }
@@ -479,15 +588,11 @@ class IntelligenceController extends AdminController
         foreach ($offer as $key => $item) {
 
 
-            if($item['offer_status']==1) $lable_status = '<span class="label label-success">Live</span>'; else $lable_status='<span class="label label-warning">Paused</span>';
-            if(!empty($item['track_list'][0][0]['track_link'])) $main_link = $item['track_list'][0][0]['track_link']; else $main_link = '';
+            if ($item['offer_status'] == 1) $lable_status = '<span class="label label-success">Live</span>'; else $lable_status = '<span class="label label-warning">Paused</span>';
+            if (!empty($item['track_list'][0][0]['track_link'])) $main_link = $item['track_list'][0][0]['track_link']; else $main_link = '';
 
 
-
-
-
-
-            $first = '<div class="col-md-12 accord" data-offer_db="CozyTime Pro" data-marker-id="' . $item['id'] . '"><ul class="nav nav-tabs" role="tablist"><li class="active"><a href="#tab0Offer_8' . $key . '" role="tab" data-toggle="tab">Summary</a></li><li><a href="#tab0Description_8' . $key . '" role="tab" data-toggle="tab">Description</a></li><li><a href="#tab0Geos_8' . $key . '" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="#tab0Tracking_8' . $key . '" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="#tab0Creative_8' . $key . '" role="tab" data-toggle="tab">Creatives</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="?id=offer#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab0Offer_8' . $key . '"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="'.$main_link.'" target="_blank">' . '<span class="offer-product-img-container" data-original-title="" title=""><img src="'.env('APP_URL').'/upload/' . $item['image'] . '"></span>Offer Preview<i class="icon ion-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">' . $item['offer_name'] . '</td><td width="25%">$' . $item['offer_price'] . ' Per Sale</td><td width="20%">'.$lable_status.'</td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab0Description_8' . $key . '"><div class="row"><div class="col-md-12"><p></p><p><strong></strong></p><p>"' . $item['des'] . '"</p><p></p></div></div></div><div class="tab-pane" id="tab0Geos_8' . $key . '"><div class="row"><div class="col-md-12"><p></p><p>' . $item['accepted_area'] . '</p></div></div></div><div class="tab-pane" id="tab0Tracking_8' . $key . '"><div class="row"><div class="col-md-12"><p>' . $item['track_des'] . '</p></div><div class="col-md-12"><div class="row"><div class="col-md-12"><div class="tabbable tabs-left tabs-bg"><ul class="nav nav-tabs" role="tablist">';
+            $first = '<div class="col-md-12 accord" data-offer_db="CozyTime Pro" data-marker-id="' . $item['id'] . '"><ul class="nav nav-tabs" role="tablist"><li class="active"><a href="#tab0Offer_8' . $key . '" role="tab" data-toggle="tab">Summary</a></li><li><a href="#tab0Description_8' . $key . '" role="tab" data-toggle="tab">Description</a></li><li><a href="#tab0Geos_8' . $key . '" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="#tab0Tracking_8' . $key . '" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="#tab0Creative_8' . $key . '" role="tab" data-toggle="tab">Creatives</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="?id=offer#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab0Offer_8' . $key . '"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="' . $main_link . '" target="_blank">' . '<span class="offer-product-img-container" data-original-title="" title=""><img src="' . env('APP_URL') . '/upload/' . $item['image'] . '"></span>Offer Preview<i class="icon ion-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">' . $item['offer_name'] . '</td><td width="25%">$' . $item['offer_price'] . ' Per Sale</td><td width="20%">' . $lable_status . '</td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab0Description_8' . $key . '"><div class="row"><div class="col-md-12"><p></p><p><strong></strong></p><p>"' . $item['des'] . '"</p><p></p></div></div></div><div class="tab-pane" id="tab0Geos_8' . $key . '"><div class="row"><div class="col-md-12"><p></p><p>' . $item['accepted_area'] . '</p></div></div></div><div class="tab-pane" id="tab0Tracking_8' . $key . '"><div class="row"><div class="col-md-12"><p>' . $item['track_des'] . '</p></div><div class="col-md-12"><div class="row"><div class="col-md-12"><div class="tabbable tabs-left tabs-bg"><ul class="nav nav-tabs" role="tablist">';
 
 
             //追踪链接的tab
@@ -513,7 +618,7 @@ class IntelligenceController extends AdminController
                 $row = '<div class="row">';
                 $data1 = '';
                 foreach ($i as $key4 => $item4) {
-                    $data1 .= '<div class="col-md-12"><div class="padding-for_links"><div>' . $item4['track_name'] . '</div><input  style="width: calc(100% - 100px)" readonly="" type="text" class="clipboard-1-0-0-1'.$key.'-'.$k.'-2'.$key4.'" value="' . $item4['track_link'] . '"><a href="' . $item4['track_link'] . '"><i class="icon ion-eye pull-right"></i></a><a class="copp pull-right btn btn-success btn-cons copy-button" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-1'.$key.'-'.$k.'-2'.$key4.'">Copy</a></div></div>';
+                    $data1 .= '<div class="col-md-12"><div class="padding-for_links"><div>' . $item4['track_name'] . '</div><input  style="width: calc(100% - 100px)" readonly="" type="text" class="clipboard-1-0-0-1' . $key . '-' . $k . '-2' . $key4 . '" value="' . $item4['track_link'] . '"><a href="' . $item4['track_link'] . '"><i class="icon ion-eye pull-right"></i></a><a class="copp pull-right btn btn-success btn-cons copy-button" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-1' . $key . '-' . $k . '-2' . $key4 . '">Copy</a></div></div>';
 
 //                    $data1 .=$data1;
                 }
@@ -608,7 +713,6 @@ class IntelligenceController extends AdminController
 //        $form->multipleSelect('cate_id', __('Offer Category'))->options($arr)->required();
 
         $form->multipleSelect('cate_id', __('Offer Category'))->options(Category::all()->pluck('category_name', 'id'));
-
 
 
         $form->multipleSelect('accepted_area', __('Accepted Area'))->options(Geos::all()->pluck('country', 'id'))->required();

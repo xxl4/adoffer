@@ -1,24 +1,19 @@
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"></script>
-
-
-
+<script src="http://localhost:81/vendor/laravel-admin/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 <style>
     table {
         width: 50%;
         border-collapse: collapse;
         margin: 20px;
     }
-
     th, td {
         border: 1px solid #ddd;
         padding: 8px;
         text-align: left;
     }
-
     .progress-bar {
         height: 20px;
         background-color: #f1f1f1;
@@ -31,21 +26,77 @@
         background-color: #4caf50; /* 进度条颜色 */
     }
 </style>
-{{--<div class="form-group">--}}
 
 
-{{--    <div class="container mt-5">--}}
-{{--        <div class="col-sm-4" style="width: 20%!important;">--}}
-{{--            <select id="geos" name="usertype" class="selectpicker show-tick form-control" multiple data-max-options="3"--}}
-{{--                    data-live-search="true" data-none-selected-text="Select Offers Geos" data-size="10">--}}
-{{--                @foreach ($data['geos_list'] as $key=>$item)--}}
-{{--                    <option value="{{$item['id']}}"--}}
-{{--                            data-content="<span class='label label-success'>{{$item['country']}}</span>">{{$item['country']}}</option>--}}
-{{--                @endforeach--}}
-{{--            </select>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
+{{--国家选择--}}
+
+
+<div class="container">
+    <div class='col-md-5'>
+        <div class="form-group">
+            <div class="container mt-5">
+                <div class="col-sm-4" style="width: 20%!important;">
+                    <select id="geos" name="usertype" class="selectpicker show-tick form-control" multiple
+                            data-max-options="3"
+                            data-live-search="true" data-none-selected-text="Select Offers Geos" data-size="10">
+                        @foreach ($category_lis as $key=>$item)
+                            <option value="{{$item['id']}}"
+                                    data-content="<span class='label label-success'>{{$item['country']}}</span>">{{$item['country']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class='col-md-5' style="width: 20%">
+        <div class="form-group">
+            <div class='input-group date' id='datetimepicker6'>
+                <input type='text' class="form-control"/>
+                <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+            </div>
+        </div>
+    </div>
+
+    <div class='col-md-5' style="width: 20%">
+        <div class="form-group">
+            <div class='input-group date' id='datetimepicker7'>
+                <input type='text' class="form-control" id="datetimepicker8"/>
+                <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <button id="searchBtn" class="btn btn-primary">搜索</button>
+
+
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker6').datetimepicker();
+        $('#datetimepicker7').datetimepicker({
+            useCurrent: false //Important! See issue #1075
+        });
+        $("#datetimepicker6").on("dp.change", function (e) {
+            $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+        });
+        $("#datetimepicker7").on("dp.change", function (e) {
+            $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+</script>
 
 
 
@@ -60,7 +111,6 @@
 
 
 <div class="card">
-
     <div class="card-body">
         <canvas id="myPieChart" width="200" height="200"></canvas>
     </div>
@@ -74,30 +124,37 @@
             <th class="text-center">DISTRIBUTION</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td class="text-center">项目 1</td>
-            <td class="text-center">30%</td>
-            <td>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0"
-                         aria-valuemax="100" style="width: 30%;background-color: #0090d9"></div>
-                </div>
-                <span class="percentage">30%</span>
-            </td>
-        </tr>
 
-        <tr>
-            <td class="text-center">项目 2</td>
-            <td class="text-center">60%</td>
-            <td>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                         aria-valuemax="100" style="width: 60%;background-color: #0090d9"></div>
-                </div>
-                <span class="percentage">60%</span>
-            </td>
-        </tr>
+
+        <tbody id="html_data">
+        @foreach ($offer_count as $key=>$item)
+
+            <tr>
+                <td class="text-center">{{$item['offer_top']}}</td>
+                <td class="text-center">{{$item['offer_percent']}}</td>
+                <td>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0"
+                             aria-valuemax="100"
+                             style="width: {{$item['offer_percent']}};background-color: #0090d9"></div>
+                    </div>
+                    <span class="percentage">{{$item['offer_percent']}}</span>
+                </td>
+            </tr>
+        @endforeach
+
+
+        {{--        <tr>--}}
+        {{--            <td class="text-center">项目 2</td>--}}
+        {{--            <td class="text-center">60%</td>--}}
+        {{--            <td>--}}
+        {{--                <div class="progress">--}}
+        {{--                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"--}}
+        {{--                         aria-valuemax="100" style="width: 60%;background-color: #0090d9"></div>--}}
+        {{--                </div>--}}
+        {{--                <span class="percentage">60%</span>--}}
+        {{--            </td>--}}
+        {{--        </tr>--}}
         <!-- 添加更多行，根据需要修改百分比和进度条宽度 -->
         </tbody>
     </table>
@@ -118,161 +175,218 @@
 </div>
 
 
-
 {{--<div class="container">--}}
 
 {{--</div>--}}
 
 
 <script>
-
     var frontendData = @json($data);
-
-
-
-
 
     $(function () {
         $.get('/admin/intelligence/echat', function (e) {
-
-            console.log('数据接收',frontendData.original.data.offer_sale);
+            // console.log('数据接收',frontendData.original.data.offer_sale);
             // console.log('数据值',e)
 
+            var data = frontendData.original.data.offer_sale;
+            var month = frontendData.original.data.month;
 
+            //示例数据
+            var labels = [month];
+            var datasetsData = data.sale_data;
 
-            var barChartData = {
-                labels: frontendData.original.data.offer_sale.offer,
-                datasets: [{
-                    label: '柱状图数据1',
-                    backgroundColor: '#3498db', // 柱状图颜色
-                    data: [80, 60, 90], // 每个柱状图的高度
-                    borderWidth: 1,
-                    barPercentage: 0.1
-                }, {
-                    label: '柱状图数据2',
-                    backgroundColor: '#3498db', // 柱状图颜色
-                    data: [80, 60, 90], // 每个柱状图的高度
-                    borderWidth: 1,
-                    barPercentage: 0.1
-                }, {
-                    label: '柱状图数据3',
-                    backgroundColor: '#3498db', // 柱状图颜色
-                    data: [80, 60, 90], // 每个柱状图的高度
-                    borderWidth: 1,
-                    barPercentage: 0.1
+            //创建一个空的 datasets 数组
+            var datasets = [];
+
+            //循环遍历 datasetsData，创建数据集对象并添加到 datasets 数组
+            for (var i = 0; i < datasetsData.length; i++) {
+                if (datasetsData[i] && datasetsData[i].length >= 2) {
+                    var secondElement = datasetsData[i][1];
                 }
-                ]
-            };
 
-            // 配置项
-            var barChartOptions = {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            };
+                console.log('数据值2', datasetsData[i])
 
-            // 获取画布上下文
+                var dataset = {
+                    label: secondElement,
+                    data: datasetsData[i],
+                    backgroundColor: 'rgba(' + (Math.random() * 255) + ',' + (Math.random() * 255) + ',' + (Math.random() * 255) + ', 0.2)',
+                    borderColor: 'rgba(' + (Math.random() * 255) + ',' + (Math.random() * 255) + ',' + (Math.random() * 255) + ', 1)',
+                    borderWidth: 1
+                };
+                datasets.push(dataset);
+            }
+
+            //创建柱状图
             var ctx = document.getElementById('myBarChart').getContext('2d');
-
-            // 创建柱状图
-            var myBarChart = new Chart(ctx, {
+            var myChart = new Chart(ctx, {
                 type: 'bar',
-                data: barChartData,
-                options: barChartOptions
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
             });
-
-
         });
-
-
-        // console.log(data)
-
-
-        // 使用jQuery的ajax方法调用PHP接口获取数据
-        //     $.ajax({
-        //         url: '/admin/intelligence/echat',
-        //         type: 'POST',
-        //         dataType: 'json',
-        //         success: function(data) {
-        //             // 获取数据成功后，调用ECharts绘制图表
-        //             // 数据
-        //
-        //
-        //             console.log(data)
-        //
-        //             alert(222)
-        //             var barChartData = {
-        //                 labels: ['项目1', '项目2', '项目3'],
-        //                 datasets: [{
-        //                     label: '柱状图数据1',
-        //                     backgroundColor: '#3498db', // 柱状图颜色
-        //                     data: [80, 60, 90], // 每个柱状图的高度
-        //                     borderWidth:1,
-        //                     barPercentage:0.1
-        //                 },{
-        //                     label: '柱状图数据2',
-        //                     backgroundColor: '#3498db', // 柱状图颜色
-        //                     data: [80, 60, 90], // 每个柱状图的高度
-        //                     borderWidth:1,
-        //                     barPercentage:0.1
-        //                 },{
-        //                     label: '柱状图数据3',
-        //                     backgroundColor: '#3498db', // 柱状图颜色
-        //                     data: [80, 60, 90], // 每个柱状图的高度
-        //                     borderWidth:1,
-        //                     barPercentage:0.1
-        //                 }
-        //                 ]
-        //             };
-        //
-        //             // 配置项
-        //             var barChartOptions = {
-        //                 responsive: true,
-        //                 maintainAspectRatio: false,
-        //                 scales: {
-        //                     yAxes: [{
-        //                         ticks: {
-        //                             beginAtZero: true
-        //                         }
-        //                     }]
-        //                 }
-        //             };
-        //
-        //             // 获取画布上下文
-        //             var ctx = document.getElementById('myBarChart').getContext('2d');
-        //
-        //             // 创建柱状图
-        //             var myBarChart = new Chart(ctx, {
-        //                 type: 'bar',
-        //                 data: barChartData,
-        //                 options: barChartOptions
-        //             });
-        //
-        //
-        //
-        //         }
-        //     });
     });
-
 
 </script>
 
 
 <script>
+
+
+    var frontendData = @json($data);
+    $(document).ready(function () {
+
+        var data = frontendData.original.data.offer_sale;
+
+
+        console.log('数据接收4', data);
+        //
+        // // 引入 Chart.js 库
+        var ctx = document.getElementById('myPieChart').getContext('2d');
+        var pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: data.offer,
+                datasets: [{
+                    data: data.total_quantity,
+                    backgroundColor: ['red', 'blue', 'green', 'yellow'],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+
+
+        $("#searchBtn").click(function () {
+            //动作触发后执行都代码
+            var start_date = $("#datetimepicker6").val();
+            var end_date = $("#datetimepicker8").val();
+
+
+            // console.log('开始时间',end_date)
+           // alert(1234)
+
+            // 发送 AJAX 请求
+            $.ajax({
+                url: '/admin/intelligence/offerPie', // 替换为实际的 API 地址
+                method: 'GET',
+                dataType: 'json',
+                data:{start_date:start_date,end_date:end_date},
+                success: function (data) {
+
+                    var res = data.data.offer_sale;
+                    // console.log(data.data.offer_sale);
+
+                    // 引入 Chart.js 库
+                    var ctx = document.getElementById('myPieChart').getContext('2d');
+                    var pieChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: res.offer,
+                            datasets: [{
+                                data: res.total_quantity,
+                                backgroundColor: ['red', 'blue', 'green', 'yellow'],
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                        }
+                    });
+
+
+                    $("#html_data").empty();
+                    $("#html_data").html(res.total_sales_html);
+
+                },
+                // error: function (error) {
+                //     console.error('Error fetching data:', error);
+                // }
+
+
+
+
+
+            });
+
+
+
+
+            // var data = frontendData.original.data.offer_sale;
+            // console.log('数据接收4', data);
+            // // 引入 Chart.js 库
+            // var ctx = document.getElementById('myPieChart').getContext('2d');
+            // var pieChart = new Chart(ctx, {
+            //     type: 'pie',
+            //     data: {
+            //         labels: data.offer,
+            //         datasets: [{
+            //             data: data.total_quantity,
+            //             backgroundColor: ['red', 'blue', 'green', 'yellow'],
+            //         }]
+            //     },
+            //     options: {
+            //         responsive: true,
+            //         maintainAspectRatio: false,
+            //     }
+            // });
+        });
+    });
+
+
+    // 更新饼图数据
+    function updatePieChart(newData) {
+        // 判断数据是否符合预期格式
+        if (isValidDataFormat(newData)) {
+            myPieChart.data = newData;
+            myPieChart.update();
+        } else {
+            console.error('Invalid data format');
+        }
+    }
+
+
+    // 判断数据是否符合预期格式
+    function isValidDataFormat(data) {
+        return (
+            data &&
+            data.labels &&
+            Array.isArray(data.labels) &&
+            data.datasets &&
+            Array.isArray(data.datasets) &&
+            data.datasets.length > 0 &&
+            data.datasets[0].data &&
+            Array.isArray(data.datasets[0].data)
+        );
+    }
+
+
+    /*
+    $(function () {
+        $.get('/admin/intelligence/offerPie', function (e) {
+        var data  =  frontendData.original.data.offer_sale;
+        console.log('数据接收4',data);
+
     // 引入 Chart.js 库
     var ctx = document.getElementById('myPieChart').getContext('2d');
     var pieChart = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: ['Red', 'Blue', 'Green', 'Yellow'],
+            labels: data.offer,
             datasets: [{
-                data: [10, 20, 30, 40],
+                data: data.total_quantity,
                 backgroundColor: ['red', 'blue', 'green', 'yellow'],
             }]
         },
@@ -281,14 +395,15 @@
             maintainAspectRatio: false,
         }
     });
+        });
+    });
+*/
+
+
 </script>
 
+
 <script>
-
-
-    $(function () {
-        $('.selectpicker').selectpicker();
-    });
 
     var visitorsChart = new Chart($('#visitors-chart'), {
         data: {
