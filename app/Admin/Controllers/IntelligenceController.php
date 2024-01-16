@@ -53,10 +53,8 @@ class IntelligenceController extends AdminController
 
         $geos_list = Geos::get()->toArray();//国家列表
 
-
-        $startDate = Carbon::now()->startOfMonth();
-        $endDate = Carbon::now()->endOfMonth();
-
+        $startDate =  date('Y-m-d 00:00:00', strtotime("-6 days")); //默认最近一周的数据
+        $endDate = date('Y-m-d H:i:s');
 
         //查询当前月的销售金额记录并按数量降序排列
         $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
@@ -75,10 +73,16 @@ class IntelligenceController extends AdminController
         $offer_id = array_column($offer_sale, 'offer_id');
         $total_sales = array_column($offer_sale, 'total_sales');
         //使用 array_map 和 array_values 删除键，只保留键值
-        $newArray = array_map('array_values', $offer_sale);
+        $sale_data = array_map('array_values', $offer_sale);
         $month = date('M');
 
+//        print_r("<pre/>");
+//        print_r($sale_data);exit;
 
+
+
+
+        //排名前三的offer
         $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
             ->select(DB::raw('count(id) as total_quantity'), 'offer_id')
             ->groupBy('offer_id')
@@ -90,9 +94,6 @@ class IntelligenceController extends AdminController
 
         $total_count = OfferLog::count();
 
-
-
-
         foreach ($offer_count as $key => $value) {
             $offer_count[$key]['offer_top'] = Offer::where('id', $value['offer_id'])->value('offer_name');
             $offer_count[$key]['offer_percent'] = round($value['total_quantity'] / $total_count * 100) . "%";
@@ -103,44 +104,60 @@ class IntelligenceController extends AdminController
         $offer_percent = array_column($offer_count, 'offer_percent');
 
 
-//        print_r("<pre/>");
-//        print_r($offer_count);
-//        exit;
+
+        //排名前十的国家
+        $country_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+            ->select(DB::raw('count(id) as country_total_quantity'), 'country_id')
+            ->groupBy('country_id')
+            ->orderByDesc('country_total_quantity')
+            ->take(10)
+            ->get()
+            ->toArray();
 
 
-//        print_r("<pre/>");
-//        print_r($total_quantity);exit;
-//
-//        //使用 array_map 和 array_values 删除键，只保留键值
-//        $newArray = array_map('array_values', $offer_count);
-//
-//
-//        print_r("<pre/>");
-//        print_r($offer_top);exit;
+        $total_count = OfferLog::count();
+
+        foreach ($country_count as $key => $value) {
+            $country_count[$key]['country_top'] = Geos::where('id', $value['country_id'])->value('country');
+            $country_count[$key]['country_percent'] = round($value['country_total_quantity'] / $total_count * 100) . "%";
+        }
 
 
-        $sale = [
-            'offer' => $offer_id,
-            'sale' => $total_sales,
-            'sale_data' => $newArray,
-            'total_quantity' => $total_quantity,
-            'offer_percent' => $offer_percent,
 
+        $country_top = array_column($country_count, 'country_top');
+        $country_total_quantity = array_column($country_count, 'country_total_quantity');
+        $country_percent = array_column($country_count, 'country_percent');
+
+
+
+
+        //国家前十的数据
+        $country = [
+            'country'=>$country_top,
+            'country_data'=>$country_top,
         ];
 
+//        print_r("<pre/>");
+//        print_r($country_count);exit;
 
 
-
+        //柱状图数据
         $data = [
-            "geos_list" => $geos_list,
-            "offer_sale" => $sale,
-            'month' => $month
+            "geos_list" => $geos_list,//国家列表
+            "offer_sale" => $sale_data,//销量金额前三的柱状图
+            'offer' => $offer_id,//饼状图offer list
+            'total_quantity' => $total_quantity,//饼状图数量
+            'month' => $month,//柱状图当前月份
+
+            'country'=>$country_top,//国家前十列表
+            'country_total_quantity'=>$country_total_quantity,//国家前十数据
+
         ];
         $data = response()->json(['data' => $data]);
 
         return $content
             ->header('Chartjs')
-            ->body(new Box('Bar chart', view('intelligence.echat', ['data' => $data, 'category_lis' => $geos_list,'offer_count'=>$offer_count])));
+            ->body(new Box('Bar chart', view('intelligence.echat', ['data' => $data, 'category_lis' => $geos_list,'offer_count'=>$offer_count,'country_count'=>$country_count])));
 
     }
 
@@ -148,29 +165,45 @@ class IntelligenceController extends AdminController
     public function offerPie(Request$request)
     {
 
+        $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
-//        var_dump($end_date);exit;
-        $geos_list = Geos::get()->toArray();
+
+        $country = $request->input('country');
 
 
-        $startDate = Carbon::now()->startOfMonth();
-        $endDate = Carbon::now()->endOfMonth();
+        if(!empty($start_date) && !empty($end_date)){
+
+            $start_date =  substr($start_date, 0, 10);
+            $end_date =  substr($end_date, 0, 10);
 
 
-        $startDate = '2024-01-01';
-        $endDate = '2024-01-09';
+            $start_date =  date('Y-m-d',strtotime($start_date));
+            $end_date =  date('Y-m-d',strtotime($end_date));
+
+            $startDate = $start_date . ' 00:00:00';
+            $endDate = $end_date . ' 23:59:59';
+        }else{
+            $startDate =  date('Y-m-d 00:00:00', strtotime("-6 days"));
+            $endDate = date('Y-m-d 23:59:59');
+        }
+
+        $where = [];
+        if(!empty($country)){
+            $where[] = ['country_id','in', $country];
+        }
+        DB::connection()->enableQueryLog();
 
         //查询当前月的销售记录并按数量降序排列
         $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+            ->where($where)
             ->select(DB::raw('SUM(revenue) as total_sales'), 'offer_id')
             ->groupBy('offer_id')
             ->orderByDesc('total_sales')
             ->take(3)
             ->get()->toArray();
 
+        $carNamedata = DB::getQueryLog();
 
-//        print_r("<pre/>");
-//        print_r($offer_sale);exit;
 
 
         foreach ($offer_sale as $key => $value) {
@@ -186,12 +219,14 @@ class IntelligenceController extends AdminController
 
 
         $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+            ->where($where)
             ->select(DB::raw('count(id) as total_quantity'), 'offer_id')
             ->groupBy('offer_id')
             ->orderByDesc('total_quantity')
             ->take(3)
             ->get()
             ->toArray();
+
 
         $total_count = OfferLog::count();
 
@@ -208,7 +243,108 @@ class IntelligenceController extends AdminController
         $total_sales_html = $this->html($offer_count);
 
 
-//        print_r($total_sales);exit;
+
+        $sale = [
+            'offer' => $offer_id,
+            'sale' => $total_sales,
+            'sale_data' => $offer_count,
+            'total_quantity' => $total_quantity,
+            'offer_percent' => $offer_percent,
+            'total_sales_html'=>$total_sales_html
+        ];
+
+
+
+        $data = [
+            "offer_sale" => $sale,
+        ];
+
+        return response()->json(['data' => $data]);
+
+    }
+
+
+
+
+    public function countryPie(Request$request)
+    {
+
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+
+        $country = $request->input('country');
+
+
+        if(!empty($start_date) && !empty($end_date)){
+
+            $start_date =  substr($start_date, 0, 10);
+            $end_date =  substr($end_date, 0, 10);
+
+
+            $start_date =  date('Y-m-d',strtotime($start_date));
+            $end_date =  date('Y-m-d',strtotime($end_date));
+
+            $startDate = $start_date . ' 00:00:00';
+            $endDate = $end_date . ' 23:59:59';
+        }else{
+            $startDate =  date('Y-m-d 00:00:00', strtotime("-6 days"));
+            $endDate = date('Y-m-d 23:59:59');
+        }
+
+        $where = [];
+        if(!empty($country)){
+            $where[] = ['country_id','in', $country];
+        }
+        DB::connection()->enableQueryLog();
+
+        //查询当前月的销售记录并按数量降序排列
+        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+            ->where($where)
+            ->select(DB::raw('SUM(revenue) as total_sales'), 'offer_id')
+            ->groupBy('offer_id')
+            ->orderByDesc('total_sales')
+            ->take(3)
+            ->get()->toArray();
+        $carNamedata = DB::getQueryLog();
+
+
+
+        foreach ($offer_sale as $key => $value) {
+            $offer_sale[$key]['offer_id'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+        }
+
+        $offer_id = array_column($offer_sale, 'offer_id');
+        $total_sales = array_column($offer_sale, 'total_sales');
+        //使用 array_map 和 array_values 删除键，只保留键值
+        $newArray = array_map('array_values', $offer_sale);
+        $month = date('M');
+
+
+
+        $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+            ->where($where)
+            ->select(DB::raw('count(id) as total_quantity'), 'offer_id')
+            ->groupBy('offer_id')
+            ->orderByDesc('total_quantity')
+            ->take(3)
+            ->get()
+            ->toArray();
+
+
+        $total_count = OfferLog::count();
+
+        foreach ($offer_count as $key => $value) {
+            $offer_count[$key]['offer_top'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+            $offer_count[$key]['offer_percent'] = round($value['total_quantity'] / $total_count * 100) . "%";
+        }
+
+        $offer_top = array_column($offer_count, 'offer_top');
+        $total_quantity = array_column($offer_count, 'total_quantity');
+        $offer_percent = array_column($offer_count, 'offer_percent');
+
+
+        $total_sales_html = $this->html($offer_count);
+
 
 
         $sale = [
@@ -221,9 +357,6 @@ class IntelligenceController extends AdminController
         ];
 
 
-//        print_r("<pre/>");
-//        print_r($sale);exit;
-
 
         $data = [
             "offer_sale" => $sale,
@@ -232,6 +365,9 @@ class IntelligenceController extends AdminController
         return response()->json(['data' => $data]);
 
     }
+
+
+
 
 
 

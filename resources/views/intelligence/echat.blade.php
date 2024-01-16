@@ -1,8 +1,23 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"></script>
-<script src="http://localhost:81/vendor/laravel-admin/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+{{--<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"></script>--}}
+
+
+
+{{--<script src="https://lib.h-ui.net/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>--}}
+
+
+{{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--}}
+{{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--}}
+{{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--}}
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="/vendor/laravel-admin/daterangepicker/daterangepicker.js"></script>
+<script src="/vendor/laravel-admin/daterangepicker/daterangepicker.css"></script>
+
 <style>
     table {
         width: 50%;
@@ -54,7 +69,7 @@
     <div class='col-md-5' style="width: 20%">
         <div class="form-group">
             <div class='input-group date' id='datetimepicker6'>
-                <input type='text' class="form-control"/>
+                <input type='text' class="form-control"  id="datetimepicker5" />
                 <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
             </span>
@@ -65,7 +80,7 @@
     <div class='col-md-5' style="width: 20%">
         <div class="form-group">
             <div class='input-group date' id='datetimepicker7'>
-                <input type='text' class="form-control" id="datetimepicker8"/>
+                <input type='text' class="form-control" id="datetimepicker8" />
                 <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
             </span>
@@ -75,24 +90,31 @@
 
 
 
-
-
     <button id="searchBtn" class="btn btn-primary">搜索</button>
 
 
 </div>
 
 
+
+
+
 <script type="text/javascript">
     $(function () {
         $('#datetimepicker6').datetimepicker();
         $('#datetimepicker7').datetimepicker({
+
+
+
+
             useCurrent: false //Important! See issue #1075
         });
         $("#datetimepicker6").on("dp.change", function (e) {
+
             $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
         });
         $("#datetimepicker7").on("dp.change", function (e) {
+
             $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
         });
     });
@@ -135,27 +157,121 @@
                 <td>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0"
-                             aria-valuemax="100"
-                             style="width: {{$item['offer_percent']}};background-color: #0090d9"></div>
+                             aria-valuemax="100" style="width: {{$item['offer_percent']}};background-color: #0090d9"></div>
                     </div>
                     <span class="percentage">{{$item['offer_percent']}}</span>
                 </td>
             </tr>
         @endforeach
+        </tbody>
+    </table>
+</div>
 
 
-        {{--        <tr>--}}
-        {{--            <td class="text-center">项目 2</td>--}}
-        {{--            <td class="text-center">60%</td>--}}
-        {{--            <td>--}}
-        {{--                <div class="progress">--}}
-        {{--                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"--}}
-        {{--                         aria-valuemax="100" style="width: 60%;background-color: #0090d9"></div>--}}
-        {{--                </div>--}}
-        {{--                <span class="percentage">60%</span>--}}
-        {{--            </td>--}}
-        {{--        </tr>--}}
-        <!-- 添加更多行，根据需要修改百分比和进度条宽度 -->
+
+<div class="container">
+    <div class='col-md-5'>
+        <div class="form-group">
+            <div class="container mt-5">
+                <div class="col-sm-4" style="width: 20%!important;">
+                    <select id="country" name="usertype" class="selectpicker show-tick form-control" multiple
+                            data-max-options="3"
+                            data-live-search="true" data-none-selected-text="Select Offers Geos" data-size="10">
+                        @foreach ($category_lis as $key=>$item)
+                            <option value="{{$item['id']}}"
+                                    data-content="<span class='label label-success'>{{$item['country']}}</span>">{{$item['country']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class='col-md-5' style="width: 20%">
+        <div class="form-group">
+            <div class='input-group date' id='datetimepicker1'>
+                <input type='text' class="form-control"  id="datetimepicker3" />
+                <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+            </div>
+        </div>
+    </div>
+
+    <div class='col-md-5' style="width: 20%">
+        <div class="form-group">
+            <div class='input-group date' id='datetimepicker2'>
+                <input type='text' class="form-control" id="datetimepicker4" />
+                <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+            </div>
+        </div>
+    </div>
+
+
+
+    <button id="countrySearchBtn" class="btn btn-primary">搜索</button>
+
+
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+        $('#datetimepicker2').datetimepicker({
+
+
+
+
+            useCurrent: false //Important! See issue #1075
+        });
+        $("#datetimepicker1").on("dp.change", function (e) {
+
+            $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+        });
+        $("#datetimepicker2").on("dp.change", function (e) {
+
+            $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+</script>
+
+<div class="card">
+    <div class="card-body">
+        <canvas id="myCountryPieChart" width="200" height="200"></canvas>
+    </div>
+
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th class="text-center">OFFER</th>
+            <th class="text-center">PERCENTAGE</th>
+            <th class="text-center">DISTRIBUTION</th>
+        </tr>
+        </thead>
+
+
+        <tbody id="html_data">
+        @foreach ($country_count as $key=>$item)
+
+            <tr>
+                <td class="text-center">{{$item['country_top']}}</td>
+                <td class="text-center">{{$item['country_percent']}}</td>
+                <td>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0"
+                             aria-valuemax="100" style="width: {{$item['country_percent']}};background-color: #0090d9"></div>
+                    </div>
+                    <span class="percentage">{{$item['country_percent']}}</span>
+                </td>
+            </tr>
+        @endforeach
         </tbody>
     </table>
 </div>
@@ -180,7 +296,15 @@
 {{--</div>--}}
 
 
+
+
+
+
 <script>
+
+
+
+
     var frontendData = @json($data);
 
     $(function () {
@@ -191,14 +315,21 @@
             var data = frontendData.original.data.offer_sale;
             var month = frontendData.original.data.month;
 
+
+
+
             //示例数据
             var labels = [month];
-            var datasetsData = data.sale_data;
+            var datasetsData = data;
+
+
+
+
 
             //创建一个空的 datasets 数组
             var datasets = [];
 
-            //循环遍历 datasetsData，创建数据集对象并添加到 datasets 数组
+            //循环遍历 datasetsData，创建数据集对象并添加到 datasets 数组 拼接柱状图数据
             for (var i = 0; i < datasetsData.length; i++) {
                 if (datasetsData[i] && datasetsData[i].length >= 2) {
                     var secondElement = datasetsData[i][1];
@@ -242,16 +373,13 @@
 
 <script>
 
-
     var frontendData = @json($data);
     $(document).ready(function () {
 
-        var data = frontendData.original.data.offer_sale;
+        var data = frontendData.original.data;
 
+        console.log('测试数据2',data);
 
-        console.log('数据接收4', data);
-        //
-        // // 引入 Chart.js 库
         var ctx = document.getElementById('myPieChart').getContext('2d');
         var pieChart = new Chart(ctx, {
             type: 'pie',
@@ -269,21 +397,24 @@
         });
 
 
+
+
         $("#searchBtn").click(function () {
             //动作触发后执行都代码
-            var start_date = $("#datetimepicker6").val();
+            var start_date = $("#datetimepicker5").val();
             var end_date = $("#datetimepicker8").val();
+            var country = $("#geos").val();
 
 
             // console.log('开始时间',end_date)
-           // alert(1234)
+           // alert(start_date)
 
             // 发送 AJAX 请求
             $.ajax({
                 url: '/admin/intelligence/offerPie', // 替换为实际的 API 地址
                 method: 'GET',
                 dataType: 'json',
-                data:{start_date:start_date,end_date:end_date},
+                data:{start_date:start_date,end_date:end_date,country:country},
                 success: function (data) {
 
                     var res = data.data.offer_sale;
@@ -324,24 +455,161 @@
 
 
 
-            // var data = frontendData.original.data.offer_sale;
-            // console.log('数据接收4', data);
-            // // 引入 Chart.js 库
-            // var ctx = document.getElementById('myPieChart').getContext('2d');
-            // var pieChart = new Chart(ctx, {
-            //     type: 'pie',
-            //     data: {
-            //         labels: data.offer,
-            //         datasets: [{
-            //             data: data.total_quantity,
-            //             backgroundColor: ['red', 'blue', 'green', 'yellow'],
-            //         }]
-            //     },
-            //     options: {
-            //         responsive: true,
-            //         maintainAspectRatio: false,
-            //     }
-            // });
+        });
+    });
+
+
+    // 更新饼图数据
+    function updatePieChart(newData) {
+        // 判断数据是否符合预期格式
+        if (isValidDataFormat(newData)) {
+            myPieChart.data = newData;
+            myPieChart.update();
+        } else {
+            console.error('Invalid data format');
+        }
+    }
+
+
+    // 判断数据是否符合预期格式
+    function isValidDataFormat(data) {
+        return (
+            data &&
+            data.labels &&
+            Array.isArray(data.labels) &&
+            data.datasets &&
+            Array.isArray(data.datasets) &&
+            data.datasets.length > 0 &&
+            data.datasets[0].data &&
+            Array.isArray(data.datasets[0].data)
+        );
+    }
+
+
+    /*
+    $(function () {
+        $.get('/admin/intelligence/offerPie', function (e) {
+        var data  =  frontendData.original.data.offer_sale;
+        console.log('数据接收4',data);
+
+    // 引入 Chart.js 库
+    var ctx = document.getElementById('myPieChart').getContext('2d');
+    var pieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: data.offer,
+            datasets: [{
+                data: data.total_quantity,
+                backgroundColor: ['red', 'blue', 'green', 'yellow'],
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+        }
+    });
+        });
+    });
+*/
+
+
+</script>
+
+
+<script>
+
+
+    function generateRandomColors(numColors) {
+        var colors = [];
+        for (var i = 0; i < numColors; i++) {
+            var r = Math.floor(Math.random() * 256);
+            var g = Math.floor(Math.random() * 256);
+            var b = Math.floor(Math.random() * 256);
+            var alpha = Math.random().toFixed(2); // 控制透明度，可根据需求修改
+            colors.push('rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')');
+        }
+        return colors;
+    }
+
+    var frontendData = @json($data);
+    $(document).ready(function () {
+        var data = frontendData.original.data;
+
+        var ctx = document.getElementById('myCountryPieChart').getContext('2d');
+        var pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: data.country,
+                datasets: [{
+                    data: data.country_total_quantity,
+                    backgroundColor:generateRandomColors(10),
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+
+
+
+
+        $("#countrySearchBtn").click(function () {
+            //动作触发后执行都代码
+            var start_date = $("#datetimepicker2").val();
+            var end_date = $("#datetimepicker4").val();
+            var country = $("#country").val();
+
+
+            // console.log('开始时间',end_date)
+            // alert(start_date)
+
+            // 发送 AJAX 请求
+            $.ajax({
+                url: '/admin/intelligence/countryPie', // 替换为实际的 API 地址
+                method: 'GET',
+                dataType: 'json',
+                data:{start_date:start_date,end_date:end_date,country:country},
+                success: function (data) {
+
+                    var res = data.data.offer_sale;
+                    // console.log(data.data.offer_sale);
+
+                    // 引入 Chart.js 库
+                    var ctx = document.getElementById('myPieChart').getContext('2d');
+                    var pieChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: res.offer,
+                            datasets: [{
+                                data: res.total_quantity,
+                                backgroundColor: ['red', 'blue', 'green', 'yellow'],
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                        }
+                    });
+
+
+                    $("#html_data").empty();
+                    $("#html_data").html(res.total_sales_html);
+
+                },
+                // error: function (error) {
+                //     console.error('Error fetching data:', error);
+                // }
+
+
+
+
+
+            });
+
+
+
+
         });
     });
 

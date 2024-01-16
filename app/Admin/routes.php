@@ -31,7 +31,7 @@ Route::group([
 
     $router->get('intelligence/echat', "IntelligenceController@echat")->name('admin.intelligence');
     $router->get('intelligence/offerPie', "IntelligenceController@offerPie")->name('admin.intelligence');
-
+    $router->get('intelligence/countryPie', "IntelligenceController@countryPie")->name('admin.intelligence');
 
     $router->resource('offer_advanced', 'OfferAdvancedController')->names('admin.OfferAdvanced');
     $router->post('intelligence/query', 'IntelligenceController@query')->name('admin.query');
