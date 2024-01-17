@@ -76,6 +76,7 @@ class IntelligenceController extends AdminController
         $sale_data = array_map('array_values', $offer_sale);
         $month = date('M');
 
+
 //        print_r("<pre/>");
 //        print_r($sale_data);exit;
 
@@ -131,15 +132,12 @@ class IntelligenceController extends AdminController
 
 
 
-        //国家前十的数据
-        $country = [
-            'country'=>$country_top,
-            'country_data'=>$country_top,
-        ];
+
+      $offer_list =  Offer::where('offer_status',1)->orderBy('created_at','desc')->limit(3)->get()->toArray();
+
 
 //        print_r("<pre/>");
-//        print_r($country_count);exit;
-
+//     print_r($offer_list);exit;
 
         //柱状图数据
         $data = [
@@ -152,12 +150,15 @@ class IntelligenceController extends AdminController
             'country'=>$country_top,//国家前十列表
             'country_total_quantity'=>$country_total_quantity,//国家前十数据
 
+
         ];
         $data = response()->json(['data' => $data]);
 
         return $content
             ->header('Chartjs')
-            ->body(new Box('Bar chart', view('intelligence.echat', ['data' => $data, 'category_lis' => $geos_list,'offer_count'=>$offer_count,'country_count'=>$country_count])));
+            ->body(new Box('Bar chart', view('intelligence.echat', ['data' => $data, 'category_lis' => $geos_list,'offer_count'=>$offer_count,'country_count'=>$country_count,'offer_list'=>$offer_list])));
+
+
 
     }
 
@@ -240,7 +241,7 @@ class IntelligenceController extends AdminController
         $offer_percent = array_column($offer_count, 'offer_percent');
 
 
-        $total_sales_html = $this->html($offer_count);
+        $total_sales_html = $this->html($offer_count,1);
 
 
 
@@ -271,8 +272,8 @@ class IntelligenceController extends AdminController
 
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
-
         $country = $request->input('country');
+
 
 
         if(!empty($start_date) && !empty($end_date)){
@@ -320,47 +321,58 @@ class IntelligenceController extends AdminController
         $month = date('M');
 
 
+//        print_r($startDate);exit;
 
-        $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+
+        $country_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
             ->where($where)
-            ->select(DB::raw('count(id) as total_quantity'), 'offer_id')
-            ->groupBy('offer_id')
-            ->orderByDesc('total_quantity')
-            ->take(3)
+            ->select(DB::raw('count(id) as country_total_quantity'), 'country_id')
+            ->groupBy('country_id')
+            ->orderByDesc('country_total_quantity')
+            ->take(10)
             ->get()
             ->toArray();
 
 
+
+
         $total_count = OfferLog::count();
 
-        foreach ($offer_count as $key => $value) {
-            $offer_count[$key]['offer_top'] = Offer::where('id', $value['offer_id'])->value('offer_name');
-            $offer_count[$key]['offer_percent'] = round($value['total_quantity'] / $total_count * 100) . "%";
+        foreach ($country_count as $key => $value) {
+            $country_count[$key]['country_top'] = Geos::where('id', $value['country_id'])->value('country');
+            $country_count[$key]['country_percent'] = round($value['country_total_quantity'] / $total_count * 100) . "%";
         }
 
-        $offer_top = array_column($offer_count, 'offer_top');
-        $total_quantity = array_column($offer_count, 'total_quantity');
-        $offer_percent = array_column($offer_count, 'offer_percent');
+        $country_top = array_column($country_count, 'country_top');
+        $country_total_quantity = array_column($country_count, 'country_total_quantity');
+        $country_percent = array_column($country_count, 'country_percent');
 
 
-        $total_sales_html = $this->html($offer_count);
+        $total_sales_html = $this->html($country_count,2);
+
+
+
+//        print_r($country_top);exit;
+
 
 
 
         $sale = [
-            'offer' => $offer_id,
+            'country' => $country_top,
             'sale' => $total_sales,
-            'sale_data' => $offer_count,
-            'total_quantity' => $total_quantity,
-            'offer_percent' => $offer_percent,
+            'sale_data' => $country_count,
+            'country_total_quantity' => $country_total_quantity,
+            'offer_percent' => $country_percent,
             'total_sales_html'=>$total_sales_html
         ];
-
-
 
         $data = [
             "offer_sale" => $sale,
         ];
+
+
+//        print_r($data);exit;
+
 
         return response()->json(['data' => $data]);
 
@@ -372,14 +384,26 @@ class IntelligenceController extends AdminController
 
 
     //html拼接
-    protected function html($res)
+    protected function html($res,$type)
     {
 
 
         $html = '';
         foreach ($res as $key=>$item){
 
-            $data = '<tr><td class="text-center">'.$item['offer_top'].'</td><td class="text-center">'.$item['offer_percent'].'</td><td><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: '.$item['offer_percent'].';background-color: #0090d9"></div></div><span class="percentage">'.$item['offer_percent'].'</span></td></tr>';
+            if($type==1){
+                $name = $item['offer_top'];
+               $percent = $item['offer_percent'];
+            }else{
+                $name = $item['country_top'];
+                $percent = $item['country_percent'];
+            }
+
+
+            $data = '<tr><td class="text-center">'.$name.'</td><td class="text-center">'.$percent.'</td><td><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: '.$percent.';background-color: #0090d9"></div></div><span class="percentage">'.$percent.'</span></td></tr>';
+
+
+
             $html .=$data;
         }
 
