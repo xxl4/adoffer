@@ -53,7 +53,7 @@ class IntelligenceController extends AdminController
 
         $geos_list = Geos::get()->toArray();//国家列表
 
-        $startDate =  date('Y-m-d 00:00:00', strtotime("-6 days")); //默认最近一周的数据
+        $startDate =  date('Y-m-d 00:00:00', strtotime("-30 days")); //默认最近一周的数据
         $endDate = date('Y-m-d H:i:s');
 
         //查询当前月的销售金额记录并按数量降序排列
@@ -152,6 +152,10 @@ class IntelligenceController extends AdminController
 
 
         ];
+
+//        print_r("<pre/>");
+//        print_r($country_count);exit;
+
         $data = response()->json(['data' => $data]);
 
         return $content

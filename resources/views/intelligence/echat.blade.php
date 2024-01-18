@@ -22,7 +22,6 @@
         width: 50%;
         border-collapse: collapse;
         margin: 5px;
-        /*height: 200px!important;*/
         overflow-y: auto;
     }
 
@@ -47,8 +46,7 @@
 
 
 
-{{--                <div class="container">--}}
-
+                <div class="container" style="margin-left: 15px;width: 1680px;">
                     <div class="grid-title no-border">
                         <h4>
                             <span class="semi-bold">Top Offers</span>
@@ -105,23 +103,16 @@
                     </div>
                     <button id="searchBtn" class="btn btn-primary">搜索</button>
 
-
-
-
-
+<br><br><br><br>
                 <div class="col-md-12">
                     <div class="grid simple">
-
-
-
-
                         <div class="grid-body no-border">
                             <div class="row" style="margin-left: 15px;margin-right: 15px;!important;">
-                                <div class="col-md-4" style="width: 20%">
+                                <div class="col-md-4" style="width: 30%">
                                     {{--                                    <div id="myPieChart" class="col-md-12"></div>--}}
 
 
-                                    <canvas id="myPieChart"></canvas>
+                                    <canvas id="myPieChart"  style="width: 484px;height:233px;"></canvas>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="col-md-8">
@@ -218,7 +209,7 @@
     <div class="progress">
         <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0"
              aria-valuemax="100"
-             style="width: {{$item['offer_percent']}};background-color: #0090d9"></div>
+{{--             style="width: {{$item['offer_percent']}};background-color: #0090d9"></div>--}}
                     </div>
 {{--                    <span class="percentage">{{$item['offer_percent']}}</span>--}}
 </td>
@@ -250,57 +241,11 @@
 {{--        </div>--}}
 {{--    </div>--}}
 
+<hr>
 
-<div class='col-md-5' style="width: 15%">
-    <div class="form-group">
-        <div class="container mt-5">
-            <div class="col-sm-4" style="width: 20%!important;">
-                <select id="country" name="usertype" class="selectpicker show-tick form-control"
-                        multiple
-                        data-max-options="3"
-                        data-live-search="true" data-none-selected-text="Select Offers Geos"
-                        data-size="10">
-                    @foreach ($category_lis as $key=>$item)
-                        <option value="{{$item['id']}}"
-                                data-content="<span class='label label-success'>{{$item['country']}}</span>">{{$item['country']}}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-<div class='col-md-5' style="width: 20%">
-    <div class="form-group">
-        <div class='input-group date' id='datetimepicker1'>
-            <input type='text' class="form-control" id="datetimepicker3"/>
-            <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar"></span>
-            </span>
-        </div>
-    </div>
-</div>
-
-<div class='col-md-5' style="width: 20%">
-    <div class="form-group">
-        <div class='input-group date' id='datetimepicker2'>
-            <input type='text' class="form-control" id="datetimepicker4"/>
-            <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar"></span>
-            </span>
-        </div>
-    </div>
-</div>
-<button id="countrySearchBtn" class="btn btn-primary">搜索</button>
 
 
     {{--</div>--}}
-
-
     {{--<div class="container">--}}
 {{--    <div class='col-md-5' style="width: 20%">--}}
 {{--        <div class="form-group">--}}
@@ -338,61 +283,20 @@
             useCurrent: false //Important! See issue #1075
         });
         $("#datetimepicker1").on("dp.change", function (e) {
-
             $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
         });
         $("#datetimepicker2").on("dp.change", function (e) {
-
             $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
         });
     });
 </script>
 
-{{--<div class="col-md-12">--}}
-{{--    <div class="grid simple">--}}
-{{--        <div class="grid-body no-border">--}}
-{{--            <div class="row" style="margin-left: 15px;margin-right: 15px;!important;">--}}
-{{--                <div class="col-md-4" style="width: 20%">--}}
-{{--                    <canvas id="myCountryPieChart"></canvas>--}}
-{{--                    <div class="clearfix"></div>--}}
-{{--                </div>--}}
-{{--                <div class="col-md-10">--}}
-{{--                    <table class="table no-more-tables offer_table" style="border:1px #000 solid; border-top:0;height: 100px;">--}}
-{{--                        <thead>--}}
-{{--                        <tr>--}}
-{{--                            <th style="width:40%">Offer</th>--}}
-{{--                            <th style="width:5%">Percentage</th>--}}
-{{--                            <th style="width:20%">Distribution</th>--}}
-{{--                        </tr>--}}
-{{--                        </thead>--}}
-{{--                                <tbody id="html_data_country">--}}
-{{--                                @foreach ($country_count as $key=>$item)--}}
-{{--                                    <tr>--}}
-{{--                                        <td class="text-center">{{$item['country_top']}}</td>--}}
-{{--                                        <td class="text-center">{{$item['country_percent']}}</td>--}}
-{{--                                        <td>--}}
-{{--                                            <div class="progress">--}}
-{{--                                                <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0"--}}
-{{--                                                     aria-valuemax="100"--}}
-{{--                                                     style="width: {{$item['country_percent']}};background-color: #0090d9"></div>--}}
-{{--                                            </div>--}}
-{{--                                            <span class="percentage">{{$item['country_percent']}}</span>--}}
-{{--                                        </td>--}}
-{{--                                    </tr>--}}
-{{--                                @endforeach--}}
-{{--                    </table>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
 
 
 
 
 
-
-<div class="col-md-12">
+<div class="col-md-12" style="margin-top: 30px">
     <div class="grid simple">
         <div class="grid-title no-border">
             <h4><span class="semi-bold">Top Countries</span></h4>
@@ -407,100 +311,169 @@
 
 
 
-
-
-    <div class="col-md-12">
-        <canvas id="myCountryPieChart"></canvas>
-        <div class="clearfix"></div>
-    </div>
-
-        <table>
-            <thead>
-            <tr>
-                <th style="width:40%">Offer</th>
-                <th style="width:6%">Percentage</th>
-                <th style="width:10%">Distribution</th>
-            </tr>
-            </thead>
-            <tbody>
-{{--            --}}
-            @foreach ($country_count as $key=>$item)
-                <tr>
-                    <td class="text-center">{{$item['country_top']}}</td>
-                    <td class="text-center">{{$item['country_percent']}}</td>
-                    <td>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0"
-                                 aria-valuemax="100"
-                                 style="width: {{$item['country_percent']}};background-color: #0090d9"></div>
+            <div class='col-md-5' style="width: 15%;margin-top: 30px;">
+                <div class="form-group">
+                    <div class="container mt-5">
+                        <div class="col-sm-4" style="width: 20%!important;">
+                            <select id="country" name="usertype" class="selectpicker show-tick form-control"
+                                    multiple
+                                    data-max-options="3"
+                                    data-live-search="true" data-none-selected-text="Select Offers Geos"
+                                    data-size="10">
+                                @foreach ($category_lis as $key=>$item)
+                                    <option value="{{$item['id']}}"
+                                            data-content="<span class='label label-success'>{{$item['country']}}</span>">{{$item['country']}}</option>
+                                @endforeach
+                            </select>
                         </div>
-{{--                        <span class="percentage">{{$item['country_percent']}}</span>--}}
-                    </td>
-                </tr>
-            @endforeach
-
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            </div>
 
 
 
 
-</div>
+
+            <div class='col-md-5' style="width: 20%;margin-top: 30px;">
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input type='text' class="form-control" id="datetimepicker3"/>
+                        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class='col-md-5' style="width: 20%;margin-top: 30px;">
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker2'>
+                        <input type='text' class="form-control" id="datetimepicker4"/>
+                        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </div>
+            </div>
+            <button id="countrySearchBtn" class="btn btn-primary" style="margin-top: 30px;">搜索</button>
+
+
+            <div class="col-md-12">
+                <div class="grid simple">
+                    <div class="grid-body no-border">
+                        <div class="row" style="margin-left: 15px;margin-right: 15px;!important;">
+                            <div class="col-md-4" style="width: 30%">
+                                {{--                                    <div id="myPieChart" class="col-md-12"></div>--}}
+
+
+                                <canvas id="myCountryPieChart" style="width: 484px;height:233px;"></canvas>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="col-md-8">
+                                <table class="table no-more-tables offer_table" style="border:1px #000 solid; border-top:0;">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:40%">Offer</th>
+                                        <th style="width:5%">Percentage</th>
+                                        <th style="width:20%">Distribution</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="html_data_country">
+                                    @foreach ($country_count as $key=>$item)
+
+                                        <tr>
+                                            <td class="text-center">{{$item['country_top']}}</td>
+                                            <td class="text-center">{{$item['country_percent']}}</td>
+                                            <td>
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" aria-valuenow="30"
+                                                         aria-valuemin="0"
+                                                         aria-valuemax="100"
+                                                         style="width: {{$item['country_percent']}};background-color: #0090d9"></div>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
 </div>
-{{--</div>--}}
 
 
-{{--<div class="card">--}}
-{{--    <div class="card-body">--}}
-{{--        <canvas id="myCountryPieChart"></canvas>--}}
-{{--    </div>--}}
 
 
-{{--    <table class="table table-bordered">--}}
-{{--        <thead>--}}
-{{--        <tr>--}}
-{{--            <th class="text-center">OFFER</th>--}}
-{{--            <th class="text-center">PERCENTAGE</th>--}}
-{{--            <th class="text-center">DISTRIBUTION</th>--}}
-{{--        </tr>--}}
-{{--        </thead>--}}
 
 
-{{--        <tbody id="html_data_country">--}}
-{{--        @foreach ($country_count as $key=>$item)--}}
-{{--            <tr>--}}
-{{--                <td class="text-center">{{$item['country_top']}}</td>--}}
-{{--                <td class="text-center">{{$item['country_percent']}}</td>--}}
-{{--                <td>--}}
-{{--                    <div class="progress">--}}
-{{--                        <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0"--}}
-{{--                             aria-valuemax="100"--}}
-{{--                             style="width: {{$item['country_percent']}};background-color: #0090d9"></div>--}}
-{{--                    </div>--}}
-{{--                    <span class="percentage">{{$item['country_percent']}}</span>--}}
-{{--                </td>--}}
-{{--            </tr>--}}
-{{--        @endforeach--}}
-{{--        </tbody>--}}
-{{--    </table>--}}
-{{--</div>--}}
+                    <div class="col-md-12">
+                        <div class="grid simple">
+                            <div class="grid-title no-border">
+                                <h4>Monthly  <span class="semi-bold">Top 3 Offers</span></h4>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse"></a>
+                                    <a href="javascript:;" class="remove"></a>
+                                </div>
+                            </div>
+                            <div class="grid-body no-border">
+                                <h4>Monthly Progression Of The Top 3 Chart</h4>
+                                <p>This section gives you a high level view on the top 3 offers evolution across the current year.</p>
+                                <br>
+                                <style type="text/css">
+                                    .legend table{
+                                        position: relative !important;
+                                        display: block;
+                                    }
+                                    .legend>div{
+                                        display: none;
+                                    }
+                                    .legend table tr{
+                                        display: inline-block;
+                                        padding-right: 5px;
+                                    }
+                                    .legend table tr td{
+                                        padding-right: 5px;
+                                    }
+                                </style>
+                                <div class="row">
+                                    <div class="col-xs-12">
+{{--                                        <div id="placeholder-bar-chart" style="min-height: 250px"></div>--}}
+
+                                        <canvas id="myBarChart"  style="height: 100px;width: 400px!important;"></canvas>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+</div>
+
 
 
 <div class="col-md-6">
     <div class="grid simple">
         <div class="grid-title no-border">
-            <h4>New Offers <span class="semi-bold"></span></h4>
+            <h4>New Offers  <span class="semi-bold"></span></h4>
             <div class="tools">
                 <a href="javascript:;" class="collapse"></a>
                 <a href="javascript:;" class="remove"></a>
             </div>
         </div>
-
         <div class="grid-body no-border">
             <h4>Last Released Offers</h4>
-            <p>This section display the last 3 offers added to the M4TRIX, jump in fast to profit from the first mover
-                advantage. The early bird catches the worm.
+            <p>This section display the last 3 offers added to the M4TRIX, jump in fast to profit from the first mover advantage. The early bird catches the worm.
             </p>
             <br>
             <div class="row">
@@ -516,10 +489,11 @@
                         <tbody class="new_offers">
 
                         @foreach ($offer_list as $key=>$item)
+
                             <tr>
                                 <td class="text-center">{{$item['offer_name']}}</td>
-                                <td class="text-center">{{$item['created_at']}}</td>
-                                <td class="text-center">${{$item['offer_price']}}</td>
+                                <td class="text-center">{{$item['offer_name']}}</td>
+                                <td class="text-center">{{$item['offer_price']}}</td>
                             </tr>
                         @endforeach
 
@@ -529,39 +503,13 @@
             </div>
 
         </div>
-
-
-
-
-
     </div>
 </div>
-
-
-<div class="container">
-    {{--    <div class="card-header">--}}
-    {{--        <h2 style="float:left;">Monthly Top 3 Offers</h2>--}}
-    {{--        <h3 style="margin-left: 15px;">Monthly Progression Of The Top 3 Chart</h3>--}}
-    {{--        <h4>This section gives you a high level view on the top 3 offers evolution across the current year.</h4>--}}
-    {{--    </div>--}}
-    <div class="row">
-        <div class="col-md-6" style="width: 100%;">
-            <canvas id="myBarChart"></canvas>
-        </div>
-    </div>
-</div>
-
-
-{{--<div class="container">--}}
-
-{{--</div>--}}
 
 
 <script>
 
-
     var frontendData = @json($data);
-
     $(function () {
         $.get('/admin/intelligence/echat', function (e) {
             // console.log('数据接收',frontendData.original.data.offer_sale);
@@ -603,13 +551,16 @@
                     datasets: datasets
                 },
                 options: {
+                    barPercentage: 0.8,
                     scales: {
+                        xAxes: [{
+                            categoryPercentage: 0.1 // 设置类目轴上柱子的宽度占比为80%
+                        }],
                         yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
+                            categorySpacing: 0.1 // 或者直接指定具体像素值，如15px
                         }]
-                    }
+                    },
+
                 }
             });
         });
@@ -621,6 +572,12 @@
 <script>
 
     var frontendData = @json($data);
+
+
+
+    console.log('数据返回',frontendData);
+
+
     $(document).ready(function () {
 
         var data = frontendData.original.data;
@@ -744,6 +701,8 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                // width: 484,
+                // height: 233,
                 legend: {
                     display: true,
                     position: 'right',
