@@ -39,9 +39,6 @@ class IntelligenceController extends AdminController
 
     public function index(Content $content)
     {
-//
-
-
         return $content
             ->header('Chartjs')
             ->body(new Box('Bar chart', view('admin.intelligence.echart')));
@@ -52,8 +49,7 @@ class IntelligenceController extends AdminController
     {
 
         $geos_list = Geos::get()->toArray();//国家列表
-
-        $startDate =  date('Y-m-d 00:00:00', strtotime("-30 days")); //默认最近一周的数据
+        $startDate = date('Y-m-d 00:00:00', strtotime("-30 days")); //默认最近一周的数据
         $endDate = date('Y-m-d H:i:s');
 
         //查询当前月的销售金额记录并按数量降序排列
@@ -66,11 +62,23 @@ class IntelligenceController extends AdminController
             ->toArray();
 
 
+      $offer_log_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->sum('revenue');
+
         foreach ($offer_sale as $key => $value) {
-            $offer_sale[$key]['offer_id'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+
+            $offer_sale[$key]['sales_percent'] = round($value['total_sales'] / $offer_log_count, 2);
+            $offer_sale[$key]['offer_name'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+          //  $offer_sale[$key]['sales_copy'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+
+            unset($offer_sale[$key]['total_sales']);
+             unset($offer_sale[$key]['offer_id']);
+
         }
 
-        $offer_id = array_column($offer_sale, 'offer_id');
+
+
+
+        $offer_id = array_column($offer_sale, 'offer_name');
         $total_sales = array_column($offer_sale, 'total_sales');
         //使用 array_map 和 array_values 删除键，只保留键值
         $sale_data = array_map('array_values', $offer_sale);
@@ -79,9 +87,6 @@ class IntelligenceController extends AdminController
 
 //        print_r("<pre/>");
 //        print_r($sale_data);exit;
-
-
-
 
         //排名前三的offer
         $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
@@ -105,7 +110,6 @@ class IntelligenceController extends AdminController
         $offer_percent = array_column($offer_count, 'offer_percent');
 
 
-
         //排名前十的国家
         $country_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
             ->select(DB::raw('count(id) as country_total_quantity'), 'country_id')
@@ -124,16 +128,12 @@ class IntelligenceController extends AdminController
         }
 
 
-
         $country_top = array_column($country_count, 'country_top');
         $country_total_quantity = array_column($country_count, 'country_total_quantity');
         $country_percent = array_column($country_count, 'country_percent');
 
 
-
-
-
-      $offer_list =  Offer::where('offer_status',1)->orderBy('created_at','desc')->limit(3)->get()->toArray();
+        $offer_list = Offer::where('offer_status', 1)->orderBy('created_at', 'desc')->limit(3)->get()->toArray();
 
 
 //        print_r("<pre/>");
@@ -147,8 +147,8 @@ class IntelligenceController extends AdminController
             'total_quantity' => $total_quantity,//饼状图数量
             'month' => $month,//柱状图当前月份
 
-            'country'=>$country_top,//国家前十列表
-            'country_total_quantity'=>$country_total_quantity,//国家前十数据
+            'country' => $country_top,//国家前十列表
+            'country_total_quantity' => $country_total_quantity,//国家前十数据
 
 
         ];
@@ -160,14 +160,13 @@ class IntelligenceController extends AdminController
 
         return $content
             ->header('Chartjs')
-            ->body(new Box('Bar chart', view('intelligence.echat', ['data' => $data, 'category_lis' => $geos_list,'offer_count'=>$offer_count,'country_count'=>$country_count,'offer_list'=>$offer_list])));
-
+            ->body(new Box('Bar chart', view('intelligence.echat', ['data' => $data, 'category_lis' => $geos_list, 'offer_count' => $offer_count, 'country_count' => $country_count, 'offer_list' => $offer_list])));
 
 
     }
 
 
-    public function offerPie(Request$request)
+    public function offerPie(Request $request)
     {
 
         $start_date = $request->input('start_date');
@@ -176,25 +175,25 @@ class IntelligenceController extends AdminController
         $country = $request->input('country');
 
 
-        if(!empty($start_date) && !empty($end_date)){
+        if (!empty($start_date) && !empty($end_date)) {
 
-            $start_date =  substr($start_date, 0, 10);
-            $end_date =  substr($end_date, 0, 10);
+            $start_date = substr($start_date, 0, 10);
+            $end_date = substr($end_date, 0, 10);
 
 
-            $start_date =  date('Y-m-d',strtotime($start_date));
-            $end_date =  date('Y-m-d',strtotime($end_date));
+            $start_date = date('Y-m-d', strtotime($start_date));
+            $end_date = date('Y-m-d', strtotime($end_date));
 
             $startDate = $start_date . ' 00:00:00';
             $endDate = $end_date . ' 23:59:59';
-        }else{
-            $startDate =  date('Y-m-d 00:00:00', strtotime("-6 days"));
+        } else {
+            $startDate = date('Y-m-d 00:00:00', strtotime("-6 days"));
             $endDate = date('Y-m-d 23:59:59');
         }
 
         $where = [];
-        if(!empty($country)){
-            $where[] = ['country_id','in', $country];
+        if (!empty($country)) {
+            $where[] = ['country_id', 'in', $country];
         }
         DB::connection()->enableQueryLog();
 
@@ -210,7 +209,6 @@ class IntelligenceController extends AdminController
         $carNamedata = DB::getQueryLog();
 
 
-
         foreach ($offer_sale as $key => $value) {
             $offer_sale[$key]['offer_id'] = Offer::where('id', $value['offer_id'])->value('offer_name');
         }
@@ -220,7 +218,6 @@ class IntelligenceController extends AdminController
         //使用 array_map 和 array_values 删除键，只保留键值
         $newArray = array_map('array_values', $offer_sale);
         $month = date('M');
-
 
 
         $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
@@ -245,8 +242,7 @@ class IntelligenceController extends AdminController
         $offer_percent = array_column($offer_count, 'offer_percent');
 
 
-        $total_sales_html = $this->html($offer_count,1);
-
+        $total_sales_html = $this->html($offer_count, 1);
 
 
         $sale = [
@@ -255,9 +251,8 @@ class IntelligenceController extends AdminController
             'sale_data' => $offer_count,
             'total_quantity' => $total_quantity,
             'offer_percent' => $offer_percent,
-            'total_sales_html'=>$total_sales_html
+            'total_sales_html' => $total_sales_html
         ];
-
 
 
         $data = [
@@ -269,9 +264,7 @@ class IntelligenceController extends AdminController
     }
 
 
-
-
-    public function countryPie(Request$request)
+    public function countryPie(Request $request)
     {
 
         $start_date = $request->input('start_date');
@@ -279,26 +272,25 @@ class IntelligenceController extends AdminController
         $country = $request->input('country');
 
 
+        if (!empty($start_date) && !empty($end_date)) {
 
-        if(!empty($start_date) && !empty($end_date)){
-
-            $start_date =  substr($start_date, 0, 10);
-            $end_date =  substr($end_date, 0, 10);
+            $start_date = substr($start_date, 0, 10);
+            $end_date = substr($end_date, 0, 10);
 
 
-            $start_date =  date('Y-m-d',strtotime($start_date));
-            $end_date =  date('Y-m-d',strtotime($end_date));
+            $start_date = date('Y-m-d', strtotime($start_date));
+            $end_date = date('Y-m-d', strtotime($end_date));
 
             $startDate = $start_date . ' 00:00:00';
             $endDate = $end_date . ' 23:59:59';
-        }else{
-            $startDate =  date('Y-m-d 00:00:00', strtotime("-6 days"));
+        } else {
+            $startDate = date('Y-m-d 00:00:00', strtotime("-6 days"));
             $endDate = date('Y-m-d 23:59:59');
         }
 
         $where = [];
-        if(!empty($country)){
-            $where[] = ['country_id','in', $country];
+        if (!empty($country)) {
+            $where[] = ['country_id', 'in', $country];
         }
         DB::connection()->enableQueryLog();
 
@@ -311,7 +303,6 @@ class IntelligenceController extends AdminController
             ->take(3)
             ->get()->toArray();
         $carNamedata = DB::getQueryLog();
-
 
 
         foreach ($offer_sale as $key => $value) {
@@ -338,8 +329,6 @@ class IntelligenceController extends AdminController
             ->toArray();
 
 
-
-
         $total_count = OfferLog::count();
 
         foreach ($country_count as $key => $value) {
@@ -350,15 +339,7 @@ class IntelligenceController extends AdminController
         $country_top = array_column($country_count, 'country_top');
         $country_total_quantity = array_column($country_count, 'country_total_quantity');
         $country_percent = array_column($country_count, 'country_percent');
-
-
-        $total_sales_html = $this->html($country_count,2);
-
-
-
-//        print_r($country_top);exit;
-
-
+        $total_sales_html = $this->html($country_count, 2);
 
 
         $sale = [
@@ -367,7 +348,7 @@ class IntelligenceController extends AdminController
             'sale_data' => $country_count,
             'country_total_quantity' => $country_total_quantity,
             'offer_percent' => $country_percent,
-            'total_sales_html'=>$total_sales_html
+            'total_sales_html' => $total_sales_html
         ];
 
         $data = [
@@ -383,39 +364,32 @@ class IntelligenceController extends AdminController
     }
 
 
-
-
-
-
     //html拼接
-    protected function html($res,$type)
+    protected function html($res, $type)
     {
 
 
         $html = '';
-        foreach ($res as $key=>$item){
+        foreach ($res as $key => $item) {
 
-            if($type==1){
+            if ($type == 1) {
                 $name = $item['offer_top'];
-               $percent = $item['offer_percent'];
-            }else{
+                $percent = $item['offer_percent'];
+            } else {
                 $name = $item['country_top'];
                 $percent = $item['country_percent'];
             }
 
 
-            $data = '<tr><td class="text-center">'.$name.'</td><td class="text-center">'.$percent.'</td><td><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: '.$percent.';background-color: #0090d9"></div></div><span class="percentage">'.$percent.'</span></td></tr>';
+            $data = '<tr><td class="text-center">' . $name . '</td><td class="text-center">' . $percent . '</td><td><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: ' . $percent . ';background-color: #0090d9"></div></div></td></tr>';
 
 
-
-            $html .=$data;
+            $html .= $data;
         }
-
 
 
         return $html;
     }
-
 
 
     public function query(Request $request)
@@ -666,195 +640,6 @@ class IntelligenceController extends AdminController
         return $content->title('详情')
             ->description('简介')
             ->view('offer.show', compact('data'));
-    }
-
-
-    protected function htmlSpliceCopy($offer)
-    {
-
-        $result = '';
-        foreach ($offer as $key => $item) {
-
-
-            if ($item['offer_status'] == 1) $lable_status = '<span class="label label-success">Live</span>'; else $lable_status = '<span class="label label-warning">Paused</span>';
-
-
-            if (!empty($item['track_list'][0][0]['track_link'])) $main_link = $item['track_list'][0][0]['track_link']; else $main_link = '';
-
-
-            $first = '<div class="col-md-12 accord" data-offer_db="CozyTime Pro" data-marker-id="' . $item['id'] . '"><ul class="nav nav-tabs" role="tablist"><li class="active"><a href="#tab0Offer_' . $key . '" role="tab" data-toggle="tab">Summary</a></li><li><a href="#tab0Description_' . $key . '" role="tab" data-toggle="tab">Description</a></li><li><a href="#tab0Geos_' . $key . '" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="#tab0Tracking_' . $key . '" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="#tab0Creative_' . $key . '" role="tab" data-toggle="tab">Creatives</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="?id=offer#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab0Offer_' . $key . '"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="' . $main_link . '" target="_blank">' . '<span class="offer-product-img-container" data-original-title="" title=""><img src="' . env('APP_URL') . '/upload/' . $item['image'] . '"></span>Offer Preview<i class="icon ion-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">' . $item['offer_name'] . '</td><td width="25%">$' . $item['offer_price'] . ' Per Sale</td><td width="20%">' . $lable_status . '</td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab0Description_' . $key . '"><div class="row"><div class="col-md-12"><p></p><p><strong></strong></p><p>"' . $item['des'] . '"</p><p></p></div></div></div><div class="tab-pane" id="tab0Geos_' . $key . '"><div class="row"><div class="col-md-12"><p></p><p>' . $item['accepted_area'] . '</p></div></div></div><div class="tab-pane" id="tab0Tracking_' . $key . '"><div class="row"><div class="col-md-12"><p>' . $item['track_des'] . '</p></div><div class="col-md-12"><div class="row"><div class="col-md-12"><div class="tabbable tabs-left tabs-bg"><ul class="nav nav-tabs" role="tablist">';
-
-
-            //追踪链接的tab
-            $track_tab = '';
-            foreach ($item['track_list'] as $key2 => $item2) {
-                if ($key2 == 0) {
-                    $track_tab .= '<li class="active"><a href="?id=offer#advertorialpages12-1' . $key2 . $key . '" role="tab" data-toggle="tab">Advertorial Pages' . $key2 . $key . '</a></li>';
-                } else {
-                    $track_tab .= '<li><a href="?id=offer#advertorialpages12-1' . $key2 . $key . '" role="tab" data-toggle="tab">Advertorial Pages' . $key2 . $key . '</a></li>';
-                }
-            }
-
-            $tab_content = '</ul><div class="tab-content">';
-            //追踪链接的tab 对应内容
-            $track1 = '';
-            $track = '';
-            foreach ($item['track_list'] as $k => $i) {
-                if ($k == 0) {
-                    $track1 = '<div class="tab-pane active" id="advertorialpages12-1' . $k . $key . '">';
-                } else {
-                    $track1 = '<div class="tab-pane" id="advertorialpages12-1' . $k . $key . '">';
-                }
-                $row = '<div class="row">';
-                $data1 = '';
-                foreach ($i as $key4 => $item4) {
-                    $data1 .= '<div class="col-md-12"><div class="padding-for_links"><div>' . $item4['track_name'] . '</div><input  style="width: calc(100% - 100px)" readonly="" type="text" class="clipboard-1-0-0-1' . $k . '-1' . $key4 . '" value="' . $item4['track_link'] . '"><a href="' . $item4['track_link'] . '"><i class="icon ion-eye pull-right"></i></a><a class="copp pull-right btn btn-success btn-cons copy-button" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-1' . $k . '-1' . $key4 . '">Copy</a></div></div>';
-
-//                    $data1 .=$data1;
-                }
-
-
-                $data_div = ' </div></div>';
-                $track .= $track1 . $row . $data1 . $data_div;
-            }
-
-            $third = '</div></div><div class="clearfix"></div></div></div></div></div></div><div class="tab-pane" id="tab0Creative_' . $key . '"><div class="row"><div class="col-md-12">';
-
-            $forth = '';
-            foreach ($item['creatives'] as $k1 => $i1) {
-                $forth = '<p></p><p>' . $i1['name'] . '</p><p><a href="' . $i1['link'] . '" target="_blank">' . $i1['link'] . '</a></p>';
-                $forth .= $forth;
-            }
-
-            $sixth = ' </div></div></div></div></div></div>';
-            $result .= $first . $track_tab . $tab_content . $track . $third . $forth . $sixth;
-
-
-        }
-
-
-//        print_r($result);
-//        exit;
-
-
-        return $result;
-
-    }
-
-
-    protected function htmlSpliceCopy1($offer)
-    {
-
-
-//        print_r($offer);exit;
-
-        $result = '';
-        foreach ($offer as $key => $item) {
-
-
-            if ($item['offer_status'] == 1) $lable_status = '<span class="label label-success">Live</span>'; else $lable_status = '<span class="label label-warning">Paused</span>';
-            if (!empty($item['track_list'][0][0]['track_link'])) $main_link = $item['track_list'][0][0]['track_link']; else $main_link = '';
-
-
-            $first = '<div class="col-md-12 accord" data-offer_db="CozyTime Pro" data-marker-id="' . $item['id'] . '"><ul class="nav nav-tabs" role="tablist"><li class="active"><a href="#tab0Offer_8' . $key . '" role="tab" data-toggle="tab">Summary</a></li><li><a href="#tab0Description_8' . $key . '" role="tab" data-toggle="tab">Description</a></li><li><a href="#tab0Geos_8' . $key . '" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="#tab0Tracking_8' . $key . '" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="#tab0Creative_8' . $key . '" role="tab" data-toggle="tab">Creatives</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="?id=offer#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab0Offer_8' . $key . '"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="' . $main_link . '" target="_blank">' . '<span class="offer-product-img-container" data-original-title="" title=""><img src="' . env('APP_URL') . '/upload/' . $item['image'] . '"></span>Offer Preview<i class="icon ion-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">' . $item['offer_name'] . '</td><td width="25%">$' . $item['offer_price'] . ' Per Sale</td><td width="20%">' . $lable_status . '</td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab0Description_8' . $key . '"><div class="row"><div class="col-md-12"><p></p><p><strong></strong></p><p>"' . $item['des'] . '"</p><p></p></div></div></div><div class="tab-pane" id="tab0Geos_8' . $key . '"><div class="row"><div class="col-md-12"><p></p><p>' . $item['accepted_area'] . '</p></div></div></div><div class="tab-pane" id="tab0Tracking_8' . $key . '"><div class="row"><div class="col-md-12"><p>' . $item['track_des'] . '</p></div><div class="col-md-12"><div class="row"><div class="col-md-12"><div class="tabbable tabs-left tabs-bg"><ul class="nav nav-tabs" role="tablist">';
-
-
-            //追踪链接的tab
-            $track_tab = '';
-            foreach ($item['track_list'] as $key2 => $item2) {
-                if ($key2 == 0) {
-                    $track_tab .= '<li class="active"><a href="?id=offer#advertorialpages128-1' . $key2 . $key . '" role="tab" data-toggle="tab">Advertorial Pages' . $key2 . $key . '</a></li>';
-                } else {
-                    $track_tab .= '<li><a href="?id=offer#advertorialpages128-1' . $key2 . $key . '" role="tab" data-toggle="tab">Advertorial Pages' . $key2 . $key . '</a></li>';
-                }
-            }
-
-            $tab_content = '</ul><div class="tab-content">';
-            //追踪链接的tab 对应内容
-            $track1 = '';
-            $track = '';
-            foreach ($item['track_list'] as $k => $i) {
-                if ($k == 0) {
-                    $track1 = '<div class="tab-pane active" id="advertorialpages128-1' . $k . $key . '">';
-                } else {
-                    $track1 = '<div class="tab-pane" id="advertorialpages128-1' . $k . $key . '">';
-                }
-                $row = '<div class="row">';
-                $data1 = '';
-                foreach ($i as $key4 => $item4) {
-                    $data1 .= '<div class="col-md-12"><div class="padding-for_links"><div>' . $item4['track_name'] . '</div><input  style="width: calc(100% - 100px)" readonly="" type="text" class="clipboard-1-0-0-1' . $key . '-' . $k . '-2' . $key4 . '" value="' . $item4['track_link'] . '"><a href="' . $item4['track_link'] . '"><i class="icon ion-eye pull-right"></i></a><a class="copp pull-right btn btn-success btn-cons copy-button" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-1' . $key . '-' . $k . '-2' . $key4 . '">Copy</a></div></div>';
-
-//                    $data1 .=$data1;
-                }
-
-
-                $data_div = ' </div></div>';
-                $track .= $track1 . $row . $data1 . $data_div;
-            }
-
-            $third = '</div></div><div class="clearfix"></div></div></div></div></div></div><div class="tab-pane" id="tab0Creative_8' . $key . '"><div class="row"><div class="col-md-12">';
-
-            $forth = '';
-            foreach ($item['creatives'] as $k1 => $i1) {
-                $forth = '<p></p><p>' . $i1['name'] . '</p><p><a href="' . $i1['link'] . '" target="_blank">' . $i1['link'] . '</a></p>';
-                $forth .= $forth;
-            }
-
-            $sixth = ' </div></div></div></div></div></div>';
-            $result .= $first . $track_tab . $tab_content . $track . $third . $forth . $sixth;
-
-
-        }
-
-
-//        print_r($result);
-//        exit;
-
-
-        return $result;
-
-    }
-
-    /**
-     * 内容拼接
-     * @param Request $request
-     * @return false|string
-     */
-    protected function htmlSplice($offer)
-    {
-
-        $result = '';
-        foreach ($offer as $key => $item) {
-
-            $first = '<div class="col-md-12 accord" data-offer_db="CozyTime Pro" data-marker-id="' . $item['id'] . '"><ul class="nav nav-tabs" role="tablist"><li class="active"><a href="#tab0Offer_' . $key . '" role="tab" data-toggle="tab">Summary</a></li><li><a href="#tab0Description_' . $key . '" role="tab" data-toggle="tab">Description</a></li><li><a href="#tab0Geos_' . $key . '" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="#tab0Tracking_' . $key . '" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="#tab0Creative_' . $key . '" role="tab" data-toggle="tab">Creatives</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="?id=offer#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab0Offer_' . $key . '"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="123" target="_blank">' . '<span class="offer-product-img-container" data-original-title="" title=""><img src="' . $item['image'] . '" alt="CozyTime Pro"></span>Offer Preview<i class="icon ion-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">' . $item['offer_name'] . '</td><td width="25%">$' . $item['offer_price'] . ' Per Sale</td><td width="20%"><span class="label label-success">Live</span></td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab0Description_' . $key . '"><div class="row"><div class="col-md-12"><p></p><p><strong>E-commerce - CozyTime Pro INTL - All Languages - EXCLUSIVE</strong></p><p>"' . $item['des'] . '"</p><p></p></div></div></div><div class="tab-pane" id="tab0Geos_' . $key . '"><div class="row"><div class="col-md-12"><p></p><p>' . $item['accepted_area'] . '</p></div></div></div><div class="tab-pane" id="tab0Tracking_' . $key . '"><div class="row"><div class="col-md-12"><p>' . $item['track_des'] . '</p></div><div class="col-md-12"><div class="row"><div class="col-md-12"><div class="tabbable tabs-left tabs-bg"><div class="tab-content"><div class="tab-pane active" id="provenorderpages-0"><div class="row"><div class="col-md-12">';
-
-            $track = '';
-            foreach ($item['track_list'] as $k => $i) {
-
-
-                $track = '<div class="padding-for_links"><div>' . $i['track_name'] . '</div><input readonly="" type="text" class="form-control trecking_link clipboard-0-0-0 dynamicDomainTrackingLink" value="' . $i['track_link'] . '" target="_blank" class=" dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-0-0">Copy</button></div>';
-                $track .= $track;
-            }
-
-            $third = '</div></div></div><div class="tab-pane" id="archivedorderpages-0"><div class="row"><div class="col-md-12"><div class="padding-for_links"><div>Order Page 2.0 - The N00b</div><input readonly="" type="text" class="form-control trecking_link clipboard-0-2-0 dynamicDomainTrackingLink" value="https://popularhitech.com/intl_2/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}"><a href="https://popularhitech.com/intl_2/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}" target="_blank" class=" dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-2-0">Copy</button></div><div class="padding-for_links"><div>Order Page 3.0 - The Multi-Step</div><input readonly="" type="text" class="form-control trecking_link clipboard-0-2-1 dynamicDomainTrackingLink" value="https://popularhitech.com/intl_3/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}"><a href="https://popularhitech.com/intl_3/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}" target="_blank" class=" dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-2-1">Copy</button></div><div class="padding-for_links"><div>Order Page 11.0 - The Money Maker</div><input readonly="" type="text" class="form-control trecking_link clipboard-0-2-2 dynamicDomainTrackingLink" value="https://popularhitech.com/intl_11/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}"><a href="https://popularhitech.com/intl_11/?prod=cozytimepro&amp;net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}" target="_blank" class=" dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-2-2">Copy</button></div></div></div></div><div class="tab-pane" id="advertorialpages-0"><div class="row"><div class="col-md-12"><div class="padding-for_links"><div>Advertorial | EN</div><input readonly="" type="text" class="form-control trecking_link clipboard-0-3-0 dynamicDomainTrackingLink" value="https://popularhitech.com/advertorial/cozytimepro/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}"><a href="https://popularhitech.com/advertorial/cozytimepro/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}" target="_blank" class=" dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-3-0">Copy</button></div></div></div></div><div class="tab-pane" id="salespages-0"><div class="row"><div class="col-md-12"><div class="padding-for_links"><div>Sale Page | EN</div><input readonly="" type="text" class="form-control trecking_link clipboard-0-4-0 dynamicDomainTrackingLink" value="https://popularhitech.com/salespage/cozytimepro/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}"><a href="https://popularhitech.com/salespage/cozytimepro/?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}" target="_blank" class=" dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-4-0">Copy</button></div></div></div></div></div></div><div class="clearfix"></div></div></div></div></div></div> <div class="tab-pane" id="tab0Creative_' . $key . '"><div class="row"><div class="col-md-12">';
-
-            $forth = '';
-            foreach ($item['creatives'] as $k1 => $i1) {
-                $forth = '<p></p><p>' . $i1['name'] . '</p><p><a href="https://www.dropbox.com/scl/fo/fyoovooys02dhqnd4tcy3/h?rlkey=1jyre8331r9m5y723ztcudped&amp;dl=0" target="_blank">' . $i1['link'] . '</a></p>';
-                $forth .= $forth;
-            }
-
-            $sixth = ' </div></div></div></div></div>';
-            $result .= $first . $track . $third . $forth . $sixth;
-        }
-
-
-        print_r($result);
-        exit;
-
-
-        return $result;
-
     }
 
 
