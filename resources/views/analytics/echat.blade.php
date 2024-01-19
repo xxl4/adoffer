@@ -1,4 +1,5 @@
 
+
     <link href="/vendor/laravel-admin/analytic/select2.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="/vendor/laravel-admin/analytic/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="/vendor/laravel-admin/analytic/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -65,8 +66,18 @@
     <script src="/vendor/laravel-admin/analytic/main.js?v=0.5"></script>
     <script type="text/javascript" src="/vendor/laravel-admin/analytic/notifications.js?v=0.4"></script>
     <script type="text/javascript" src="/vendor/laravel-admin/analytic/email-broadcast.js?v=0.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-
+{{--    <script src="//cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>--}}
+    <style>
+        #chart-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+    </style>
 
 
 
@@ -156,8 +167,8 @@
                                         <div class="row">
                                             <div class="col-xs-12 use_small_padding">
                                                 <select class="select2_geos" name="offer_geos" id="geos" multiple>
-                                                    <option value="Albania">Albania</option><option value="Algeria">Algeria</option><option value="Andorra">Andorra</option><option value="Angola">Angola</option>									</select>
-
+                                                    <option value="Albania">Albania</option><option value="Algeria">Algeria</option><option value="Andorra">Andorra</option><option value="Angola">Angola</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -188,7 +199,7 @@
                                     <p>Visualize the trends of your Revenue & Conversions over the selected period of time.</p>
                                     <br>
                                     <div id="placeholder" class="demo-placeholder" style="width:95%;height:250px; padding-right: 76px;">
-                                        <canvas id="myPieChart" style="width: 484px;height:233px;"></canvas>
+                                        <canvas id="myLineChart" style="width: 484px;height:233px;"></canvas>
                                     </div>
 
 
@@ -243,21 +254,48 @@
                                     <div class="grid-body no-border">
                                         <h4>Revenue <span class="semi-bold night_blue">Segmentation</span></h4>
                                         <p>Visualize your Revenue segmented by Offer over the selected period of time.</p>
-                                        <div id="donut-example" style="height:270px;"> </div>
+                                        <div id="donut-example" style="height:270px;">
 
-                                        <span class="graph-btns">
-																			<div class="btn-group graph-selector hidden">
-											<button class="btn btn-mini btn-success hidden" data-analytics-revenue-active="revenue">Revenue</button>
-											<button class="btn btn-mini btn-success hidden" data-analytics-revenue-active="conversion">Conversion</button>
-											<button class="btn btn-mini btn-success hidden" data-analytics-revenue-active="percent">Percent</button>
-											<button class="btn btn-mini btn-success dropdown-toggle m-b-5" data-toggle="dropdown"> <span class="caret"></span> </button>
-											<ul class="dropdown-menu dropdown-menu-right">
-												<li><a href="javascript:void(0);" data-analytics-revenue="revenue">Revenue</a></li>
-												<li><a href="javascript:void(0);" data-analytics-revenue="conversion">Conversion</a></li>
-												<li><a href="javascript:void(0);" data-analytics-revenue="percent">Percent</a></li>
-											</ul>
-										</div>
-																		</span>
+                                            <canvas id="myPieChart" style="width: 484px;height:233px;"></canvas>
+
+
+                                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                                                <span id="centerText" style="font-size: 16px; font-weight: bold;color: black">Center Text1</span>
+
+                                            </div>
+                                            <div style="position: absolute; top: 56%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                                                <span id="centerTextCount" style="font-size: 16px; font-weight: bold;color: black">123</span>
+
+                                            </div>
+
+{{--                                            <div id="chart-title">--}}
+{{--                                                <p>饼图标题</p>--}}
+{{--                                            </div>--}}
+                                        </div>
+
+
+
+
+{{--                                        <div id="placeholder" class="demo-placeholder" style="width:95%;height:250px; padding-right: 76px;">--}}
+{{--                                            <canvas id="myPieChart" style="width: 484px;height:233px;"></canvas>--}}
+{{--                                        </div>--}}
+
+
+{{--                                        <span class="graph-btns">--}}
+
+{{--											<div class="btn-group graph-selector hidden">--}}
+{{--											<button class="btn btn-mini btn-success hidden" data-analytics-revenue-active="revenue">Revenue</button>--}}
+{{--											<button class="btn btn-mini btn-success hidden" data-analytics-revenue-active="conversion">Conversion</button>--}}
+{{--											<button class="btn btn-mini btn-success hidden" data-analytics-revenue-active="percent">Percent</button>--}}
+{{--											<button class="btn btn-mini btn-success dropdown-toggle m-b-5" data-toggle="dropdown"> <span class="caret"></span> </button>--}}
+{{--											<ul class="dropdown-menu dropdown-menu-right">--}}
+{{--												<li><a href="javascript:void(0);" data-analytics-revenue="revenue">Revenue</a></li>--}}
+{{--												<li><a href="javascript:void(0);" data-analytics-revenue="conversion">Conversion</a></li>--}}
+{{--												<li><a href="javascript:void(0);" data-analytics-revenue="percent">Percent</a></li>--}}
+{{--											</ul>--}}
+{{--										</div>--}}
+
+{{--										</span>--}}
 
                                     </div>
                                 </div>
@@ -270,25 +308,31 @@
                                             <h4>Offer Geo <span class="semi-bold night_blue">Distribution</span></h4>
                                             <p>Visualize your Offers Revenue segmented by Country over the selected period of time.</p>
                                             <br>
-                                            <div id="stacked-ordered-chart" style="height:250px" data-page-length="10" data-bar-width="0.5" data-page="1"></div>
+                                            <div id="stacked-ordered-chart" style="height:250px" data-page-length="10" data-bar-width="0.5" data-page="1">
+                                                <canvas id="myBarChart" style="width: 484px;height:233px;"></canvas>
+                                            </div>
 
-                                            <span class="graph-btns">
-																					<div class="btn-group graph-selector hidden">
-												<button class="btn btn-mini btn-success hidden" data-analytics-geo-active="revenue">Revenue</button>
-												<button class="btn btn-mini btn-success hidden" data-analytics-geo-active="conversion">Conversion</button>
-												<button class="btn btn-mini btn-success hidden" data-analytics-geo-active="percent">Percent</button>
-												<button class="btn btn-mini btn-success dropdown-toggle m-b-5" data-toggle="dropdown"> <span class="caret"></span> </button>
-												<ul class="dropdown-menu dropdown-menu-right">
-													<li><a href="javascript:void(0);" data-analytics-geo="revenue">Revenue</a></li>
-													<li><a href="javascript:void(0);" data-analytics-geo="conversion">Conversion</a></li>
-													<li><a href="javascript:void(0);" data-analytics-geo="percent">Percent</a></li>
-												</ul>
-											</div>
-																					<div class="btn-group graph-paginator hidden m-l-10" data-target="stacked-ordered-chart">
-											<button class="btn btn-white graph-prev hidden m-b-5" type="button"><i class="fa fa-chevron-left"></i></button>
-											<button class="btn btn-white graph-next m-b-5" type="button"><i class="fa fa-chevron-right"></i> </button>
-										</div>
-									</span>
+
+
+
+
+{{--                                            <span class="graph-btns">--}}
+{{--												<div class="btn-group graph-selector hidden">--}}
+{{--												<button class="btn btn-mini btn-success hidden" data-analytics-geo-active="revenue">Revenue</button>--}}
+{{--												<button class="btn btn-mini btn-success hidden" data-analytics-geo-active="conversion">Conversion</button>--}}
+{{--												<button class="btn btn-mini btn-success hidden" data-analytics-geo-active="percent">Percent</button>--}}
+{{--												<button class="btn btn-mini btn-success dropdown-toggle m-b-5" data-toggle="dropdown"> <span class="caret"></span> </button>--}}
+{{--												<ul class="dropdown-menu dropdown-menu-right">--}}
+{{--													<li><a href="javascript:void(0);" data-analytics-geo="revenue">Revenue</a></li>--}}
+{{--													<li><a href="javascript:void(0);" data-analytics-geo="conversion">Conversion</a></li>--}}
+{{--													<li><a href="javascript:void(0);" data-analytics-geo="percent">Percent</a></li>--}}
+{{--												</ul>--}}
+{{--											</div>--}}
+{{--																					<div class="btn-group graph-paginator hidden m-l-10" data-target="stacked-ordered-chart">--}}
+{{--											<button class="btn btn-white graph-prev hidden m-b-5" type="button"><i class="fa fa-chevron-left"></i></button>--}}
+{{--											<button class="btn btn-white graph-next m-b-5" type="button"><i class="fa fa-chevron-right"></i> </button>--}}
+{{--										</div>--}}
+{{--									</span>--}}
 
                                         </div>
                                     </div>
@@ -302,7 +346,35 @@
                         <div class="row">
                             <div class="grid simple">
                                 <div class="all_clients grid-body no-border">
-                                    <table class="show_result table table-striped table-flip-scroll cf" id="example2"></table>
+                                    <table class="show_result table table-striped table-flip-scroll cf" id="example2">
+
+                                        <table class="table no-more-tables offer_table">
+                                            <thead>
+                                            <tr>
+                                                <th style="width:20%" class="text-center">DATE</th>
+                                                <th style="width:20%" class="text-center">OFFER</th>
+                                                <th style="width:20%" class="text-center">CONVERSIONS</th>
+                                                <th style="width:20%" class="text-center">REVENUE</th>
+                                                <th style="width:20%" class="text-center">PERCENT</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="html_data">
+                                            @foreach ($offer_count as $key=>$item)
+                                                <tr>
+                                                    <td class="text-center">{{$item['offer_name']}}</td>
+                                                    <td class="text-center">{{$item['offer_name']}}</td>
+                                                    <td class="text-center">{{$item['total_quantity']}}</td>
+                                                    <td class="text-center">{{$item['offer_name']}}</td>
+                                                    <td class="text-center">{{$item['total_quantity']}}</td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+
+
+
+
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -335,17 +407,10 @@
             </style>
             <script src="/vendor/laravel-admin/analytic/data_table.js"></script>
             <script src="/vendor/laravel-admin/analytic/summary.js"></script>
-
             <script src="/vendor/laravel-admin/analytic/jquery.dataTables.min.js" type="text/javascript"></script>
             <script src="/vendor/laravel-admin/analytic/dataTables.tableTools.min.js" type="text/javascript"></script>
             <script type="text/javascript" src="/vendor/laravel-admin/analytic/datatables.responsive.js"></script>
             <script type="text/javascript" src="/vendor/laravel-admin/analytic/lodash.min.js"></script>
-
-
-
-
-
-
         </div>
     </div>
 
@@ -384,17 +449,20 @@
 
 
     <script>
-        var frontendData = @json($data);
 
+        var frontendData = @json($data);
         $(document).ready(function () {
+
             var data = frontendData.original.data;
-            var ctx = document.getElementById('myPieChart').getContext('2d');
+            var ctx = document.getElementById('myLineChart').getContext('2d');
+            var pie = document.getElementById('myPieChart').getContext('2d');
+            var bar = document.getElementById('myBarChart').getContext('2d');
 
             console.log('前端数据',data)
-            var myPieChart = new Chart(ctx, {
+            var myLineChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: data.data,
+                    labels: data.sale_date,
                     datasets: [{
                         data: data.total_sales,
                        backgroundColor: ['pink'],
@@ -408,9 +476,81 @@
                         position: 'right',
                         align: 'start',
                         padding: 30
+                    },
+                }
+            });
+
+
+            var myPieChart = new Chart(pie, {
+                type: 'doughnut',
+                data: {
+                    labels: data.offer_name,
+                    datasets: [{
+                        data: data.total_quantity,
+                       backgroundColor: ['RGB(10,166,153)', 'RGB(0,144,217)', 'RGB(253,208,28)'],
+                    }]
+                },
+                options: {
+                    cutoutPercentage: 60,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false,
+                        position: 'right',
+                        align: 'start',
+                        padding: 30
+                    },
+
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: false
+                        }
+                    },
+                    onRender: function(chart) {
+                    // Get canvas context
+                    var ctx = chart.ctx;
+                    // Get center coordinates
+                    var centerX = (chart.chartArea.left + chart.chartArea.right) / 2;
+                    var centerY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
+
+                    // Customize center text position
+                    var centerText = document.getElementById('centerText');
+                    centerText.style.top = centerY + 'px';
+                    centerText.style.left = centerX + 'px';
                     }
                 }
             });
+
+
+            var myBarChart = new Chart(bar, {
+                type: 'bar',
+                data: {
+                    labels: data.country_list,
+                    datasets: [{
+                        data: data.country_total_sales,
+                        backgroundColor:  generateRandomColors(10),
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false,
+                        position: 'right',
+                        align: 'start',
+                        padding: 30
+                    },
+                }
+            });
+
+
+
 
 
             $("#searchBtn").click(function () {
@@ -430,13 +570,11 @@
                         success: function (data) {
 
                             var res = data.data.offer_sale;
-                            myPieChart.data.datasets[0].data = res.total_quantity;
-                            myPieChart.data.labels = res.offer;
+                            myLineChart.data.datasets[0].data = res.total_quantity;
+                            myLineChart.data.labels = res.offer;
                             // 重新绘制图表
-                            myPieChart.update();
+                            myLineChart.update();
 
-                            $("#html_data").empty();
-                            $("#html_data").html(res.total_sales_html);
                         },
                     });
                 }
@@ -470,5 +608,15 @@
         //         Array.isArray(data.datasets[0].data)
         //     );
         // }
-
+        function generateRandomColors(numColors) {
+            var colors = [];
+            for (var i = 0; i < numColors; i++) {
+                var r = Math.floor(Math.random() * 256);
+                var g = Math.floor(Math.random() * 256);
+                var b = Math.floor(Math.random() * 256);
+                var alpha = Math.random().toFixed(2); // 控制透明度，可根据需求修改
+                colors.push('rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')');
+            }
+            return colors;
+        }
     </script>

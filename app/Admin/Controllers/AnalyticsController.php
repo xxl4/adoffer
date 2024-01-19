@@ -54,39 +54,16 @@ class AnalyticsController extends AdminController
 
         //查询当前月的销售金额记录并按数量降序排列
         $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
-            ->select(DB::raw('SUM(revenue) as total_sales'), DB::raw('DATE(created_at) as date'))
-            ->groupBy('date')
+            ->select(DB::raw('SUM(revenue) as total_sales'), DB::raw('DATE(created_at) as sale_date'))
+            ->groupBy('sale_date')
             ->get()
             ->toArray();
 
-//        print_r("<pre/>");
-//        print_r($offer_sale);exit;
-
-
-//        $offer_log_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->sum('revenue');
-
-//        foreach ($offer_sale as $key => $value) {
-//
-//            $offer_sale[$key]['sales_percent'] = round($value['total_sales'] / $offer_log_count, 2);
-//            $offer_sale[$key]['offer_name'] = Offer::where('id', $value['offer_id'])->value('offer_name');
-//            //  $offer_sale[$key]['sales_copy'] = Offer::where('id', $value['offer_id'])->value('offer_name');
-//
-//            unset($offer_sale[$key]['total_sales']);
-//            unset($offer_sale[$key]['offer_id']);
-//
-//        }
-
-
-        $date= array_column($offer_sale, 'date');
+        $sale_date= array_column($offer_sale, 'sale_date');
         $total_sales = array_column($offer_sale, 'total_sales');
-        //使用 array_map 和 array_values 删除键，只保留键值
-//        $sale_data = array_map('array_values', $offer_sale);
-//        $month = date('M');
 
 
-//        print_r("<pre/>");
-//        print_r($total_sales);exit;
-/*
+
         //排名前三的offer
         $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
             ->select(DB::raw('count(id) as total_quantity'), 'offer_id')
@@ -97,63 +74,80 @@ class AnalyticsController extends AdminController
             ->toArray();
 
 
-        $total_count = OfferLog::count();
-
         foreach ($offer_count as $key => $value) {
-            $offer_count[$key]['offer_top'] = Offer::where('id', $value['offer_id'])->value('offer_name');
-            $offer_count[$key]['offer_percent'] = round($value['total_quantity'] / $total_count * 100) . "%";
+            $offer_count[$key]['offer_name'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+
         }
 
-        $offer_top = array_column($offer_count, 'offer_top');
+        $offer_name= array_column($offer_count, 'offer_name');
         $total_quantity = array_column($offer_count, 'total_quantity');
-        $offer_percent = array_column($offer_count, 'offer_percent');
-
-
-        //排名前十的国家
-        $country_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
-            ->select(DB::raw('count(id) as country_total_quantity'), 'country_id')
-            ->groupBy('country_id')
-            ->orderByDesc('country_total_quantity')
-            ->take(10)
-            ->get()
-            ->toArray();
-
-
-        $total_count = OfferLog::count();
-
-        foreach ($country_count as $key => $value) {
-            $country_count[$key]['country_top'] = Geos::where('id', $value['country_id'])->value('country');
-            $country_count[$key]['country_percent'] = round($value['country_total_quantity'] / $total_count * 100) . "%";
-        }
-
-
-        $country_top = array_column($country_count, 'country_top');
-        $country_total_quantity = array_column($country_count, 'country_total_quantity');
-        $country_percent = array_column($country_count, 'country_percent');
-
-
-        $offer_list = Offer::where('offer_status', 1)->orderBy('created_at', 'desc')->limit(3)->get()->toArray();
 
 
 //        print_r("<pre/>");
-//     print_r($offer_list);exit;
+//        print_r($offer_count);exit;
 
-        */
+
+        $topProducts = OfferLog::whereBetween('created_at', [$startDate, $endDate])->select('offer_id',DB::raw('SUM(revenue) as total_sales'))
+            ->groupBy('offer_id')
+            ->orderByDesc('total_sales')
+            ->take(3)
+            ->get()->toArray();
+
+
+
+
+        $offer_ids = '';
+        $topByCountry = [];
+        if(!empty($topProducts)){
+
+            foreach ($topProducts as $key=>$value){
+                $offer_ids .=$value['offer_id'].',';
+            }
+
+            $topByCountry = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+                ->where('offer_id',explode(',',trim($offer_ids,',')))
+                ->select('country_id',DB::raw('SUM(revenue) as country_total_sales'))
+                ->groupBy('country_id')
+                ->orderByDesc('country_total_sales')
+                ->take(10)
+                ->get()->toArray();
+
+
+            foreach ($topByCountry as $k=>$v){
+                $topByCountry[$k]['country']  =  Geos::where('id',$v['country_id'])->value('country');
+                unset($topByCountry[$k]['country_id']);
+            }
+
+        }
+
+
+        $country_total_sales= array_column($topByCountry, 'country_total_sales');
+        $country_list = array_column($topByCountry, 'country');
+
+
+
+
+        //1、先计算出总销量前三的商品
+        //2、在计算出购买这三个商品销量前十的国家
+
         //柱状图数据
         $data = [
-//            "geos_list" => $geos_list,//国家列表
-//            "offer_sale" => $sale_data,//销量金额前三的柱状图
-//            'offer' => $offer_id,//饼状图offer list
-//            'total_quantity' => $total_quantity,//饼状图数量
-//            'month' => $month,//柱状图当前月份
-//            'country' => $country_top,//国家前十列表
-//            'country_total_quantity' => $country_total_quantity,//国家前十数据
 
-
-            'data'=>$date,
+            'sale_date'=>$sale_date,
             'total_sales'=>$total_sales,
+
+
+            'offer_name'=>$offer_name,
+            'total_quantity'=>$total_quantity,
+
+            'country_list'=>$country_list,
+            'country_total_sales'=>$country_total_sales,
+
         ];
 
+
+//        print_r("<pre/>");
+//        print_r($topProducts);exit;
 
         $data = response()->json(['data' => $data]);
 //        return $content
@@ -163,7 +157,7 @@ class AnalyticsController extends AdminController
 
         return $content
             ->header('Chartjs')
-            ->body(new Box('Bar chart', view('analytics.echat', ['data' => $data, 'category_lis' => $geos_list])));
+            ->body(new Box('Bar chart', view('analytics.echat', ['data' => $data, 'category_lis' => $geos_list, 'offer_count' => $offer_count])));
 
 
     }
