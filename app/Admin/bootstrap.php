@@ -19,3 +19,4 @@
  */
 
 Encore\Admin\Form::forget(['map', 'editor']);
+//Admin::js("/vendor/laravel-admin/analytic/Chart.min.js");

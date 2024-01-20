@@ -1,7 +1,7 @@
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+{{--<script src="//cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>--}}
 {{--<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"></script>--}}
 
 
@@ -13,9 +13,9 @@
 {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--}}
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<script src="/vendor/laravel-admin/daterangepicker/daterangepicker.js"></script>
-<script src="/vendor/laravel-admin/daterangepicker/daterangepicker.css"></script>
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>--}}
+{{--<script src="/vendor/laravel-admin/test/bootstrap-datepicker.js"></script>--}}
+{{--<script src="/vendor/laravel-admin/test/datepicker.css"></script>--}}
 
 <style>
     table {
@@ -157,24 +157,24 @@
     <br>
     <hr>
     <br>
-    <script type="text/javascript">
-        $(function () {
-            $('#datetimepicker6').datetimepicker();
-            $('#datetimepicker7').datetimepicker({
+{{--    <script type="text/javascript">--}}
+{{--        $(function () {--}}
+{{--            $('#datetimepicker6').datetimepicker();--}}
+{{--            $('#datetimepicker7').datetimepicker({--}}
 
 
-                useCurrent: false //Important! See issue #1075
-            });
-            $("#datetimepicker6").on("dp.change", function (e) {
+{{--                useCurrent: false //Important! See issue #1075--}}
+{{--            });--}}
+{{--            $("#datetimepicker6").on("dp.change", function (e) {--}}
 
-                $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-            });
-            $("#datetimepicker7").on("dp.change", function (e) {
+{{--                $('#datetimepicker7').data("DateTimePicker").minDate(e.date);--}}
+{{--            });--}}
+{{--            $("#datetimepicker7").on("dp.change", function (e) {--}}
 
-                $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-            });
-        });
-    </script>
+{{--                $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
 
 
     {{--<div class="card">--}}
@@ -277,20 +277,20 @@
     {{--</div>--}}
 
 
-    <script type="text/javascript">
-        $(function () {
-            $('#datetimepicker1').datetimepicker();
-            $('#datetimepicker2').datetimepicker({
-                useCurrent: false //Important! See issue #1075
-            });
-            $("#datetimepicker1").on("dp.change", function (e) {
-                $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
-            });
-            $("#datetimepicker2").on("dp.change", function (e) {
-                $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
-            });
-        });
-    </script>
+{{--    <script type="text/javascript">--}}
+{{--        $(function () {--}}
+{{--            $('#datetimepicker1').datetimepicker();--}}
+{{--            $('#datetimepicker2').datetimepicker({--}}
+{{--                useCurrent: false //Important! See issue #1075--}}
+{{--            });--}}
+{{--            $("#datetimepicker1").on("dp.change", function (e) {--}}
+{{--                $('#datetimepicker2').data("DateTimePicker").minDate(e.date);--}}
+{{--            });--}}
+{{--            $("#datetimepicker2").on("dp.change", function (e) {--}}
+{{--                $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
 
 
     <div class="col-md-12" style="margin-top: 30px">
@@ -691,7 +691,7 @@
             // 发送 AJAX 请求
             function updateCountryChartData() {
                 $.ajax({
-                    url: '/admin/intelligence/countryPie', // 替换为实际的 API 地址
+                    url: '/admin/intelligence/countryPie',
                     method: 'GET',
                     dataType: 'json',
                     data: {start_date: start_date, end_date: end_date, country: country},

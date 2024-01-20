@@ -66,23 +66,28 @@ class AnalyticsController extends AdminController
 
         //排名前三的offer
         $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
-            ->select(DB::raw('count(id) as total_quantity'), 'offer_id')
+            ->select(DB::raw('count(id) as total_quantity'), DB::raw('sum(revenue) as total_revenue'),'offer_id')
             ->groupBy('offer_id')
             ->orderByDesc('total_quantity')
             ->take(3)
             ->get()
             ->toArray();
 
+        $count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->count();
+
+
 
         foreach ($offer_count as $key => $value) {
             $offer_count[$key]['offer_name'] = Offer::where('id', $value['offer_id'])->value('offer_name');
 
+
+            $offer_count[$key]['percent'] = round($value['total_quantity']/$count,2)*100;
         }
 
         $offer_name= array_column($offer_count, 'offer_name');
         $total_quantity = array_column($offer_count, 'total_quantity');
 
-
+//
 //        print_r("<pre/>");
 //        print_r($offer_count);exit;
 
@@ -135,7 +140,6 @@ class AnalyticsController extends AdminController
 
             'sale_date'=>$sale_date,
             'total_sales'=>$total_sales,
-
 
             'offer_name'=>$offer_name,
             'total_quantity'=>$total_quantity,

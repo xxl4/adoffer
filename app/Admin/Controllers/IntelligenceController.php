@@ -105,6 +105,9 @@ class IntelligenceController extends AdminController
             $offer_count[$key]['offer_percent'] = round($value['total_quantity'] / $total_count * 100) . "%";
         }
 
+
+
+
         $offer_top = array_column($offer_count, 'offer_top');
         $total_quantity = array_column($offer_count, 'total_quantity');
         $offer_percent = array_column($offer_count, 'offer_percent');
@@ -150,7 +153,6 @@ class IntelligenceController extends AdminController
             'country' => $country_top,//国家前十列表
             'country_total_quantity' => $country_total_quantity,//国家前十数据
 
-
         ];
 
 //        print_r("<pre/>");
@@ -171,7 +173,6 @@ class IntelligenceController extends AdminController
 
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
-
         $country = $request->input('country');
 
 
