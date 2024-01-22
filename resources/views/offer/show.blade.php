@@ -509,10 +509,10 @@
                                                                         <ul class="nav nav-tabs" role="tablist">
                                                                             @foreach ($item1['track_list'] as $key2=>$item2)
 
-                                                                                @if($index==0)
-                                                                                    <li class="active"><a href="?id=offer#advertorialpages1-1<?php echo $key2.$index?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$index?></a></li>
+                                                                                @if($key2==0)
+                                                                                    <li class="active"><a href="?id=offer#advertorialpages1-1<?php echo $key2.$key1?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$key1?></a></li>
                                                                                 @else
-                                                                                    <li><a href="?id=offer#advertorialpages1-1<?php echo $key2.$index?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$index?></a></li>
+                                                                                    <li><a href="?id=offer#advertorialpages1-1<?php echo $key2.$key1?>" role="tab" data-toggle="tab">Advertorial Pages<?php echo $key2.$key1?></a></li>
                                                                                 @endif
 
 
@@ -527,10 +527,10 @@
 
                                                                             @foreach ($item1['track_list'] as $key3=>$item3)
 
-                                                                                @if($index1==0)
-                                                                                    <div class="tab-pane active" id="advertorialpages1-1<?php echo $key3.$index1?>">
+                                                                                @if($key3==0)
+                                                                                    <div class="tab-pane active" id="advertorialpages1-1<?php echo $key3.$key1?>">
                                                                                         @else
-                                                                                            <div class="tab-pane" id="advertorialpages1-1<?php echo $key3.$index1?>">
+                                                                                            <div class="tab-pane" id="advertorialpages1-1<?php echo $key3.$key1?>">
                                                                                                 @endif
 
 

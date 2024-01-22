@@ -121,16 +121,21 @@ class OfferController extends AdminController
      */
     public function show($id, Content $content)
     {
-//        echo phpinfo();exit;
+
+        $currentUser = auth()->user(); // 获取当前登录用户的模型对象
+        $net_id = $currentUser->id; // 输出当前用户名称
+
+        if($net_id==1 || $net_id==2){
+            $where=[];
+        }else{
+            $where[]=['net_id','=',$net_id];
+        }
 
         $geos_list = Geos::get()->toArray();
         $category_list = Category::get()->toArray();
 
-
-        $filteredDataArray = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
-        $filteredDataArrayCopy = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
-
-
+        $filteredDataArray = Offer::where('offer_status', 1)->where($where)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
+        $filteredDataArrayCopy = Offer::where('offer_status', 1)->where($where)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
 
         foreach ($filteredDataArray as $key => $value) {
 
@@ -155,8 +160,6 @@ class OfferController extends AdminController
 //            print_r("<pre/>");
 //            print_r($track_cate);exit;
 
-
-
 //            print_r("<pre/>");
 //            print_r($track_cate);exit;
 
@@ -173,7 +176,15 @@ class OfferController extends AdminController
 
 
             foreach ($track_cate as $k => $v) {
-                $finalArray[$k] = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();
+                $track_list = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();  // $finalArray[$k]
+
+                foreach ($track_list as $x=>$y){
+                    $param = '&net='.$net_id.'=&aff={AFFID}&sid={SUBID}&cid={CLICKID}';
+                    $track_list[$x]['track_link'] = $y['track_link'].$param;
+
+                }
+
+                $finalArray[$k] = $track_list;
             }
 
 
@@ -181,12 +192,7 @@ class OfferController extends AdminController
             $filteredDataArray[$key]['creatives'] = Creatives::whereIn('id',$value['creatives_id'])->get()->toArray();
         }
 
-
         foreach ($filteredDataArrayCopy as $key => $value) {
-
-
-//            print_r($value['track_cate_id']);exit;
-
 
 
             $track_cate = OfferTracksCates::whereIn('id', $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
@@ -216,7 +222,14 @@ class OfferController extends AdminController
 
 
             foreach ($track_cate as $k => $v) {
-                $finalArrayCopy[$k] = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();//$v['track_cate'].'_'.$k
+                $track_list_copy = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();//$v['track_cate'].'_'.$k
+
+                foreach ($track_list_copy as $x=>$y){
+                    $param = '&net='.$net_id.'=&aff={AFFID}&sid={SUBID}&cid={CLICKID}';
+                    $track_list_copy[$x]['track_link'] = $y['track_link'].$param;
+                }
+                $finalArrayCopy[$k] = $track_list_copy;
+
             }
 
             $filteredDataArrayCopy[$key]['track_list'] = $finalArrayCopy;
@@ -236,11 +249,6 @@ class OfferController extends AdminController
 
         ];
 
-//
-//        print_r("<pre/>");
-//        print_r($data);exit;
-
-
         return $content->title('详情')
             ->description('简介')
             ->view('offer.show', compact('data'));
@@ -250,6 +258,10 @@ class OfferController extends AdminController
     public function query(Request $request)
     {
 
+        $currentUser = auth()->user(); // 获取当前登录用户的模型对象
+        $net_id = $currentUser->id; // 输出当前用户名称
+
+
 
         // 处理表单提交逻辑
         $keyword = $request->input('keyword');
@@ -258,11 +270,11 @@ class OfferController extends AdminController
         $sort = $request->input('sort');
         $where = [];
 
-      if(!empty($category)){
-          $category = implode(',', $category);
-      }else{
-          $category = '';
-      }
+        if(!empty($category)){
+            $category = implode(',', $category);
+        }else{
+            $category = '';
+        }
 
         if(!empty($geos)){
             $geos = implode(',', $geos);
@@ -275,6 +287,11 @@ class OfferController extends AdminController
         if (!empty($keyword)) {
             $where[] = ['offer_name', 'like', "%$keyword%"];
         }
+
+        if($net_id!==1 && $net_id!==2){
+            $where[]=['net_id','=',$net_id];
+        }
+
 
         switch ($sort) {
             case '0':
@@ -315,7 +332,7 @@ class OfferController extends AdminController
                 $query->orWhere('accepted_area', 'like', "%$value%");
             }
         })
-        ->Orwhere(function ($query) use ($category) {
+            ->Orwhere(function ($query) use ($category) {
                 $values2 = explode(',', $category);
                 foreach ($values2 as $value2) {
                     $query->orWhere('cate_id', 'like', "%$value2%");
@@ -369,27 +386,27 @@ class OfferController extends AdminController
 
 
 
-        foreach ($filteredDataArrayCopy as $key => $value) {
-            $accepted_area =Geos::whereIn('id',$value['accepted_area'])->select('country')->get()->toArray();
-            $accepted_area_data = '';
-            foreach ($accepted_area as $k=>$v){
-                $accepted_area_data .=$v['country'].',';
+            foreach ($filteredDataArrayCopy as $key => $value) {
+                $accepted_area =Geos::whereIn('id',$value['accepted_area'])->select('country')->get()->toArray();
+                $accepted_area_data = '';
+                foreach ($accepted_area as $k=>$v){
+                    $accepted_area_data .=$v['country'].',';
+                }
+                $filteredDataArrayCopy[$key]['accepted_area'] = trim($accepted_area_data,',');
+
+
+
+
+                $track_cate = OfferTracksCates::whereIn('id',  $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
+                foreach ($track_cate as $k => $v) {
+                    $finalArray[$k] = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();// $finalArray[$v['track_cate'].'_'.$k]
+                }
+
+                $filteredDataArrayCopy[$key]['track_list'] = $finalArray;
+                $filteredDataArrayCopy[$key]['creatives'] = Creatives::whereIn('id', $value['creatives_id'])->get()->toArray();
+
+
             }
-            $filteredDataArrayCopy[$key]['accepted_area'] = trim($accepted_area_data,',');
-
-
-
-
-            $track_cate = OfferTracksCates::whereIn('id',  $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
-            foreach ($track_cate as $k => $v) {
-                $finalArray[$k] = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();// $finalArray[$v['track_cate'].'_'.$k]
-            }
-
-            $filteredDataArrayCopy[$key]['track_list'] = $finalArray;
-            $filteredDataArrayCopy[$key]['creatives'] = Creatives::whereIn('id', $value['creatives_id'])->get()->toArray();
-
-
-        }
 
 //            print_r($filteredDataArrayCopy);exit;
 
@@ -399,14 +416,10 @@ class OfferController extends AdminController
             $filteredDataArrayCopy = '';
         }
 
-
         $result = [
             'left_data' => $filteredDataArray,
             'right_data' => $filteredDataArrayCopy,
         ];
-
-
-
 
         return response()->json($result);
     }
@@ -419,14 +432,11 @@ class OfferController extends AdminController
         foreach ($offer as $key => $item) {
 
 
-           if($item['offer_status']==1) $lable_status = '<span class="label label-success">Live</span>'; else $lable_status='<span class="label label-warning">Paused</span>';
-
+            if($item['offer_status']==1) $lable_status = '<span class="label label-success">Live</span>'; else $lable_status='<span class="label label-warning">Paused</span>';
 
             if(!empty($item['track_list'][0][0]['track_link'])) $main_link = $item['track_list'][0][0]['track_link']; else $main_link = '';
 
-
             $first = '<div class="col-md-12 accord" data-offer_db="CozyTime Pro" data-marker-id="' . $item['id'] . '"><ul class="nav nav-tabs" role="tablist"><li class="active"><a href="#tab0Offer_' . $key . '" role="tab" data-toggle="tab">Summary</a></li><li><a href="#tab0Description_' . $key . '" role="tab" data-toggle="tab">Description</a></li><li><a href="#tab0Geos_' . $key . '" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="#tab0Tracking_' . $key . '" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="#tab0Creative_' . $key . '" role="tab" data-toggle="tab">Creatives</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="?id=offer#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab0Offer_' . $key . '"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="'.$main_link.'" target="_blank">' . '<span class="offer-product-img-container" data-original-title="" title=""><img src="'.env('APP_URL').'/upload/' . $item['image'] . '"></span>Offer Preview<i class="icon ion-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">' . $item['offer_name'] . '</td><td width="25%">$' . $item['offer_price'] . ' Per Sale</td><td width="20%">'.$lable_status.'</td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab0Description_' . $key . '"><div class="row"><div class="col-md-12"><p></p><p><strong></strong></p><p>"' . $item['des'] . '"</p><p></p></div></div></div><div class="tab-pane" id="tab0Geos_' . $key . '"><div class="row"><div class="col-md-12"><p></p><p>' . $item['accepted_area'] . '</p></div></div></div><div class="tab-pane" id="tab0Tracking_' . $key . '"><div class="row"><div class="col-md-12"><p>' . $item['track_des'] . '</p></div><div class="col-md-12"><div class="row"><div class="col-md-12"><div class="tabbable tabs-left tabs-bg"><ul class="nav nav-tabs" role="tablist">';
-
 
             //追踪链接的tab
             $track_tab = '';

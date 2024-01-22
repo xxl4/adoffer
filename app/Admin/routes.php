@@ -35,7 +35,7 @@ Route::group([
 
     $router->resource('offer_advanced', 'OfferAdvancedController')->names('admin.OfferAdvanced');
     $router->post('intelligence/query', 'IntelligenceController@query')->name('admin.query');
-
+    $router->post('analytics/query', 'AnalyticsController@query')->name('admin.query');
 
     $router->get('analytics/echat', "AnalyticsController@echat")->name('admin.analytics');
 });

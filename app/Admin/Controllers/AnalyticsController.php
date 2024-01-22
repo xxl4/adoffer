@@ -48,7 +48,18 @@ class AnalyticsController extends AdminController
     public function echat(Content $content)
     {
 
+        $currentUser = auth()->user(); // 获取当前登录用户的模型对象
+        $net_id = $currentUser->id; // 输出当前用户名称
+        $where = [];
+        if($net_id!==1 && $net_id!==2){
+            $where[]=['net_id','=',$net_id];
+        }
+
+
         $geos_list = Geos::get()->toArray();//国家列表
+        $offer_list = Offer::where($where)->get()->toArray();//offer列表
+
+
         $startDate = date('Y-m-d 00:00:00', strtotime("-30 days")); //默认最近一周的数据
         $endDate = date('Y-m-d H:i:s');
 
@@ -161,7 +172,7 @@ class AnalyticsController extends AdminController
 
         return $content
             ->header('Chartjs')
-            ->body(new Box('Bar chart', view('analytics.echat', ['data' => $data, 'category_lis' => $geos_list, 'offer_count' => $offer_count])));
+            ->body(new Box('Bar chart', view('analytics.echat', ['data' => $data, 'geos_list' => $geos_list, 'offer_count' => $offer_count,'offer_list'=>$offer_list])));
 
 
     }
@@ -386,15 +397,16 @@ class AnalyticsController extends AdminController
 
     public function query(Request $request)
     {
-//echo 1234;exit;
+
+
         $geos_list = Geos::get()->toArray();
-        $category_list = Category::get()->toArray();
+        $Offer_list = Offer::get()->toArray();
 
 
         $startDate = Carbon::now()->startOfMonth();
         $endDate = Carbon::now()->endOfMonth();
 
-// 查询当前月的销售记录并按数量降序排列
+        //查询当前月的销售记录并按数量降序排列
         $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
             ->select(DB::raw('SUM(revenue) as total_sales'), 'offer_id')
             ->groupBy('offer_id')

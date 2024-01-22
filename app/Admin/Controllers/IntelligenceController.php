@@ -48,12 +48,19 @@ class IntelligenceController extends AdminController
     public function echat(Content $content)
     {
 
+        $currentUser = auth()->user(); // 获取当前登录用户的模型对象
+        $net_id = $currentUser->id; // 输出当前用户名称
+        $where = [];
+        if($net_id!==1 && $net_id!==2){
+            $where[]=['net_id','=',$net_id];
+        }
+
         $geos_list = Geos::get()->toArray();//国家列表
         $startDate = date('Y-m-d 00:00:00', strtotime("-30 days")); //默认最近一周的数据
         $endDate = date('Y-m-d H:i:s');
 
         //查询当前月的销售金额记录并按数量降序排列
-        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)
             ->select(DB::raw('SUM(revenue) as total_sales'), 'offer_id')
             ->groupBy('offer_id')
             ->orderByDesc('total_sales')
@@ -62,7 +69,7 @@ class IntelligenceController extends AdminController
             ->toArray();
 
 
-      $offer_log_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->sum('revenue');
+      $offer_log_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)->sum('revenue');
 
         foreach ($offer_sale as $key => $value) {
 
@@ -89,7 +96,7 @@ class IntelligenceController extends AdminController
 //        print_r($sale_data);exit;
 
         //排名前三的offer
-        $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+        $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)
             ->select(DB::raw('count(id) as total_quantity'), 'offer_id')
             ->groupBy('offer_id')
             ->orderByDesc('total_quantity')
@@ -114,7 +121,7 @@ class IntelligenceController extends AdminController
 
 
         //排名前十的国家
-        $country_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+        $country_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)
             ->select(DB::raw('count(id) as country_total_quantity'), 'country_id')
             ->groupBy('country_id')
             ->orderByDesc('country_total_quantity')
@@ -136,7 +143,7 @@ class IntelligenceController extends AdminController
         $country_percent = array_column($country_count, 'country_percent');
 
 
-        $offer_list = Offer::where('offer_status', 1)->orderBy('created_at', 'desc')->limit(3)->get()->toArray();
+        $offer_list = Offer::where('offer_status', 1)->orderBy('created_at', 'desc')->where($where)->limit(3)->get()->toArray();
 
 
 //        print_r("<pre/>");
@@ -171,6 +178,13 @@ class IntelligenceController extends AdminController
     public function offerPie(Request $request)
     {
 
+        $currentUser = auth()->user(); // 获取当前登录用户的模型对象
+        $net_id = $currentUser->id; // 输出当前用户名称
+
+
+
+
+
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
         $country = $request->input('country');
@@ -195,6 +209,9 @@ class IntelligenceController extends AdminController
         $where = [];
         if (!empty($country)) {
             $where[] = ['country_id', 'in', $country];
+        }
+        if($net_id!==1 && $net_id!==2){
+            $where[]=['net_id','=',$net_id];
         }
         DB::connection()->enableQueryLog();
 
@@ -267,6 +284,9 @@ class IntelligenceController extends AdminController
 
     public function countryPie(Request $request)
     {
+        $currentUser = auth()->user(); // 获取当前登录用户的模型对象
+        $net_id = $currentUser->id; // 输出当前用户名称
+
 
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
@@ -292,6 +312,9 @@ class IntelligenceController extends AdminController
         $where = [];
         if (!empty($country)) {
             $where[] = ['country_id', 'in', $country];
+        }
+        if($net_id!==1 && $net_id!==2){
+            $where[]=['net_id','=',$net_id];
         }
         DB::connection()->enableQueryLog();
 

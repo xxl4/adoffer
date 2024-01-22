@@ -1,53 +1,55 @@
+<link href="/vendor/laravel-admin/analytic/pace-theme-flash.css?version=2015" rel="stylesheet" type="text/css" media="screen"/>
+<link href="/vendor/laravel-admin/analytic/bootstrap-theme.min.css?version=2015" rel="stylesheet" type="text/css"/>
+<link href="/vendor/laravel-admin/analytic/custom.css?version=2015" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="/vendor/laravel-admin/analytic/sweet-alert.css?version=2015">
+<link href="/vendor/laravel-admin/analytic/datepicker.css?version=2015" rel="stylesheet" type="text/css"/>
+<link href="/vendor/laravel-admin/analytic/jquery.dataTables.css?version=2015" rel="stylesheet" type="text/css" />
+<link href="/vendor/laravel-admin/analytic/datatables.responsive.css?version=2015" rel="stylesheet" type="text/css" media="screen" />
+<script src="/vendor/laravel-admin/analytic/bootstrap-datepicker.js?version=2015" type="text/javascript"></script>
+
+<link href="/vendor/laravel-admin/analytic/select2.css?version=2015" rel="stylesheet" type="text/css" media="screen"/>
+
+{{--<link href="/vendor/laravel-admin/analytic/font-awesome.css?version=2015" rel="stylesheet" type="text/css"/>--}}
+{{--<link href="/vendor/laravel-admin/analytic/animate.min.css?version=2015" rel="stylesheet" type="text/css"/>--}}
+{{--<link href="/vendor/laravel-admin/analytic/jquery.scrollbar.css?version=2015" rel="stylesheet" type="text/css"/>--}}
+
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/analytic/rickshaw.css?version=2015" type="text/css" media="screen">--}}
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/analytic/mapplic.css?version=2015" type="text/css" media="screen">--}}
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/analytic/ionicons.css?version=2015" type="text/css">--}}
+{{--<link href="/vendor/laravel-admin/analytic/messenger.css?version=2015" rel="stylesheet" type="text/css" media="screen"/>--}}
+{{--<link href="/vendor/laravel-admin/analytic/messenger-theme-flat.css?version=2015" rel="stylesheet" type="text/css" media="screen"/>--}}
+{{--<link href="/vendor/laravel-admin/analytic/jquery-jvectormap-1.2.2.css?v=0.1" rel="stylesheet" type="text/css"  media="screen"/>--}}
+
+{{--引用后点击页面会刷新,展示区域样式--}}
+{{--<link href="/vendor/laravel-admin/analytic/webarch.css?v=0.3" rel="stylesheet" type="text/css"/>--}}
 
 
-<link href="/vendor/laravel-admin/analytic/datepicker.css" rel="stylesheet" type="text/css"/>
-<script src="/vendor/laravel-admin/analytic/bootstrap-datepicker.js" type="text/javascript"></script>
-<link href="/vendor/laravel-admin/analytic/custom.css" rel="stylesheet" type="text/css"/>
-<link href="/vendor/laravel-admin/analytic/select2.css" rel="stylesheet" type="text/css" media="screen"/>
-<link href="/vendor/laravel-admin/analytic/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
-<link href="/vendor/laravel-admin/analytic/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
-<link href="/vendor/laravel-admin/analytic/font-awesome.css" rel="stylesheet" type="text/css"/>
-<link href="/vendor/laravel-admin/analytic/animate.min.css" rel="stylesheet" type="text/css"/>
-<link href="/vendor/laravel-admin/analytic/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" href="/vendor/laravel-admin/analytic/sweet-alert.css">
-<link rel="stylesheet" href="/vendor/laravel-admin/analytic/rickshaw.css" type="text/css" media="screen">
-<link rel="stylesheet" href="/vendor/laravel-admin/analytic/mapplic.css" type="text/css" media="screen">
-<link rel="stylesheet" href="/vendor/laravel-admin/analytic/ionicons.css" type="text/css">
-<link href="/vendor/laravel-admin/analytic/messenger.css" rel="stylesheet" type="text/css" media="screen"/>
-<link href="/vendor/laravel-admin/analytic/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen"/>
-<link href="/vendor/laravel-admin/analytic/jquery-jvectormap-1.2.2.css?v=0.1" rel="stylesheet" type="text/css"
-      media="screen"/>
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/analytic/links_img.css?version=2015">--}}
+{{--<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js?version=2015"></script>--}}
+{{--<script src="/vendor/laravel-admin/analytic/jqueryblockui.min.js?version=2015" type="text/javascript"></script>--}}
+{{--<script src="/vendor/laravel-admin/analytic/jquery.unveil.min.js?version=2015" type="text/javascript"></script>--}}
+{{--<script src="/vendor/laravel-admin/analytic/jquery.scrollbar.min.js?version=2015" type="text/javascript"></script>--}}
+{{--<script src="/vendor/laravel-admin/analytic/jquery.animateNumbers.js?version=2015" type="text/javascript"></script>--}}
+<script src="/vendor/laravel-admin/analytic/jquery.validate.min.js?version=2015" type="text/javascript"></script>
+<script src="/vendor/laravel-admin/analytic/select2.js?version=2015" type="text/javascript"></script>
+<script src="/vendor/laravel-admin/analytic/bootstrap-timepicker.min.js?version=2015" type="text/javascript"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
 
-<link href="/vendor/laravel-admin/analytic/webarch.css?v=0.2" rel="stylesheet" type="text/css"/>  引用后点击页面会刷新
-
-
-
-<link rel="stylesheet" href="/vendor/laravel-admin/analytic/links_img.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="/vendor/laravel-admin/analytic/jqueryblockui.min.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/analytic/jquery.unveil.min.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/analytic/jquery.scrollbar.min.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/analytic/jquery.animateNumbers.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/analytic/jquery.validate.min.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/analytic/select2.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/analytic/bootstrap-timepicker.min.js" type="text/javascript"></script>
-
-
-
-
-<script src="/vendor/laravel-admin/analytic/form_elements.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/analytic/sweet-alert.min.js"></script>
-<script src="/vendor/laravel-admin/analytic/clipboard.js"></script>
-<script src="/vendor/laravel-admin/analytic/messenger.min.js" type="text/javascript"></script>
+<script src="/vendor/laravel-admin/analytic/form_elements.js?version=2015" type="text/javascript"></script>
+<script src="/vendor/laravel-admin/analytic/sweet-alert.min.js?version=2015"></script>
+<script src="/vendor/laravel-admin/analytic/clipboard.js?version=2015"></script>
+<script src="/vendor/laravel-admin/analytic/messenger.min.js?version=2015" type="text/javascript"></script>
 {{--<link href="/vendor/laravel-admin/analytic/bootstrap.min.css" rel="stylesheet" type="text/css" />  引用后点击页面会刷新 --}}
 
 
 {{--<link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/analytic/demo.css"/>  调整搜索框样式，暂时拿掉--}}
-<link href="/vendor/laravel-admin/analytic/font-awesome.css" rel="stylesheet" type="text/css"/>
+{{--<link href="/vendor/laravel-admin/analytic/font-awesome.css?version=2015" rel="stylesheet" type="text/css"/>--}}
 
-<link rel="icon" type="image/png" href="/vendor/laravel-admin/analytic/favicon.png">
-<link href="/vendor/laravel-admin/analytic/jquery-jvectormap-1.2.2.css?v=0.1" rel="stylesheet" type="text/css" media="screen"/>
+{{--<link rel="icon" type="image/png" href="/vendor/laravel-admin/analytic/favicon.png">--}}
+{{--<link href="/vendor/laravel-admin/analytic/jquery-jvectormap-1.2.2.css?v=0.1" rel="stylesheet" type="text/css" media="screen"/>--}}
 
 
 
@@ -67,18 +69,18 @@
 
 
 
-<script src="/vendor/laravel-admin/analytic/webarch.js" type="text/javascript"></script>
+{{--<script src="/vendor/laravel-admin/analytic/webarch.js?version=2015" type="text/javascript"></script>--}}
 {{--<script src="/vendor/laravel-admin/analytic/chat.js" type="text/javascript"></script>--}}
 {{--<script src="/vendor/laravel-admin/analytic/ckeditor.js?v=0.1" type="text/javascript"></script>--}}
 {{--<script src="/vendor/laravel-admin/analytic/config.js?v=0.1" type="text/javascript"></script>--}}
 
 
-<link href="/vendor/laravel-admin/analytic/lity.css" rel="stylesheet">
-<script src="/vendor/laravel-admin/analytic/lity.js"></script>
+{{--<link href="/vendor/laravel-admin/analytic/lity.css?version=2015" rel="stylesheet">--}}
+{{--<script src="/vendor/laravel-admin/analytic/lity.js?version=2015"></script>--}}
 {{--<script src="/vendor/laravel-admin/analytic/jquery.cookie.js"></script>--}}
 {{--<script src="/vendor/laravel-admin/analytic/main.js?v=0.6"></script>--}}
-<script type="text/javascript" src="/vendor/laravel-admin/analytic/notifications.js?v=0.4"></script>
-<script type="text/javascript" src="/vendor/laravel-admin/analytic/email-broadcast.js?v=0.1"></script>
+{{--<script type="text/javascript" src="/vendor/laravel-admin/analytic/notifications.js?v=0.4"></script>--}}
+{{--<script type="text/javascript" src="/vendor/laravel-admin/analytic/email-broadcast.js?v=0.1"></script>--}}
 
 
 
@@ -95,122 +97,197 @@
 <div class="page-content">
     <div class="content">
 
-                        <link href="/vendor/laravel-admin/analytic/jquery.dataTables.css" rel="stylesheet" type="text/css" />
-                        <link href="/vendor/laravel-admin/analytic/datatables.responsive.css" rel="stylesheet" type="text/css" media="screen" />
+
+
+        <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}"/>
+        <div class="form-group">
+            <div class="col-sm-4" style="width: 20%!important;">
+                <select id="offer" name="usertype" class="selectpicker show-tick form-control" multiple data-max-options="3"
+                        data-live-search="true" data-none-selected-text="Select Offers">
+                    @foreach ($offer_list as $key=>$item)
+                        <option value="{{$item['id']}}" data-content="<span class='label label-success'> {{$item['offer_name']}}</span>">
+                            {{$item['offer_name']}}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+
+            <div class="col-sm-4" style="width: 20%!important;">
+                <select id="geos" name="usertype" class="selectpicker show-tick form-control" multiple data-max-options="3"
+                        data-live-search="true" data-none-selected-text="Select Offers Geos">
+                    @foreach ($geos_list as $key=>$item)
+                    <option value="{{$item['id']}}" data-content="<span class='label label-success'> {{$item['country']}}</span>">
+                        {{$item['country']}}
+                    </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class='col-sm-4' style="width: 20%!important;">
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker6'>
+                        <input type='text' class="form-control" id="datetimepicker5"/>
+                        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class='col-sm-4' style="width: 20%!important;">
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker7'>
+                        <input type='text' class="form-control" id="datetimepicker8"/>
+                        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </div>
+            </div>
+
+{{--            <div class="col-sm-4" style="width: 20%!important;">--}}
+{{--                <select id="sort" name="usertype" class="selectpicker show-tick form-control" data-max-options="3"--}}
+{{--                        data-live-search="true" data-none-selected-text="Order By">--}}
+{{--                    <option value="0"--}}
+{{--                            data-content="<span class='label label-success'>Release Date (Newest on Top)</span>">--}}
+{{--                        Release Date (Newest on Top)--}}
+{{--                    </option>--}}
+{{--                    <option value="1"--}}
+{{--                            data-content="<span class='label label-success'>Release Date (Oldest on Top)</span>">--}}
+{{--                        Release Date (Oldest on Top)--}}
+{{--                    </option>--}}
+{{--                    <option value="2" data-content="<span class='label label-success'>Payout (High to Low)</span>">--}}
+{{--                        Payout--}}
+{{--                        (High to Low)--}}
+{{--                    </option>--}}
+{{--                    <option value="3" data-content="<span class='label label-success'>Payout (Low to High)</span>">--}}
+{{--                        Payout--}}
+{{--                        (Low to High)--}}
+{{--                    </option>--}}
+{{--                </select>--}}
+{{--            </div>--}}
+
+            <div class="row">
+                <div class="col-sm-4" style="width: 20%!important;">
+                    <input type="text" class="form-control" id="keyword" value="" placeholder="搜索...">
+                    <p id="keyword1"></p>
+                </div>
+                <button id="searchBtn" class="btn btn-primary">搜索</button>
+            </div>
+        </div>
+
+
 
         <div class="col-md-12">
             <div class="row">
-
-
-{{--                --}}
                 <div class="grid simple">
                     <div class="grid-title no-border">
                         <div class="col-xs-12">
                             <div class="row">
-                                <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding">
-                                    <div class="timezone">
-                                        <select class="select_timezone">
-                                            <option timeZoneId="1" gmtAdjustment="GMT-12:00" useDaylightTime="0"
-                                                    data-val="-12" value="1">(GMT-12:00) International Date Line West
-                                            </option>
-                                            <option timeZoneId="2" gmtAdjustment="GMT-11:00" useDaylightTime="0"
-                                                    data-val="-11" value="2">(GMT-11:00) Midway Island, Samoa
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding">
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <select class="list_date select2_list padding_left" name="date" id="">
-                                                <option value="today">Today</option>
-                                                <option value="yester">Yesterday</option>
-                                                <option value="week">Current Week</option>
-                                                <option value="month">Current Month</option>
-                                                <option value="year">Year To Date</option>
-                                                <option value="l_week">Last Week</option>
-                                                <option value="l_month">Last Month</option>
-                                                <option value="calendar">Custom</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding calendar_padding">
-                                    <div class="col-xs-4 col-sm-4">
-                                        <div class="row">
-                                            <div class="about_color">
-                                                <p class="about_inputs">Start</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="input-append success col-xs-8 col-sm-8">
-                                        <div class="row">
-                                            <input type="text"
-                                                   class="form-control date_start date_pic_wid sandbox-advance">
-                                            <span class="add-on"><span class="arrow"></span><i
-                                                    class="fa fa-th"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding calendar_padding">
-                                    <div class="col-xs-4 col-sm-4">
-                                        <div class="row">
-                                            <div class="about_color">
-                                                <p class="about_inputs">End</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="input-append success col-xs-8 col-sm-8">
-                                        <div class="row">
-                                            <input type="text"
-                                                   class="form-control date_end date_pic_wid sandbox-advance">
-                                            <span class="add-on"><span class="arrow"></span><i
-                                                    class="fa fa-th"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1">
-                                    <div class="row">
-                                        <div class="col-xs-12 use_small_padding">
-                                            <select class="select2_offers" name="offers" id="offers"
-                                                    multiple="multiple">
-                                                <option value="DroneX">Ecommerce - DroneX INTL - All Languages -
-                                                    EXCLUSIVE
-                                                </option>
-                                                <option value="Tactical Flashlight">Ecommerce - TacticalX Flashlight
-                                                    INTL - All Languages - EXCLUSIVE
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1">
-                                    <div class="row">
-                                        <div class="col-xs-12 use_small_padding">
-                                            <select class="select2_geos" name="offer_geos" id="geos" multiple>
-                                                <option value="Albania">Albania</option>
-                                                <option value="Algeria">Algeria</option>
-                                                <option value="Andorra">Andorra</option>
-                                                <option value="Angola">Angola</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-md-12 col-lg-1">
-                                    <div class="row">
-                                        <div class="col-xs-12 use_small_padding">
-                                            <form id="report">
-                                                <div>
-                                                    <button class="btn btn-success btn-cons button_top" type="submit">
-                                                        Report
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+{{--                                <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding">--}}
+{{--                                    <div class="timezone">--}}
+{{--                                        <select class="select_timezone">--}}
+{{--                                            <option timeZoneId="1" gmtAdjustment="GMT-12:00" useDaylightTime="0"--}}
+{{--                                                    data-val="-12" value="1">(GMT-12:00) International Date Line West--}}
+{{--                                            </option>--}}
+{{--                                            <option timeZoneId="2" gmtAdjustment="GMT-11:00" useDaylightTime="0"--}}
+{{--                                                    data-val="-11" value="2">(GMT-11:00) Midway Island, Samoa--}}
+{{--                                            </option>--}}
+{{--                                        </select>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding">--}}
+{{--                                    <div class="row">--}}
+{{--                                        <div class="col-xs-12">--}}
+{{--                                            <select class="list_date select2_list padding_left" name="date" id="">--}}
+{{--                                                <option value="today">Today</option>--}}
+{{--                                                <option value="yester">Yesterday</option>--}}
+{{--                                                <option value="week">Current Week</option>--}}
+{{--                                                <option value="month">Current Month</option>--}}
+{{--                                                <option value="year">Year To Date</option>--}}
+{{--                                                <option value="l_week">Last Week</option>--}}
+{{--                                                <option value="l_month">Last Month</option>--}}
+{{--                                                <option value="calendar">Custom</option>--}}
+{{--                                            </select>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div--}}
+{{--                                    class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding calendar_padding">--}}
+{{--                                    <div class="col-xs-4 col-sm-4">--}}
+{{--                                        <div class="row">--}}
+{{--                                            <div class="about_color">--}}
+{{--                                                <p class="about_inputs">Start</p>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="input-append success col-xs-8 col-sm-8">--}}
+{{--                                        <div class="row">--}}
+{{--                                            <input type="text"--}}
+{{--                                                   class="form-control date_start date_pic_wid sandbox-advance">--}}
+{{--                                            <span class="add-on"><span class="arrow"></span><i--}}
+{{--                                                    class="fa fa-th"></i></span>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div--}}
+{{--                                    class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding calendar_padding">--}}
+{{--                                    <div class="col-xs-4 col-sm-4">--}}
+{{--                                        <div class="row">--}}
+{{--                                            <div class="about_color">--}}
+{{--                                                <p class="about_inputs">End</p>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="input-append success col-xs-8 col-sm-8">--}}
+{{--                                        <div class="row">--}}
+{{--                                            <input type="text"--}}
+{{--                                                   class="form-control date_end date_pic_wid sandbox-advance">--}}
+{{--                                            <span class="add-on"><span class="arrow"></span><i--}}
+{{--                                                    class="fa fa-th"></i></span>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1">--}}
+{{--                                    <div class="row">--}}
+{{--                                        <div class="col-xs-12 use_small_padding">--}}
+{{--                                            <select class="select2_offers" name="offers" id="offers"--}}
+{{--                                                    multiple="multiple">--}}
+{{--                                                <option value="DroneX">Ecommerce - DroneX INTL - All Languages ---}}
+{{--                                                    EXCLUSIVE--}}
+{{--                                                </option>--}}
+{{--                                                <option value="Tactical Flashlight">Ecommerce - TacticalX Flashlight--}}
+{{--                                                    INTL - All Languages - EXCLUSIVE--}}
+{{--                                                </option>--}}
+{{--                                            </select>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1">--}}
+{{--                                    <div class="row">--}}
+{{--                                        <div class="col-xs-12 use_small_padding">--}}
+{{--                                            <select class="select2_geos" name="offer_geos" id="geos" multiple>--}}
+{{--                                                <option value="Albania">Albania</option>--}}
+{{--                                                <option value="Algeria">Algeria</option>--}}
+{{--                                                <option value="Andorra">Andorra</option>--}}
+{{--                                                <option value="Angola">Angola</option>--}}
+{{--                                            </select>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-xs-12 col-md-12 col-lg-1">--}}
+{{--                                    <div class="row">--}}
+{{--                                        <div class="col-xs-12 use_small_padding">--}}
+{{--                                            <form id="report">--}}
+{{--                                                <div>--}}
+{{--                                                    <button class="btn btn-success btn-cons button_top" type="submit">--}}
+{{--                                                        Report--}}
+{{--                                                    </button>--}}
+{{--                                                </div>--}}
+{{--                                            </form>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                             </div>
                         </div>
 
@@ -439,19 +516,74 @@
 
         <script type="text/javascript">
 
-            $(function (){
-                $('#created_at_start').datetimepicker({
-                    "format":"YYYY-MM-DD",
-                    "locale":"zh-CN"
+
+            $('#searchBtn').click(function (e) {
+
+                e.preventDefault();
+                var _token = $('#_token').val();
+                var offer = $('#offer').val();
+                var geos = $('#geos').val();
+                var start_date = $('#datetimepicker5').val();
+                var end_date = $('#datetimepicker8').val();
+
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/analytics/query',
+                    data: {
+                        offer: offer,
+                        _token: _token,
+                        geos: geos,
+                        start_date: start_date,
+                        end_date: end_date,
+                    },
+                    success: function (data) {
+
+
+                        // $("#keyword1").html("Hello <b>world</b>!");
+
+                        console.log('返回数据',data)
+                        //
+                        // alert(123)
+                        //
+                        // $("#test").html()
+
+                        $('.categories_offer_left').empty();
+                        $('.categories_offer_right').empty();
+
+                        $('.categories_offer_left').html(data.left_data);
+                        $('.categories_offer_right').html(data.right_data);
+
+                        console.info('返回数据', data)
+                        // console.info('返回数据1')
+                        // do something with the response data
+                    }
                 });
-                $('#created_at_end').datetimepicker({
-                    "format":"YYYY-MM-DD",
-                    "locale":"zh-CN",
-                    "useCurrent":false
+            });
+
+
+
+            $(function (){
+                $('#datetimepicker6').datetimepicker({
+                    defaultDate: moment().subtract(30, 'days'),
+                    format: 'YYYY-MM-DD',
+                });
+                $('#datetimepicker7').datetimepicker({
+                    defaultDate: moment(),
+                    format: 'YYYY-MM-DD',
+                    useCurrent: true //Important! See issue #1075
+                });
+
+                $("#datetimepicker6").on("dp.change", function (e) {
+                    $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+                });
+
+                $("#datetimepicker7").on("dp.change", function (e) {
+                    $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
                 });
             })
         </script>
-
 
 
         <script>
@@ -470,12 +602,12 @@
         </style>
 
 
-        <script src="/vendor/laravel-admin/analytic/data_table.js"></script>
-        <script src="/vendor/laravel-admin/analytic/summary.js"></script>
-        <script src="/vendor/laravel-admin/analytic/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="/vendor/laravel-admin/analytic/dataTables.tableTools.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="/vendor/laravel-admin/analytic/datatables.responsive.js"></script>
-        <script type="text/javascript" src="/vendor/laravel-admin/analytic/lodash.min.js"></script>
+        <script src="/vendor/laravel-admin/analytic/data_table.js?version=2015"></script>
+{{--        <script src="/vendor/laravel-admin/analytic/summary.js?version=2016"></script>--}}
+        <script src="/vendor/laravel-admin/analytic/jquery.dataTables.min.js?version=2015" type="text/javascript"></script>
+        <script src="/vendor/laravel-admin/analytic/dataTables.tableTools.min.js?version=2015" type="text/javascript"></script>
+        <script type="text/javascript" src="/vendor/laravel-admin/analytic/datatables.responsive.js?version=2015"></script>
+        <script type="text/javascript" src="/vendor/laravel-admin/analytic/lodash.min.js?version=2015"></script>
 
 
     </div>
@@ -516,6 +648,10 @@
 
 
 <script type="text/javascript">
+
+    $(function () {
+        $('.selectpicker').selectpicker();
+    });
 
     var frontendData = @json($data);
     $(document).ready(function () {

@@ -157,24 +157,25 @@
     <br>
     <hr>
     <br>
-{{--    <script type="text/javascript">--}}
-{{--        $(function () {--}}
-{{--            $('#datetimepicker6').datetimepicker();--}}
-{{--            $('#datetimepicker7').datetimepicker({--}}
-
-
-{{--                useCurrent: false //Important! See issue #1075--}}
-{{--            });--}}
-{{--            $("#datetimepicker6").on("dp.change", function (e) {--}}
-
-{{--                $('#datetimepicker7').data("DateTimePicker").minDate(e.date);--}}
-{{--            });--}}
-{{--            $("#datetimepicker7").on("dp.change", function (e) {--}}
-
-{{--                $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
+    <script type="text/javascript">
+        $(function () {
+           $('#datetimepicker6').datetimepicker({
+               defaultDate: moment().subtract(30, 'days'),
+               format: 'YYYY-MM-DD',
+           });
+              $('#datetimepicker7').datetimepicker({
+                  defaultDate: moment(),
+                  format: 'YYYY-MM-DD',
+                  useCurrent: true //Important! See issue #1075
+              });
+              $("#datetimepicker6").on("dp.change", function (e) {
+                  $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+              });
+              $("#datetimepicker7").on("dp.change", function (e) {
+                  $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+              });
+        });
+    </script>
 
 
     {{--<div class="card">--}}
@@ -277,20 +278,26 @@
     {{--</div>--}}
 
 
-{{--    <script type="text/javascript">--}}
-{{--        $(function () {--}}
-{{--            $('#datetimepicker1').datetimepicker();--}}
-{{--            $('#datetimepicker2').datetimepicker({--}}
-{{--                useCurrent: false //Important! See issue #1075--}}
-{{--            });--}}
-{{--            $("#datetimepicker1").on("dp.change", function (e) {--}}
-{{--                $('#datetimepicker2').data("DateTimePicker").minDate(e.date);--}}
-{{--            });--}}
-{{--            $("#datetimepicker2").on("dp.change", function (e) {--}}
-{{--                $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                defaultDate: moment().subtract(30, 'days'),
+
+                format: 'YYYY-MM-DD',
+            });
+            $('#datetimepicker2').datetimepicker({
+                defaultDate: moment(),
+                format: 'YYYY-MM-DD',
+                useCurrent: false //Important! See issue #1075
+            });
+            $("#datetimepicker1").on("dp.change", function (e) {
+                $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+            });
+            $("#datetimepicker2").on("dp.change", function (e) {
+                $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+            });
+        });
+    </script>
 
 
     <div class="col-md-12" style="margin-top: 30px">
