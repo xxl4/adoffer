@@ -1,13 +1,16 @@
-<link href="/vendor/laravel-admin/analytic/pace-theme-flash.css?version=2015" rel="stylesheet" type="text/css" media="screen"/>
+<link href="/vendor/laravel-admin/analytic/pace-theme-flash.css?version=2015" rel="stylesheet" type="text/css"
+      media="screen"/>
 <link href="/vendor/laravel-admin/analytic/bootstrap-theme.min.css?version=2015" rel="stylesheet" type="text/css"/>
 <link href="/vendor/laravel-admin/analytic/custom.css?version=2015" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" href="/vendor/laravel-admin/analytic/sweet-alert.css?version=2015">
 <link href="/vendor/laravel-admin/analytic/datepicker.css?version=2015" rel="stylesheet" type="text/css"/>
-<link href="/vendor/laravel-admin/analytic/jquery.dataTables.css?version=2015" rel="stylesheet" type="text/css" />
-<link href="/vendor/laravel-admin/analytic/datatables.responsive.css?version=2015" rel="stylesheet" type="text/css" media="screen" />
+<link href="/vendor/laravel-admin/analytic/jquery.dataTables.css?version=2015" rel="stylesheet" type="text/css"/>
+<link href="/vendor/laravel-admin/analytic/datatables.responsive.css?version=2015" rel="stylesheet" type="text/css"
+      media="screen"/>
 <script src="/vendor/laravel-admin/analytic/bootstrap-datepicker.js?version=2015" type="text/javascript"></script>
 
 <link href="/vendor/laravel-admin/analytic/select2.css?version=2015" rel="stylesheet" type="text/css" media="screen"/>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
 
 {{--<link href="/vendor/laravel-admin/analytic/font-awesome.css?version=2015" rel="stylesheet" type="text/css"/>--}}
 {{--<link href="/vendor/laravel-admin/analytic/animate.min.css?version=2015" rel="stylesheet" type="text/css"/>--}}
@@ -34,7 +37,8 @@
 <script src="/vendor/laravel-admin/analytic/select2.js?version=2015" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/analytic/bootstrap-timepicker.min.js?version=2015" type="text/javascript"></script>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
 
@@ -52,8 +56,6 @@
 {{--<link href="/vendor/laravel-admin/analytic/jquery-jvectormap-1.2.2.css?v=0.1" rel="stylesheet" type="text/css" media="screen"/>--}}
 
 
-
-
 {{--<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">--}}
 {{--<script src="/vendor/laravel-admin/analytic/pace.min.js" type="text/javascript"></script>--}}
 
@@ -62,11 +64,8 @@
 {{--<script src="assets/plugins/bootstrapv3/js/bootstrap.min.js" type="text/javascript"></script>--}}
 
 
-
 {{--<script src="/vendor/laravel-admin/analytic/bootstrap.js" type="text/javascript"></script>--}}
 {{--<script src="/vendor/laravel-admin/analytic/bootstrap-popover-custom-class.min.js" type="text/javascript"></script>--}}
-
-
 
 
 {{--<script src="/vendor/laravel-admin/analytic/webarch.js?version=2015" type="text/javascript"></script>--}}
@@ -83,11 +82,9 @@
 {{--<script type="text/javascript" src="/vendor/laravel-admin/analytic/email-broadcast.js?v=0.1"></script>--}}
 
 
-
 {{--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--}}
 {{--<script src="//cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>--}}
 {{--<script src="/vendor/laravel-admin/analytic/Chart.min.js"></script>--}}
-
 
 
 <a href="#" class="scrollup">Scroll</a>
@@ -98,14 +95,15 @@
     <div class="content">
 
 
-
         <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}"/>
         <div class="form-group">
-            <div class="col-sm-4" style="width: 20%!important;">
-                <select id="offer" name="usertype" class="selectpicker show-tick form-control" multiple data-max-options="3"
+            <div class="col-sm-4" style="width: 18%!important;">
+                <select id="offer" name="usertype" class="selectpicker show-tick form-control" multiple
+                        data-max-options="3"
                         data-live-search="true" data-none-selected-text="Select Offers">
                     @foreach ($offer_list as $key=>$item)
-                        <option value="{{$item['id']}}" data-content="<span class='label label-success'> {{$item['offer_name']}}</span>">
+                        <option value="{{$item['id']}}"
+                                data-content="<span class='label label-success'> {{$item['offer_name']}}</span>">
                             {{$item['offer_name']}}
                         </option>
                     @endforeach
@@ -113,17 +111,19 @@
             </div>
 
 
-            <div class="col-sm-4" style="width: 20%!important;">
-                <select id="geos" name="usertype" class="selectpicker show-tick form-control" multiple data-max-options="3"
+            <div class="col-sm-4" style="width: 18%!important;">
+                <select id="geos" name="usertype" class="selectpicker show-tick form-control" multiple
+                        data-max-options="3"
                         data-live-search="true" data-none-selected-text="Select Offers Geos">
                     @foreach ($geos_list as $key=>$item)
-                    <option value="{{$item['id']}}" data-content="<span class='label label-success'> {{$item['country']}}</span>">
-                        {{$item['country']}}
-                    </option>
+                        <option value="{{$item['id']}}"
+                                data-content="<span class='label label-success'> {{$item['country']}}</span>">
+                            {{$item['country']}}
+                        </option>
                     @endforeach
                 </select>
             </div>
-            <div class='col-sm-4' style="width: 20%!important;">
+            <div class='col-sm-4' style="width: 18%!important;">
                 <div class="form-group">
                     <div class='input-group date' id='datetimepicker6'>
                         <input type='text' class="form-control" id="datetimepicker5"/>
@@ -134,7 +134,7 @@
                 </div>
             </div>
 
-            <div class='col-sm-4' style="width: 20%!important;">
+            <div class='col-sm-4' style="width: 18%!important;">
                 <div class="form-group">
                     <div class='input-group date' id='datetimepicker7'>
                         <input type='text' class="form-control" id="datetimepicker8"/>
@@ -145,30 +145,30 @@
                 </div>
             </div>
 
-{{--            <div class="col-sm-4" style="width: 20%!important;">--}}
-{{--                <select id="sort" name="usertype" class="selectpicker show-tick form-control" data-max-options="3"--}}
-{{--                        data-live-search="true" data-none-selected-text="Order By">--}}
-{{--                    <option value="0"--}}
-{{--                            data-content="<span class='label label-success'>Release Date (Newest on Top)</span>">--}}
-{{--                        Release Date (Newest on Top)--}}
-{{--                    </option>--}}
-{{--                    <option value="1"--}}
-{{--                            data-content="<span class='label label-success'>Release Date (Oldest on Top)</span>">--}}
-{{--                        Release Date (Oldest on Top)--}}
-{{--                    </option>--}}
-{{--                    <option value="2" data-content="<span class='label label-success'>Payout (High to Low)</span>">--}}
-{{--                        Payout--}}
-{{--                        (High to Low)--}}
-{{--                    </option>--}}
-{{--                    <option value="3" data-content="<span class='label label-success'>Payout (Low to High)</span>">--}}
-{{--                        Payout--}}
-{{--                        (Low to High)--}}
-{{--                    </option>--}}
-{{--                </select>--}}
-{{--            </div>--}}
+            {{--            <div class="col-sm-4" style="width: 20%!important;">--}}
+            {{--                <select id="sort" name="usertype" class="selectpicker show-tick form-control" data-max-options="3"--}}
+            {{--                        data-live-search="true" data-none-selected-text="Order By">--}}
+            {{--                    <option value="0"--}}
+            {{--                            data-content="<span class='label label-success'>Release Date (Newest on Top)</span>">--}}
+            {{--                        Release Date (Newest on Top)--}}
+            {{--                    </option>--}}
+            {{--                    <option value="1"--}}
+            {{--                            data-content="<span class='label label-success'>Release Date (Oldest on Top)</span>">--}}
+            {{--                        Release Date (Oldest on Top)--}}
+            {{--                    </option>--}}
+            {{--                    <option value="2" data-content="<span class='label label-success'>Payout (High to Low)</span>">--}}
+            {{--                        Payout--}}
+            {{--                        (High to Low)--}}
+            {{--                    </option>--}}
+            {{--                    <option value="3" data-content="<span class='label label-success'>Payout (Low to High)</span>">--}}
+            {{--                        Payout--}}
+            {{--                        (Low to High)--}}
+            {{--                    </option>--}}
+            {{--                </select>--}}
+            {{--            </div>--}}
 
             <div class="row">
-                <div class="col-sm-4" style="width: 20%!important;">
+                <div class="col-sm-4" style="width: 18%!important;">
                     <input type="text" class="form-control" id="keyword" value="" placeholder="搜索...">
                     <p id="keyword1"></p>
                 </div>
@@ -177,117 +177,116 @@
         </div>
 
 
-
         <div class="col-md-12">
             <div class="row">
                 <div class="grid simple">
                     <div class="grid-title no-border">
                         <div class="col-xs-12">
                             <div class="row">
-{{--                                <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding">--}}
-{{--                                    <div class="timezone">--}}
-{{--                                        <select class="select_timezone">--}}
-{{--                                            <option timeZoneId="1" gmtAdjustment="GMT-12:00" useDaylightTime="0"--}}
-{{--                                                    data-val="-12" value="1">(GMT-12:00) International Date Line West--}}
-{{--                                            </option>--}}
-{{--                                            <option timeZoneId="2" gmtAdjustment="GMT-11:00" useDaylightTime="0"--}}
-{{--                                                    data-val="-11" value="2">(GMT-11:00) Midway Island, Samoa--}}
-{{--                                            </option>--}}
-{{--                                        </select>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding">--}}
-{{--                                    <div class="row">--}}
-{{--                                        <div class="col-xs-12">--}}
-{{--                                            <select class="list_date select2_list padding_left" name="date" id="">--}}
-{{--                                                <option value="today">Today</option>--}}
-{{--                                                <option value="yester">Yesterday</option>--}}
-{{--                                                <option value="week">Current Week</option>--}}
-{{--                                                <option value="month">Current Month</option>--}}
-{{--                                                <option value="year">Year To Date</option>--}}
-{{--                                                <option value="l_week">Last Week</option>--}}
-{{--                                                <option value="l_month">Last Month</option>--}}
-{{--                                                <option value="calendar">Custom</option>--}}
-{{--                                            </select>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <div--}}
-{{--                                    class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding calendar_padding">--}}
-{{--                                    <div class="col-xs-4 col-sm-4">--}}
-{{--                                        <div class="row">--}}
-{{--                                            <div class="about_color">--}}
-{{--                                                <p class="about_inputs">Start</p>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="input-append success col-xs-8 col-sm-8">--}}
-{{--                                        <div class="row">--}}
-{{--                                            <input type="text"--}}
-{{--                                                   class="form-control date_start date_pic_wid sandbox-advance">--}}
-{{--                                            <span class="add-on"><span class="arrow"></span><i--}}
-{{--                                                    class="fa fa-th"></i></span>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <div--}}
-{{--                                    class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding calendar_padding">--}}
-{{--                                    <div class="col-xs-4 col-sm-4">--}}
-{{--                                        <div class="row">--}}
-{{--                                            <div class="about_color">--}}
-{{--                                                <p class="about_inputs">End</p>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="input-append success col-xs-8 col-sm-8">--}}
-{{--                                        <div class="row">--}}
-{{--                                            <input type="text"--}}
-{{--                                                   class="form-control date_end date_pic_wid sandbox-advance">--}}
-{{--                                            <span class="add-on"><span class="arrow"></span><i--}}
-{{--                                                    class="fa fa-th"></i></span>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1">--}}
-{{--                                    <div class="row">--}}
-{{--                                        <div class="col-xs-12 use_small_padding">--}}
-{{--                                            <select class="select2_offers" name="offers" id="offers"--}}
-{{--                                                    multiple="multiple">--}}
-{{--                                                <option value="DroneX">Ecommerce - DroneX INTL - All Languages ---}}
-{{--                                                    EXCLUSIVE--}}
-{{--                                                </option>--}}
-{{--                                                <option value="Tactical Flashlight">Ecommerce - TacticalX Flashlight--}}
-{{--                                                    INTL - All Languages - EXCLUSIVE--}}
-{{--                                                </option>--}}
-{{--                                            </select>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1">--}}
-{{--                                    <div class="row">--}}
-{{--                                        <div class="col-xs-12 use_small_padding">--}}
-{{--                                            <select class="select2_geos" name="offer_geos" id="geos" multiple>--}}
-{{--                                                <option value="Albania">Albania</option>--}}
-{{--                                                <option value="Algeria">Algeria</option>--}}
-{{--                                                <option value="Andorra">Andorra</option>--}}
-{{--                                                <option value="Angola">Angola</option>--}}
-{{--                                            </select>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <div class="col-xs-12 col-md-12 col-lg-1">--}}
-{{--                                    <div class="row">--}}
-{{--                                        <div class="col-xs-12 use_small_padding">--}}
-{{--                                            <form id="report">--}}
-{{--                                                <div>--}}
-{{--                                                    <button class="btn btn-success btn-cons button_top" type="submit">--}}
-{{--                                                        Report--}}
-{{--                                                    </button>--}}
-{{--                                                </div>--}}
-{{--                                            </form>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
+                                {{--                                <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding">--}}
+                                {{--                                    <div class="timezone">--}}
+                                {{--                                        <select class="select_timezone">--}}
+                                {{--                                            <option timeZoneId="1" gmtAdjustment="GMT-12:00" useDaylightTime="0"--}}
+                                {{--                                                    data-val="-12" value="1">(GMT-12:00) International Date Line West--}}
+                                {{--                                            </option>--}}
+                                {{--                                            <option timeZoneId="2" gmtAdjustment="GMT-11:00" useDaylightTime="0"--}}
+                                {{--                                                    data-val="-11" value="2">(GMT-11:00) Midway Island, Samoa--}}
+                                {{--                                            </option>--}}
+                                {{--                                        </select>--}}
+                                {{--                                    </div>--}}
+                                {{--                                </div>--}}
+                                {{--                                <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding">--}}
+                                {{--                                    <div class="row">--}}
+                                {{--                                        <div class="col-xs-12">--}}
+                                {{--                                            <select class="list_date select2_list padding_left" name="date" id="">--}}
+                                {{--                                                <option value="today">Today</option>--}}
+                                {{--                                                <option value="yester">Yesterday</option>--}}
+                                {{--                                                <option value="week">Current Week</option>--}}
+                                {{--                                                <option value="month">Current Month</option>--}}
+                                {{--                                                <option value="year">Year To Date</option>--}}
+                                {{--                                                <option value="l_week">Last Week</option>--}}
+                                {{--                                                <option value="l_month">Last Month</option>--}}
+                                {{--                                                <option value="calendar">Custom</option>--}}
+                                {{--                                            </select>--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </div>--}}
+                                {{--                                </div>--}}
+                                {{--                                <div--}}
+                                {{--                                    class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding calendar_padding">--}}
+                                {{--                                    <div class="col-xs-4 col-sm-4">--}}
+                                {{--                                        <div class="row">--}}
+                                {{--                                            <div class="about_color">--}}
+                                {{--                                                <p class="about_inputs">Start</p>--}}
+                                {{--                                            </div>--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </div>--}}
+                                {{--                                    <div class="input-append success col-xs-8 col-sm-8">--}}
+                                {{--                                        <div class="row">--}}
+                                {{--                                            <input type="text"--}}
+                                {{--                                                   class="form-control date_start date_pic_wid sandbox-advance">--}}
+                                {{--                                            <span class="add-on"><span class="arrow"></span><i--}}
+                                {{--                                                    class="fa fa-th"></i></span>--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </div>--}}
+                                {{--                                </div>--}}
+                                {{--                                <div--}}
+                                {{--                                    class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding calendar_padding">--}}
+                                {{--                                    <div class="col-xs-4 col-sm-4">--}}
+                                {{--                                        <div class="row">--}}
+                                {{--                                            <div class="about_color">--}}
+                                {{--                                                <p class="about_inputs">End</p>--}}
+                                {{--                                            </div>--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </div>--}}
+                                {{--                                    <div class="input-append success col-xs-8 col-sm-8">--}}
+                                {{--                                        <div class="row">--}}
+                                {{--                                            <input type="text"--}}
+                                {{--                                                   class="form-control date_end date_pic_wid sandbox-advance">--}}
+                                {{--                                            <span class="add-on"><span class="arrow"></span><i--}}
+                                {{--                                                    class="fa fa-th"></i></span>--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </div>--}}
+                                {{--                                </div>--}}
+                                {{--                                <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1">--}}
+                                {{--                                    <div class="row">--}}
+                                {{--                                        <div class="col-xs-12 use_small_padding">--}}
+                                {{--                                            <select class="select2_offers" name="offers" id="offers"--}}
+                                {{--                                                    multiple="multiple">--}}
+                                {{--                                                <option value="DroneX">Ecommerce - DroneX INTL - All Languages ---}}
+                                {{--                                                    EXCLUSIVE--}}
+                                {{--                                                </option>--}}
+                                {{--                                                <option value="Tactical Flashlight">Ecommerce - TacticalX Flashlight--}}
+                                {{--                                                    INTL - All Languages - EXCLUSIVE--}}
+                                {{--                                                </option>--}}
+                                {{--                                            </select>--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </div>--}}
+                                {{--                                </div>--}}
+                                {{--                                <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1">--}}
+                                {{--                                    <div class="row">--}}
+                                {{--                                        <div class="col-xs-12 use_small_padding">--}}
+                                {{--                                            <select class="select2_geos" name="offer_geos" id="geos" multiple>--}}
+                                {{--                                                <option value="Albania">Albania</option>--}}
+                                {{--                                                <option value="Algeria">Algeria</option>--}}
+                                {{--                                                <option value="Andorra">Andorra</option>--}}
+                                {{--                                                <option value="Angola">Angola</option>--}}
+                                {{--                                            </select>--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </div>--}}
+                                {{--                                </div>--}}
+                                {{--                                <div class="col-xs-12 col-md-12 col-lg-1">--}}
+                                {{--                                    <div class="row">--}}
+                                {{--                                        <div class="col-xs-12 use_small_padding">--}}
+                                {{--                                            <form id="report">--}}
+                                {{--                                                <div>--}}
+                                {{--                                                    <button class="btn btn-success btn-cons button_top" type="submit">--}}
+                                {{--                                                        Report--}}
+                                {{--                                                    </button>--}}
+                                {{--                                                </div>--}}
+                                {{--                                            </form>--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </div>--}}
+                                {{--                                </div>--}}
                             </div>
                         </div>
 
@@ -297,24 +296,20 @@
                 </div>
 
 
-
-
-{{--                <form role="form">--}}
-{{--                    <div class="form-group">--}}
-{{--                    <div class="col-sm-8" style="width: 30%">--}}
-{{--                        <div class="input-group input-group-sm">--}}
-{{--                            <div class="input-group-addon">--}}
-{{--                                统计时间--}}
-{{--                            </div>--}}
-{{--                            <input type="text" class="form-control" id="created_at_start" placeholder="开始时间" style="height: 34px">--}}
-{{--                            <span class="input-group-addon" style="border-left: 0;border-right: 0"></span>--}}
-{{--                            <input type="text" class="form-control" id="created_at_end" placeholder="结束时间" style="height: 34px">--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    </div>--}}
-{{--                </form>--}}
-
-
+                {{--                <form role="form">--}}
+                {{--                    <div class="form-group">--}}
+                {{--                    <div class="col-sm-8" style="width: 30%">--}}
+                {{--                        <div class="input-group input-group-sm">--}}
+                {{--                            <div class="input-group-addon">--}}
+                {{--                                统计时间--}}
+                {{--                            </div>--}}
+                {{--                            <input type="text" class="form-control" id="created_at_start" placeholder="开始时间" style="height: 34px">--}}
+                {{--                            <span class="input-group-addon" style="border-left: 0;border-right: 0"></span>--}}
+                {{--                            <input type="text" class="form-control" id="created_at_end" placeholder="结束时间" style="height: 34px">--}}
+                {{--                        </div>--}}
+                {{--                    </div>--}}
+                {{--                    </div>--}}
+                {{--                </form>--}}
 
 
                 <div class="col-sm-12">
@@ -383,23 +378,29 @@
                                 <div class="grid-body no-border">
                                     <h4>Revenue <span class="semi-bold night_blue">Segmentation</span></h4>
                                     <p>Visualize your Revenue segmented by Offer over the selected period of time.</p>
-                                    <div id="donut-example" style="height:270px;">
+{{--                                    <div id="donut-example" style="height:270px;width: 50%">--}}
+{{--                                        <canvas id="myPieChart" style="width: 484px;height:233px;"></canvas>--}}
 
-                                        <canvas id="myPieChart" style="width: 484px;height:233px;"></canvas>
 
 
-                                        <div
-                                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                                            <span id="centerText"
-                                                  style="font-size: 16px; font-weight: bold;color: black">Center Text1</span>
 
-                                        </div>
-                                        <div
-                                            style="position: absolute; top: 56%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                                            <span id="centerTextCount"
-                                                  style="font-size: 16px; font-weight: bold;color: black">123</span>
+                                        <div id="stacked-ordered-chart" style="height:270px;" data-page-length="10"
+                                             data-bar-width="0.5" data-page="1">
+                                            <div id="myPieChart" style="width: 100%; height: 270px;"></div>
+{{--                                        </div>--}}
 
-                                        </div>
+
+
+{{--                                        <div--}}
+{{--                                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">--}}
+{{--                                            <span id="centerText"--}}
+{{--                                                  style="font-size: 26px; font-weight: bold;color: black">BarXStop</span>--}}
+{{--                                        </div>--}}
+{{--                                        <div--}}
+{{--                                            style="position: absolute; top: 56%; left: 50%; transform: translate(-50%, -50%); text-align: center;">--}}
+{{--                                            <span id="centerTextCount"--}}
+{{--                                                  style="font-size: 22px; font-weight: bold;color: black">{{$percent}}%</span>--}}
+{{--                                        </div>--}}
                                     </div>
 
 
@@ -432,9 +433,9 @@
                                         <p>Visualize your Offers Revenue segmented by Country over the selected period
                                             of time.</p>
                                         <br>
-                                        <div id="stacked-ordered-chart" style="height:250px" data-page-length="10"
+                                        <div id="stacked-ordered-chart" style="height:270px;" data-page-length="10"
                                              data-bar-width="0.5" data-page="1">
-                                            <canvas id="myBarChart" style="width: 484px;height:233px;"></canvas>
+                                            <canvas id="myBarChart" style="width: 484px;height:270px;"></canvas>
                                         </div>
 
 
@@ -503,68 +504,19 @@
         </div>
 
 
-
-        <script src="/vendor/laravel-admin/analytic/rickshaw.min.js"></script>
+{{--        <script src="/vendor/laravel-admin/analytic/rickshaw.min.js"></script>--}}
         <script src="/vendor/laravel-admin/analytic/morris.min.js"></script>
         <script src="/vendor/laravel-admin/analytic/jquery.flot.js"></script>
         <script src="/vendor/laravel-admin/analytic/jquery.flot.animator.min.js"></script>
         <script src="/vendor/laravel-admin/analytic/jquery.flot.orderBars.js"></script>
         <script src="/vendor/laravel-admin/analytic/jquery-sparkline.js"></script>
-        <script src="/vendor/laravel-admin/analytic/graphics.js"></script>
+{{--        <script src="/vendor/laravel-admin/analytic/graphics.js"></script>--}}
         <script src="/vendor/laravel-admin/analytic/functions.js"></script>
 
 
         <script type="text/javascript">
 
-
-            $('#searchBtn').click(function (e) {
-
-                e.preventDefault();
-                var _token = $('#_token').val();
-                var offer = $('#offer').val();
-                var geos = $('#geos').val();
-                var start_date = $('#datetimepicker5').val();
-                var end_date = $('#datetimepicker8').val();
-
-
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/admin/analytics/query',
-                    data: {
-                        offer: offer,
-                        _token: _token,
-                        geos: geos,
-                        start_date: start_date,
-                        end_date: end_date,
-                    },
-                    success: function (data) {
-
-
-                        // $("#keyword1").html("Hello <b>world</b>!");
-
-                        console.log('返回数据',data)
-                        //
-                        // alert(123)
-                        //
-                        // $("#test").html()
-
-                        $('.categories_offer_left').empty();
-                        $('.categories_offer_right').empty();
-
-                        $('.categories_offer_left').html(data.left_data);
-                        $('.categories_offer_right').html(data.right_data);
-
-                        console.info('返回数据', data)
-                        // console.info('返回数据1')
-                        // do something with the response data
-                    }
-                });
-            });
-
-
-
-            $(function (){
+            $(function () {
                 $('#datetimepicker6').datetimepicker({
                     defaultDate: moment().subtract(30, 'days'),
                     format: 'YYYY-MM-DD',
@@ -574,23 +526,19 @@
                     format: 'YYYY-MM-DD',
                     useCurrent: true //Important! See issue #1075
                 });
-
                 $("#datetimepicker6").on("dp.change", function (e) {
                     $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
                 });
-
                 $("#datetimepicker7").on("dp.change", function (e) {
                     $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
                 });
             })
         </script>
 
-
         <script>
             $(document).ready(function () {
                 $(".select2_list").select2();
                 $(".select2_list").val("week").trigger("change");
-
                 $(".select_timezone").select2();
                 $(".select_timezone").val("64").trigger("change");
             });
@@ -603,13 +551,14 @@
 
 
         <script src="/vendor/laravel-admin/analytic/data_table.js?version=2015"></script>
-{{--        <script src="/vendor/laravel-admin/analytic/summary.js?version=2016"></script>--}}
-        <script src="/vendor/laravel-admin/analytic/jquery.dataTables.min.js?version=2015" type="text/javascript"></script>
-        <script src="/vendor/laravel-admin/analytic/dataTables.tableTools.min.js?version=2015" type="text/javascript"></script>
-        <script type="text/javascript" src="/vendor/laravel-admin/analytic/datatables.responsive.js?version=2015"></script>
+        {{--        <script src="/vendor/laravel-admin/analytic/summary.js?version=2016"></script>--}}
+        <script src="/vendor/laravel-admin/analytic/jquery.dataTables.min.js?version=2015"
+                type="text/javascript"></script>
+        <script src="/vendor/laravel-admin/analytic/dataTables.tableTools.min.js?version=2015"
+                type="text/javascript"></script>
+        <script type="text/javascript"
+                src="/vendor/laravel-admin/analytic/datatables.responsive.js?version=2015"></script>
         <script type="text/javascript" src="/vendor/laravel-admin/analytic/lodash.min.js?version=2015"></script>
-
-
     </div>
 </div>
 
@@ -649,6 +598,7 @@
 
 <script type="text/javascript">
 
+
     $(function () {
         $('.selectpicker').selectpicker();
     });
@@ -658,8 +608,108 @@
 
         var data = frontendData.original.data;
         var ctx = document.getElementById('myLineChart').getContext('2d');
-        var pie = document.getElementById('myPieChart').getContext('2d');
+        // var pie = document.getElementById('myPieChart').getContext('2d');
         var bar = document.getElementById('myBarChart').getContext('2d');
+
+        // 初始化 ECharts 实例
+        var myChart = echarts.init(document.getElementById('myPieChart'));
+
+        var defaultLabel = '默认标签名\n默认值';
+        // 图表配置
+        var option = {
+            series: [
+                {
+                    name: '环形图',
+                    type: 'pie',
+                    radius: ['50%', '70%'], // 内外半径分别对应环形的大小
+                    avoidLabelOverlap: false,
+                    label: {
+                        show: false
+                    },
+                    emphasis: {
+                        label: {
+                            show: false,
+                            fontSize: '20',
+                            fontWeight: 'bold'
+                        }
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: [
+                        { value: 335, name: '标签1' },
+                        { value: 310, name: '标签2' },
+                        { value: 234, name: '标签3' },
+                        { value: 135, name: '标签4' },
+                        { value: 1548, name: '标签5'}
+                    ]
+                }
+            ],
+            graphic: [
+                {
+                    id: 'label', // 标签的唯一标识符
+                    type: 'text',
+                    left: 'center',
+                    top: 'center',
+                    style: {
+                        text: defaultLabel,
+                        textAlign: 'center',
+                        fontSize: 14,
+                        fontWeight: 'bold'
+                    }
+                }
+            ]
+        };
+        // 使用配置项设置图表
+        myChart.setOption(option);
+
+        // 监听鼠标移动事件
+        myChart.on('mousemove', function (params) {
+            // 获取当前鼠标位置的标签名
+            var currentLabel = params.name + ':\n' + params.value;
+
+            // 更新文本标签的内容
+            myChart.setOption({
+                graphic: [
+                    {
+                        id: 'label', // 标签的唯一标识符
+                        type: 'text',
+                        style: {
+                            text: currentLabel,
+                            textAlign: 'center',
+                            fontSize: 14,
+                            fontWeight: 'bold'
+                        }
+                    }
+                ]
+            });
+        });
+
+        // 监听鼠标离开事件
+        myChart.on('mouseout', function () {
+            // 恢复默认文本标签
+            myChart.setOption({
+                graphic: [
+                    {
+                        id: 'label', // 标签的唯一标识符
+                        type: 'text',
+                        style: {
+                            text: defaultLabel,
+                            textAlign: 'center',
+                            fontSize: 14,
+                            fontWeight: 'bold'
+                        }
+                    }
+                ]
+            });
+        });
+
+
+        window.addEventListener('resize', function() {
+            myChart.resize();
+        });
+
+
 
         console.log('前端数据', data)
         var myLineChart = new Chart(ctx, {
@@ -681,52 +731,71 @@
         });
 
 
-        var myPieChart = new Chart(pie, {
-            type: 'doughnut',
-            data: {
-                labels: data.offer_name,
-                datasets: [{
-                    data: data.total_quantity,
-                    backgroundColor: ['RGB(10,166,153)', 'RGB(0,144,217)', 'RGB(253,208,28)'],
-                }]
-            },
-            options: {
-                cutoutPercentage: 60,
-                responsive: true,
-                maintainAspectRatio: false,
-                legend: {
-                    display: false,
-                    position: 'right',
-                    align: 'start',
-                    padding: 30
-                },
-
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    title: {
-                        display: false
-                    },
-                    tooltip: {
-                        enabled: false
-                    }
-                },
-                onRender: function (chart) {
-                    // Get canvas context
-                    var ctx = chart.ctx;
-                    // Get center coordinates
-                    var centerX = (chart.chartArea.left + chart.chartArea.right) / 2;
-                    var centerY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
-
-                    // Customize center text position
-                    var centerText = document.getElementById('centerText');
-                    centerText.style.top = centerY + 'px';
-                    centerText.style.left = centerX + 'px';
-                }
-            }
-        });
-
+        // var myPieChart = new Chart(pie, {
+        //     type: 'doughnut',
+        //     data: {
+        //         labels: data.offer_name,
+        //         datasets: [{
+        //             data: data.total_quantity,
+        //             backgroundColor: ['RGB(10,166,153)', 'RGB(0,144,217)', 'RGB(253,208,28)'],
+        //         }]
+        //     },
+        //     label: {
+        //         show: false,
+        //         position: 'center'
+        //     },
+        //     options: {
+        //         cutoutPercentage: 60,
+        //         responsive: true,
+        //         maintainAspectRatio: false,
+        //         legend: {
+        //             display: false,
+        //             position: 'right',
+        //             align: 'start',
+        //             padding: 30,
+        //         },
+        //
+        //         plugins: {
+        //             legend: {
+        //                 display: false
+        //             },
+        //             title: {
+        //                 display: false
+        //             },
+        //             tooltip: {
+        //                 enabled: false
+        //             }
+        //         },
+        //         tooltip: { // 鼠标悬浮提示框显示 X和Y 轴数据
+        //             trigger: 'axis',
+        //             backgroundColor: 'rgba(32, 33, 36,.7)',
+        //             borderColor: 'rgba(32, 33, 36,0.20)',
+        //             borderWidth: 1,
+        //             textStyle: { // 文字提示样式
+        //                 color: '#fff',
+        //                 fontSize: '12'
+        //             },
+        //             axisPointer: { // 坐标轴虚线
+        //                 type: 'cross',
+        //                 label: {
+        //                     backgroundColor: '#6a7985'
+        //                 }
+        //             },
+        //         },
+        //         onRender: function (chart) {
+        //             // Get canvas context
+        //             var ctx = chart.ctx;
+        //             // Get center coordinates
+        //             var centerX = (chart.chartArea.left + chart.chartArea.right) / 2;
+        //             var centerY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
+        //
+        //             // Customize center text position
+        //             var centerText = document.getElementById('centerText');
+        //             centerText.style.top = centerY + 'px';
+        //             centerText.style.left = centerX + 'px';
+        //         }
+        //     },
+        // });
 
         var myBarChart = new Chart(bar, {
             type: 'bar',
@@ -749,6 +818,7 @@
             }
         });
 
+
         function generateRandomColors(numColors) {
             var colors = [];
             for (var i = 0; i < numColors; i++) {
@@ -760,6 +830,89 @@
             }
             return colors;
         }
+
+        $('#searchBtn').click(function (e) {
+
+            e.preventDefault();
+            var _token = $('#_token').val();
+            var offer = $('#offer').val();
+            var geos = $('#geos').val();
+            var start_date = $('#datetimepicker5').val();
+            var end_date = $('#datetimepicker8').val();
+
+            function updateOfferChartData() {
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/analytics/query',
+                    data: {
+                        offer: offer,
+                        _token: _token,
+                        geos: geos,
+                        start_date: start_date,
+                        end_date: end_date,
+                    },
+                    success: function (data) {
+
+                        console.log(123, data)
+
+                        //刷新折线图数据
+                        var res = data.offer_count;
+                        myLineChart.data.labels = res.sale_date;
+                        myLineChart.data.datasets[0].data = res.total_sales;
+                        myLineChart.update();
+
+                        //刷新饼图数据
+                        var pieRes = data.offer_top;
+                        myPieChart.data.labels = pieRes.offer_name;
+                        myPieChart.data.datasets[0].data = pieRes.total_quantity;
+                        myPieChart.update();
+
+                        //刷新柱状图数据
+                        var barRes = data.country;
+                        myBarChart.data.labels = barRes.country_list;
+                        myBarChart.data.datasets[0].data = barRes.country_total_sales;
+                        myBarChart.update();
+
+                        // 饼状图标题和数据
+                        $("#centerTextCount").html(pieRes.percent + '%');
+
+
+                        $("#html_data").empty();
+                        $("#html_data").html(barRes.html_data);
+
+                    }
+                });
+            }
+
+            updateOfferChartData();
+        });
+
     });
 
+
+    function updatePieChart(newData) {
+        // 判断数据是否符合预期格式
+        if (isValidDataFormat(newData)) {
+            myPieChart.data = newData;
+            myPieChart.update();
+        } else {
+            console.error('Invalid data format');
+        }
+    }
+
+
+    // 判断数据是否符合预期格式
+    function isValidDataFormat(data) {
+        return (
+            data &&
+            data.labels &&
+            Array.isArray(data.labels) &&
+            data.datasets &&
+            Array.isArray(data.datasets) &&
+            data.datasets.length > 0 &&
+            data.datasets[0].data &&
+            Array.isArray(data.datasets[0].data)
+        );
+    }
 </script>

@@ -830,30 +830,22 @@
 
     $(document).ready(function() {
         // 初始化 Clipboard.js
-
         var clipboard = new ClipboardJS('.copy-button');
-
         // 处理复制成功事件
         clipboard.on('success', function(e) {
             alert('复制成功!');
             e.clearSelection(); // 清除选定文本
         });
-
         // 处理复制失败事件
         clipboard.on('error', function(e) {
             alert('Copy failed. Please try again.');
         });
-
-
-
     });
 
 
     $(document).ready(function() {
         // 初始化 Clipboard.js
-
         var clipboard = new ClipboardJS('.copy-button2');
-
         // 处理复制成功事件
         clipboard.on('success', function(e) {
             alert('复制成功1!');
@@ -864,9 +856,6 @@
         clipboard.on('error', function(e) {
             alert('Copy failed. Please try again.');
         });
-
-
-
     });
 
 
