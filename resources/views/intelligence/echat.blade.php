@@ -1,6 +1,6 @@
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<link rel="stylesheet" href="/vendor/laravel-admin/analytic/bootstrap-select.min.css">
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/analytic/sweet-alert.css?version=2015">--}}
+<script src="/vendor/laravel-admin/analytic/bootstrap-select.min.js"></script>
 {{--<script src="//cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>--}}
 {{--<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"></script>--}}
 

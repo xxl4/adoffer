@@ -2,7 +2,7 @@
       media="screen"/>
 <link href="/vendor/laravel-admin/analytic/bootstrap-theme.min.css?version=2015" rel="stylesheet" type="text/css"/>
 <link href="/vendor/laravel-admin/analytic/custom.css?version=2015" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" href="/vendor/laravel-admin/analytic/sweet-alert.css?version=2015">
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/analytic/sweet-alert.css?version=2015" type="text/css">--}}
 <link href="/vendor/laravel-admin/analytic/datepicker.css?version=2015" rel="stylesheet" type="text/css"/>
 <link href="/vendor/laravel-admin/analytic/jquery.dataTables.css?version=2015" rel="stylesheet" type="text/css"/>
 <link href="/vendor/laravel-admin/analytic/datatables.responsive.css?version=2015" rel="stylesheet" type="text/css"
@@ -10,11 +10,11 @@
 <script src="/vendor/laravel-admin/analytic/bootstrap-datepicker.js?version=2015" type="text/javascript"></script>
 
 <link href="/vendor/laravel-admin/analytic/select2.css?version=2015" rel="stylesheet" type="text/css" media="screen"/>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
+<script src="/vendor/laravel-admin/analytic/echarts.min.js"></script>
 
-{{--<link href="/vendor/laravel-admin/analytic/font-awesome.css?version=2015" rel="stylesheet" type="text/css"/>--}}
-{{--<link href="/vendor/laravel-admin/analytic/animate.min.css?version=2015" rel="stylesheet" type="text/css"/>--}}
-{{--<link href="/vendor/laravel-admin/analytic/jquery.scrollbar.css?version=2015" rel="stylesheet" type="text/css"/>--}}
+<link href="/vendor/laravel-admin/analytic/font-awesome.css?version=2015" rel="stylesheet" type="text/css"/>
+<link href="/vendor/laravel-admin/analytic/animate.min.css?version=2015" rel="stylesheet" type="text/css"/>
+<link href="/vendor/laravel-admin/analytic/jquery.scrollbar.css?version=2015" rel="stylesheet" type="text/css"/>
 
 {{--<link rel="stylesheet" href="/vendor/laravel-admin/analytic/rickshaw.css?version=2015" type="text/css" media="screen">--}}
 {{--<link rel="stylesheet" href="/vendor/laravel-admin/analytic/mapplic.css?version=2015" type="text/css" media="screen">--}}
@@ -37,13 +37,12 @@
 <script src="/vendor/laravel-admin/analytic/select2.js?version=2015" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/analytic/bootstrap-timepicker.min.js?version=2015" type="text/javascript"></script>
 
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<link rel="stylesheet" href="/vendor/laravel-admin/analytic/bootstrap-select.min.css">
+<script src="/vendor/laravel-admin/analytic/bootstrap-select.min.js"></script>
 
 
 <script src="/vendor/laravel-admin/analytic/form_elements.js?version=2015" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/analytic/sweet-alert.min.js?version=2015"></script>
+{{--<script src="/vendor/laravel-admin/analytic/sweet-alert.min.js?version=2015"></script>--}}
 <script src="/vendor/laravel-admin/analytic/clipboard.js?version=2015"></script>
 <script src="/vendor/laravel-admin/analytic/messenger.min.js?version=2015" type="text/javascript"></script>
 {{--<link href="/vendor/laravel-admin/analytic/bootstrap.min.css" rel="stylesheet" type="text/css" />  引用后点击页面会刷新 --}}
@@ -145,33 +144,11 @@
                 </div>
             </div>
 
-            {{--            <div class="col-sm-4" style="width: 20%!important;">--}}
-            {{--                <select id="sort" name="usertype" class="selectpicker show-tick form-control" data-max-options="3"--}}
-            {{--                        data-live-search="true" data-none-selected-text="Order By">--}}
-            {{--                    <option value="0"--}}
-            {{--                            data-content="<span class='label label-success'>Release Date (Newest on Top)</span>">--}}
-            {{--                        Release Date (Newest on Top)--}}
-            {{--                    </option>--}}
-            {{--                    <option value="1"--}}
-            {{--                            data-content="<span class='label label-success'>Release Date (Oldest on Top)</span>">--}}
-            {{--                        Release Date (Oldest on Top)--}}
-            {{--                    </option>--}}
-            {{--                    <option value="2" data-content="<span class='label label-success'>Payout (High to Low)</span>">--}}
-            {{--                        Payout--}}
-            {{--                        (High to Low)--}}
-            {{--                    </option>--}}
-            {{--                    <option value="3" data-content="<span class='label label-success'>Payout (Low to High)</span>">--}}
-            {{--                        Payout--}}
-            {{--                        (Low to High)--}}
-            {{--                    </option>--}}
-            {{--                </select>--}}
-            {{--            </div>--}}
-
             <div class="row">
-                <div class="col-sm-4" style="width: 18%!important;">
-                    <input type="text" class="form-control" id="keyword" value="" placeholder="搜索...">
-                    <p id="keyword1"></p>
-                </div>
+                {{--                <div class="col-sm-4" style="width: 18%!important;">--}}
+                {{--                    <input type="text" class="form-control" id="keyword" value="" placeholder="搜索...">--}}
+                {{--                    <p id="keyword1"></p>--}}
+                {{--                </div>--}}
                 <button id="searchBtn" class="btn btn-primary">搜索</button>
             </div>
         </div>
@@ -295,23 +272,6 @@
                     </div>
                 </div>
 
-
-                {{--                <form role="form">--}}
-                {{--                    <div class="form-group">--}}
-                {{--                    <div class="col-sm-8" style="width: 30%">--}}
-                {{--                        <div class="input-group input-group-sm">--}}
-                {{--                            <div class="input-group-addon">--}}
-                {{--                                统计时间--}}
-                {{--                            </div>--}}
-                {{--                            <input type="text" class="form-control" id="created_at_start" placeholder="开始时间" style="height: 34px">--}}
-                {{--                            <span class="input-group-addon" style="border-left: 0;border-right: 0"></span>--}}
-                {{--                            <input type="text" class="form-control" id="created_at_end" placeholder="结束时间" style="height: 34px">--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-                {{--                    </div>--}}
-                {{--                </form>--}}
-
-
                 <div class="col-sm-12">
                     <div class="row">
                         <div class="grid simple">
@@ -320,9 +280,11 @@
                                 <p>Visualize the trends of your Revenue & Conversions over the selected period of
                                     time.</p>
                                 <br>
+
+
                                 <div id="placeholder" class="demo-placeholder"
-                                     style="width:95%;height:250px; padding-right: 76px;">
-                                    <canvas id="myLineChart" style="width: 484px;height:233px;"></canvas>
+                                     style="width:95%;height:270px; padding-right: 76px;">
+                                    <canvas id="myLineChart" style="width: 484px;height:250px;"></canvas>
                                 </div>
 
 
@@ -350,21 +312,29 @@
                                     {{--                                            </div>--}}
                                     {{--                                        </div>--}}
                                 </div>
+                                <span class="graph-btns" style="width: 150px;margin-right: 280px;margin-top: 50px">
+                                <select class="form-control" id="updateChart">
+                                    <option value="1">revenue</option>
+                                    <option value="2">Conversion</option>
+                                </select>
+                                </span>
 
-                                <span class="graph-btns">
-										<div class="btn-group graph-selector">
-										<button class="btn btn-mini btn-success hidden"
-                                                data-analytics-performance-active="revenue">Revenue</button>
-										<button class="btn btn-mini btn-success"
-                                                data-analytics-performance-active="conversion">Conversion</button>
-										<button class="btn btn-mini btn-success dropdown-toggle m-b-5"
-                                                data-toggle="dropdown"> <span class="caret"></span> </button>
-										<ul class="dropdown-menu dropdown-menu-right">
-											<li><a href="javascript:void(0);" data-analytics-performance="revenue">Revenue</a></li>
-											<li><a href="javascript:void(0);" data-analytics-performance="conversion">Conversion</a></li>
-										</ul>
-									</div>
-                                    </span>
+                                {{--                                <span class="graph-btns">--}}
+                                {{--										<div class="btn-group graph-selector">--}}
+                                {{--										<button class="btn btn-mini btn-success hidden"--}}
+                                {{--                                                data-analytics-performance-active="revenue">Revenue</button>--}}
+                                {{--										<button class="btn btn-mini btn-success"--}}
+                                {{--                                                data-analytics-performance-active="conversion">Conversion</button>--}}
+                                {{--										<button class="btn btn-mini btn-success dropdown-toggle m-b-5"--}}
+                                {{--                                                data-toggle="dropdown"> <span class="caret"></span> </button>--}}
+                                {{--										<ul class="dropdown-menu dropdown-menu-right">--}}
+                                {{--											<li><a href="javascript:void(0);" data-analytics-performance="revenue">Revenue</a></li>--}}
+                                {{--											<li><a href="javascript:void(0);" data-analytics-performance="conversion">Conversion</a></li>--}}
+                                {{--										</ul>--}}
+                                {{--									</div>--}}
+                                {{--                                </span>--}}
+
+
                             </div>
                         </div>
                     </div>
@@ -378,48 +348,58 @@
                                 <div class="grid-body no-border">
                                     <h4>Revenue <span class="semi-bold night_blue">Segmentation</span></h4>
                                     <p>Visualize your Revenue segmented by Offer over the selected period of time.</p>
-{{--                                    <div id="donut-example" style="height:270px;width: 50%">--}}
-{{--                                        <canvas id="myPieChart" style="width: 484px;height:233px;"></canvas>--}}
+                                    {{--                                    <div id="donut-example" style="height:270px;width: 50%">--}}
+                                    {{--                                        <canvas id="myPieChart" style="width: 484px;height:233px;"></canvas>--}}
+
+
+                                    <div id="stacked-ordered-chart" style="height:270px;" data-page-length="10"
+                                         data-bar-width="0.5" data-page="1">
+
+
+                                        {{--                            <span class="graph-btns" style="width: 150px;margin-right: 30px;margin-top: 50px">--}}
+                                        <select class="form-control" id="updatePie"
+                                                style="width: 20%;margin-left: 560px">
+                                            <option value="1">Conversion</option>
+                                            <option value="2">revenue</option>
+                                            <option value="3">Percent</option>
+                                        </select>
+                                        {{--                                </span>--}}
+
+
+                                        <div id="myPieChart" style="width: 80%; height: 230px;"></div>
+                                        {{--                                        </div>--}}
 
 
 
-
-                                        <div id="stacked-ordered-chart" style="height:270px;" data-page-length="10"
-                                             data-bar-width="0.5" data-page="1">
-                                            <div id="myPieChart" style="width: 100%; height: 270px;"></div>
-{{--                                        </div>--}}
-
-
-
-{{--                                        <div--}}
-{{--                                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">--}}
-{{--                                            <span id="centerText"--}}
-{{--                                                  style="font-size: 26px; font-weight: bold;color: black">BarXStop</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div--}}
-{{--                                            style="position: absolute; top: 56%; left: 50%; transform: translate(-50%, -50%); text-align: center;">--}}
-{{--                                            <span id="centerTextCount"--}}
-{{--                                                  style="font-size: 22px; font-weight: bold;color: black">{{$percent}}%</span>--}}
-{{--                                        </div>--}}
+                                        {{--                                        <div--}}
+                                        {{--                                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">--}}
+                                        {{--                                            <span id="centerText"--}}
+                                        {{--                                                  style="font-size: 26px; font-weight: bold;color: black">BarXStop</span>--}}
+                                        {{--                                        </div>--}}
+                                        {{--                                        <div--}}
+                                        {{--                                            style="position: absolute; top: 56%; left: 50%; transform: translate(-50%, -50%); text-align: center;">--}}
+                                        {{--                                            <span id="centerTextCount"--}}
+                                        {{--                                                  style="font-size: 22px; font-weight: bold;color: black">{{$percent}}%</span>--}}
+                                        {{--                                        </div>--}}
                                     </div>
 
 
-                                    {{--                                        <div id="placeholder" class="demo-placeholder" style="width:95%;height:250px; padding-right: 76px;">--}}
-                                    {{--                                            <canvas id="myPieChart" style="width: 484px;height:233px;"></canvas>--}}
-                                    {{--                                        </div>--}}
-                                    {{--                                        <span class="graph-btns">--}}
-                                    {{--											<div class="btn-group graph-selector hidden">--}}
-                                    {{--											<button class="btn btn-mini btn-success hidden" data-analytics-revenue-active="revenue">Revenue</button>--}}
-                                    {{--											<button class="btn btn-mini btn-success hidden" data-analytics-revenue-active="conversion">Conversion</button>--}}
-                                    {{--											<button class="btn btn-mini btn-success hidden" data-analytics-revenue-active="percent">Percent</button>--}}
-                                    {{--											<button class="btn btn-mini btn-success dropdown-toggle m-b-5" data-toggle="dropdown"> <span class="caret"></span> </button>--}}
-                                    {{--											<ul class="dropdown-menu dropdown-menu-right">--}}
-                                    {{--												<li><a href="javascript:void(0);" data-analytics-revenue="revenue">Revenue</a></li>--}}
-                                    {{--												<li><a href="javascript:void(0);" data-analytics-revenue="conversion">Conversion</a></li>--}}
-                                    {{--												<li><a href="javascript:void(0);" data-analytics-revenue="percent">Percent</a></li>--}}
-                                    {{--											</ul>--}}
-                                    {{--										</div>--}}
-                                    {{--										</span>--}}
+                                    {{--                                                                            <div id="placeholder" class="demo-placeholder" style="width:95%;height:250px; padding-right: 76px;">--}}
+                                    {{--                                                                                <canvas id="myPieChart" style="width: 484px;height:233px;"></canvas>--}}
+                                    {{--                                                                            </div>--}}
+                                    {{--                                                                            <span class="graph-btns">--}}
+                                    {{--                                    											<div class="btn-group graph-selector hidden">--}}
+                                    {{--                                    											<button class="btn btn-mini btn-success hidden" data-analytics-revenue-active="revenue">Revenue</button>--}}
+                                    {{--                                    											<button class="btn btn-mini btn-success hidden" data-analytics-revenue-active="conversion">Conversion</button>--}}
+                                    {{--                                    											<button class="btn btn-mini btn-success hidden" data-analytics-revenue-active="percent">Percent</button>--}}
+                                    {{--                                    											<button class="btn btn-mini btn-success dropdown-toggle m-b-5" data-toggle="dropdown"> <span class="caret"></span> </button>--}}
+                                    {{--                                    											<ul class="dropdown-menu dropdown-menu-right">--}}
+                                    {{--                                    												<li><a href="javascript:void(0);" data-analytics-revenue="revenue">Revenue</a></li>--}}
+                                    {{--                                    												<li><a href="javascript:void(0);" data-analytics-revenue="conversion">Conversion</a></li>--}}
+                                    {{--                                    												<li><a href="javascript:void(0);" data-analytics-revenue="percent">Percent</a></li>--}}
+                                    {{--                                    											</ul>--}}
+                                    {{--                                    										</div>--}}
+                                    {{--                                    										</span>--}}
 
                                 </div>
                             </div>
@@ -432,30 +412,59 @@
                                         <h4>Offer Geo <span class="semi-bold night_blue">Distribution</span></h4>
                                         <p>Visualize your Offers Revenue segmented by Country over the selected period
                                             of time.</p>
+
+                                        {{--                            <span class="graph-btns" style="width: 150px;margin-right: 30px;margin-top: 50px">--}}
+
                                         <br>
-                                        <div id="stacked-ordered-chart" style="height:270px;" data-page-length="10"
+                                        {{--                                </span>--}}
+
+
+                                        <div id="stacked-ordered-chart" style="height:300px;width: 80%" data-page-length="10"
                                              data-bar-width="0.5" data-page="1">
-                                            <canvas id="myBarChart" style="width: 484px;height:270px;"></canvas>
+                                            <select class="form-control" id="updateBar"
+                                                    style="width: 20%;margin-left: 460px">
+                                                <option value="1">Conversion</option>
+                                                <option value="2">revenue</option>
+                                                <option value="3">Percent</option>
+                                            </select>
+{{--                                            <canvas id="myBarChart" style="width: 484px;height:270px;"></canvas>--}}
+
+                                            <div id="myBarChart" style="height: 270px;"></div>
                                         </div>
 
 
-                                        {{--                                            <span class="graph-btns">--}}
-                                        {{--												<div class="btn-group graph-selector hidden">--}}
-                                        {{--												<button class="btn btn-mini btn-success hidden" data-analytics-geo-active="revenue">Revenue</button>--}}
-                                        {{--												<button class="btn btn-mini btn-success hidden" data-analytics-geo-active="conversion">Conversion</button>--}}
-                                        {{--												<button class="btn btn-mini btn-success hidden" data-analytics-geo-active="percent">Percent</button>--}}
-                                        {{--												<button class="btn btn-mini btn-success dropdown-toggle m-b-5" data-toggle="dropdown"> <span class="caret"></span> </button>--}}
-                                        {{--												<ul class="dropdown-menu dropdown-menu-right">--}}
-                                        {{--													<li><a href="javascript:void(0);" data-analytics-geo="revenue">Revenue</a></li>--}}
-                                        {{--													<li><a href="javascript:void(0);" data-analytics-geo="conversion">Conversion</a></li>--}}
-                                        {{--													<li><a href="javascript:void(0);" data-analytics-geo="percent">Percent</a></li>--}}
-                                        {{--												</ul>--}}
-                                        {{--											</div>--}}
-                                        {{--																					<div class="btn-group graph-paginator hidden m-l-10" data-target="stacked-ordered-chart">--}}
-                                        {{--											<button class="btn btn-white graph-prev hidden m-b-5" type="button"><i class="fa fa-chevron-left"></i></button>--}}
-                                        {{--											<button class="btn btn-white graph-next m-b-5" type="button"><i class="fa fa-chevron-right"></i> </button>--}}
-                                        {{--										</div>--}}
-                                        {{--									</span>--}}
+{{--                                        <span class="graph-btns">--}}
+{{--                                        	<div class="btn-group graph-selector hidden">--}}
+{{--                                        		<button class="btn btn-mini btn-success hidden"--}}
+{{--                                                        data-analytics-geo-active="revenue">Revenue</button>--}}
+{{--                                        			<button class="btn btn-mini btn-success hidden"--}}
+{{--                                                            data-analytics-geo-active="conversion">Conversion</button>--}}
+{{--                                        				<button class="btn btn-mini btn-success hidden"--}}
+{{--                                                                data-analytics-geo-active="percent">Percent</button>--}}
+{{--                                        					<button--}}
+{{--                                                                class="btn btn-mini btn-success dropdown-toggle m-b-5"--}}
+{{--                                                                data-toggle="dropdown">--}}
+{{--                                                                <span class="caret"></span>--}}
+{{--                                                            </button>--}}
+{{--                                        					<ul class="dropdown-menu dropdown-menu-right">--}}
+{{--                                                                <li><a href="javascript:void(0);"--}}
+{{--                                                                       data-analytics-geo="revenue">Revenue</a></li>--}}
+{{--                                        						<li><a href="javascript:void(0);"--}}
+{{--                                                                       data-analytics-geo="conversion">Conversion</a></li>--}}
+{{--                                        						<li><a href="javascript:void(0);"--}}
+{{--                                                                       data-analytics-geo="percent">Percent</a></li>--}}
+{{--                                        					</ul>--}}
+{{--                                        				</div>--}}
+{{--                                        			<div class="btn-group graph-paginator hidden m-l-10"--}}
+{{--                                                         data-target="stacked-ordered-chart">--}}
+{{--                                        				<button class="btn btn-white graph-prev hidden m-b-5"--}}
+{{--                                                                type="button">--}}
+{{--                                                            <i class="fa fa-chevron-left"></i></button>--}}
+{{--                                        						<button class="btn btn-white graph-next m-b-5"--}}
+{{--                                                                        type="button">--}}
+{{--                                                                    <i class="fa fa-chevron-right"></i> </button>--}}
+{{--                                        			 </div>--}}
+{{--                                        		</span>--}}
 
                                     </div>
                                 </div>
@@ -504,13 +513,13 @@
         </div>
 
 
-{{--        <script src="/vendor/laravel-admin/analytic/rickshaw.min.js"></script>--}}
+        {{--        <script src="/vendor/laravel-admin/analytic/rickshaw.min.js"></script>--}}
         <script src="/vendor/laravel-admin/analytic/morris.min.js"></script>
         <script src="/vendor/laravel-admin/analytic/jquery.flot.js"></script>
         <script src="/vendor/laravel-admin/analytic/jquery.flot.animator.min.js"></script>
         <script src="/vendor/laravel-admin/analytic/jquery.flot.orderBars.js"></script>
         <script src="/vendor/laravel-admin/analytic/jquery-sparkline.js"></script>
-{{--        <script src="/vendor/laravel-admin/analytic/graphics.js"></script>--}}
+        {{--        <script src="/vendor/laravel-admin/analytic/graphics.js"></script>--}}
         <script src="/vendor/laravel-admin/analytic/functions.js"></script>
 
 
@@ -594,124 +603,70 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.0.2/dist/echarts.min.js"></script>
 
 <script type="text/javascript">
-
+    var frontendData = @json($data);
 
     $(function () {
         $('.selectpicker').selectpicker();
     });
 
-    var frontendData = @json($data);
+
     $(document).ready(function () {
 
         var data = frontendData.original.data;
         var ctx = document.getElementById('myLineChart').getContext('2d');
-        // var pie = document.getElementById('myPieChart').getContext('2d');
-        var bar = document.getElementById('myBarChart').getContext('2d');
-
+        // var bar = document.getElementById('myBarChart').getContext('2d');
+        var myBarChart = echarts.init(document.getElementById('myBarChart'));
         // 初始化 ECharts 实例
         var myChart = echarts.init(document.getElementById('myPieChart'));
 
+        console.log('返回值查询', data.processedData);
+
+        var pieData = data.processedData;
         var defaultLabel = '默认标签名\n默认值';
         // 图表配置
         var option = {
             series: [
                 {
-                    name: '环形图',
+                    name: 'Access From',
                     type: 'pie',
-                    radius: ['50%', '70%'], // 内外半径分别对应环形的大小
+                    radius: ['60%', '90%'],
                     avoidLabelOverlap: false,
                     label: {
-                        show: false
+                        show: true,
+                        formatter: '{b}: {c}',
+                        position: 'center'
+                    },
+                    grid: {
+                        x: 50,
+                        y: 25,
+                        x2: 30,
+                        y2: 35,
+                        containLabel: true, // 自适应大小
                     },
                     emphasis: {
                         label: {
-                            show: false,
-                            fontSize: '20',
+                            show: true,
+                            fontSize: 40,
                             fontWeight: 'bold'
                         }
                     },
                     labelLine: {
                         show: false
                     },
-                    data: [
-                        { value: 335, name: '标签1' },
-                        { value: 310, name: '标签2' },
-                        { value: 234, name: '标签3' },
-                        { value: 135, name: '标签4' },
-                        { value: 1548, name: '标签5'}
-                    ]
+                    data: pieData
                 }
             ],
-            graphic: [
-                {
-                    id: 'label', // 标签的唯一标识符
-                    type: 'text',
-                    left: 'center',
-                    top: 'center',
-                    style: {
-                        text: defaultLabel,
-                        textAlign: 'center',
-                        fontSize: 14,
-                        fontWeight: 'bold'
-                    }
-                }
-            ]
         };
         // 使用配置项设置图表
         myChart.setOption(option);
-
-        // 监听鼠标移动事件
-        myChart.on('mousemove', function (params) {
-            // 获取当前鼠标位置的标签名
-            var currentLabel = params.name + ':\n' + params.value;
-
-            // 更新文本标签的内容
-            myChart.setOption({
-                graphic: [
-                    {
-                        id: 'label', // 标签的唯一标识符
-                        type: 'text',
-                        style: {
-                            text: currentLabel,
-                            textAlign: 'center',
-                            fontSize: 14,
-                            fontWeight: 'bold'
-                        }
-                    }
-                ]
-            });
-        });
-
-        // 监听鼠标离开事件
-        myChart.on('mouseout', function () {
-            // 恢复默认文本标签
-            myChart.setOption({
-                graphic: [
-                    {
-                        id: 'label', // 标签的唯一标识符
-                        type: 'text',
-                        style: {
-                            text: defaultLabel,
-                            textAlign: 'center',
-                            fontSize: 14,
-                            fontWeight: 'bold'
-                        }
-                    }
-                ]
-            });
-        });
-
-
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
             myChart.resize();
         });
 
 
-
-        console.log('前端数据', data)
         var myLineChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -727,96 +682,242 @@
                 legend: {
                     display: false,
                 },
-            }
-        });
-
-
-        // var myPieChart = new Chart(pie, {
-        //     type: 'doughnut',
-        //     data: {
-        //         labels: data.offer_name,
-        //         datasets: [{
-        //             data: data.total_quantity,
-        //             backgroundColor: ['RGB(10,166,153)', 'RGB(0,144,217)', 'RGB(253,208,28)'],
-        //         }]
-        //     },
-        //     label: {
-        //         show: false,
-        //         position: 'center'
-        //     },
-        //     options: {
-        //         cutoutPercentage: 60,
-        //         responsive: true,
-        //         maintainAspectRatio: false,
-        //         legend: {
-        //             display: false,
-        //             position: 'right',
-        //             align: 'start',
-        //             padding: 30,
-        //         },
-        //
-        //         plugins: {
-        //             legend: {
-        //                 display: false
-        //             },
-        //             title: {
-        //                 display: false
-        //             },
-        //             tooltip: {
-        //                 enabled: false
-        //             }
-        //         },
-        //         tooltip: { // 鼠标悬浮提示框显示 X和Y 轴数据
-        //             trigger: 'axis',
-        //             backgroundColor: 'rgba(32, 33, 36,.7)',
-        //             borderColor: 'rgba(32, 33, 36,0.20)',
-        //             borderWidth: 1,
-        //             textStyle: { // 文字提示样式
-        //                 color: '#fff',
-        //                 fontSize: '12'
-        //             },
-        //             axisPointer: { // 坐标轴虚线
-        //                 type: 'cross',
-        //                 label: {
-        //                     backgroundColor: '#6a7985'
-        //                 }
-        //             },
-        //         },
-        //         onRender: function (chart) {
-        //             // Get canvas context
-        //             var ctx = chart.ctx;
-        //             // Get center coordinates
-        //             var centerX = (chart.chartArea.left + chart.chartArea.right) / 2;
-        //             var centerY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
-        //
-        //             // Customize center text position
-        //             var centerText = document.getElementById('centerText');
-        //             centerText.style.top = centerY + 'px';
-        //             centerText.style.left = centerX + 'px';
-        //         }
-        //     },
-        // });
-
-        var myBarChart = new Chart(bar, {
-            type: 'bar',
-            data: {
-                labels: data.country_list,
-                datasets: [{
-                    data: data.country_total_sales,
-                    backgroundColor: generateRandomColors(10),
-                }]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                legend: {
-                    display: false,
-                    position: 'right',
-                    align: 'start',
-                    padding: 30
-                },
-            }
         });
+
+
+        $('#updateChart').on('change', function () {
+            var _token = $('#_token').val();
+            var offer = $('#offer').val();
+            var geos = $('#geos').val();
+            var start_date = $('#datetimepicker5').val();
+            var end_date = $('#datetimepicker8').val();
+
+            function updateChartData() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/analytics/query',
+                    data: {
+                        offer: offer,
+                        _token: _token,
+                        geos: geos,
+                        start_date: start_date,
+                        end_date: end_date,
+                    },
+                    success: function (data) {
+                        // 获取选择的类别
+                        var selectedCategory = document.getElementById('updateChart').value;
+
+                        if (selectedCategory === '1') {
+                            myLineChart.data.datasets[0].data = data.offer_count.total_sales;
+                        } else {
+                            myLineChart.data.datasets[0].data = data.offer_count.total_count;
+                        }
+                        myLineChart.data.labels = data.offer_count.sale_date;
+                        myLineChart.update();
+
+                    }
+                });
+            }
+
+            updateChartData();
+        });
+
+
+        $('#updatePie').on('change', function () {
+            var _token = $('#_token').val();
+            var offer = $('#offer').val();
+            var geos = $('#geos').val();
+            var start_date = $('#datetimepicker5').val();
+            var end_date = $('#datetimepicker8').val();
+
+            function updatePieData() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/analytics/query',
+                    data: {
+                        offer: offer,
+                        _token: _token,
+                        geos: geos,
+                        start_date: start_date,
+                        end_date: end_date,
+                    },
+                    success: function (data) {
+
+                        var selectedCategory = document.getElementById('updatePie').value;
+                        var myChart = echarts.init(document.getElementById('myPieChart'));
+
+                        if (selectedCategory === '2') {
+                            var pieData = data.offer_top.processedRevenue;
+                            var lable = '{b}:{c}';
+                        } else if (selectedCategory === '3') {
+                            var pieData = data.offer_top.processedRevenue;
+                            var lable = '{b}:{d}%';
+                        } else {
+                            var pieData = data.offer_top.processedData;
+                            var lable = '{b}:{c}';
+                        }
+
+                        console.log('数据返回1', pieData)
+
+
+                        // 图表配置
+                        var option = {
+                            series: [
+                                {
+                                    name: 'Access From',
+                                    type: 'pie',
+                                    radius: ['60%', '90%'],
+                                    avoidLabelOverlap: false,
+                                    label: {
+                                        show: true,
+                                        position: 'center',
+                                        formatter: lable,
+                                    },
+                                    emphasis: {
+                                        label: {
+                                            show: true,
+                                            fontSize: 40,
+                                            fontWeight: 'bold'
+                                        }
+                                    },
+                                    labelLine: {
+                                        show: false
+                                    },
+                                    data: pieData
+                                }
+                            ],
+
+                        };
+                        // 使用配置项设置图表
+                        myChart.setOption(option);
+
+                    }
+                });
+            }
+
+            updatePieData();
+        });
+
+
+        $('#updateBar').on('change', function () {
+            var _token = $('#_token').val();
+            var offer = $('#offer').val();
+            var geos = $('#geos').val();
+            var start_date = $('#datetimepicker5').val();
+            var end_date = $('#datetimepicker8').val();
+
+            function updateBarData() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/analytics/query',
+                    data: {
+                        offer: offer,
+                        _token: _token,
+                        geos: geos,
+                        start_date: start_date,
+                        end_date: end_date,
+                    },
+                    success: function (data) {
+                        // 获取选择的类别
+
+                        var selectedCategory = document.getElementById('updateBar').value;
+
+                        if (selectedCategory === '2') {
+                            var barData = data.country.country_total_sales;
+                        } else if (selectedCategory === '3') {
+                            var barData = data.country.country_total_percent;
+                        } else {
+                            var barData = data.country.country_total_count;
+                        }
+
+                        var barOption = {
+                            xAxis: {
+                                type: 'category',
+                                data: barData.map(item => item.name), // 使用自定义变量作为标签
+                            },
+                            yAxis: {
+                                // type: 'value',
+                                axisLine: {
+                                    show: false
+                                }
+                            },
+                            grid: {
+                                containLabel: true, // 自适应大小
+                            },
+                            series: [{
+                                data: barData.map(item => item.value),
+                                type: 'bar',
+                            }],
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'shadow'
+                                },
+                                formatter: function (params) {
+                                    // 重新组织标签内容，包括明细数据
+                                    var dataIndex = params[0].dataIndex;
+                                    var label = barData[dataIndex].name;
+                                    var value = params[0].value;
+                                    var details = '<br>明细数据：<br>';
+                                    details += barData[dataIndex].details.map(item => item.name + ': ' + item.value).join('<br>');
+                                    return label + '<br>数据值: ' + value + details;
+                                }
+                            },
+                        };
+
+                        // 使用刚指定的配置项和数据显示图表。
+                        myBarChart.setOption(barOption);
+
+
+                    }
+                });
+            }
+
+            updateBarData();
+        })
+
+        var barData = data.country_total_count;
+        var barOption = {
+            xAxis: {
+                type: 'category',
+                data: barData.map(item => item.name), // 使用自定义变量作为标签
+
+            },
+            yAxis: {
+                type: 'value',
+            },
+            grid: {
+                x: 50,
+                y: 25,
+                x2: 30,
+                y2: 35,
+                containLabel: true, // 自适应大小
+            },
+            series: [{
+                data: barData.map(item => item.value),
+                type: 'bar',
+            }],
+
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                },
+                formatter: function (params) {
+                    // 重新组织标签内容，包括明细数据
+                    var dataIndex = params[0].dataIndex;
+                    var label = barData[dataIndex].name;
+                    var value = params[0].value;
+                    var details = '<br>明细数据：<br>';
+                    details += barData[dataIndex].details.map(item => item.name + ': ' + item.value).join('<br>');
+                    return label + '<br>数据值: ' + value + details;
+                }
+            },
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myBarChart.setOption(barOption);
 
 
         function generateRandomColors(numColors) {
@@ -830,6 +931,7 @@
             }
             return colors;
         }
+
 
         $('#searchBtn').click(function (e) {
 
@@ -854,30 +956,125 @@
                     },
                     success: function (data) {
 
-                        console.log(123, data)
 
-                        //刷新折线图数据
-                        var res = data.offer_count;
-                        myLineChart.data.labels = res.sale_date;
-                        myLineChart.data.datasets[0].data = res.total_sales;
+                        var lineSelectedCategory = document.getElementById('updateChart').value;
+
+                        if (lineSelectedCategory === '1') {
+                            myLineChart.data.datasets[0].data = data.offer_count.total_sales;
+                        } else {
+                            myLineChart.data.datasets[0].data = data.offer_count.total_count;
+                        }
+                        myLineChart.data.labels = data.offer_count.sale_date;
                         myLineChart.update();
 
+
+
+                        //刷新折线图数据
+                        // var res = data.offer_count;
+                        // myLineChart.data.labels = res.sale_date;
+                        // myLineChart.data.datasets[0].data = res.total_sales;
+                        // myLineChart.update();
+
+
                         //刷新饼图数据
-                        var pieRes = data.offer_top;
-                        myPieChart.data.labels = pieRes.offer_name;
-                        myPieChart.data.datasets[0].data = pieRes.total_quantity;
-                        myPieChart.update();
+                        var PieSelectedCategory = document.getElementById('updatePie').value;
+                        var myPieChart = echarts.init(document.getElementById('myPieChart'));
 
-                        //刷新柱状图数据
+                        if (PieSelectedCategory === '2') {
+                            var pieData = data.offer_top.processedRevenue;
+                            var lable = '{b}:{c}';
+                        } else if (PieSelectedCategory === '3') {
+                            var pieData = data.offer_top.processedRevenue;
+                            var lable = '{b}:{d}%';
+                        } else {
+                            var pieData = data.offer_top.processedData;
+                            var lable = '{b}:{c}';
+                        }
+
+
+
+
+                        // 图表配置
+                        var pieOption = {
+                            series: [
+                                {
+                                    name: 'Access From',
+                                    type: 'pie',
+                                    radius: ['60%', '90%'],
+                                    avoidLabelOverlap: false,
+                                    label: {
+                                        show: true,
+                                        position: 'center',
+                                        formatter: lable,
+                                    },
+                                    emphasis: {
+                                        label: {
+                                            show: true,
+                                            fontSize: 40,
+                                            fontWeight: 'bold'
+                                        }
+                                    },
+                                    labelLine: {
+                                        show: false
+                                    },
+                                    data: pieData
+                                }
+                            ],
+
+                        };
+                        // 使用配置项设置图表
+                        myPieChart.setOption(pieOption);
+
+
+                        var barSelectedCategory = document.getElementById('updateBar').value;
+
+                        if (barSelectedCategory === '2') {
+                            var barData = data.country.country_total_sales;
+                        } else if (barSelectedCategory === '3') {
+                            var barData = data.country.country_total_percent;
+                        } else {
+                            var barData = data.country.country_total_count;
+                        }
+
+                        var barOption = {
+                            xAxis: {
+                                type: 'category',
+                                data: barData.map(item => item.name), // 使用自定义变量作为标签
+                            },
+                            yAxis: {
+                                // type: 'value',
+                                axisLine: {
+                                    show: false
+                                }
+                            },
+                            grid: {
+                                containLabel: true, // 自适应大小
+                            },
+                            series: [{
+                                data: barData.map(item => item.value),
+                                type: 'bar',
+                            }],
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'shadow'
+                                },
+                                formatter: function (params) {
+                                    // 重新组织标签内容，包括明细数据
+                                    var dataIndex = params[0].dataIndex;
+                                    var label = barData[dataIndex].name;
+                                    var value = params[0].value;
+                                    var details = '<br>明细数据：<br>';
+                                    details += barData[dataIndex].details.map(item => item.name + ': ' + item.value).join('<br>');
+                                    return label + '<br>数据值: ' + value + details;
+                                }
+                            },
+                        };
+
+                        // 使用刚指定的配置项和数据显示图表。
+                        myBarChart.setOption(barOption);
                         var barRes = data.country;
-                        myBarChart.data.labels = barRes.country_list;
-                        myBarChart.data.datasets[0].data = barRes.country_total_sales;
-                        myBarChart.update();
-
-                        // 饼状图标题和数据
-                        $("#centerTextCount").html(pieRes.percent + '%');
-
-
+                        // 网格数据
                         $("#html_data").empty();
                         $("#html_data").html(barRes.html_data);
 

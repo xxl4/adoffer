@@ -15,9 +15,10 @@
 <link href="/vendor/laravel-admin/test/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen">
 <link rel="icon" type="image/png" href="https://m4trix.network/Reporting-platform/images/favicon.png">
 <link href="/vendor/laravel-admin/test/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" media="screen">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+
+<link rel="stylesheet" href="/vendor/laravel-admin/analytic/bootstrap-select.min.css">
+<script src="/vendor/laravel-admin/analytic/bootstrap-select.min.js"></script>
+<script src="/vendor/laravel-admin/analytic/clipboard.min.js"></script>
 <!-- END PLUGIN CSS -->
 <!-- BEGIN CORE CSS FRAMEWORK -->
 <link href="/vendor/laravel-admin/test/icon" rel="stylesheet">
