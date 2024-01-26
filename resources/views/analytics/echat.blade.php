@@ -603,7 +603,7 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-<script src="https://cdn.jsdelivr.net/npm/echarts@5.0.2/dist/echarts.min.js"></script>
+{{--<script src="https://cdn.jsdelivr.net/npm/echarts@5.0.2/dist/echarts.min.js"></script>--}}
 
 <script type="text/javascript">
     var frontendData = @json($data);
@@ -617,7 +617,6 @@
 
         var data = frontendData.original.data;
         var ctx = document.getElementById('myLineChart').getContext('2d');
-        // var bar = document.getElementById('myBarChart').getContext('2d');
         var myBarChart = echarts.init(document.getElementById('myBarChart'));
         // 初始化 ECharts 实例
         var myChart = echarts.init(document.getElementById('myPieChart'));
@@ -640,10 +639,10 @@
                         position: 'center'
                     },
                     grid: {
-                        x: 50,
-                        y: 25,
-                        x2: 30,
-                        y2: 35,
+                        x: 5,
+                        y: 2.5,
+                        x2: 3,
+                        y2: 3.5,
                         containLabel: true, // 自适应大小
                     },
                     emphasis: {
@@ -656,7 +655,8 @@
                     labelLine: {
                         show: false
                     },
-                    data: pieData
+                    data: pieData,
+
                 }
             ],
         };
@@ -665,7 +665,6 @@
         window.addEventListener('resize', function () {
             myChart.resize();
         });
-
 
         var myLineChart = new Chart(ctx, {
             type: 'line',
@@ -758,9 +757,6 @@
                             var lable = '{b}:{c}';
                         }
 
-                        console.log('数据返回1', pieData)
-
-
                         // 图表配置
                         var option = {
                             series: [
@@ -791,11 +787,9 @@
                         };
                         // 使用配置项设置图表
                         myChart.setOption(option);
-
                     }
                 });
             }
-
             updatePieData();
         });
 
@@ -843,6 +837,10 @@
                                 }
                             },
                             grid: {
+                                x: 5,
+                                y: 2.5,
+                                x2: 3,
+                                y2: 3.5,
                                 containLabel: true, // 自适应大小
                             },
                             series: [{
@@ -882,16 +880,15 @@
             xAxis: {
                 type: 'category',
                 data: barData.map(item => item.name), // 使用自定义变量作为标签
-
             },
             yAxis: {
                 type: 'value',
             },
             grid: {
-                x: 50,
-                y: 25,
-                x2: 30,
-                y2: 35,
+                x: 5,
+                y: 2.5,
+                x2: 3,
+                y2: 3.5,
                 containLabel: true, // 自适应大小
             },
             series: [{
@@ -967,15 +964,6 @@
                         myLineChart.data.labels = data.offer_count.sale_date;
                         myLineChart.update();
 
-
-
-                        //刷新折线图数据
-                        // var res = data.offer_count;
-                        // myLineChart.data.labels = res.sale_date;
-                        // myLineChart.data.datasets[0].data = res.total_sales;
-                        // myLineChart.update();
-
-
                         //刷新饼图数据
                         var PieSelectedCategory = document.getElementById('updatePie').value;
                         var myPieChart = echarts.init(document.getElementById('myPieChart'));
@@ -990,8 +978,6 @@
                             var pieData = data.offer_top.processedData;
                             var lable = '{b}:{c}';
                         }
-
-
 
 
                         // 图表配置
@@ -1025,7 +1011,6 @@
                         // 使用配置项设置图表
                         myPieChart.setOption(pieOption);
 
-
                         var barSelectedCategory = document.getElementById('updateBar').value;
 
                         if (barSelectedCategory === '2') {
@@ -1042,12 +1027,16 @@
                                 data: barData.map(item => item.name), // 使用自定义变量作为标签
                             },
                             yAxis: {
-                                // type: 'value',
+                                type: 'value',
                                 axisLine: {
                                     show: false
                                 }
                             },
                             grid: {
+                                x: 5,
+                                y: 2.5,
+                                x2: 3,
+                                y2: 3.5,
                                 containLabel: true, // 自适应大小
                             },
                             series: [{
@@ -1084,7 +1073,6 @@
 
             updateOfferChartData();
         });
-
     });
 
 

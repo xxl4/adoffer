@@ -26,6 +26,7 @@ Route::group([
     $router->resource('offer_track_cate', 'OfferTrackCatesController')->names('admin.OfferTrackCates');
     $router->resource('creatives', 'CreativesController')->names('admin.Creatives');
     $router->resource('offer_log', 'OfferLogController')->names('admin.OfferLog');
+    $router->resource('land_page', 'LandPageController')->names('admin.LandPage');
 
 
 
