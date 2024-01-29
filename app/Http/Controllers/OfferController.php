@@ -43,8 +43,8 @@ class OfferController extends Controller
 
 
         if (!empty($res)) {
-            $token = md5($offer_id . '/' . $admin_id.'/'.$track_id);
-            $update_data = OfferTracks::where('id', $track_id)->update(['random' => $token, 'queryString' => $queryString,'offer_id'=>$offer_id]); //把生成的token和传递过来的参数保存
+            $token = md5($offer_id . '/' . $admin_id . '/' . $track_id);
+            $update_data = OfferTracks::where('id', $track_id)->update(['random' => $token, 'queryString' => $queryString, 'offer_id' => $offer_id]); //把生成的token和传递过来的参数保存
             $land_page = $res['land_link'] . '?token=' . $token;
 
             if ($update_data > 0) {
@@ -69,18 +69,18 @@ class OfferController extends Controller
         $revenue = $request->input('revenue');
         $ip = request()->ip();
         $country_res = geoip($ip)->toArray();//根据ip获取国家
-        $country_id = Geos::where('country',$country_res['country'])->value('id');//获取国家ip
+        $country_id = Geos::where('country', $country_res['country'])->value('id');//获取国家ip
         $res = Db::table('offer_tracks as o')->where('o.random', $token)->get()->first();
 
         if (!empty($res)) {
 
             $insert_data = [];
             $insert_data['offer_id'] = $res->offer_id;
+            $insert_data['track_id'] = $res->id;
             $insert_data['ip'] = $ip;
             $insert_data['revenue'] = !empty($revenue) ? $revenue : 0;
             $insert_data['created_at'] = date('Y-m-d H:i:s');
-            $insert_data['country_id'] = !empty($country_id) ? $country_id :'';
-
+            $insert_data['country_id'] = !empty($country_id) ? $country_id : '';
 
             $insert = OfferLog::insertGetId($insert_data);
 
@@ -94,8 +94,6 @@ class OfferController extends Controller
             return $this->showMsg('1002', 'token不能为空');
 
         }
-
-
 
     }
 

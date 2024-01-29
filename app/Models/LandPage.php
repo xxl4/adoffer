@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class LandPage extends Model
 {
     use HasFactory;
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+
+        return $date->format('Y-m-d H:i:s');
+
+    }
 }
+

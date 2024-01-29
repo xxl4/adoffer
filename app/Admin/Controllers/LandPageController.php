@@ -30,9 +30,9 @@ class LandPageController extends AdminController
         $grid->column('id', __('Id'));
         $grid->column('land_name', __('Land Name'));
         $grid->column('land_link', __('Land Link'))->url();
-        $grid->column('created_at', __('Create at'));
-        $grid->disableActions();
-        $grid->disableCreation();
+        $grid->column('created_at', __('Create at'))->default(date('Y-m-d H:i:s'));;
+//        $grid->disableActions();
+//        $grid->disableCreation();
         $grid->disablePagination();//禁用分页
         $grid->model()->orderBy('id','desc')->limit(10);
         $grid->disableExport();
@@ -69,13 +69,9 @@ class LandPageController extends AdminController
     protected function form()
     {
         $form = new Form(new LandPage());
-
         $form->text('land_name', __('Land name'))->required();
         $form->url('land_link', __('Land Link'))->required();
         $form->datetime('created_at', __('Create at'))->default(date('Y-m-d H:i:s'));
-
         return $form;
     }
-
-
 }

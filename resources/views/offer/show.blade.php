@@ -456,10 +456,9 @@
                                                                     tracking
                                                                     domain<span class="caret"></span></a>
                                                                 <ul class="dropdown-menu domains-menu">
-                                                                    <li><a href="?id=offer#" class="offersDomain"
-                                                                           data-domain="https://urgoodeal.com">https://urgoodeal.com</a>
+                                                                    <li><a href="javascript:void(0);" class="offersDomain"
+                                                                           data-domain="">https://urgoodeal.com</a>
                                                                     </li>
-
                                                                 </ul>
                                                             </div>
 
