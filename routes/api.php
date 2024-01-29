@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('offers', [OfferController::class, 'index']);
+Route::get('offers/callBack', [OfferController::class, 'callBack']);
 
 
 

@@ -444,12 +444,12 @@
                                                         <div class="col-md-12">
 
                                                             <br>
-                                                            {{--                                                        <p>Traffic sources sometimes block certain URLs and/or--}}
-                                                            {{--                                                            companies, we--}}
-                                                            {{--                                                            offer different tracking domains to choose from.</p>--}}
+                                                                                                                    <p>Traffic sources sometimes block certain URLs and/or
+                                                                                                                        companies, we
+                                                                                                                        offer different tracking domains to choose from.</p>
 
                                                             <!-- dropdown domains -->
-                                                            <!--
+
                                                             <div class="btn-group m-b-30">
                                                                 <a class="btn btn-success dropdown-toggle m-b-5"
                                                                    data-toggle="dropdown" href="?id=offer#">Select your
@@ -459,48 +459,10 @@
                                                                     <li><a href="?id=offer#" class="offersDomain"
                                                                            data-domain="https://urgoodeal.com">https://urgoodeal.com</a>
                                                                     </li>
-                                                                    <li><a href="?id=offer#" class="offersDomain"
-                                                                           data-domain="https://xtechgadget.com">https://xtechgadget.com</a>
-                                                                    </li>
-                                                                    <li><a href="?id=offer#" class="offersDomain"
-                                                                           data-domain="https://popularhitech.com">https://popularhitech.com</a>
-                                                                    </li>
-                                                                    <li><a href="?id=offer#" class="offersDomain"
-                                                                           data-domain="https://buysmartproduct.com">https://buysmartproduct.com</a>
-                                                                    </li>
-                                                                    <li><a href="?id=offer#" class="offersDomain"
-                                                                           data-domain="https://storepx.com">https://storepx.com</a>
-                                                                    </li>
-                                                                    <li><a href="?id=offer#" class="offersDomain"
-                                                                           data-domain="https://airportxshop.com">https://airportxshop.com</a>
-                                                                    </li>
-                                                                    <li><a href="?id=offer#" class="offersDomain"
-                                                                           data-domain="https://flightxshop.com">https://flightxshop.com</a>
-                                                                    </li>
-                                                                    <li><a href="?id=offer#" class="offersDomain"
-                                                                           data-domain="https://blackfridaytechs.com">https://blackfridaytechs.com</a>
-                                                                    </li>
-                                                                    <li><a href="?id=offer#" class="offersDomain"
-                                                                           data-domain="https://techchristmasgift.com">https://techchristmasgift.com</a>
-                                                                    </li>
-                                                                    <li><a href="?id=offer#" class="offersDomain"
-                                                                           data-domain="https://gadgetronixs.com">https://gadgetronixs.com</a>
-                                                                    </li>
-                                                                    <li><a href="?id=offer#" class="offersDomain"
-                                                                           data-domain="https://luxurygadgetx.com">https://luxurygadgetx.com</a>
-                                                                    </li>
-                                                                    <li><a href="?id=offer#" class="offersDomain"
-                                                                           data-domain="https://newxventions.com">https://newxventions.com</a>
-                                                                    </li>
-                                                                    <li><a href="?id=offer#" class="offersDomain"
-                                                                           data-domain="https://appgogadget.com">https://appgogadget.com</a>
-                                                                    </li>
-                                                                    <li><a href="?id=offer#" class="offersDomain"
-                                                                           data-domain="https://todaystech.co">https://todaystech.co</a>
-                                                                    </li>
+
                                                                 </ul>
                                                             </div>
-                                                            -->
+
                                                             <!-- end dropdown domains -->
 
                                                             <div class="row">
