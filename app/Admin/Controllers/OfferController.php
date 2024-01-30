@@ -136,6 +136,9 @@ class OfferController extends AdminController
         $filteredDataArray = Offer::where('offer_status', 1)->where($where)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
         $filteredDataArrayCopy = Offer::where('offer_status', 1)->where($where)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
 
+//        print_r("<pre/>");
+//        print_r($filteredDataArrayCopy);exit;
+
         foreach ($filteredDataArray as $key => $value) {
 
             $accepted_area = Geos::whereIn('id', $value['accepted_area'])->select('country')->get()->toArray();
@@ -154,34 +157,44 @@ class OfferController extends AdminController
 //            print_r("<pre/>");
 //            print_r($track_cate);exit;
 
-//            $fieldToSwap = 'track_cate';
-//            //// 使用 array_map 函数进行互换
-//            $swappedArray = array_map(function ($key1, $item) use ($fieldToSwap) {
-//                return [$item[$fieldToSwap] => array_merge(['key' => $key1], $item)];
-//            }, array_keys($track_cate), $track_cate);
-//            // 将结果数组进行合并
-//            $finalArray = array_merge(...$swappedArray);
-
+            $fieldToSwap = 'track_cate';
+            //// 使用 array_map 函数进行互换
+            $swappedArray = array_map(function ($key1, $item) use ($fieldToSwap) {
+                return [$item[$fieldToSwap] => array_merge(['key' => $key1], $item)];
+            }, array_keys($track_cate), $track_cate);
+            // 将结果数组进行合并
+            $finalArray = array_merge(...$swappedArray);
+//
 //            print_r("<pre/>");
 //            print_r($finalArray);exit;
+
 
 
             foreach ($track_cate as $k => $v) {
                 $track_list = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();  // $finalArray[$k]
 
                 foreach ($track_list as $x => $y) {
-                    $param = '?admin_id=' . $admin_id . '=&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id='.$value['id'].'&track_id='.$y['id'];
+                    $param = '?admin_id=' . $admin_id . '&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id='.$value['id'].'&track_id='.$y['id'];
                     $track_list[$x]['track_link'] = $y['track_link'] . $param;
-
                 }
 
-                $finalArray[$k] = $track_list;
+
+
+//                $finalArray[$k] = $track_list;
+                $finalArray[$v['track_cate']] = $track_list;
+
             }
+
 
 
             $filteredDataArray[$key]['track_list'] = $finalArray;
             $filteredDataArray[$key]['creatives'] = Creatives::whereIn('id', $value['creatives_id'])->get()->toArray();
         }
+
+//        print_r("<pre/>");
+//        print_r($filteredDataArray);exit;
+
+
 
         foreach ($filteredDataArrayCopy as $key => $value) {
 
@@ -200,13 +213,13 @@ class OfferController extends AdminController
 
             $filteredDataArrayCopy[$key]['accepted_area'] = trim($accepted_area_data, ',');
 
-//            $fieldToSwap = 'track_cate';
-//            //// 使用 array_map 函数进行互换
-//            $swappedArray = array_map(function ($key1, $item) use ($fieldToSwap) {
-//                return [$item[$fieldToSwap] => array_merge(['key' => $key1], $item)];
-//            }, array_keys($track_cate), $track_cate);
-//            // 将结果数组进行合并
-//            $finalArrayCopy = array_merge(...$swappedArray);
+            $fieldToSwap = 'track_cate';
+            //// 使用 array_map 函数进行互换
+            $swappedArray = array_map(function ($key1, $item) use ($fieldToSwap) {
+                return [$item[$fieldToSwap] => array_merge(['key' => $key1], $item)];
+            }, array_keys($track_cate), $track_cate);
+            // 将结果数组进行合并
+            $finalArrayCopy = array_merge(...$swappedArray);
 
 //            print_r("<pre/>");
 //            print_r($track_cate);exit;
@@ -216,20 +229,26 @@ class OfferController extends AdminController
                 $track_list_copy = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();//$v['track_cate'].'_'.$k
 
                 foreach ($track_list_copy as $x => $y) {
-                    $param = '?admin_id=' . $admin_id . '=&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id='.$value['id'].'&track_id='.$y['id'];
+                    $param = '?admin_id=' . $admin_id . '&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id='.$value['id'].'&track_id='.$y['id'];
                     $track_list_copy[$x]['track_link'] = $y['track_link'] . $param;
-
                 }
-                $finalArrayCopy[$k] = $track_list_copy;
+//                $finalArrayCopy[$k] = $track_list_copy;
+
+                $finalArrayCopy[$v['track_cate']]= $track_list_copy;
             }
 
             $filteredDataArrayCopy[$key]['track_list'] = $finalArrayCopy;
             $filteredDataArrayCopy[$key]['creatives'] = Creatives::whereIn('id', $value['creatives_id'])->get()->toArray();
         }
-
+//        print_r("<pre/>");
+//        print_r($filteredDataArrayCopy);exit;
 
         $filteredDataArray = array_values($filteredDataArray);
         $filteredDataArrayCopy = array_values($filteredDataArrayCopy);
+
+
+
+
 
         $data = [
             'offer' => $filteredDataArray,
@@ -238,6 +257,10 @@ class OfferController extends AdminController
             'offer1' => $filteredDataArrayCopy,
 
         ];
+
+//        print_r("<pre/>");
+//        print_r($data);exit;
+
 
         return $content->title('详情')
             ->description('简介')
@@ -257,6 +280,9 @@ class OfferController extends AdminController
         $geos = $request->input('geos');
         $sort = $request->input('sort');
         $where = [];
+
+
+
 
         if (!empty($category)) {
             $category = implode(',', $category);
@@ -454,7 +480,7 @@ class OfferController extends AdminController
                 $data1 = '';
                 foreach ($i as $key4 => $item4) {
 
-                    $param = '?admin_id=' . $admin_id . '=&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id='.$item['id'].'&track_id='.$item4['id'];
+                    $param = '?admin_id=' . $admin_id . '&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id='.$item['id'].'&track_id='.$item4['id'];
                     $item4['track_link'] = $item4['track_link'] . $param;
 
 
@@ -538,7 +564,7 @@ class OfferController extends AdminController
                 $data1 = '';
                 foreach ($i as $key4 => $item4) {
 
-                    $param = '?admin_id=' . $admin_id . '=&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id='.$item['id'].'&track_id='.$item4['id'];;
+                    $param = '?admin_id=' . $admin_id . '&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id='.$item['id'].'&track_id='.$item4['id'];;
                     $item4['track_link'] = $item4['track_link'] . $param;
 
 
@@ -546,7 +572,6 @@ class OfferController extends AdminController
 
 //                    $data1 .=$data1;
                 }
-
 
                 $data_div = ' </div></div>';
                 $track .= $track1 . $row . $data1 . $data_div;
