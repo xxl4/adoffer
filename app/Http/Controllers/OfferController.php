@@ -80,12 +80,18 @@ class OfferController extends Controller
         try {
 
         $data = [];
-        $token = $request->input('token');
+        $refer = $request->input('refer');
         $revenue = $request->input('revenue');
+
+
+        Log::info($refer);
+        Log::info($revenue);
+        Log::info("接收数据");
+
         $ip = request()->ip();
         $country_res = geoip($ip)->toArray();//根据ip获取国家
         $country_id = Geos::where('country', $country_res['country'])->value('id');//获取国家ip
-        $res = Db::table('offer_tracks as o')->where('o.random', $token)->get()->first();
+        $res = Db::table('offer_tracks as o')->where('o.random', $refer)->get()->first();
 
         if (!empty($res)) {
 
