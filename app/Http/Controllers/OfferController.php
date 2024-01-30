@@ -43,7 +43,8 @@ class OfferController extends Controller
 
 
             if (!empty($res)) {
-                $token = md5($offer_id . '/' . $admin_id . '/' . $track_id);
+//                $token = md5($offer_id . '/' . $admin_id . '/' . $track_id);
+                $token =  uniqid();
                 $update_data = OfferTracks::where('id', $track_id)->update(['random' => $token, 'query' => $queryString, 'offer_id' => $offer_id,'admin_id'=>$admin_id]); //把生成的token和传递过来的参数保存
                 $land_page = $res->land_link . '?token=' . $token;
 
