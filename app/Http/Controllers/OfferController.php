@@ -55,9 +55,10 @@ class OfferController extends Controller
 
                 Log::info($land_page);
                 Log::info("落地页1");
-
+                Log::info($update_data > 0);
+                
                 if ($update_data > 0) {
-                    header("Location: {$land_page}"); //跳转到落地页
+                    header("Location: $land_page"); //跳转到落地页
                 } else {
                     return $this->showMsg('1002', 'error');
                 }
