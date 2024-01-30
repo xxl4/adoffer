@@ -51,7 +51,7 @@ class OfferController extends Controller
                 Log::info($admin_id);
 
                 $update_data = OfferTracks::where('id', $track_id)->update(['random' => $token, 'query' => $queryString, 'offer_id' => $offer_id,'admin_id'=>$admin_id]); //把生成的token和传递过来的参数保存
-                $land_page = $res->land_link . '?token=' . $token;
+                $land_page = $res->land_link . '?refer=' . $token;
 
                 Log::info($land_page);
                 Log::info("落地页1");
