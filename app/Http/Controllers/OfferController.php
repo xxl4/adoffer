@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use GeoIp2\Database\Reader;
+use Illuminate\Support\Facades\Log;
 use Torann\GeoIP\Facades\GeoIP;
 
 class OfferController extends Controller
@@ -43,8 +44,11 @@ class OfferController extends Controller
 
             if (!empty($res)) {
                 $token = md5($offer_id . '/' . $admin_id . '/' . $track_id);
-                $update_data = OfferTracks::where('id', $track_id)->update(['random' => $token, 'query' => $queryString, 'offer_id' => $offer_id]); //把生成的token和传递过来的参数保存
+                $update_data = OfferTracks::where('id', $track_id)->update(['random' => $token, 'query' => $queryString, 'offer_id' => $offer_id,'admin_id'=>$admin_id]); //把生成的token和传递过来的参数保存
                 $land_page = $res->land_link . '?token=' . $token;
+
+                Log::info($land_page);
+                Log::info("落地页1");
 
                 if ($update_data > 0) {
                     header("Location: {$land_page}"); //跳转到落地页
