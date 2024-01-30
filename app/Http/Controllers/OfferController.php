@@ -45,6 +45,11 @@ class OfferController extends Controller
             if (!empty($res)) {
 //                $token = md5($offer_id . '/' . $admin_id . '/' . $track_id);
                 $token =  uniqid();
+
+                Log::info($token);
+                Log::info("唯一字符串");
+
+
                 $update_data = OfferTracks::where('id', $track_id)->update(['random' => $token, 'query' => $queryString, 'offer_id' => $offer_id,'admin_id'=>$admin_id]); //把生成的token和传递过来的参数保存
                 $land_page = $res->land_link . '?token=' . $token;
 
@@ -58,7 +63,7 @@ class OfferController extends Controller
                 }
             }
         } catch (\Exception $exception) {
-            return $this->showMsg('1002', 'error');
+            return ['status' => '1002', 'msg' => $exception->getMessage(), 'data' => null];
         }
     }
 
@@ -104,7 +109,7 @@ class OfferController extends Controller
         }
 
         } catch (\Exception $exception) {
-            return $this->showMsg('1002', 'error');
+            return ['status' => '1002', 'msg' => $exception->getMessage(), 'data' => null];
         }
 
     }
