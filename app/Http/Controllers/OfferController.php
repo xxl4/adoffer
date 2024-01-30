@@ -31,7 +31,7 @@ class OfferController extends Controller
             $queryString = parse_url($_SERVER['APP_URL'] . $_SERVER['REQUEST_URI'], PHP_URL_QUERY);
             parse_str($queryString, $paramsArray);
             $offer_id = isset($paramsArray['offer_id']) ? $paramsArray['offer_id'] : '';
-            $admin_id = isset($paramsArray['admin_id']) ? $paramsArray['admin_id'] : '';        //获取当前用户的信息
+            $admin_id = isset($paramsArray['admin_id']) ? $paramsArray['admin_id'] : 0;        //获取当前用户的信息
             $track_id = isset($paramsArray['track_id']) ? $paramsArray['track_id'] : '';        //获取当前链接id
 
 
@@ -48,7 +48,7 @@ class OfferController extends Controller
 
                 Log::info($token);
                 Log::info("唯一字符串");
-
+                Log::info($admin_id);
 
                 $update_data = OfferTracks::where('id', $track_id)->update(['random' => $token, 'query' => $queryString, 'offer_id' => $offer_id,'admin_id'=>$admin_id]); //把生成的token和传递过来的参数保存
                 $land_page = $res->land_link . '?token=' . $token;
