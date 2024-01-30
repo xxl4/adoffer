@@ -23,35 +23,37 @@ class OfferController extends Controller
      */
     public function jump(Request $request)
     {
+        try {
 
-        $current_url = $this->getpageurl();
-        $current_url = parse_url($current_url);
-        $queryString = parse_url($_SERVER['APP_URL'] . $_SERVER['REQUEST_URI'], PHP_URL_QUERY);
-        parse_str($queryString, $paramsArray);
-        $offer_id = isset($paramsArray['offer_id']) ? $paramsArray['offer_id'] : '';
-        $admin_id = isset($paramsArray['admin_id']) ? $paramsArray['admin_id'] : '';        //获取当前用户的信息
-        $track_id = isset($paramsArray['track_id']) ? $paramsArray['track_id'] : '';        //获取当前链接id
-
-
-        $res = DB::table('offer_tracks as o')
-            ->join('land_pages as l', 'o.land_id', '=', 'l.id')
-            ->where('o.id', $track_id)
-            ->select('o.track_link', 'l.land_link')
-            ->get()->first();           //查询到链接关联到的落地页
+            $current_url = $this->getpageurl();
+            $current_url = parse_url($current_url);
+            $queryString = parse_url($_SERVER['APP_URL'] . $_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+            parse_str($queryString, $paramsArray);
+            $offer_id = isset($paramsArray['offer_id']) ? $paramsArray['offer_id'] : '';
+            $admin_id = isset($paramsArray['admin_id']) ? $paramsArray['admin_id'] : '';        //获取当前用户的信息
+            $track_id = isset($paramsArray['track_id']) ? $paramsArray['track_id'] : '';        //获取当前链接id
 
 
+            $res = DB::table('offer_tracks as o')
+                ->join('land_pages as l', 'o.land_id', '=', 'l.id')
+                ->where('o.id', $track_id)
+                ->select('o.track_link', 'l.land_link')
+                ->get()->first();           //查询到链接关联到的落地页
 
 
-        if (!empty($res)) {
-            $token = md5($offer_id . '/' . $admin_id . '/' . $track_id);
-            $update_data = OfferTracks::where('id', $track_id)->update(['random' => $token, 'queryString' => $queryString, 'offer_id' => $offer_id]); //把生成的token和传递过来的参数保存
-            $land_page = $res['land_link'] . '?token=' . $token;
+            if (!empty($res)) {
+                $token = md5($offer_id . '/' . $admin_id . '/' . $track_id);
+                $update_data = OfferTracks::where('id', $track_id)->update(['random' => $token, 'query' => $queryString, 'offer_id' => $offer_id]); //把生成的token和传递过来的参数保存
+                $land_page = $res['land_link'] . '?token=' . $token;
 
-            if ($update_data > 0) {
-                header("Location: {$land_page}"); //跳转到落地页
-            } else {
-                return $this->showMsg('1002', 'error');
+                if ($update_data > 0) {
+                    header("Location: {$land_page}"); //跳转到落地页
+                } else {
+                    return $this->showMsg('1002', 'error');
+                }
             }
+        } catch (\Exception $exception) {
+            return $this->showMsg('1002', 'error');
         }
     }
 
@@ -63,6 +65,7 @@ class OfferController extends Controller
 
     public function callBack(Request $request)
     {
+        try {
 
         $data = [];
         $token = $request->input('token');
@@ -93,6 +96,10 @@ class OfferController extends Controller
         } else {
             return $this->showMsg('1002', 'token不能为空');
 
+        }
+
+        } catch (\Exception $exception) {
+            return $this->showMsg('1002', 'error');
         }
 
     }

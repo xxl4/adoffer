@@ -263,6 +263,9 @@
                                                                                 <li><a href="?id=offer#advertorialpages12-1<?php echo $key2.$key?>" role="tab" data-toggle="tab"><?php echo $key2?></a></li>
                                                                             @endif
 
+
+
+
                                                                             @php
                                                                                   $index++;
                                                                             @endphp
