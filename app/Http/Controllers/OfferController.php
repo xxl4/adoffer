@@ -18,6 +18,7 @@ use Torann\GeoIP\Facades\GeoIP;
 
 class OfferController extends Controller
 {
+
     /**
      * @param Request $request
      * @return void
@@ -29,10 +30,18 @@ class OfferController extends Controller
             $current_url = $this->getpageurl();
             $current_url = parse_url($current_url);
             $queryString = parse_url($_SERVER['APP_URL'] . $_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+
+            print_r("<pre/>");
+            print_r($_SERVER['REQUEST_URI']);exit;
+
             parse_str($queryString, $paramsArray);
             $offer_id = isset($paramsArray['offer_id']) ? $paramsArray['offer_id'] : '';
             $admin_id = isset($paramsArray['admin_id']) ? $paramsArray['admin_id'] : 0;        //获取当前用户的信息
             $track_id = isset($paramsArray['track_id']) ? $paramsArray['track_id'] : '';        //获取当前链接id
+            $APP_URL = $_SERVER['APP_URL'];
+            $REQUEST_URI = !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+
+
 
 
             $res = DB::table('offer_tracks as o')
@@ -41,11 +50,11 @@ class OfferController extends Controller
                 ->select('o.track_link', 'l.land_link')
                 ->get()->first();           //查询到链接关联到的落地页
 
+            
 
             if (!empty($res)) {
 //                $token = md5($offer_id . '/' . $admin_id . '/' . $track_id);
                 $token =  uniqid();
-
                 Log::info($token);
                 Log::info("唯一字符串");
                 Log::info($admin_id);
@@ -90,10 +99,11 @@ class OfferController extends Controller
 
         $ip = request()->ip();
         $country_res = geoip($ip)->toArray();//根据ip获取国家
+
         $country_id = Geos::where('country', $country_res['country'])->value('id');//获取国家ip
-
-
         $res = Db::table('offer_tracks as o')->where('o.random', $refer)->get()->first();
+
+
 
         if (!empty($res)) {
 
