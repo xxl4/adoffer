@@ -480,17 +480,17 @@
 
                                                             <!-- dropdown domains -->
 
-                                                            <div class="btn-group m-b-30">
-                                                                <a class="btn btn-success dropdown-toggle m-b-5"
-                                                                   data-toggle="dropdown" href="?id=offer#">Select your
-                                                                    tracking
-                                                                    domain<span class="caret"></span></a>
-                                                                <ul class="dropdown-menu domains-menu">
-                                                                    <li><a href="javascript:void(0);" class="offersDomain"
-                                                                           data-domain="">https://urgoodeal.com</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
+{{--                                                            <div class="btn-group m-b-30">--}}
+{{--                                                                <a class="btn btn-success dropdown-toggle m-b-5"--}}
+{{--                                                                   data-toggle="dropdown" href="?id=offer#">Select your--}}
+{{--                                                                    tracking--}}
+{{--                                                                    domain<span class="caret"></span></a>--}}
+{{--                                                                <ul class="dropdown-menu domains-menu"  id="myList">--}}
+{{--                                                                    <li><a href="javascript:void(0);" class="offersDomain"--}}
+{{--                                                                           data-domain="">https://urgoodeal.com</a>--}}
+{{--                                                                    </li>--}}
+{{--                                                                </ul>--}}
+{{--                                                            </div>--}}
 
                                                             <!-- end dropdown domains -->
 
@@ -525,7 +525,11 @@
 
                                                                             @php
                                                                                 $index4=0;
+                                                                                $serializedString = json_encode($item1['track_list'],true);
                                                                             @endphp
+
+                                                                            <input type="hidden" id="hidden_value" value="<?php echo $serializedString?>">
+
                                                                             @foreach ($item1['track_list'] as $key3=>$item3)
 
                                                                                 @if($index4==0)
@@ -539,12 +543,12 @@
                                                                                                 @endphp
 
 
-                                                                                                <div class="row">
+                                                                                                <div class="row" id="myInput1">
                                                                                                     @foreach ($item3 as $key4=>$item4)
                                                                                                         <div class="col-md-12">
-                                                                                                            <div class="padding-for_links">
+                                                                                                            <div class="padding-for_links" id="foreachContainer">
                                                                                                                 <div>{{$item4['track_name']}}</div>
-                                                                                                                <input readonly="" style="width: calc(100% - 100px)" type="text" class="clipboard-1-0-0-4{{$key1.'-'.$key2.'-'.$key3.'-4'.$key4}}" value="{{$item4['track_link']}}">
+                                                                                                                <input readonly="" style="width: calc(100% - 100px)" type="text" class="clipboard-1-0-0-4{{$key1.'-'.$key2.'-'.$key3.'-4'.$key4}}" value="{{$item4['track_link']}}" id="myInput">
                                                                                                                 <a href="" target="_blank" class=" dynamicDomainTrackingLink">
                                                                                                                     <i class="icon ion-eye pull-right"></i>
                                                                                                                 </a>
@@ -828,6 +832,52 @@
     $(function () {
         $('.selectpicker').selectpicker();
     });
+
+    $(document).ready(function() {
+        // 初始化 Clipboard.js
+        // $("#myList").on("click", "li", function() {
+        //
+        //
+        //
+        //   var  selectedText = $(this).text(); // 获取当前点击的列表项文本
+        //
+        //     $("#selectedValueInput").val(selectedText);
+        // });
+
+
+
+
+
+        // $('#myList li').on('click', function() {
+        //     // 获取被点击的 li 的文本内容
+        //     var selectedValue = $(this).text();
+        //
+        //     var originalValue = $("#myInput").val();
+        //
+        //     var hidden_value = $("#hidden_value").val();
+        //
+        //     console.log(hidden_value)
+        //
+        //
+        //
+        //     // 将值赋给 foreach 内部的第一个 input
+        //     $('#myInput1 #myInput').val(selectedValue);
+        //
+        //
+        //
+        //
+        //
+        //     if ($("#myInput").val() === originalValue) {
+        //         console.log("赋值成功！");
+        //     } else {
+        //         console.log("赋值失败！");
+        //     }
+        // });
+
+
+    });
+
+
 
     $(document).ready(function() {
         // 初始化 Clipboard.js

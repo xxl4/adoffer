@@ -91,6 +91,8 @@ class OfferController extends Controller
         $ip = request()->ip();
         $country_res = geoip($ip)->toArray();//根据ip获取国家
         $country_id = Geos::where('country', $country_res['country'])->value('id');//获取国家ip
+
+
         $res = Db::table('offer_tracks as o')->where('o.random', $refer)->get()->first();
 
         if (!empty($res)) {
@@ -101,7 +103,7 @@ class OfferController extends Controller
             $insert_data['ip'] = $ip;
             $insert_data['revenue'] = !empty($revenue) ? $revenue : 0;
             $insert_data['created_at'] = date('Y-m-d H:i:s');
-            $insert_data['country_id'] = !empty($country_id) ? $country_id : '';
+            $insert_data['country_id'] = !empty($country_id) ? $country_id : 0;
 
             $insert = OfferLog::insertGetId($insert_data);
 

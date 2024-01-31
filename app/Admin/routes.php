@@ -27,7 +27,7 @@ Route::group([
     $router->resource('creatives', 'CreativesController')->names('admin.Creatives');
     $router->resource('offer_log', 'OfferLogController')->names('admin.OfferLog');
     $router->resource('land_page', 'LandPageController')->names('admin.LandPage');
-
+    $router->resource('delivery', 'DeliveryController')->names('admin.Delivery');
 
 
     $router->get('intelligence/echat', "IntelligenceController@echat")->name('admin.intelligence');
