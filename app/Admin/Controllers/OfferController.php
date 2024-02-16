@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Creatives;
+use App\Models\Delivery;
 use App\Models\Geos;
 use App\Models\Offer;
 use App\Models\OfferTracks;
@@ -151,6 +152,12 @@ class OfferController extends AdminController
 
             $filteredDataArray[$key]['accepted_area'] = trim($accepted_area_data, ',');
             $track_cate = OfferTracksCates::whereIn('id', $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
+
+            $delivery_info = Delivery::where('status',1)->get()->toArray();
+
+
+            $delivery_link = !empty($delivery_info[0]['delivery_link']) ? $delivery_info[0]['delivery_link'] : '';
+
 //            print_r("<pre/>");
 //            print_r($track_cate);exit;
 
@@ -174,8 +181,11 @@ class OfferController extends AdminController
                 $track_list = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();  // $finalArray[$k]
 
                 foreach ($track_list as $x => $y) {
-                    $param = '?admin_id=' . $admin_id . '&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id='.$value['id'].'&track_id='.$y['id'];
-                    $track_list[$x]['track_link'] = $y['track_link'] . $param;
+                    $param = 'api/offers/jump?admin_id=' . $admin_id . '&cateid='.$v['id'].'&offer_id='.$value['id'].'&track_id='.$y['id'];
+                  /*  $track_list[$x]['track_link'] = $y['track_link'] . $param;*/
+
+                    $track_list[$x]['track_link'] = $delivery_link . $param;
+
                 }
 
 
@@ -229,8 +239,11 @@ class OfferController extends AdminController
                 $track_list_copy = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();//$v['track_cate'].'_'.$k
 
                 foreach ($track_list_copy as $x => $y) {
-                    $param = '?admin_id=' . $admin_id . '&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id='.$value['id'].'&track_id='.$y['id'];
-                    $track_list_copy[$x]['track_link'] = $y['track_link'] . $param;
+                    $param = 'api/offers/jump?admin_id=' . $admin_id . '&cateid='.$v['id'].'&offer_id='.$value['id'].'&track_id='.$y['id'];
+//                    $track_list_copy[$x]['track_link'] = $y['track_link'] . $param;
+
+                    $track_list_copy[$x]['track_link'] = $delivery_link . $param;
+
                 }
 //                $finalArrayCopy[$k] = $track_list_copy;
 
@@ -255,7 +268,6 @@ class OfferController extends AdminController
             'geos_list' => $geos_list,
             'category_list' => $category_list,
             'offer1' => $filteredDataArrayCopy,
-
         ];
 
 //        print_r("<pre/>");

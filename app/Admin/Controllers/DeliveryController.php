@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Creatives;
+use App\Models\Delivery;
 use App\Models\LandPage;
 use App\Models\Offer;
 use App\Models\OfferTracks;
@@ -15,14 +16,14 @@ use Encore\Admin\Show;
 use Encore\Admin\Layout\Content;
 use Illuminate\Support\Facades\DB;
 
-class OfferTrackController extends AdminController
+class DeliveryController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'offer_track';
+    protected $title = 'delivery';
     /**
      * Make a grid builder.
      *
@@ -30,19 +31,13 @@ class OfferTrackController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new OfferTracks());
+        $grid = new Grid(new Delivery());
 
         $grid->column('id', __('Id'));
-        $grid->column('track_name', __('Track Name'));
-//        $grid->column('track_link', __('Track Link'))->link();
-//        $grid->column('track_type_id', __('Type'));
+        $grid->column('delivery_name', __('Delivery Name'));
+        $grid->column('delivery_link', __('Delivery Link'))->link();
         $grid->column('created_at', __('Create at'));
 //        $grid->column('updated_at', __('Update at'));
-        // 去掉操作中的功能项
-        $grid->actions(function ($actions) {
-            // 去掉查看
-            $actions->disableView();
-        });
         $grid->paginate(10);
         return $grid;
     }
@@ -56,14 +51,13 @@ class OfferTrackController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(OfferTracks::findOrFail($id));
+        $show = new Show(Delivery::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('track_name', __('Track Name'));
-//        $show->field('track_link', __('Track Link'));
-        $show->field('track_type_id', __('Track Type'));
+        $show->field('delivery_name', __('Delivery Name'));
+        $show->field('delivery_link', __('Delivery Link'));
         $show->field('created_at', __('Create at'));
-//        $show->field('updated_at', __('Update at'));
+        $show->field('updated_at', __('Update at'));
 
         return $show;
     }
@@ -75,12 +69,10 @@ class OfferTrackController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new OfferTracks());
+        $form = new Form(new Delivery());
 
-        $form->text('track_name', __('Track name'))->required();
-//        $form->url('track_link', __('Track Link'))->required();
-        $form->select('land_id', __('Land Page'))->options(LandPage::all()->pluck('land_link', 'id'))->required();
-        $form->select('track_type_id', __('Track Type'))->options(OfferTracksCates::all()->pluck('track_cate', 'id'))->required();
+        $form->text('delivery_name', __('Delivery name'))->required();
+        $form->url('delivery_link', __('Delivery Link'))->required();
         $form->datetime('created_at', __('Create at'))->default(date('Y-m-d H:i:s'));
 //        $form->datetime('update_at', __('Update at'))->default(date('Y-m-d H:i:s'));
 
