@@ -37,23 +37,19 @@ class OfferAdvancedController extends AdminController
         $grid->column('cid', __('CID'));
         $grid->column('sid', __('SID'));
         $grid->column('offer.offer_price', __('REVENUE'))->currency();
-        $grid->paginate(10);
+        $grid->paginate(20);
         $grid->disableCreation();
-        $grid->disableExport();
-
-
-
+//        $grid->disableExport();
 
         $grid->filter(function (Grid\Filter $filter) {
             $filter->column(1/2, function ($filter) {
                 $filter->like('offerData.offer_name','Offer');
             });
-
             $filter->column(1/2, function ($filter) {
                 $filter->like('geos.country','Country');
             });
-
             $filter->between('created_at', 'created_at')->datetime();
+            $filter->expand();
         });
 
         $grid->footer(function ($query) {

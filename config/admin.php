@@ -11,8 +11,8 @@ return [
     | login page.
     |
     */
-    'name' => 'Laravel-admin',
-
+//    'name' => 'Laravel-admin',
+    'name' => 'Admin',
     /*
     |--------------------------------------------------------------------------
     | Laravel-admin logo
@@ -22,7 +22,10 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<b>Laravel</b> admin',
+//    'logo' => '<b>Laravel</b> admin',
+//http://localhost:81/upload/images/logo.png
+
+    'logo' => '<img src="http://localhost:81/upload/images/logo.png" style="width: 170px;height: 25px" alt="Admin logo">',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +37,7 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<b>La</b>',
+//    'logo-mini' => '<b>La</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -275,7 +278,7 @@ return [
     |    "skin-red", "skin-red-light", "skin-black", "skin-black-light".
     |
     */
-    'skin' => env('ADMIN_SKIN', 'skin-blue-light'),
+    'skin' => env('ADMIN_SKIN', 'skin-black'),
 
     /*
     |--------------------------------------------------------------------------
@@ -310,7 +313,7 @@ return [
     | each page
     |
     */
-    'show_version' => true,
+    'show_version' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -320,7 +323,7 @@ return [
     | Whether to display the environment at the footer of each page
     |
     */
-    'show_environment' => true,
+    'show_environment' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -359,7 +362,7 @@ return [
     | Enable/Disable sidebar menu search
     |--------------------------------------------------------------------------
     */
-    'enable_menu_search' => true,
+    'enable_menu_search' => false,
 
     /*
     |--------------------------------------------------------------------------
