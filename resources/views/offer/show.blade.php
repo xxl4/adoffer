@@ -1,20 +1,20 @@
-<link href="/vendor/laravel-admin/test/select2.css" rel="stylesheet" type="text/css" media="screen">
-<link href="/vendor/laravel-admin/test/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen">
-<link href="/vendor/laravel-admin/test/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link href="/vendor/laravel-admin/test/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/test/demo.css">
-<link href="/vendor/laravel-admin/test/font-awesome.css" rel="stylesheet" type="text/css">
-<link href="/vendor/laravel-admin/test/animate.min.css" rel="stylesheet" type="text/css">
-<link href="/vendor/laravel-admin/test/jquery.scrollbar.css" rel="stylesheet" type="text/css">
-<link href="/vendor/laravel-admin/test/datepicker.css" rel="stylesheet" type="text/css">
+{{--<link href="/vendor/laravel-admin/test/select2.css" rel="stylesheet" type="text/css" media="screen">--}}
+{{--<link href="/vendor/laravel-admin/test/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen">--}}
+{{--<link href="/vendor/laravel-admin/test/bootstrap.min.css" rel="stylesheet" type="text/css">--}}
+{{--<link href="/vendor/laravel-admin/test/bootstrap-theme.min.css" rel="stylesheet" type="text/css">--}}
+{{--<link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/test/demo.css">--}}
+{{--<link href="/vendor/laravel-admin/test/font-awesome.css" rel="stylesheet" type="text/css">--}}
+{{--<link href="/vendor/laravel-admin/test/animate.min.css" rel="stylesheet" type="text/css">--}}
+{{--<link href="/vendor/laravel-admin/test/jquery.scrollbar.css" rel="stylesheet" type="text/css">--}}
+{{--<link href="/vendor/laravel-admin/test/datepicker.css" rel="stylesheet" type="text/css">--}}
 {{--<link rel="stylesheet" href="/vendor/laravel-admin/test/sweet-alert.css">--}}
-<link rel="stylesheet" href="/vendor/laravel-admin/test/rickshaw.css" type="text/css" media="screen">
-<link rel="stylesheet" href="/vendor/laravel-admin/test/mapplic.css" type="text/css" media="screen">
-<link rel="stylesheet" href="/vendor/laravel-admin/test/ionicons.css" type="text/css">
-<link href="/vendor/laravel-admin/test/messenger.css" rel="stylesheet" type="text/css" media="screen">
-<link href="/vendor/laravel-admin/test/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen">
-<link rel="icon" type="image/png" href="https://m4trix.network/Reporting-platform/images/favicon.png">
-<link href="/vendor/laravel-admin/test/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" media="screen">
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/test/rickshaw.css" type="text/css" media="screen">--}}
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/test/mapplic.css" type="text/css" media="screen">--}}
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/test/ionicons.css" type="text/css">--}}
+{{--<link href="/vendor/laravel-admin/test/messenger.css" rel="stylesheet" type="text/css" media="screen">--}}
+{{--<link href="/vendor/laravel-admin/test/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen">--}}
+{{--<link rel="icon" type="image/png" href="https://m4trix.network/Reporting-platform/images/favicon.png">--}}
+{{--<link href="/vendor/laravel-admin/test/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" media="screen">--}}
 
 <link rel="stylesheet" href="/vendor/laravel-admin/analytic/bootstrap-select.min.css">
 <script src="/vendor/laravel-admin/analytic/bootstrap-select.min.js"></script>
@@ -65,7 +65,7 @@
                 <span class="va-sub">Network</span>
             </div>
         </div>
-        <link href="/vendor/laravel-admin/test/network.css" rel="stylesheet" type="text/css">
+{{--        <link href="/vendor/laravel-admin/test/network.css" rel="stylesheet" type="text/css">--}}
 
         <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}"/>
         <div class="form-group">
@@ -129,6 +129,8 @@
                 <button id="searchBtn" class="btn btn-primary">搜索</button>
             </div>
         </div>
+
+
 
 
         <div class="col-sm-12">
