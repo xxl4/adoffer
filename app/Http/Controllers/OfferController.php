@@ -88,25 +88,14 @@ class OfferController extends Controller
     public function callBack(Request $request)
     {
 
-
-
         try {
-
-
-            $os =  php_uname('s');//操作系统
-            $os_version =  php_uname('v');//版本信息。操作系统之间有很大的不同。
-            $os_version_name =  php_uname('r');//操作系统版本名称，例如： 5.1.2-RELEASE。
-            $os_machine =  php_uname('m');//机器类型。例如：i386。
-            $os_host_name =  php_uname('n');//主机名称
-
-
-
-
+            $referrer = $request->header('referer');
             $referer = $request->headers->get('referer');
             $agent = new Agent();
             $device = $agent->device();// 系统信息,浏览器引擎  (Ubuntu, Windows, OS X, ...)
             $languages = $agent->languages();
             $lang = $languages[0];//语言
+
 
 
             $agent->browser();
@@ -115,8 +104,21 @@ class OfferController extends Controller
             $platform = $agent->platform();// 获取系统版本
             $version = $agent->version($platform);
 
-//            var_dump($version);exit;
 
+            // 是否是安卓设备
+           $isAndroidOS = $agent->isAndroidOS();
+            //是否是Nexus 系列
+            $isNexus = $agent->isNexus();
+            // 是否是Safari浏览器
+            $isSafari = $agent->isSafari();
+            // 是否是机器人
+            $isRobot = $agent->isRobot();
+            // 是否是桌面设备
+            $isDesktop = $agent->isDesktop();
+            // 是否是平板设备
+            $isTablet = $agent->isTablet();
+            // 移动设备
+            $isMobile = $agent->isMobile();
 
             $refer = $request->input('refer');
             $revenue = $request->input('revenue');
@@ -136,22 +138,20 @@ class OfferController extends Controller
                 $insert_data['track_id'] = $res->id;
                 $insert_data['ip'] = $ip;
                 $insert_data['revenue'] = !empty($revenue) ? $revenue : 0;
-
-
-
-                $insert_data['os'] = !empty($os) ? $os : '';
-                $insert_data['os_version'] = !empty($os_version) ? $os_version : 0;
-                $insert_data['os_version_name'] = !empty($os_version_name) ? $os_version_name : 0;
-                $insert_data['os_machine'] = !empty($os_machine) ? $os_machine : 0;
-                $insert_data['os_host_name'] = !empty($os_host_name) ? $os_host_name : 0;
+                $insert_data['isAndroidOS'] = $isAndroidOS==true ? $isAndroidOS : false;
+                $insert_data['isNexus'] = $isNexus===true ? $isNexus : false;
+                $insert_data['isSafari'] = $isSafari===true ? $isSafari : false;
+                $insert_data['isRobot'] = $isRobot===true ? $isRobot : false;
+                $insert_data['isDesktop'] = $isDesktop===true ? $isDesktop : false;
+                $insert_data['isTablet'] = $isTablet===true ? $isTablet : false;
+                $insert_data['isMobile'] = $isMobile===true ? $isMobile : false;
                 $insert_data['referer'] = !empty($referer) ? $referer : 0;
                 $insert_data['lang'] = !empty($lang) ? $lang : 0;
                 $insert_data['device'] = !empty($device) ? $device : 0;
                 $insert_data['browser'] = !empty($browser) ? $browser : 0;
                 $insert_data['browser_version'] = !empty($browser_version) ? $browser_version : 0;
-                $insert_data['platform'] = !empty($version) ? $version : 0;
-
-
+                $insert_data['platform'] = !empty($platform) ? $platform : 0;
+                $insert_data['platform_version'] = !empty($version) ? $version : 0;
                 $insert_data['created_at'] = date('Y-m-d H:i:s');
                 $insert_data['country_id'] = !empty($country_id) ? $country_id : 0;
 
