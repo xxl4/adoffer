@@ -334,8 +334,8 @@ body.boxed-layout .footer-widget {
   padding-right: 10px;
   height: 60px;
   -webkit-transition-duration: 1;
-  -moz-transition-duration: 1s;
-  transition-duration: 1s;
+  /*-moz-transition-duration: 1s;*/
+  /*transition-duration: 1s;*/
   transition-timing-function: ease-in-out;
   -webkit-transition-property: -webkit-transform, opacity;
   -moz-transition-property: -moz-transform, opacity;
@@ -967,8 +967,8 @@ body.boxed-layout .footer-widget {
   background-color: #1b1e24;
   height: 100%;
   z-index: 5;
-  -webkit-transition: opacity 0.1s ease;
-  transition: opacity 0.1s ease;
+  /*-webkit-transition: opacity 0.1s ease;*/
+  /*transition: opacity 0.1s ease;*/
 }
 .chat-window-wrapper.visible{
   z-index:99;
@@ -1924,7 +1924,7 @@ you can use the generic selector below, but it's slower:
 }
 .horizontal-menu .bar-inner > ul > li a .description {
   opacity: 0.7;
-  transition: opacity 0.1s linear 0s;
+  /*transition: opacity 0.1s linear 0s;*/
 }
 .horizontal-menu .bar-inner > ul > li a:hover {
   opacity: 1;
@@ -1966,8 +1966,8 @@ you can use the generic selector below, but it's slower:
   border-bottom: 1px solid #e5e9ec;
   color: #22262e;
   opacity: 0;
-  -webkit-transition: all 0.1s linear 0.1s;
-  transition: all 0.1s linear 0.1s;
+  /*-webkit-transition: all 0.1s linear 0.1s;*/
+  /*transition: all 0.1s linear 0.1s;*/
 }
 .horizontal-menu .bar-inner > ul > li > .classic > li a {
   color: #1b1e24;
@@ -2116,15 +2116,15 @@ h6.block {
 a {
   text-shadow: none !important;
   color: #0d638f;
-  transition: color 0.1s linear 0s, background-color 0.1s linear 0s, opacity 0.1s linear 0s !important;
+  /*transition: color 0.1s linear 0s, background-color 0.1s linear 0s, opacity 0.1s linear 0s !important;*/
 }
 a.icon:hover {
   text-decoration: none;
-  -webkit-transition: all 0.1s ease-in-out;
-  -moz-transition: all 0.1s ease-in-out;
-  -o-transition: all 0.1s ease-in-out;
-  -ms-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
+  /*-webkit-transition: all 0.1s ease-in-out;*/
+  /*-moz-transition: all 0.1s ease-in-out;*/
+  /*-o-transition: all 0.1s ease-in-out;*/
+  /*-ms-transition: all 0.1s ease-in-out;*/
+  /*transition: all 0.1s ease-in-out;*/
   opacity: .4;
 }
 a,
@@ -3700,15 +3700,15 @@ textarea[class*="span"] {
   -webkit-transform: scale(0.63);
   transform: scale(0.63);
   line-height: 18px;
-  -o-transition: -o-transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);
-  -ms-transition: -ms-transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);
-  -moz-transition: -moz-transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);
-  -webkit-transition: -webkit-transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);
-  -o-transition: transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);
-  -ms-transition: transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);
-  -moz-transition: transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);
-  -webkit-transition: transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);
-  transition: transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);
+  /*-o-transition: -o-transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);*/
+  /*-ms-transition: -ms-transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);*/
+  /*-moz-transition: -moz-transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);*/
+  /*-webkit-transition: -webkit-transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);*/
+  /*-o-transition: transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);*/
+  /*-ms-transition: transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);*/
+  /*-moz-transition: transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);*/
+  /*-webkit-transition: transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);*/
+  /*transition: transform 0.1s 0s cubic-bezier(0.455, 0.03, 0.215, 1.33);*/
 }
 .radio input[type=radio]:checked + label:before {
   border: 1px solid #8e9095;
@@ -5116,11 +5116,11 @@ form legend,
 }
 .grid-title .tools > a:hover {
   text-decoration: none;
-  -webkit-transition: all 0.1s ease-in-out;
-  -moz-transition: all 0.1s ease-in-out;
-  -o-transition: all 0.1s ease-in-out;
-  -ms-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
+  /*-webkit-transition: all 0.1s ease-in-out;*/
+  /*-moz-transition: all 0.1s ease-in-out;*/
+  /*-o-transition: all 0.1s ease-in-out;*/
+  /*-ms-transition: all 0.1s ease-in-out;*/
+  /*transition: all 0.1s ease-in-out;*/
   opacity: .6;
 }
 .grid-title .dropdown-menu i {
@@ -5232,7 +5232,7 @@ form legend,
 }
 .grid.simple .grid-title .tools a {
   position: relative;
-  transition: all 0.1s linear 0s;
+  /*transition: all 0.1s linear 0s;*/
   color: #ababab;
 }
 .grid.simple .grid-title .tools > a.remove:before,
@@ -5756,7 +5756,7 @@ form legend,
 .tiles .controller a {
   position: relative;
   background: url('../img/icon/portlet-tray.png') no-repeat;
-  transition: all 0.1s linear 0s;
+  /*transition: all 0.1s linear 0s;*/
   display: inline-block;
 }
 .tiles .controller a.remove {
@@ -6089,7 +6089,7 @@ form legend,
 .widget-item .controller a {
   position: relative;
   background: url('../img/icon/portlet-tray.png') no-repeat;
-  transition: all 0.1s linear 0s;
+  /*transition: all 0.1s linear 0s;*/
   display: inline-block;
 }
 .widget-item .controller a.remove {
@@ -6213,7 +6213,7 @@ form legend,
 .widget .controller a {
   position: relative;
   background: url('../img/icon/portlet-tray.png') no-repeat;
-  transition: all 0.1s linear 0s;
+  /*transition: all 0.1s linear 0s;*/
   display: inline-block;
 }
 .widget .controller a.remove {
@@ -6376,11 +6376,11 @@ h4.custom-line-height {
   margin-bottom: 0;
   font-size: 14px;
   line-height: 20px;
-  color: #5e5e5e;
+  color: #ffffff;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
-  background-color: #d1dade;
+  background-color: #ffffff;
   -webkit-border-radius: 3px;
   background-image: none !important;
   border: none;
@@ -6404,7 +6404,7 @@ h4.custom-line-height {
 .btn.active,
 .btn.disabled,
 .btn[disabled] {
-  background-color: #b9c3c8;
+  background-color: #ffffff;
 }
 .btn-cons {
   margin-right: 5px;
@@ -6907,7 +6907,7 @@ code:hover {
 .nav .tools a {
   position: relative;
   background: url('../img/icon/portlet-tray.png') no-repeat;
-  transition: all 0.1s linear 0s;
+  /*transition: all 0.1s linear 0s;*/
 }
 .nav > .disabled > a:hover,
 .nav > .disabled > a:focus {

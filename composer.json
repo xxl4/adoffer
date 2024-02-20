@@ -10,6 +10,7 @@
         "geoip2/geoip2": "~2.0",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "3.2.3",
+        "jenssegers/agent": "^2.6",
         "laravel-admin-ext/chartjs": "^1.0",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",

@@ -1,20 +1,20 @@
-{{--<link href="/vendor/laravel-admin/test/select2.css" rel="stylesheet" type="text/css" media="screen">--}}
-{{--<link href="/vendor/laravel-admin/test/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen">--}}
-{{--<link href="/vendor/laravel-admin/test/bootstrap.min.css" rel="stylesheet" type="text/css">--}}
-{{--<link href="/vendor/laravel-admin/test/bootstrap-theme.min.css" rel="stylesheet" type="text/css">--}}
-{{--<link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/test/demo.css">--}}
-{{--<link href="/vendor/laravel-admin/test/font-awesome.css" rel="stylesheet" type="text/css">--}}
-{{--<link href="/vendor/laravel-admin/test/animate.min.css" rel="stylesheet" type="text/css">--}}
-{{--<link href="/vendor/laravel-admin/test/jquery.scrollbar.css" rel="stylesheet" type="text/css">--}}
-{{--<link href="/vendor/laravel-admin/test/datepicker.css" rel="stylesheet" type="text/css">--}}
+<link href="/vendor/laravel-admin/test/select2.css" rel="stylesheet" type="text/css" media="screen">
+<link href="/vendor/laravel-admin/test/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen">
+<link href="/vendor/laravel-admin/test/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/vendor/laravel-admin/test/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/test/demo.css">
+<link href="/vendor/laravel-admin/test/font-awesome.css" rel="stylesheet" type="text/css">
+<link href="/vendor/laravel-admin/test/animate.min.css" rel="stylesheet" type="text/css">
+<link href="/vendor/laravel-admin/test/jquery.scrollbar.css" rel="stylesheet" type="text/css">
+<link href="/vendor/laravel-admin/test/datepicker.css" rel="stylesheet" type="text/css">
 {{--<link rel="stylesheet" href="/vendor/laravel-admin/test/sweet-alert.css">--}}
-{{--<link rel="stylesheet" href="/vendor/laravel-admin/test/rickshaw.css" type="text/css" media="screen">--}}
-{{--<link rel="stylesheet" href="/vendor/laravel-admin/test/mapplic.css" type="text/css" media="screen">--}}
-{{--<link rel="stylesheet" href="/vendor/laravel-admin/test/ionicons.css" type="text/css">--}}
-{{--<link href="/vendor/laravel-admin/test/messenger.css" rel="stylesheet" type="text/css" media="screen">--}}
-{{--<link href="/vendor/laravel-admin/test/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen">--}}
-{{--<link rel="icon" type="image/png" href="https://m4trix.network/Reporting-platform/images/favicon.png">--}}
-{{--<link href="/vendor/laravel-admin/test/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" media="screen">--}}
+<link rel="stylesheet" href="/vendor/laravel-admin/test/rickshaw.css" type="text/css" media="screen">
+<link rel="stylesheet" href="/vendor/laravel-admin/test/mapplic.css" type="text/css" media="screen">
+<link rel="stylesheet" href="/vendor/laravel-admin/test/ionicons.css" type="text/css">
+<link href="/vendor/laravel-admin/test/messenger.css" rel="stylesheet" type="text/css" media="screen">
+<link href="/vendor/laravel-admin/test/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen">
+<link rel="icon" type="image/png" href="https://m4trix.network/Reporting-platform/images/favicon.png">
+<link href="/vendor/laravel-admin/test/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" media="screen">
 
 <link rel="stylesheet" href="/vendor/laravel-admin/analytic/bootstrap-select.min.css">
 <script src="/vendor/laravel-admin/analytic/bootstrap-select.min.js"></script>
@@ -65,9 +65,10 @@
                 <span class="va-sub">Network</span>
             </div>
         </div>
-{{--        <link href="/vendor/laravel-admin/test/network.css" rel="stylesheet" type="text/css">--}}
+        <link href="/vendor/laravel-admin/test/network.css" rel="stylesheet" type="text/css">
 
         <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}"/>
+        <div></div>
         <div class="form-group">
 
             <div class="col-sm-4" style="width: 20%!important;">
@@ -76,7 +77,7 @@
                         data-size="10">
                     @foreach ($data['category_list'] as $key=>$item)
                         <option value="{{$item['id']}}"
-                                data-content="<span class='label label-success'>{{$item['category_name']}}</span>">{{$item['category_name']}}</option>
+                                data-content="{{$item['category_name']}}">{{$item['category_name']}}</option>
                     @endforeach
                 </select>
             </div>
@@ -88,7 +89,7 @@
                         data-live-search="true" data-none-selected-text="Select Offers Geos" data-size="10">
                     @foreach ($data['geos_list'] as $key=>$item)
                         <option value="{{$item['id']}}"
-                                data-content="<span class='label label-success'>{{$item['country']}}</span>">{{$item['country']}}</option>
+                                data-content="{{$item['country']}}">{{$item['country']}}</option>
                     @endforeach
 
                 </select>
@@ -100,18 +101,18 @@
                         data-live-search="true" data-none-selected-text="Order By">
 
                     <option value="0"
-                            data-content="<span class='label label-success'>Release Date (Newest on Top)</span>">
+                            data-content="Release Date (Newest on Top)">
                         Release Date (Newest on Top)
                     </option>
                     <option value="1"
-                            data-content="<span class='label label-success'>Release Date (Oldest on Top)</span>">
+                            data-content="Release Date (Oldest on Top)">
                         Release Date (Oldest on Top)
                     </option>
-                    <option value="2" data-content="<span class='label label-success'>Payout (High to Low)</span>">
+                    <option value="2" data-content="Payout (High to Low)">
                         Payout
                         (High to Low)
                     </option>
-                    <option value="3" data-content="<span class='label label-success'>Payout (Low to High)</span>">
+                    <option value="3" data-content="Payout (Low to High)">
                         Payout
                         (Low to High)
                     </option>
@@ -129,9 +130,7 @@
                 <button id="searchBtn" class="btn btn-primary">搜索</button>
             </div>
         </div>
-
-
-
+    </div>
 
         <div class="col-sm-12">
             <div class="row">
@@ -255,9 +254,9 @@
                                                                         @endphp
                                                                         @foreach ($item['track_list'] as $key2=>$item2)
 
-{{--                                                                            @php--}}
-{{--                                                                                echo $index;--}}
-{{--                                                                            @endphp--}}
+                                                                            {{--                                                                            @php--}}
+                                                                            {{--                                                                                echo $index;--}}
+                                                                            {{--                                                                            @endphp--}}
 
                                                                             @if($index ==0)
                                                                                 <li class="active"><a href="?id=offer#advertorialpages12-1<?php echo $key2.$key?>" role="tab" data-toggle="tab"><?php echo $key2?></a></li>
@@ -269,7 +268,7 @@
 
 
                                                                             @php
-                                                                                  $index++;
+                                                                                $index++;
                                                                             @endphp
 
 
@@ -277,15 +276,15 @@
                                                                     </ul>
                                                                     <div class="tab-content">
                                                                         @php
-                                                                           $index1 = 0;
+                                                                            $index1 = 0;
                                                                         @endphp
 
                                                                         @foreach ($item['track_list'] as $key3=>$item3)
 
 
-{{--                                                                            @php--}}
-{{--                                                                                echo $index1;--}}
-{{--                                                                            @endphp--}}
+                                                                            {{--                                                                            @php--}}
+                                                                            {{--                                                                                echo $index1;--}}
+                                                                            {{--                                                                            @endphp--}}
 
                                                                             @if($index1==0)
                                                                                 <div class="tab-pane active" id="advertorialpages12-1<?php echo $key3.$key?>">
@@ -302,14 +301,14 @@
                                                                                             <div class="row">
                                                                                                 @foreach ($item3 as $key4=>$item4)
                                                                                                     <div class="col-md-12">
-{{--                                                                                                        <div class="padding-for_links">--}}
-{{--                                                                                                            <div>{{$item4['track_name']}}</div>--}}
-{{--                                                                                                            <input  style="width: calc(100% - 100px)"  readonly="" type="text" class="clipboard-1-0-0-1-2{{$key3.'-'.$key4}}" value="{{$item4['track_link']}}">--}}
-{{--                                                                                                            <a href=""  target="_blank" class=" dynamicDomainTrackingLink">--}}
-{{--                                                                                                                <i class="icon ion-eye pull-right"></i>--}}
-{{--                                                                                                            </a>--}}
-{{--                                                                                                            <a class="copp pull-right btn btn-success btn-cons copy-button1" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-2{{$key3.$key4}}">Copy</a>--}}
-{{--                                                                                                        </div>--}}
+                                                                                                        {{--                                                                                                        <div class="padding-for_links">--}}
+                                                                                                        {{--                                                                                                            <div>{{$item4['track_name']}}</div>--}}
+                                                                                                        {{--                                                                                                            <input  style="width: calc(100% - 100px)"  readonly="" type="text" class="clipboard-1-0-0-1-2{{$key3.'-'.$key4}}" value="{{$item4['track_link']}}">--}}
+                                                                                                        {{--                                                                                                            <a href=""  target="_blank" class=" dynamicDomainTrackingLink">--}}
+                                                                                                        {{--                                                                                                                <i class="icon ion-eye pull-right"></i>--}}
+                                                                                                        {{--                                                                                                            </a>--}}
+                                                                                                        {{--                                                                                                            <a class="copp pull-right btn btn-success btn-cons copy-button1" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-2{{$key3.$key4}}">Copy</a>--}}
+                                                                                                        {{--                                                                                                        </div>--}}
 
 
 
@@ -369,7 +368,7 @@
 
                                 <!--内容开始-->
 
-                                <div class="categories_offer_right">
+                                <div class="categories_offer_right ">
 
 
 
@@ -476,28 +475,23 @@
                                                         <div class="col-md-12">
 
                                                             <br>
-                                                                                                                    <p>Traffic sources sometimes block certain URLs and/or
-                                                                                                                        companies, we
-                                                                                                                        offer different tracking domains to choose from.</p>
+                                                            <p>Traffic sources sometimes block certain URLs and/or
+                                                                companies, we
+                                                                offer different tracking domains to choose from.</p>
 
                                                             <!-- dropdown domains -->
 
-                                                            <div class="btn-group m-b-30">
-                                                                <a class="btn btn-success dropdown-toggle m-b-5"
-                                                                   data-toggle="dropdown" href="?id=offer#">Select your
-                                                                    tracking
-                                                                    domain<span class="caret"></span></a>
-                                                                <ul class="dropdown-menu domains-menu"  id="myList<?php echo $key1;?>">
-                                                                    <li><a href="javascript:void(0);" class="offersDomain"
-                                                                           data-domain="">https://urgoodeal.com</a>
-                                                                    </li>
-
-                                                                    <li><a href="javascript:void(0);" class="offersDomain"
-                                                                           data-domain="">https://baidu.com</a>
-                                                                    </li>
-
-                                                                </ul>
-                                                            </div>
+                                                            {{--                                                            <div class="btn-group m-b-30">--}}
+                                                            {{--                                                                <a class="btn btn-success dropdown-toggle m-b-5"--}}
+                                                            {{--                                                                   data-toggle="dropdown" href="?id=offer#">Select your--}}
+                                                            {{--                                                                    tracking--}}
+                                                            {{--                                                                    domain<span class="caret"></span></a>--}}
+                                                            {{--                                                                <ul class="dropdown-menu domains-menu"  id="myList">--}}
+                                                            {{--                                                                    <li><a href="javascript:void(0);" class="offersDomain"--}}
+                                                            {{--                                                                           data-domain="">https://urgoodeal.com</a>--}}
+                                                            {{--                                                                    </li>--}}
+                                                            {{--                                                                </ul>--}}
+                                                            {{--                                                            </div>--}}
 
                                                             <!-- end dropdown domains -->
 
@@ -509,8 +503,8 @@
 
 
                                                                             @php
-                                                                            $index3=0;
-                                                                             @endphp
+                                                                                $index3=0;
+                                                                            @endphp
 
                                                                             @foreach ($item1['track_list'] as $key2=>$item2)
 
@@ -521,9 +515,9 @@
                                                                                 @endif
 
 
-                                                                                    @php
-                                                                                        $index3++;
-                                                                                    @endphp
+                                                                                @php
+                                                                                    $index3++;
+                                                                                @endphp
 
                                                                                 {{--                                                                            <li><a href="?id=offer#homepages-1<?php echo $key2?>" role="tab" data-toggle="tab">Home Pages<?php echo $key2?></a></li>--}}
                                                                             @endforeach
@@ -842,65 +836,14 @@
 
     $(document).ready(function() {
         // 初始化 Clipboard.js
-
-
-        var ulElements = document.querySelectorAll('.categories_offer_right ul');
-
-        // 循环遍历每个<ul>元素
-        ulElements.forEach(function (ul) {
-
-            // console.log('Inner Value:', innerValue);
-
-
-           var ul_id = ul.id;
-
-            // if (ul_id.indexOf("myList") !== -1) {
-            //     // 含有该字符
-            // }
-
-            // console.log('Inner Value:', ul_id);
-
-                if (ul_id.indexOf("myList") !== -1) {
-                    // 获取目标<li>元素的文本内容
-                    // var value = li.textContent || li.innerText;
-                    var liElements = ul.querySelectorAll('li');
-
-
-                    liElements.forEach(function (innerLi) {
-                            // 获取内层<li>元素的文本内容
-                            var innerValue = innerLi.textContent || innerLi.innerText;
-
-                            // 输出内层<li>元素的值
-                            console.log('Inner Value:', innerValue);
-                        });
-
-
-                    // 打印或使用该值
-                    // console.log('li数据',liElements);
-                }
-
-
-            // 获取<ul>元素下的所有<li>元素
-            // var liElements = ul.querySelectorAll('li');
-
-            // console.log('test123',liElements);
-
-
-            // 循环遍历每个<li>元素
-            // liElements.forEach(function (li) {
-            //     // 检查是否是目标元素（这里以id为"targetItem"的元素为例）
-            //     if (li.id === 'targetItem') {
-            //         // 获取目标<li>元素的文本内容
-            //         var value = li.textContent || li.innerText;
-            //
-            //         // 打印或使用该值
-            //         console.log(value);
-            //     }
-            // });
-        });
-
-
-
+        // $("#myList").on("click", "li", function() {
+        //
+        //
+        //
+        //   var  selectedText = $(this).text(); // 获取当前点击的列表项文本
+        //
+        //     $("#selectedValueInput").val(selectedText);
+        // });
 
 
 

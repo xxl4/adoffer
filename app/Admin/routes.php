@@ -39,4 +39,9 @@ Route::group([
     $router->post('analytics/query', 'AnalyticsController@query')->name('admin.query');
 
     $router->get('analytics/echat', "AnalyticsController@echat")->name('admin.analytics');
+
+
+    $router->get('tests/echart', "TestsController@echart")->name('admin.tests');
+    $router->get('tests/offerPie', "TestsController@offerPie")->name('admin.tests');
+    $router->get('tests/countryPie', "TestsController@countryPie")->name('admin.tests');
 });

@@ -6376,12 +6376,12 @@ h4.custom-line-height {
   margin-bottom: 0;
   font-size: 14px;
   line-height: 20px;
-  color: #5e5e5e;
+  color: black;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
-  background-color: #d1dade;
-  -webkit-border-radius: 3px;
+  background-color: #ffffff;
+  -webkit-border-radius: 1px;
   background-image: none !important;
   border: none;
   text-shadow: none;
@@ -6398,13 +6398,14 @@ h4.custom-line-height {
 .btn .caret.single {
   margin-left: 0px;
 }
+
 .btn:hover,
 .btn:focus,
 .btn:active,
 .btn.active,
 .btn.disabled,
 .btn[disabled] {
-  background-color: #b9c3c8;
+  background-color: #ffffff;
 }
 .btn-cons {
   margin-right: 5px;

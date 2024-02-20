@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Admin\Controllers;
-
 use AlibabaCloud\Tea\Response;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -40,7 +38,7 @@ class IntelligenceController extends AdminController
     public function index(Content $content)
     {
         return $content
-            ->header('Chartjs')
+//            ->header('Chartjs')
             ->body(new Box('Bar chart', view('admin.intelligence.echart')));
     }
 
@@ -156,7 +154,6 @@ class IntelligenceController extends AdminController
             'offer' => $offer_id,//饼状图offer list
             'total_quantity' => $total_quantity,//饼状图数量
             'month' => $month,//柱状图当前月份
-
             'country' => $country_top,//国家前十列表
             'country_total_quantity' => $country_total_quantity,//国家前十数据
 
@@ -168,7 +165,7 @@ class IntelligenceController extends AdminController
         $data = response()->json(['data' => $data]);
 
         return $content
-            ->header('Chartjs')
+//            ->header('Chartjs')
             ->body(new Box('Bar chart', view('intelligence.echat', ['data' => $data, 'category_lis' => $geos_list, 'offer_count' => $offer_count, 'country_count' => $country_count, 'offer_list' => $offer_list])));
 
 
