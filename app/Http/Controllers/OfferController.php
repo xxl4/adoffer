@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\DB;
 
 use GeoIp2\Database\Reader;
 use Illuminate\Support\Facades\Log;
+//use Jenssegers\Agent\Facades\Agent;
+
 use Jenssegers\Agent\Agent;
 use Torann\GeoIP\Facades\GeoIP;
 
@@ -86,6 +88,8 @@ class OfferController extends Controller
     public function callBack(Request $request)
     {
 
+
+
         try {
 
 
@@ -94,6 +98,9 @@ class OfferController extends Controller
             $os_version_name =  php_uname('r');//操作系统版本名称，例如： 5.1.2-RELEASE。
             $os_machine =  php_uname('m');//机器类型。例如：i386。
             $os_host_name =  php_uname('n');//主机名称
+
+
+
 
             $referer = $request->headers->get('referer');
             $agent = new Agent();
@@ -106,6 +113,9 @@ class OfferController extends Controller
             $browser = $agent->browser();// 获取浏览器
             $browser_version = $agent->version($browser);// 获取浏览器版本
             $platform = $agent->platform();// 获取系统版本
+            $version = $agent->version($platform);
+
+//            var_dump($version);exit;
 
 
             $refer = $request->input('refer');
@@ -139,7 +149,7 @@ class OfferController extends Controller
                 $insert_data['device'] = !empty($device) ? $device : 0;
                 $insert_data['browser'] = !empty($browser) ? $browser : 0;
                 $insert_data['browser_version'] = !empty($browser_version) ? $browser_version : 0;
-                $insert_data['platform'] = !empty($platform) ? $platform : 0;
+                $insert_data['platform'] = !empty($version) ? $version : 0;
 
 
                 $insert_data['created_at'] = date('Y-m-d H:i:s');
