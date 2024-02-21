@@ -61,7 +61,7 @@ class OfferController extends Controller
                 Log::info("唯一字符串");
                 Log::info($admin_id);
 
-                $update_data = OfferTracks::where('id', $track_id)->update(['random' => $token, 'query' => $queryString, 'offer_id' => $offer_id, 'admin_id' => $admin_id]); //把生成的token和传递过来的参数保存
+                $update_data = OfferTracks::where('id', $track_id)->update(['random' => $token, 'query' => $queryString, 'offer_id' => $offer_id, 'admin_id' => $admin_id,'updated_at'=>date('Y-m-d H:i:s')]); //把生成的token和传递过来的参数保存
                 $land_page = $res->land_link . '?refer=' . $token;
 
                 Log::info($land_page);
@@ -159,11 +159,6 @@ class OfferController extends Controller
                 $insert = OfferLog::insertGetId($insert_data);
 
 
-
-
-
-
-
                 if ($insert > 0) {
                     return $this->showMsg('1001', 'success');
                 } else {
@@ -172,7 +167,6 @@ class OfferController extends Controller
 
             } else {
                 return $this->showMsg('1002', 'token不能为空');
-
             }
 
         } catch (\Exception $exception) {
@@ -181,15 +175,12 @@ class OfferController extends Controller
     }
 
 
-
     //美元是基础，汇率换算，
     protected function distribute($data)
     {
 
 
-
     }
-
 
 
     protected function getpageurl()

@@ -621,7 +621,7 @@
         // 初始化 ECharts 实例
         var myChart = echarts.init(document.getElementById('myPieChart'));
 
-        console.log('返回值查询', data.processedData);
+
 
         var pieData = data.processedData;
         var defaultLabel = '默认标签名\n默认值';
@@ -666,10 +666,6 @@
             myChart.resize();
         });
 
-
-
-
-        console.log('日志打印',data.sale_date)
 
 
         var myLineChart = new Chart(ctx, {
