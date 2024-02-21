@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 use GeoIp2\Database\Reader;
 use Illuminate\Support\Facades\Log;
+
 //use Jenssegers\Agent\Facades\Agent;
 
 use Jenssegers\Agent\Agent;
@@ -84,7 +85,6 @@ class OfferController extends Controller
      * @param Request $request
      * @return void
      */
-
     public function callBack(Request $request)
     {
 
@@ -96,17 +96,15 @@ class OfferController extends Controller
             $languages = $agent->languages();
             $lang = $languages[0];//语言
 
-
-
             $agent->browser();
             $browser = $agent->browser();// 获取浏览器
             $browser_version = $agent->version($browser);// 获取浏览器版本
-            $platform = $agent->platform();// 获取系统版本
-            $version = $agent->version($platform);
+            $platform = $agent->platform();// 获取系统
+            $version = $agent->version($platform);// 获取系统版本
 
 
             // 是否是安卓设备
-           $isAndroidOS = $agent->isAndroidOS();
+            $isAndroidOS = $agent->isAndroidOS();
             //是否是Nexus 系列
             $isNexus = $agent->isNexus();
             // 是否是Safari浏览器
@@ -124,10 +122,9 @@ class OfferController extends Controller
             $revenue = $request->input('revenue');
 
 
-            $ip = request()->ip();
+            $ip = request()->getClientIp();
             $country_res = geoip($ip)->toArray();//根据ip获取国家
-
-            $country_id = Geos::where('country', $country_res['country'])->value('id');//获取国家ip
+            $country_id = Geos::where('country', $country_res['country'])->value('id');//获取国家id
             $res = Db::table('offer_tracks as o')->where('o.random', $refer)->get()->first();
 
 
@@ -138,13 +135,13 @@ class OfferController extends Controller
                 $insert_data['track_id'] = $res->id;
                 $insert_data['ip'] = $ip;
                 $insert_data['revenue'] = !empty($revenue) ? $revenue : 0;
-                $insert_data['isAndroidOS'] = $isAndroidOS==true ? $isAndroidOS : false;
-                $insert_data['isNexus'] = $isNexus===true ? $isNexus : false;
-                $insert_data['isSafari'] = $isSafari===true ? $isSafari : false;
-                $insert_data['isRobot'] = $isRobot===true ? $isRobot : false;
-                $insert_data['isDesktop'] = $isDesktop===true ? $isDesktop : false;
-                $insert_data['isTablet'] = $isTablet===true ? $isTablet : false;
-                $insert_data['isMobile'] = $isMobile===true ? $isMobile : false;
+                $insert_data['isAndroidOS'] = $isAndroidOS == true ? $isAndroidOS : false;
+                $insert_data['isNexus'] = $isNexus === true ? $isNexus : false;
+                $insert_data['isSafari'] = $isSafari === true ? $isSafari : false;
+                $insert_data['isRobot'] = $isRobot === true ? $isRobot : false;
+                $insert_data['isDesktop'] = $isDesktop === true ? $isDesktop : false;
+                $insert_data['isTablet'] = $isTablet === true ? $isTablet : false;
+                $insert_data['isMobile'] = $isMobile === true ? $isMobile : false;
                 $insert_data['referer'] = !empty($referer) ? $referer : 0;
                 $insert_data['lang'] = !empty($lang) ? $lang : 0;
                 $insert_data['device'] = !empty($device) ? $device : 0;
@@ -154,9 +151,6 @@ class OfferController extends Controller
                 $insert_data['platform_version'] = !empty($version) ? $version : 0;
                 $insert_data['created_at'] = date('Y-m-d H:i:s');
                 $insert_data['country_id'] = !empty($country_id) ? $country_id : 0;
-
-
-
 
                 $insert = OfferLog::insertGetId($insert_data);
 
@@ -193,6 +187,4 @@ class OfferController extends Controller
         return $pageURL;
 
     }
-
-
 }

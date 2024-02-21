@@ -666,6 +666,12 @@
             myChart.resize();
         });
 
+
+
+        console.log('日志打印',data.sale_date)
+
+
+
         var myLineChart = new Chart(ctx, {
             type: 'line',
             data: {
