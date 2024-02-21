@@ -30,7 +30,7 @@ class OfferController extends Controller
     public function jump(Request $request)
     {
         try {
-            
+
             Log::info($request);
             Log::info('数据接收');
 
@@ -90,6 +90,9 @@ class OfferController extends Controller
      */
     public function callBack(Request $request)
     {
+
+        Log::info($request);
+        Log::info("接收数据");
 
         try {
             $referrer = $request->header('referer');
