@@ -30,14 +30,15 @@ class OfferController extends Controller
     public function jump(Request $request)
     {
         try {
+            
+            Log::info($request);
+            Log::info('数据接收');
+
 
             $current_url = $this->getpageurl();
             $current_url = parse_url($current_url);
             $queryString = parse_url($_SERVER['APP_URL'] . $_SERVER['REQUEST_URI'], PHP_URL_QUERY);
 
-//            print_r("<pre/>");
-//            print_r($_SERVER['REQUEST_URI']);
-//            exit;
 
             parse_str($queryString, $paramsArray);
             $offer_id = isset($paramsArray['offer_id']) ? $paramsArray['offer_id'] : '';
@@ -51,8 +52,9 @@ class OfferController extends Controller
                 ->join('land_pages as l', 'o.land_id', '=', 'l.id')
                 ->where('o.id', $track_id)
                 ->select('o.track_link', 'l.land_link')
-                ->get()->first();           //查询到链接关联到的落地页
+                ->get()->first();
 
+            //查询到链接关联到的落地页
 
             if (!empty($res)) {
 //                $token = md5($offer_id . '/' . $admin_id . '/' . $track_id);
@@ -76,6 +78,7 @@ class OfferController extends Controller
                 }
             }
         } catch (\Exception $exception) {
+            Log::error('跳转错误'.$exception->getMessage());
             return ['status' => '1002', 'msg' => $exception->getMessage(), 'data' => null];
         }
     }
@@ -160,7 +163,6 @@ class OfferController extends Controller
 
                 $insert = OfferLog::insertGetId($insert_data);
 
-
                 if ($insert > 0) {
                     return $this->showMsg('1001', 'success');
                 } else {
@@ -173,8 +175,7 @@ class OfferController extends Controller
 
         } catch (\Exception $exception) {
 
-            Log::error($exception->getMessage());
-
+            Log::error('回传数据错误'.$exception->getMessage());
             return ['status' => '1002', 'msg' => $exception->getMessage(), 'data' => null];
         }
     }
