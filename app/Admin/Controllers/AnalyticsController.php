@@ -164,15 +164,16 @@ class AnalyticsController extends AdminController
 
 //                print_r("<pre/>");
 //                print_r($offer_detail);exit;
-
 //                $offer_sum = 0;
 
                 foreach ($offer_detail as $x=>$y){
                     $offer_detail[$x]['offer'] = Offer::where('id',$y['offer_id'])->value('offer_name');
 
-                    $offer_detail[$x]['offer_percent'] =round($y['country_total_sales']/$v['country_total_sales']*100,2).'%';
-
-
+                    if($v['country_total_sales']==0){
+                        $offer_detail[$x]['offer_percent'] ='0%';
+                    }else{
+                        $offer_detail[$x]['offer_percent'] =round($y['country_total_sales']/$v['country_total_sales']*100,2).'%';
+                    }
 
                 }
 

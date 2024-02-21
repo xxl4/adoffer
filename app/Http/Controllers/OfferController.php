@@ -126,6 +126,8 @@ class OfferController extends Controller
             $ip = request()->getClientIp();
             $country_res = geoip($ip)->toArray();//根据ip获取国家
             $country_id = Geos::where('country', $country_res['country'])->value('id');//获取国家id
+
+
             $res = Db::table('offer_tracks as o')->where('o.random', $refer)->get()->first();
 
 
@@ -170,6 +172,9 @@ class OfferController extends Controller
             }
 
         } catch (\Exception $exception) {
+
+            Log::error($exception->getMessage());
+
             return ['status' => '1002', 'msg' => $exception->getMessage(), 'data' => null];
         }
     }

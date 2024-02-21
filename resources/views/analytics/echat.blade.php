@@ -897,7 +897,6 @@
                 data: barData.map(item => item.value),
                 type: 'bar',
             }],
-
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
