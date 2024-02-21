@@ -543,7 +543,6 @@
                         }
                         ],
                     },
-
                     tooltips: {
                         callbacks: {
                             label: function (tooltipItem) {
@@ -647,7 +646,6 @@
 
 
 <script>
-
     function generateRandomColors(numColors) {
         var colors = [];
         for (var i = 0; i < numColors; i++) {

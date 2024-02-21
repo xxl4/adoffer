@@ -120,6 +120,7 @@ class OfferController extends Controller
 
             $refer = $request->input('refer');
             $revenue = $request->input('revenue');
+            $currency_code = $request->input('currency_code');
 
 
             $ip = request()->getClientIp();
@@ -135,6 +136,9 @@ class OfferController extends Controller
                 $insert_data['track_id'] = $res->id;
                 $insert_data['ip'] = $ip;
                 $insert_data['revenue'] = !empty($revenue) ? $revenue : 0;
+                $insert_data['currency_code'] = !empty($currency_code) ? $currency_code : 0;
+
+
                 $insert_data['isAndroidOS'] = $isAndroidOS == true ? $isAndroidOS : false;
                 $insert_data['isNexus'] = $isNexus === true ? $isNexus : false;
                 $insert_data['isSafari'] = $isSafari === true ? $isSafari : false;
@@ -154,6 +158,12 @@ class OfferController extends Controller
 
                 $insert = OfferLog::insertGetId($insert_data);
 
+
+
+
+
+
+
                 if ($insert > 0) {
                     return $this->showMsg('1001', 'success');
                 } else {
@@ -168,8 +178,18 @@ class OfferController extends Controller
         } catch (\Exception $exception) {
             return ['status' => '1002', 'msg' => $exception->getMessage(), 'data' => null];
         }
+    }
+
+
+
+    //美元是基础，汇率换算，
+    protected function distribute($data)
+    {
+
+
 
     }
+
 
 
     protected function getpageurl()
