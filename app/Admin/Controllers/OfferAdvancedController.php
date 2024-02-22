@@ -33,6 +33,7 @@ class OfferAdvancedController extends AdminController
         $grid->column('country.country', __('COUNTRY'))->filter();
         $grid->column('ip', __('IP'))->ip();
         $grid->column('token', __('Token'))->filter();
+        $grid->column('token_time', __('Token Time'));
         // $grid->column('net', __('NET'));
         // $grid->column('affid', __('AFFID'))->filter();
         // $grid->column('cid', __('CID'));

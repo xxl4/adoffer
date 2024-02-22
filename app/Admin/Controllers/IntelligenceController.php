@@ -50,7 +50,7 @@ class IntelligenceController extends AdminController
         $net_id = $currentUser->id; // 输出当前用户名称
         $where = [];
         if($net_id!==1 && $net_id!==2){
-            $where[]=['net_id','=',$net_id];
+            $where[]=['admin_id','=',$net_id];
         }
 
         $geos_list = Geos::get()->toArray();//国家列表
@@ -58,7 +58,7 @@ class IntelligenceController extends AdminController
         $endDate = date('Y-m-d H:i:s');
 
         //查询当前月的销售金额记录并按数量降序排列
-        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)
+        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)->where('status',2)
             ->select(DB::raw('SUM(revenue) as total_sales'), 'offer_id')
             ->groupBy('offer_id')
             ->orderByDesc('total_sales')
@@ -67,16 +67,25 @@ class IntelligenceController extends AdminController
             ->toArray();
 
 
-      $offer_log_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)->sum('revenue');
+        $offer_log_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)->where($where)->sum('revenue');
 
         foreach ($offer_sale as $key => $value) {
 
-            $offer_sale[$key]['sales_percent'] = round($value['total_sales'] / $offer_log_count, 2);
+            if($offer_log_count==0){
+                $offer_sale[$key]['sales_percent'] = 0 ;
+            }else{
+                $offer_sale[$key]['sales_percent'] = round($value['total_sales'] / $offer_log_count, 2);
+
+            }
+
+
+
+
             $offer_sale[$key]['offer_name'] = Offer::where('id', $value['offer_id'])->value('offer_name');
-          //  $offer_sale[$key]['sales_copy'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+            //  $offer_sale[$key]['sales_copy'] = Offer::where('id', $value['offer_id'])->value('offer_name');
 
             unset($offer_sale[$key]['total_sales']);
-             unset($offer_sale[$key]['offer_id']);
+            unset($offer_sale[$key]['offer_id']);
 
         }
 
@@ -94,7 +103,7 @@ class IntelligenceController extends AdminController
 //        print_r($sale_data);exit;
 
         //排名前三的offer
-        $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)
+        $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)->where('status',2)
             ->select(DB::raw('count(id) as total_quantity'), 'offer_id')
             ->groupBy('offer_id')
             ->orderByDesc('total_quantity')
@@ -103,11 +112,20 @@ class IntelligenceController extends AdminController
             ->toArray();
 
 
-        $total_count = OfferLog::count();
+        $total_count = OfferLog::where('status',2)->count();
 
         foreach ($offer_count as $key => $value) {
             $offer_count[$key]['offer_top'] = Offer::where('id', $value['offer_id'])->value('offer_name');
-            $offer_count[$key]['offer_percent'] = round($value['total_quantity'] / $total_count * 100) . "%";
+
+            if($total_count==0){
+                $offer_count[$key]['offer_percent'] = "0%";
+            }else{
+                $offer_count[$key]['offer_percent'] = round($value['total_quantity'] / $total_count * 100) . "%";
+
+            }
+
+
+
         }
 
 
@@ -119,7 +137,7 @@ class IntelligenceController extends AdminController
 
 
         //排名前十的国家
-        $country_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)
+        $country_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)->where('status',2)
             ->select(DB::raw('count(id) as country_total_quantity'), 'country_id')
             ->groupBy('country_id')
             ->orderByDesc('country_total_quantity')
@@ -128,11 +146,19 @@ class IntelligenceController extends AdminController
             ->toArray();
 
 
-        $total_count = OfferLog::count();
+        $total_count = OfferLog::where('status',2)->count();
 
         foreach ($country_count as $key => $value) {
             $country_count[$key]['country_top'] = Geos::where('id', $value['country_id'])->value('country');
-            $country_count[$key]['country_percent'] = round($value['country_total_quantity'] / $total_count * 100) . "%";
+
+            if($total_count==0){
+                $country_count[$key]['country_percent'] = "0%";
+            }else{
+                $country_count[$key]['country_percent'] = round($value['country_total_quantity'] / $total_count * 100) . "%";
+
+            }
+
+
         }
 
 
@@ -208,12 +234,12 @@ class IntelligenceController extends AdminController
             $where[] = ['country_id', 'in', $country];
         }
         if($net_id!==1 && $net_id!==2){
-            $where[]=['net_id','=',$net_id];
+            $where[]=['admin_id','=',$net_id];
         }
         DB::connection()->enableQueryLog();
 
         //查询当前月的销售记录并按数量降序排列
-        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
             ->where($where)
             ->select(DB::raw('SUM(revenue) as total_sales'), 'offer_id')
             ->groupBy('offer_id')
@@ -235,7 +261,7 @@ class IntelligenceController extends AdminController
         $month = date('M');
 
 
-        $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+        $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
             ->where($where)
             ->select(DB::raw('count(id) as total_quantity'), 'offer_id')
             ->groupBy('offer_id')
@@ -245,11 +271,19 @@ class IntelligenceController extends AdminController
             ->toArray();
 
 
-        $total_count = OfferLog::count();
+        $total_count = OfferLog::where('status',2)->count();
 
         foreach ($offer_count as $key => $value) {
             $offer_count[$key]['offer_top'] = Offer::where('id', $value['offer_id'])->value('offer_name');
-            $offer_count[$key]['offer_percent'] = round($value['total_quantity'] / $total_count * 100) . "%";
+            if($total_count==0){
+                $offer_count[$key]['offer_percent'] = "0%";
+            }else{
+                $offer_count[$key]['offer_percent'] = round($value['total_quantity'] / $total_count * 100) . "%";
+
+            }
+
+
+
         }
 
         $offer_top = array_column($offer_count, 'offer_top');
@@ -311,12 +345,12 @@ class IntelligenceController extends AdminController
             $where[] = ['country_id', 'in', $country];
         }
         if($net_id!==1 && $net_id!==2){
-            $where[]=['net_id','=',$net_id];
+            $where[]=['admin_id','=',$net_id];
         }
         DB::connection()->enableQueryLog();
 
         //查询当前月的销售记录并按数量降序排列
-        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
             ->where($where)
             ->select(DB::raw('SUM(revenue) as total_sales'), 'offer_id')
             ->groupBy('offer_id')
@@ -340,7 +374,7 @@ class IntelligenceController extends AdminController
 //        print_r($startDate);exit;
 
 
-        $country_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+        $country_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
             ->where($where)
             ->select(DB::raw('count(id) as country_total_quantity'), 'country_id')
             ->groupBy('country_id')
@@ -350,11 +384,20 @@ class IntelligenceController extends AdminController
             ->toArray();
 
 
-        $total_count = OfferLog::count();
+        $total_count = OfferLog::where('status',2)->count();
 
         foreach ($country_count as $key => $value) {
             $country_count[$key]['country_top'] = Geos::where('id', $value['country_id'])->value('country');
-            $country_count[$key]['country_percent'] = round($value['country_total_quantity'] / $total_count * 100) . "%";
+
+            if($total_count==0){
+                $country_count[$key]['country_percent'] = '0%';
+            }else{
+                $country_count[$key]['country_percent'] = round($value['country_total_quantity'] / $total_count * 100) . "%";
+
+            }
+
+
+
         }
 
         $country_top = array_column($country_count, 'country_top');
@@ -424,7 +467,7 @@ class IntelligenceController extends AdminController
         $endDate = Carbon::now()->endOfMonth();
 
 // 查询当前月的销售记录并按数量降序排列
-        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
             ->select(DB::raw('SUM(revenue) as total_sales'), 'offer_id')
             ->groupBy('offer_id')
             ->orderByDesc('total_sales')

@@ -195,6 +195,7 @@ class OfferController extends Controller
             $insert_data['country_id'] = !empty($country_id) ? $country_id : 0;
             $insert_data['token'] = $refer;
             $insert_data['status'] = !empty($res) ? 2 : 1;
+            $insert_data['token_time'] = !empty($res) ? $res->created_at : null;
 
             $insert = OfferLog::insertGetId($insert_data);
 

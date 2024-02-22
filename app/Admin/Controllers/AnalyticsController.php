@@ -52,7 +52,7 @@ class AnalyticsController extends AdminController
         $net_id = $currentUser->id; // 输出当前用户名称
         $where = [];
         if ($net_id !== 1 && $net_id !== 2) {
-            $where[] = ['net_id', '=', $net_id];
+            $where[] = ['admin_id', '=', $net_id];
         }
 
 
@@ -64,7 +64,7 @@ class AnalyticsController extends AdminController
         $endDate = date('Y-m-d H:i:s');
 
         //查询当前月的销售金额记录并按数量降序排列
-        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
             ->select(DB::raw('SUM(revenue) as total_sales'), DB::raw('count(id) as total_count'),DB::raw('DATE(created_at) as sale_date'))
             ->groupBy('sale_date')
             ->get()
@@ -77,7 +77,7 @@ class AnalyticsController extends AdminController
 
 
         //排名前三的offer
-        $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+        $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
             ->select(DB::raw('count(id) as total_quantity'), DB::raw('sum(revenue) as total_revenue'), 'offer_id')
             ->groupBy('offer_id')
             ->orderByDesc('total_quantity')
@@ -85,7 +85,7 @@ class AnalyticsController extends AdminController
             ->get()
             ->toArray();
 
-        $count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->count();
+        $count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)->count();
 
 
         $percent = 0;
@@ -120,7 +120,7 @@ class AnalyticsController extends AdminController
 
 
 
-        $topProducts = OfferLog::whereBetween('created_at', [$startDate, $endDate])->select('offer_id', DB::raw('SUM(revenue) as total_sales'))
+        $topProducts = OfferLog::whereBetween('created_at', [$startDate, $endDate])->select('offer_id', DB::raw('SUM(revenue) as total_sales'))->where('status',2)
             ->groupBy('offer_id')
             ->orderByDesc('total_sales')
             ->take(3)
@@ -137,7 +137,7 @@ class AnalyticsController extends AdminController
                 $offer_ids .= $value['offer_id'] . ',';
             }
 
-            $topByCountry = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+            $topByCountry = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
                 ->whereIn('offer_id', explode(',', trim($offer_ids, ',')))
                 ->select('country_id', DB::raw('SUM(revenue) as country_total_sales'), DB::raw('COUNT(id) as country_total_count'))
                 ->groupBy('country_id')
@@ -154,7 +154,7 @@ class AnalyticsController extends AdminController
             foreach ($topByCountry as $k => $v) {
 
                 //前十个国家中，前三个商品在所在国家中所占的比例
-                $offer_detail = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+                $offer_detail = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
                     ->whereIn('offer_id', explode(',', trim($offer_ids, ',')))
                     ->where('country_id',$v['country_id'])
                     ->select('offer_id', DB::raw('SUM(revenue) as country_total_sales'), DB::raw('COUNT(id) as country_total_count'))
@@ -240,7 +240,7 @@ class AnalyticsController extends AdminController
 
             'processedData'=>$processedData,
             'processedRevenue'=>$processedRevenue,
-             'processedPercent'=> $processedPercent,
+            'processedPercent'=> $processedPercent,
 
 
             'offer_name' => $offer_name,
@@ -298,14 +298,15 @@ class AnalyticsController extends AdminController
             $where[] = ['offer_id', 'in', $offer];
         }
         if ($net_id !== 1 && $net_id !== 2) {
-            $where[] = ['net_id', '=', $net_id];
+            $where[] = ['admin_id', '=', $net_id];
         }
 //        print_r($start_date);exit;
 
 
         //查询当前月的销售金额记录并按数量降序排列
-        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
             ->where($where)
+            ->where('status',2)
             ->select(DB::raw('SUM(revenue) as total_sales'), DB::raw('count(id) as total_count'), DB::raw('DATE(created_at) as sale_date'))
             ->groupBy('sale_date')
             ->get()
@@ -318,6 +319,7 @@ class AnalyticsController extends AdminController
         //排名前三的offer
         $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])
             ->where($where)
+            ->where('status',2)
             ->select(DB::raw('count(id) as total_quantity'), DB::raw('sum(revenue) as total_revenue'), 'offer_id')
             ->groupBy('offer_id')
             ->orderByDesc('total_quantity')
@@ -325,7 +327,7 @@ class AnalyticsController extends AdminController
             ->get()
             ->toArray();
 
-        $count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->count();
+        $count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)->count();
 
 
         $percent = 0;
@@ -356,7 +358,7 @@ class AnalyticsController extends AdminController
         $html_data = $this->html($offer_count);
 
 
-        $topProducts = OfferLog::whereBetween('created_at', [$startDate, $endDate])->select('offer_id', DB::raw('SUM(revenue) as total_sales'))
+        $topProducts = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)->select('offer_id', DB::raw('SUM(revenue) as total_sales'))
             ->groupBy('offer_id')
             ->orderByDesc('total_sales')
             ->take(3)
@@ -372,7 +374,7 @@ class AnalyticsController extends AdminController
             }
 
 
-            $topByCountry = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+            $topByCountry = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
                 ->whereIn('offer_id', explode(',', trim($offer_ids, ',')))
                 ->select('country_id', DB::raw('SUM(revenue) as country_total_sales'), DB::raw('Count(id) as country_total_count'))
                 ->groupBy('country_id')
@@ -392,7 +394,7 @@ class AnalyticsController extends AdminController
             foreach ($topByCountry as $k => $v) {
 
                 //前十个国家中，前三个商品在所在国家中所占的比例
-                $offer_detail = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+                $offer_detail = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
                     ->whereIn('offer_id', explode(',', trim($offer_ids, ',')))
                     ->where('country_id',$v['country_id'])
                     ->select('offer_id', DB::raw('SUM(revenue) as country_total_sales'), DB::raw('COUNT(id) as country_total_count'))

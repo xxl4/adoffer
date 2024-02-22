@@ -182,7 +182,7 @@ class OfferController extends AdminController
 
                 foreach ($track_list as $x => $y) {
                     $param = 'api/offers/jump?admin_id=' . $admin_id . '&cateid='.$v['id'].'&offer_id='.$value['id'].'&track_id='.$y['id'];
-                  /*  $track_list[$x]['track_link'] = $y['track_link'] . $param;*/
+                    /*  $track_list[$x]['track_link'] = $y['track_link'] . $param;*/
 
                     $track_list[$x]['track_link'] = $delivery_link . $param;
 
@@ -683,6 +683,9 @@ class OfferController extends AdminController
         $form->image('image', __('Offer Image'));
         $form->currency('offer_price', __('Payout'))->required();
         $form->switch('offer_status', __('Offer status'))->default(1);
+
+
+//        $form->multipleSelect('admin', __('Track Cate'))->options(OfferTracksCates::all()->pluck('track_cate', 'id'))->required();
 
 //        $form->saving(function (Form $form) {
 //
