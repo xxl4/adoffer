@@ -208,10 +208,12 @@ class OfferController extends Controller
 
             if(!empty($res->clickid)){
                 $info = file_get_contents("https://track.heomai2021.com/click.php?cnv_id=".$res->clickid."&payout=".$revenue);
+                $info1 = file_get_contents("https://binom.heomai.com/click.php?cnv_id=".$res->clickid."&payout=".$revenue);
                 Log::info($info);
                 Log::info('推送BM');
+                Log::info($info1);
             }
-            
+
             if ($insert > 0) {
                 return $this->showMsg('1001', 'success');
             } else {
