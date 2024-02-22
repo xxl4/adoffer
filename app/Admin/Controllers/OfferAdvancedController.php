@@ -36,7 +36,7 @@ class OfferAdvancedController extends AdminController
         $grid->column('affid', __('AFFID'))->filter();
         $grid->column('cid', __('CID'));
         $grid->column('sid', __('SID'));
-        $grid->column('offer.offer_price', __('REVENUE'))->currency();
+        $grid->column('revenue', __('REVENUE'))->currency();
         $grid->paginate(20);
         $grid->disableCreation();
 //        $grid->disableExport();
