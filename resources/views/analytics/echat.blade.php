@@ -720,7 +720,6 @@
                     }
                 });
             }
-
             updateChartData();
         });
 

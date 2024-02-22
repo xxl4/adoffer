@@ -8,6 +8,7 @@ use App\Models\Item;
 use App\Models\Models\Offer;
 use App\Models\OfferLog;
 use App\Models\OfferTracks;
+use App\Models\TrackList;
 use GeoIp2\Model\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -29,12 +30,13 @@ class OfferController extends Controller
      */
     public function jump(Request $request)
     {
+        Log::info($request);
+        Log::info('数据接收');
+        $token = uniqid();
+        Log::info($token);
+        Log::info("生成唯一字符串");
+
         try {
-
-            Log::info($request);
-            Log::info('数据接收');
-
-
             $current_url = $this->getpageurl();
             $current_url = parse_url($current_url);
             $queryString = parse_url($_SERVER['APP_URL'] . $_SERVER['REQUEST_URI'], PHP_URL_QUERY);
@@ -48,6 +50,11 @@ class OfferController extends Controller
             $REQUEST_URI = !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
 
 
+
+
+            Log::info($track_id);
+            Log::info("记录track_id");
+
             $res = DB::table('offer_tracks as o')
                 ->join('land_pages as l', 'o.land_id', '=', 'l.id')
                 ->where('o.id', $track_id)
@@ -58,19 +65,32 @@ class OfferController extends Controller
 
             if (!empty($res)) {
 //                $token = md5($offer_id . '/' . $admin_id . '/' . $track_id);
-                $token = uniqid();
-                Log::info($token);
-                Log::info("唯一字符串");
+
+
                 Log::info($admin_id);
 
-                $update_data = OfferTracks::where('id', $track_id)->update(['random' => $token, 'query' => $queryString, 'offer_id' => $offer_id, 'admin_id' => $admin_id,'updated_at'=>date('Y-m-d H:i:s')]); //把生成的token和传递过来的参数保存
+//                $update_data = OfferTracks::where('id', $track_id)->update(['random' => $token, 'query' => $queryString, 'offer_id' => $offer_id, 'admin_id' => $admin_id, 'updated_at' => date('Y-m-d H:i:s')]); //把生成的token和传递过来的参数保存
+
+
+                $insert = [];
+                $insert['track_id'] = $track_id;
+                $insert['random'] = $token;
+                $insert['query'] = $queryString;
+                $insert['offer_id'] = $offer_id;
+                $insert['admin_id'] = $admin_id;
+                $insert['created_at'] = date('Y-m-d H:i:s');
+                $insert['updated_at'] = date('Y-m-d H:i:s');
+
+                $insertId = TrackList::insertGetId($insert);
+
+//                insertGetId
                 $land_page = $res->land_link . '?refer=' . $token;
 
                 Log::info($land_page);
                 Log::info("落地页1");
-                Log::info($update_data > 0);
+                Log::info($insertId > 0);
 
-                if ($update_data > 0) {
+                if ($insertId > 0) {
                     header("Location: $land_page"); //跳转到落地页
                     exit;
                 } else {
@@ -78,7 +98,7 @@ class OfferController extends Controller
                 }
             }
         } catch (\Exception $exception) {
-            Log::error('跳转错误'.$exception->getMessage());
+            Log::error('跳转错误' . $exception->getMessage());
             return ['status' => '1002', 'msg' => $exception->getMessage(), 'data' => null];
         }
     }
@@ -92,7 +112,9 @@ class OfferController extends Controller
     {
 
         Log::info($request);
-        Log::info("接收数据");
+        Log::info("回传接收数据");
+        $ip = request()->getClientIp();
+        Log::info($ip);
 
         try {
             $referrer = $request->header('referer');
@@ -100,7 +122,8 @@ class OfferController extends Controller
             $agent = new Agent();
             $device = $agent->device();// 系统信息,浏览器引擎  (Ubuntu, Windows, OS X, ...)
             $languages = $agent->languages();
-            $lang = $languages[0];//语言
+            Log::info($languages);
+            $lang = !empty($languages) ? $languages[0] : 'en';
 
             $agent->browser();
             $browser = $agent->browser();// 获取浏览器
@@ -125,60 +148,69 @@ class OfferController extends Controller
             $isMobile = $agent->isMobile();
 
             $refer = $request->input('refer');
+
+            Log::info($refer);
+            Log::info("回收token");
+
             $revenue = $request->input('revenue');
             $currency_code = $request->input('currency_code');
 
 
             $ip = request()->getClientIp();
+            Log::info($ip);
             $country_res = geoip($ip)->toArray();//根据ip获取国家
             $country_id = Geos::where('country', $country_res['country'])->value('id');//获取国家id
 
 
-            $res = Db::table('offer_tracks as o')->where('o.random', $refer)->get()->first();
+            $res = Db::table('track_lists as o')->where('o.random', $refer)->get()->first();
 
 
-            if (!empty($res)) {
+            // if (!empty($res)) {
 
-                $insert_data = [];
-                $insert_data['offer_id'] = $res->offer_id;
-                $insert_data['track_id'] = $res->id;
-                $insert_data['ip'] = $ip;
-                $insert_data['revenue'] = !empty($revenue) ? $revenue : 0;
-                $insert_data['currency_code'] = !empty($currency_code) ? $currency_code : 0;
+            $insert_data = [];
+            $insert_data['offer_id'] = !empty($res->offer_id) ? $res->offer_id : 0;
+            $insert_data['track_id'] =!empty($res->track_id) ? $res->track_id : 0;
+            $insert_data['admin_id'] =!empty($res->admin_id) ? $res->admin_id : 0;
+
+            $insert_data['ip'] = $ip;
+            $insert_data['revenue'] = !empty($revenue) ? $revenue : 0;
+            $insert_data['currency_code'] = !empty($currency_code) ? $currency_code : 0;
 
 
-                $insert_data['isAndroidOS'] = $isAndroidOS == true ? $isAndroidOS : false;
-                $insert_data['isNexus'] = $isNexus === true ? $isNexus : false;
-                $insert_data['isSafari'] = $isSafari === true ? $isSafari : false;
-                $insert_data['isRobot'] = $isRobot === true ? $isRobot : false;
-                $insert_data['isDesktop'] = $isDesktop === true ? $isDesktop : false;
-                $insert_data['isTablet'] = $isTablet === true ? $isTablet : false;
-                $insert_data['isMobile'] = $isMobile === true ? $isMobile : false;
-                $insert_data['referer'] = !empty($referer) ? $referer : 0;
-                $insert_data['lang'] = !empty($lang) ? $lang : 0;
-                $insert_data['device'] = !empty($device) ? $device : 0;
-                $insert_data['browser'] = !empty($browser) ? $browser : 0;
-                $insert_data['browser_version'] = !empty($browser_version) ? $browser_version : 0;
-                $insert_data['platform'] = !empty($platform) ? $platform : 0;
-                $insert_data['platform_version'] = !empty($version) ? $version : 0;
-                $insert_data['created_at'] = date('Y-m-d H:i:s');
-                $insert_data['country_id'] = !empty($country_id) ? $country_id : 0;
+            $insert_data['isAndroidOS'] = $isAndroidOS == true ? $isAndroidOS : false;
+            $insert_data['isNexus'] = $isNexus === true ? $isNexus : false;
+            $insert_data['isSafari'] = $isSafari === true ? $isSafari : false;
+            $insert_data['isRobot'] = $isRobot === true ? $isRobot : false;
+            $insert_data['isDesktop'] = $isDesktop === true ? $isDesktop : false;
+            $insert_data['isTablet'] = $isTablet === true ? $isTablet : false;
+            $insert_data['isMobile'] = $isMobile === true ? $isMobile : false;
+            $insert_data['referer'] = !empty($referer) ? $referer : 0;
+            $insert_data['lang'] = !empty($lang) ? $lang : 0;
+            $insert_data['device'] = !empty($device) ? $device : 0;
+            $insert_data['browser'] = !empty($browser) ? $browser : 0;
+            $insert_data['browser_version'] = !empty($browser_version) ? $browser_version : 0;
+            $insert_data['platform'] = !empty($platform) ? $platform : 0;
+            $insert_data['platform_version'] = !empty($version) ? $version : 0;
+            $insert_data['created_at'] = date('Y-m-d H:i:s');
+            $insert_data['country_id'] = !empty($country_id) ? $country_id : 0;
+            $insert_data['token'] = $refer;
+            $insert_data['status'] = !empty($res) ? 2 : 1;
 
-                $insert = OfferLog::insertGetId($insert_data);
+            $insert = OfferLog::insertGetId($insert_data);
 
-                if ($insert > 0) {
-                    return $this->showMsg('1001', 'success');
-                } else {
-                    return $this->showMsg('1002', '插入失败');
-                }
-
+            if ($insert > 0) {
+                return $this->showMsg('1001', 'success');
             } else {
-                return $this->showMsg('1002', 'token不能为空');
+                return $this->showMsg('1002', '插入失败');
             }
+
+            // } else {
+            //     return $this->showMsg('1002', 'token不能为空');
+            // }
 
         } catch (\Exception $exception) {
 
-            Log::error('回传数据错误'.$exception->getMessage());
+            Log::error('回传数据错误' . $exception->getMessage());
             return ['status' => '1002', 'msg' => $exception->getMessage(), 'data' => null];
         }
     }

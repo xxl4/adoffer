@@ -44,4 +44,9 @@ Route::group([
     $router->get('tests/echart', "TestsController@echart")->name('admin.tests');
     $router->get('tests/offerPie', "TestsController@offerPie")->name('admin.tests');
     $router->get('tests/countryPie', "TestsController@countryPie")->name('admin.tests');
+
+    $router->post('tests/query', 'TestsController@query')->name('admin.query');
+
+    $router->resource('track_lists', 'TrackListsController')->names('admin.TrackLists');
+
 });
