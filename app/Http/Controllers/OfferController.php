@@ -31,6 +31,7 @@ class OfferController extends Controller
      */
     public function jump(Request $request)
     {
+        
         Log::info($request);
         Log::info('数据接收');
         $token = uniqid();
@@ -207,8 +208,8 @@ class OfferController extends Controller
             $insert = OfferLog::insertGetId($insert_data);
 
             if(!empty($res->clickid)){
-                $info = file_get_contents("https://track.heomai2021.com/click.php?cnv_id=".$res->clickid."&payout=".$revenue);
-                $info1 = file_get_contents("https://binom.heomai.com/click.php?cnv_id=".$res->clickid."&payout=".$revenue);
+                $info = $this->post("https://track.heomai2021.com/click.php?cnv_id=".$res->clickid."&payout=".$revenue);
+                $info1 = $this->post("https://binom.heomai.com/click.php?cnv_id=".$res->clickid."&payout=".$revenue);
                 Log::info($info);
                 Log::info('推送BM');
                 Log::info($info1);
@@ -234,9 +235,22 @@ class OfferController extends Controller
     }
 
 
+
+
+
     //美元是基础，汇率换算，
-    protected function distribute($data)
-    {
+
+
+
+    protected function post($url)
+    {// 初始化 curl
+        $ch = curl_init();//初始化curl
+        curl_setopt($ch, CURLOPT_URL, $url);//设置url属性
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        $output = curl_exec($ch);//获取数据
+        curl_close($ch);//关闭curl
+        return $output;
 
 
     }

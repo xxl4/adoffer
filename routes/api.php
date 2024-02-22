@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('offers/jump', [OfferController::class, 'jump']);
 Route::get('offers/callBack', [OfferController::class, 'callBack']);
+Route::get('offers/distribute', [OfferController::class, 'distribute']);
 
 
 
