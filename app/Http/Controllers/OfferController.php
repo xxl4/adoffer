@@ -123,7 +123,7 @@ class OfferController extends Controller
             $device = $agent->device();// 系统信息,浏览器引擎  (Ubuntu, Windows, OS X, ...)
             $languages = $agent->languages();
             Log::info($languages);
-            $lang = !empty($languages) ? $languages[0] : 'en';
+            $lang = !empty($languages) ? $languages[0] : null;
 
             $agent->browser();
             $browser = $agent->browser();// 获取浏览器
