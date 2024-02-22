@@ -31,7 +31,7 @@ class OfferController extends Controller
      */
     public function jump(Request $request)
     {
-        
+
         Log::info($request);
         Log::info('数据接收');
         $token = uniqid();
@@ -204,6 +204,10 @@ class OfferController extends Controller
             $insert_data['token'] = $refer;
             $insert_data['status'] = !empty($res) ? 2 : 1;
             $insert_data['token_time'] = !empty($res) ? $res->created_at : null;
+
+
+            $insert_data['clickid'] = !empty($res) ? $res->clickid : null;
+            $insert_data['clickid_time'] = !empty($res) ? $res->created_at : null;
 
             $insert = OfferLog::insertGetId($insert_data);
 
