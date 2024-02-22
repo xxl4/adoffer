@@ -68,7 +68,6 @@
         <link href="/vendor/laravel-admin/test/network.css" rel="stylesheet" type="text/css">
 
         <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}"/>
-        <div></div>
         <div class="form-group">
 
             <div class="col-sm-4" style="width: 20%!important;">
@@ -130,7 +129,7 @@
                 <button id="searchBtn" class="btn btn-primary">搜索</button>
             </div>
         </div>
-    </div>
+
 
         <div class="col-sm-12">
             <div class="row">
@@ -368,7 +367,7 @@
 
                                 <!--内容开始-->
 
-                                <div class="categories_offer_right ">
+                                <div class="categories_offer_right">
 
 
 
@@ -481,17 +480,22 @@
 
                                                             <!-- dropdown domains -->
 
-                                                            {{--                                                            <div class="btn-group m-b-30">--}}
-                                                            {{--                                                                <a class="btn btn-success dropdown-toggle m-b-5"--}}
-                                                            {{--                                                                   data-toggle="dropdown" href="?id=offer#">Select your--}}
-                                                            {{--                                                                    tracking--}}
-                                                            {{--                                                                    domain<span class="caret"></span></a>--}}
-                                                            {{--                                                                <ul class="dropdown-menu domains-menu"  id="myList">--}}
-                                                            {{--                                                                    <li><a href="javascript:void(0);" class="offersDomain"--}}
-                                                            {{--                                                                           data-domain="">https://urgoodeal.com</a>--}}
-                                                            {{--                                                                    </li>--}}
-                                                            {{--                                                                </ul>--}}
-                                                            {{--                                                            </div>--}}
+                                                            <div class="btn-group m-b-30">
+                                                                <a class="btn btn-success dropdown-toggle m-b-5"
+                                                                   data-toggle="dropdown" href="?id=offer#">Select your
+                                                                    tracking
+                                                                    domain<span class="caret"></span></a>
+                                                                <ul class="dropdown-menu domains-menu"  id="myList<?php echo $key1;?>">
+                                                                    <li><a href="javascript:void(0);" class="offersDomain"
+                                                                           data-domain="">https://urgoodeal.com</a>
+                                                                    </li>
+
+                                                                    <li><a href="javascript:void(0);" class="offersDomain"
+                                                                           data-domain="">https://baidu.com</a>
+                                                                    </li>
+
+                                                                </ul>
+                                                            </div>
 
                                                             <!-- end dropdown domains -->
 
@@ -836,14 +840,65 @@
 
     $(document).ready(function() {
         // 初始化 Clipboard.js
-        // $("#myList").on("click", "li", function() {
-        //
-        //
-        //
-        //   var  selectedText = $(this).text(); // 获取当前点击的列表项文本
-        //
-        //     $("#selectedValueInput").val(selectedText);
-        // });
+
+
+        var ulElements = document.querySelectorAll('.categories_offer_right ul');
+
+        // 循环遍历每个<ul>元素
+        ulElements.forEach(function (ul) {
+
+            // console.log('Inner Value:', innerValue);
+
+
+            var ul_id = ul.id;
+
+            // if (ul_id.indexOf("myList") !== -1) {
+            //     // 含有该字符
+            // }
+
+            // console.log('Inner Value:', ul_id);
+
+            if (ul_id.indexOf("myList") !== -1) {
+                // 获取目标<li>元素的文本内容
+                // var value = li.textContent || li.innerText;
+                var liElements = ul.querySelectorAll('li');
+
+
+                liElements.forEach(function (innerLi) {
+                    // 获取内层<li>元素的文本内容
+                    var innerValue = innerLi.textContent || innerLi.innerText;
+
+                    // 输出内层<li>元素的值
+                    console.log('Inner Value:', innerValue);
+                });
+
+
+                // 打印或使用该值
+                // console.log('li数据',liElements);
+            }
+
+
+            // 获取<ul>元素下的所有<li>元素
+            // var liElements = ul.querySelectorAll('li');
+
+            // console.log('test123',liElements);
+
+
+            // 循环遍历每个<li>元素
+            // liElements.forEach(function (li) {
+            //     // 检查是否是目标元素（这里以id为"targetItem"的元素为例）
+            //     if (li.id === 'targetItem') {
+            //         // 获取目标<li>元素的文本内容
+            //         var value = li.textContent || li.innerText;
+            //
+            //         // 打印或使用该值
+            //         console.log(value);
+            //     }
+            // });
+        });
+
+
+
 
 
 
