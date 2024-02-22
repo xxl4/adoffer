@@ -333,10 +333,26 @@ class AnalyticsController extends AdminController
         $percent = 0;
         foreach ($offer_count as $key => $value) {
             $offer_count[$key]['offer_name'] = Offer::where('id', $value['offer_id'])->value('offer_name');
-            $offer_count[$key]['percent'] = round($value['total_quantity'] / $count, 2) * 100;
+
+            if($count==0){
+                $offer_count[$key]['percent'] = 0;
+            }else{
+                $offer_count[$key]['percent'] = round($value['total_quantity'] / $count, 2) * 100;
+
+            }
+
+
+
             $offer_count[$key]['date'] = $start_date.' - '.$end_date;
 
-            $percent += round($value['total_quantity'] / $count, 2) * 100;
+
+            if($count==0){
+                $percent += 0;
+            }else{
+                $percent += round($value['total_quantity'] / $count, 2) * 100;
+            }
+
+
         }
 
         $offer_name = array_column($offer_count, 'offer_name');
@@ -409,7 +425,20 @@ class AnalyticsController extends AdminController
 
                     $offer_detail[$x]['offer'] = Offer::where('id',$y['offer_id'])->value('offer_name');
 
-                    $offer_detail[$x]['offer_percent'] =round($y['country_total_sales']/$v['country_total_sales']*100,2).'%';
+
+                    if($v['country_total_sales']==0){
+
+                        $offer_detail[$x]['offer_percent'] ='0%';
+
+                    }else{
+                        $offer_detail[$x]['offer_percent'] =round($y['country_total_sales']/$v['country_total_sales']*100,2).'%';
+
+                    }
+
+
+
+
+
                 }
 
                 $topByCountry[$k]['offer_percent_detail'] =  array_map(function($item) {
