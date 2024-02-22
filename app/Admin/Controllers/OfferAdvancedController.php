@@ -32,11 +32,15 @@ class OfferAdvancedController extends AdminController
         $grid->column('offer.offer_name', __('OFFER'))->filter();
         $grid->column('country.country', __('COUNTRY'))->filter();
         $grid->column('ip', __('IP'))->ip();
-        $grid->column('net', __('NET'));
-        $grid->column('affid', __('AFFID'))->filter();
-        $grid->column('cid', __('CID'));
-        $grid->column('sid', __('SID'));
+        $grid->column('token', __('Token'))->filter();
+        // $grid->column('net', __('NET'));
+        // $grid->column('affid', __('AFFID'))->filter();
+        // $grid->column('cid', __('CID'));
+        // $grid->column('sid', __('SID'));
         $grid->column('revenue', __('REVENUE'))->currency();
+
+        $grid->column('status', __('Type'))->using(['1' => '其他订单', '2' => '系统订单']);
+
         $grid->paginate(20);
         $grid->disableCreation();
 //        $grid->disableExport();
@@ -49,6 +53,9 @@ class OfferAdvancedController extends AdminController
                 $filter->like('geos.country','Country');
             });
             $filter->between('created_at', 'created_at')->datetime();
+            $filter->column(1/2, function ($filter) {
+                $filter->like('token','Token');
+            });
             $filter->expand();
         });
 
