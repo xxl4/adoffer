@@ -206,11 +206,12 @@ class OfferController extends Controller
 
             $insert = OfferLog::insertGetId($insert_data);
 
-            $info = file_get_contents("https://track.heomai2021.com/click.php?cnv_id=".$res."&payout=".$revenue);
-
-            Log::info($info);
-            Log::info('推送BM');
-
+            if(!empty($res->clickid)){
+                $info = file_get_contents("https://track.heomai2021.com/click.php?cnv_id=".$res->clickid."&payout=".$revenue);
+                Log::info($info);
+                Log::info('推送BM');
+            }
+            
             if ($insert > 0) {
                 return $this->showMsg('1001', 'success');
             } else {
