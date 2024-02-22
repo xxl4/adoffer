@@ -9,6 +9,7 @@ use App\Models\Models\Offer;
 use App\Models\OfferLog;
 use App\Models\OfferTracks;
 use App\Models\TrackList;
+use App\Models\TrackLists;
 use GeoIp2\Model\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -46,6 +47,9 @@ class OfferController extends Controller
             $offer_id = isset($paramsArray['offer_id']) ? $paramsArray['offer_id'] : '';
             $admin_id = isset($paramsArray['admin_id']) ? $paramsArray['admin_id'] : 0;        //获取当前用户的信息
             $track_id = isset($paramsArray['track_id']) ? $paramsArray['track_id'] : '';        //获取当前链接id
+
+            $clickid = isset($paramsArray['clickid']) ? $paramsArray['clickid'] : null;        //获取clickid
+
             $APP_URL = $_SERVER['APP_URL'];
             $REQUEST_URI = !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
 
@@ -78,6 +82,9 @@ class OfferController extends Controller
                 $insert['query'] = $queryString;
                 $insert['offer_id'] = $offer_id;
                 $insert['admin_id'] = $admin_id;
+                $insert['clickid'] = $clickid;
+
+
                 $insert['created_at'] = date('Y-m-d H:i:s');
                 $insert['updated_at'] = date('Y-m-d H:i:s');
 
@@ -199,11 +206,18 @@ class OfferController extends Controller
 
             $insert = OfferLog::insertGetId($insert_data);
 
+            $info = file_get_contents("https://track.heomai2021.com/click.php?cnv_id=".$res."&payout=".$revenue);
+
+            Log::info($info);
+            Log::info('推送BM');
+
             if ($insert > 0) {
                 return $this->showMsg('1001', 'success');
             } else {
                 return $this->showMsg('1002', '插入失败');
             }
+
+
 
             // } else {
             //     return $this->showMsg('1002', 'token不能为空');
