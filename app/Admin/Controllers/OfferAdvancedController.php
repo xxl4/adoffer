@@ -27,20 +27,23 @@ class OfferAdvancedController extends AdminController
     {
         $grid = new Grid(new OfferLog());
 
-        $grid->column('id', __('Id'));
+        $grid->column('id', __('Id'))->filter();
         $grid->column('created_at', __('Create at'));
-        $grid->column('offer.offer_name', __('OFFER'))->filter();
-        $grid->column('country.country', __('COUNTRY'))->filter();
+        $grid->column('offer.offer_name', __('OFFER'));
+        $grid->column('country.country', __('COUNTRY'));
         $grid->column('ip', __('IP'))->ip();
-        $grid->column('token', __('Token'))->filter();
+        $grid->column('token', __('Token'));
         $grid->column('token_time', __('Token Time'));
         // $grid->column('net', __('NET'));
         // $grid->column('affid', __('AFFID'))->filter();
         // $grid->column('cid', __('CID'));
         // $grid->column('sid', __('SID'));
         $grid->column('revenue', __('REVENUE'))->currency();
-
         $grid->column('status', __('Type'))->using(['1' => '其他订单', '2' => '系统订单']);
+
+        $grid->column('clickid', __('Clickid'));
+        $grid->column('clickid_time', __('Clickid Time'));
+
 
         $grid->paginate(20);
         $grid->disableCreation();
