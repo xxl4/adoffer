@@ -34,10 +34,6 @@ class OfferAdvancedController extends AdminController
         $grid->column('ip', __('IP'))->ip();
         $grid->column('token', __('Token'));
         $grid->column('token_time', __('Token Time'));
-        // $grid->column('net', __('NET'));
-        // $grid->column('affid', __('AFFID'))->filter();
-        // $grid->column('cid', __('CID'));
-        // $grid->column('sid', __('SID'));
         $grid->column('revenue', __('REVENUE'))->currency();
         $grid->column('status', __('Type'))->using(['1' => '其他订单', '2' => '系统订单']);
 
@@ -73,7 +69,7 @@ class OfferAdvancedController extends AdminController
 //                $query->whereBetween('offer_logs.created_at', [request()->input('created_at'), request()->input('created_at')]);
 //            }, 'Child Created At Range')->datetime(); // 这里 'Child Created A
 
-
+                
 
             $filter->column(1/2, function ($filter) {
                 $filter->like('token','Token');
@@ -83,9 +79,9 @@ class OfferAdvancedController extends AdminController
 
         $grid->footer(function ($query) {
             // 查询出已支付状态的订单总金额
-            $data = $query->join('offers','offer_id','=','offers.id')->sum('offers.offer_price');
+            $data = $query->where('status',2)->sum('revenue');
             // 查询出已支付状态的订单总数
-            $data1 = $query->count();
+            $data1 = $query->where('status',2)->count();
             echo "<div style='padding: 10px;'><strong>TOTAL RECORD:</strong> $data1 | <strong>TOTAL REVENUE:</strong> $data</div>";
         });
 

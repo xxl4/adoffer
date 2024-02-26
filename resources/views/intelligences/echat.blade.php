@@ -26,7 +26,10 @@
 
 <!-- END CONTENT -->
 <!-- BEGIN CORE JS FRAMEWORK-->
-<script src="/vendor/laravel-admin/intelligences/1927844693922741" async=""></script><script async="" src="/vendor/laravel-admin/intelligences/fbevents.js"></script><script async="" src="/vendor/laravel-admin/intelligences/roundtrip.js"></script><script src="/vendor/laravel-admin/intelligences/pace.min.js" type="text/javascript"></script>
+<script src="/vendor/laravel-admin/intelligences/1927844693922741" async=""></script>
+<script async="" src="/vendor/laravel-admin/intelligences/fbevents.js"></script>
+<script async="" src="/vendor/laravel-admin/intelligences/roundtrip.js"></script>
+<script src="/vendor/laravel-admin/intelligences/pace.min.js" type="text/javascript"></script>
 <!-- BEGIN JS DEPENDECENCIES-->
 <script src="/vendor/laravel-admin/intelligences/jquery-2.1.4.js"></script>
 <!--	<script src="assets/plugins/bootstrapv3/js/bootstrap.min.js" type="text/javascript"></script>-->

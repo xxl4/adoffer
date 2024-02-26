@@ -751,7 +751,7 @@
                 <!--<div class="loader-spinner"></div>-->
 
                 <!--M4trix Loader-->
-                <img src="./M4TRIX - REPORTS_files/squares-preloader-gif.svg" alt="">
+{{--                <img src="./M4TRIX - REPORTS_files/squares-preloader-gif.svg" alt="">--}}
             </div>
             <div class="input-container">
                 <input type="text" id="userInput" placeholder="Type your message...">
