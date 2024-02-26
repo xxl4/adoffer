@@ -85,9 +85,9 @@ var advanced = {
 		filter['offers'] = offers;
 
 		$.ajax({
-			method: "POST",
+			method: "GET",
 			dataType: 'json',
-			url: "classes/Class.reporting.php",
+			url: "",
 			data: {
 				step: step,
 				options: {

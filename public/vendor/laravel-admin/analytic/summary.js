@@ -151,9 +151,9 @@ var reporting = {
 		filter['offers'] = offers;
 
 		$.ajax({
-			method: "POST",
+			method: "get",
 			dataType: 'json',
-			url: "classes/Class.reporting.php",
+			url: "",
 			data: {
 				step: "show_to_date",
 				options: {

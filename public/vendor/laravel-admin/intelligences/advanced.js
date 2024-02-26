@@ -271,9 +271,9 @@ var advanced = {
 	},
 	sql_add_sales_in_black_list : function(confirmation_message){
 		$.ajax({
-			method: "POST",
+			method: "get",
 			dataType: 'json',
-			url: "classes/Class.reporting.php",
+			url: "",
 			data: {
 				step: "add_in_black_list",
 				sales: JSON.stringify(advanced.sales_displayed)
