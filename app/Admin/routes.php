@@ -50,7 +50,7 @@ Route::group([
     $router->resource('track_lists', 'TrackListsController')->names('admin.TrackLists');
 
 
-    $router->get('intelligences/echat', "IntelligencesController@echat")->name('admin.Intelligences');
+    $router->any('intelligences/echat', "IntelligencesController@echat")->name('admin.Intelligences');
     $router->get('intelligences/offerPie', "IntelligencesController@offerPie")->name('admin.Intelligences');
     $router->get('intelligences/countryPie', "IntelligencesController@countryPie")->name('admin.Intelligences');
     $router->post('intelligences/query', 'IntelligencesController@query')->name('admin.query');

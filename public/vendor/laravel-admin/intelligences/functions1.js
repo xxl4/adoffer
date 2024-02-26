@@ -9,21 +9,21 @@ var calendar_date = {
 			todayHighlight: true
 		});
 		$('.date_start1').on('change', function(){
-			var dateStart = $('.date_start1').datepicker('getDate');
-			var dateEnd = $('.date_end1').datepicker('getDate');
-			var date_end_val = $('.date_end1').val();
+			var dateStart1 = $('.date_start1').datepicker('getDate');
+			var dateEnd1 = $('.date_end1').datepicker('getDate');
+			var date_end_val1 = $('.date_end1').val();
 
-			if(dateStart > dateEnd && date_end_val){
-				$ ( '.date_end1' ). datepicker ( 'update' ,  new  Date ( dateStart ));
+			if(dateStart1 > dateEnd1 && date_end_val1){
+				$ ( '.date_end1' ). datepicker ( 'update' ,  new  Date ( dateStart1 ));
 			}
 		});
 
 		$('.date_end1').on('change', function(){
-			var dateStart = $('.date_start1').datepicker('getDate');
-			var dateEnd = $('.date_end1').datepicker('getDate');
-			var date_start_val = $('.date_start1').val();
-			if(dateStart > dateEnd && date_start_val){
-				$ ( '.date_start1' ). datepicker ( 'update' ,  new  Date ( dateEnd ));
+			var dateStart1 = $('.date_start1').datepicker('getDate');
+			var dateEnd1 = $('.date_end1').datepicker('getDate');
+			var date_start_val1 = $('.date_start1').val();
+			if(dateStart1 > dateEnd1 && date_start_val1){
+				$ ( '.date_start1' ). datepicker ( 'update' ,  new  Date ( dateEnd1 ));
 			}
 		});
 

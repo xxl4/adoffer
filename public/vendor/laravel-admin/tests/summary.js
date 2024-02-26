@@ -151,7 +151,7 @@ var reporting = {
 		$.ajax({
 			method: "POST",
 			dataType: 'json',
-			url: "classes/Class.reporting.php",
+			url: "",
 			data: {
 				step: "show_to_date",
 				options: {

@@ -673,16 +673,25 @@ class OfferController extends AdminController
 
 //        $form->multipleSelect('cate_id', __('Offer Category'))->options($arr)->required();
 
-        $form->multipleSelect('cate_id', __('Offer Category'))->options(Category::all()->pluck('category_name', 'id'));
-        $form->multipleSelect('accepted_area', __('Accepted Area'))->options(Geos::all()->pluck('country', 'id'))->required();
-        $form->multipleSelect('creatives_id', __('Creatives'))->options(Creatives::all()->pluck('name', 'id'))->required();
-        $form->multipleSelect('track_cate_id', __('Track Cate'))->options(OfferTracksCates::all()->pluck('track_cate', 'id'))->required();
         $form->text('offer_name', __('Offer name'))->required();
-        $form->textarea('des', __('Offer Des'));
-        $form->textarea('track_des', __('Track Des'));
         $form->image('image', __('Offer Image'));
         $form->currency('offer_price', __('Payout'))->required();
         $form->switch('offer_status', __('Offer status'))->default(1);
+        $form->textarea('des', __('Offer Des'));
+        $form->multipleSelect('accepted_area', __('Accepted Area'))->options(Geos::all()->pluck('country', 'id'))->required();
+        $form->multipleSelect('cate_id', __('Offer Category'))->options(Category::all()->pluck('category_name', 'id'));
+
+        $form->textarea('track_des', __('Track Des'));
+        $form->multipleSelect('track_cate_id', __('Track Cate'))->options(OfferTracksCates::all()->pluck('track_cate', 'id'))->required();
+
+        $form->multipleSelect('creatives_id', __('Creatives'))->options(Creatives::all()->pluck('name', 'id'))->required();
+
+
+
+
+
+
+
 
 
 //        $form->multipleSelect('admin', __('Track Cate'))->options(OfferTracksCates::all()->pluck('track_cate', 'id'))->required();

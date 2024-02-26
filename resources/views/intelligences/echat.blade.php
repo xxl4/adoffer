@@ -8,7 +8,7 @@
 <link href="/vendor/laravel-admin/intelligences/animate.min.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/intelligences/jquery.scrollbar.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/intelligences/datepicker.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="/vendor/laravel-admin/intelligences/sweet-alert.css">
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/intelligences/sweet-alert.css">--}}
 <link rel="stylesheet" href="/vendor/laravel-admin/intelligences/rickshaw.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/intelligences/mapplic.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/intelligences/ionicons.css" type="text/css">
@@ -45,7 +45,7 @@
 <script src="/vendor/laravel-admin/intelligences/bootstrap-datepicker.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/intelligences/bootstrap-timepicker.min.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/intelligences/form_elements.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/intelligences/sweet-alert.min.js"></script>
+{{--<script src="/vendor/laravel-admin/intelligences/sweet-alert.min.js"></script>--}}
 <script src="/vendor/laravel-admin/intelligences/clipboard.js"></script>
 <script src="/vendor/laravel-admin/intelligences/messenger.min.js" type="text/javascript"></script>
 <!-- END CORE JS DEPENDECENCIES-->
@@ -179,7 +179,7 @@
                                             <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding">
                                                 <div class="row">
                                                     <div class="col-xs-12">
-                                                        <select class="list_date select2_list padding_left select2-accessible" name="date" tabindex="-1" aria-hidden="true">
+                                                        <select class="list_date select2_list padding_left select2-accessible" name="date" tabindex="-1" aria-hidden="true" id="geos_date">
                                                             <option value="today">Today</option>
                                                             <option value="yester">Yesterday</option>
                                                             <option value="week">Current Week</option>
@@ -931,10 +931,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
                 </div>
             </div>
 {{--        </div>--}}
@@ -955,13 +951,22 @@
         <script src="/vendor/laravel-admin/intelligences/jquery.flot.orderBars.js"></script>
         <script src="/vendor/laravel-admin/intelligences/functions.js"></script>
 
+
+
         <script src="/vendor/laravel-admin/intelligences/functions1.js"></script>
-{{--        <script src="/vendor/laravel-admin/intelligences/graphics.js"></script>--}}
-{{--        <script src="/vendor/laravel-admin/intelligences/intelligence.js"></script>--}}
+        <script src="/vendor/laravel-admin/intelligences/graphics.js"></script>
+        <script src="/vendor/laravel-admin/intelligences/intelligence.js"></script>
 
 <script src="/vendor/laravel-admin/tests/summary.js"></script>
-<script src="/vendor/laravel-admin/tests/advanced.js"></script>
+
+
+{{--<script src="/vendor/laravel-admin/tests/advanced.js"></script>--}}
+
+
 <script src="/vendor/laravel-admin/intelligences/advanced1.js"></script>
+
+
+
         <!--<script type="text/javascript">-->
         <!--	var top_3_intl = {"main_data":{"2024-01-01":{"ClearView":19.75609756097561,"MaxPhone":17.317073170731707,"WIFI UltraBoost":5.365853658536586},"2024-02-01":{"TVShareMax":32.608695652173914,"MaxPhone":16.666666666666668,"ClearView":15.217391304347826}},"start_date":"2023-12-15","end_date":"2024-02-15"};-->
         <!--	var new_offers = {"2024-01-23 07:26:23":{"offer_name":"E-commerce - KneeBoost Pro INTL - All Languages - EXCLUSIVE","release_date":"2024-01-23 07:26:23","payout":"$28","link_preview":"https:\/\/popularhitech.com\/intl\/?prod=kneeboostpro&net={NETWORK}&aff={AFFID}&sid={SUBID}&cid={CLICKID}","name":"KneeBoost Pro"},"2023-11-15 14:46:02":{"offer_name":"E-commerce - CozyTime Pro INTL - All Languages - EXCLUSIVE","release_date":"2023-11-15 14:46:02","payout":"$40","link_preview":"https:\/\/popularhitech.com\/intl\/?prod=cozytimepro&net={NETWORK}&aff={AFFID}&sid={SUBID}&cid={CLICKID}","name":"CozyTime Pro"},"2023-10-27 19:11:50":{"offer_name":"E-commerce - SkinBliss INTL - All Languages - EXCLUSIVE","release_date":"2023-10-27 19:11:50","payout":"$65","link_preview":"https:\/\/bioresponse.co\/?net={NETWORK}&aff={AFFID}&sid={SUBID}&cid={CLICKID}","name":"Skincare"}};-->
@@ -1119,7 +1124,21 @@
 {{--</script>--}}
 
 
-<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"><div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div></div><div id="tooltip" style="position: absolute; display: none; border: 1px solid rgb(240, 240, 240); padding: 2px; background-color: rgb(255, 255, 255); z-index: 99999; opacity: 0.8;"></div><div><div class="sweet-overlay" tabindex="-1"></div><div class="sweet-alert" tabindex="-1"><div class="icon error"><span class="x-mark"><span class="line left"></span><span class="line right"></span></span></div><div class="icon warning"> <span class="body"></span> <span class="dot"></span> </div> <div class="icon info"></div> <div class="icon success"> <span class="line tip"></span> <span class="line long"></span> <div class="placeholder"></div> <div class="fix"></div> </div> <div class="icon custom"></div> <h2>Title</h2><p class="lead text-muted">Text</p><p><button class="cancel btn btn-lg" tabindex="2">Cancel</button> <button class="confirm btn btn-lg" tabindex="1">OK</button></p></div></div><iframe id="adroll_slg" src="./M4TRIX - NETWORK_files/iframe_content.html" width="1" height="1" frameborder="0" marginwidth="0" marginheight="0" allow="join-ad-interest-group"></iframe><div class="cke_screen_reader_only cke_copyformatting_notification"><div aria-live="polite"></div></div>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"><div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div></div><div id="tooltip" style="position: absolute; display: none; border: 1px solid rgb(240, 240, 240); padding: 2px; background-color: rgb(255, 255, 255); z-index: 99999; opacity: 0.8;"></div><div><div class="sweet-overlay" tabindex="-1"></div>
+
+
+{{--    <div class="sweet-alert" tabindex="-1">--}}
+{{--        <div class="icon error">--}}
+{{--            <span class="x-mark">--}}
+{{--                <span class="line left"></span>--}}
+{{--                <span class="line right"></span>--}}
+{{--            </span></div><div class="icon warning">--}}
+{{--            <span class="body"></span> --}}
+{{--            <span class="dot"></span> --}}
+{{--        </div> <div class="icon info"></div> --}}
+{{--        <div class="icon success"> <span class="line tip"></span> <span class="line long"></span> <div class="placeholder"></div> <div class="fix"></div> </div> <div class="icon custom"></div> <h2>Title</h2><p class="lead text-muted">Text</p><p><button class="cancel btn btn-lg" tabindex="2">Cancel</button> <button class="confirm btn btn-lg" tabindex="1">OK</button></p></div>--}}
+
+</div><iframe id="adroll_slg" src="./M4TRIX - NETWORK_files/iframe_content.html" width="1" height="1" frameborder="0" marginwidth="0" marginheight="0" allow="join-ad-interest-group"></iframe><div class="cke_screen_reader_only cke_copyformatting_notification"><div aria-live="polite"></div></div>
 
 <script>
     $(document).ready(function(){
@@ -1149,10 +1168,8 @@
             var month = frontendData.original.data.month;
             //示例数据
             var labels = [month];
-
             //创建一个空的 datasets 数组
             var datasets = [];
-
             //循环遍历 datasetsData，创建数据集对象并添加到 datasets 数组 拼接柱状图数据
             for (var i = 0; i < datasetsData.length; i++) {
                 if (datasetsData[i] && datasetsData[i].length >= 2) {

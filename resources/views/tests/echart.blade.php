@@ -10,7 +10,7 @@
 <link href="/vendor/laravel-admin/tests/animate.min.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/tests/jquery.scrollbar.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/tests/datepicker.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="/vendor/laravel-admin/tests/sweet-alert.css">
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/tests/sweet-alert.css">--}}
 <link rel="stylesheet" href="/vendor/laravel-admin/tests/rickshaw.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/tests/mapplic.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/tests/ionicons.css" type="text/css">
@@ -50,7 +50,7 @@
 <script src="/vendor/laravel-admin/tests/bootstrap-datepicker.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/tests/bootstrap-timepicker.min.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/tests/form_elements.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/tests/sweet-alert.min.js"></script>
+{{--<script src="/vendor/laravel-admin/tests/sweet-alert.min.js"></script>--}}
 <script src="/vendor/laravel-admin/tests/clipboard.js"></script>
 <script src="/vendor/laravel-admin/tests/messenger.min.js" type="text/javascript"></script>
 <!-- END CORE JS DEPENDECENCIES-->
@@ -109,18 +109,8 @@
             <title>Reporting platform</title>
             <link href="/vendor/laravel-admin/tests/jquery.dataTables.css" rel="stylesheet" type="text/css">
             <link href="/vendor/laravel-admin/tests/datatables.responsive.css" rel="stylesheet" type="text/css" media="screen">
-
-
-
-
-
             <div class="col-md-12">
                 <div class="row">
-
-
-
-
-
                     <div class="grid simple">
                         <div class="grid-title no-border">
 
@@ -697,7 +687,7 @@
             <script>
                 $(document).ready(function(){
                     $(".select2_list").select2();
-                    $(".select2_list").val("week").trigger("change");
+                    $(".select2_list").val("today").trigger("change");
 
                     $(".select_timezone").select2();
                     $(".select_timezone").val("64").trigger("change");
@@ -803,16 +793,18 @@
 </div>
 <div>
     <div class="sweet-overlay" tabindex="-1"></div>
-    <div class="sweet-alert" tabindex="-1">
-        <div class="icon error"><span class="x-mark"><span class="line left"></span><span class="line right"></span></span></div>
-        <div class="icon warning"> <span class="body"></span> <span class="dot"></span> </div>
-        <div class="icon info"></div>
-        <div class="icon success"> <span class="line tip"></span> <span class="line long"></span> <div class="placeholder"></div> <div class="fix"></div> </div>
-        <div class="icon custom"></div>
-        <h2>Title</h2>
-        <p class="lead text-muted">Text</p>
-        <p><button class="cancel btn btn-lg" tabindex="2">Cancel</button> <button class="confirm btn btn-lg" tabindex="1">OK</button></p>
-    </div></div>
+{{--    <div class="sweet-alert" tabindex="-1">--}}
+{{--        <div class="icon error"><span class="x-mark"><span class="line left"></span><span class="line right"></span></span></div>--}}
+{{--        <div class="icon warning"> <span class="body"></span> <span class="dot"></span> </div>--}}
+{{--        <div class="icon info"></div>--}}
+{{--        <div class="icon success"> <span class="line tip"></span> <span class="line long"></span> <div class="placeholder"></div> <div class="fix"></div> </div>--}}
+{{--        <div class="icon custom"></div>--}}
+{{--        <h2>Title</h2>--}}
+{{--        <p class="lead text-muted">Text</p>--}}
+{{--        <p><button class="cancel btn btn-lg" tabindex="2">Cancel</button> <button class="confirm btn btn-lg" tabindex="1">OK</button></p>--}}
+{{--    </div>--}}
+
+</div>
 <div id="tooltip" style="position: absolute; border: 1px solid rgb(255, 221, 221); padding: 2px; background-color: rgb(255, 238, 238); z-index: 99999; opacity: 0.8; top: 794px; left: 1215.14px; display: none;">BarXStop: $5,160<br>SilentSnore: $240<br></div>
 
 <script type="text/javascript">
@@ -935,6 +927,9 @@
                         // 获取选择的类别
                         var selectedCategory = document.getElementById('updateChart').value;
 
+
+                        console.log('下拉框值',selectedCategory)
+
                         if (selectedCategory === '1') {
                             myLineChart.data.datasets[0].data = data.offer_count.total_sales;
                         } else {
@@ -1053,15 +1048,7 @@
                     },
                     success: function (data) {
                         // 获取选择的类别
-
-
-
-
                         var selectedCategory = document.getElementById('updateBar').value;
-
-
-
-
                         if (selectedCategory === '2') {
                             var barData = data.country.country_total_sales;
                         } else if (selectedCategory === '3') {
@@ -1175,18 +1162,6 @@
         myBarChart.setOption(barOption);
 
 
-{{--        function generateRandomColors(numColors) {--}}
-{{--            var colors = [];--}}
-{{--            for (var i = 0; i < numColors; i++) {--}}
-{{--                var r = Math.floor(Math.random() * 256);--}}
-{{--                var g = Math.floor(Math.random() * 256);--}}
-{{--                var b = Math.floor(Math.random() * 256);--}}
-{{--                var alpha = Math.random().toFixed(2); // 控制透明度，可根据需求修改--}}
-{{--                colors.push('rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')');--}}
-{{--            }--}}
-{{--            return colors;--}}
-{{--        }--}}
-
 
         // $('#searchBtn').click(function (e) {
 
@@ -1215,9 +1190,11 @@
                     },
                     success: function (data) {
 
-                        console.log('筛选数据',data)
+
 
                         var lineSelectedCategory = document.getElementById('updateChart').value;
+
+                        console.log('筛选数据',lineSelectedCategory)
 
                         if (lineSelectedCategory === '1') {
                             myLineChart.data.datasets[0].data = data.offer_count.total_sales;

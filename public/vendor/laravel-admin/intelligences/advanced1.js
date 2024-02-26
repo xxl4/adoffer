@@ -195,7 +195,7 @@ var advanced = {
 			});
 			document.querySelector('.button-default.'+format_to_export+':last-child').click();
 			div.remove();
-			//trigger download	
+			//trigger download
 			//exporter
 		});
 	},
@@ -273,7 +273,7 @@ var advanced = {
 		$.ajax({
 			method: "POST",
 			dataType: 'json',
-			url: "classes/Class.reporting.php",
+			url: "",
 			data: {
 				step: "add_in_black_list",
 				sales: JSON.stringify(advanced.sales_displayed)

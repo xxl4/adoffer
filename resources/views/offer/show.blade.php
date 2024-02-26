@@ -56,15 +56,19 @@
 <form method="POST" id="form_id">
     <div class="page-container row-fluid">
 
-        <a href="?id=offer#" class="scrollup">Scroll</a>
-        <div class="footer-widget">
-            <div class="pull-right">
-                <a class="exit" href="javascript:void(0);"><i class="material-icons">power_settings_new</i></a>
-            </div>
-            <div>
-                <span class="va-sub">Network</span>
-            </div>
-        </div>
+{{--        <a href="?id=offer#" class="scrollup">Scroll</a>--}}
+
+
+{{--        <div class="footer-widget">--}}
+{{--            <div class="pull-right">--}}
+{{--                <a class="exit" href="javascript:void(0);"><i class="material-icons">power_settings_new</i></a>--}}
+{{--            </div>--}}
+{{--            <div>--}}
+{{--                <span class="va-sub">Network</span>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+
+
         <link href="/vendor/laravel-admin/test/network.css" rel="stylesheet" type="text/css">
 
         <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}"/>
@@ -798,6 +802,8 @@
             </div>
             <!-- /.modal-dialog -->
         </div>        <!-- Modal -->
+
+
         <div class="modal fade modal-v-center" id="userTutorialExploreModal" tabindex="-1" role="dialog"
              aria-labelledby="userTutorialExploreModalLabel">
             <div class="modal-dialog" role="document">

@@ -48,6 +48,9 @@ class TestsController extends AdminController
     public function echart(Content $content)
     {
 
+
+
+
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
         $net_id = $currentUser->id; // 输出当前用户名称
         $where = [];
@@ -60,7 +63,11 @@ class TestsController extends AdminController
         $offer_list = Offer::where($where)->get()->toArray();//offer列表
 
 
-        $startDate = date('Y-m-d 00:00:00', strtotime("-30 days")); //默认最近一周的数据
+//        $startDate = date('Y-m-d 00:00:00', strtotime("-30 days")); //默认最近一周的数据
+
+
+        $startDate = date('Y-m-d 00:00:00');//默认当天数据
+
         $endDate = date('Y-m-d H:i:s');
 
         //查询当前月的销售金额记录并按数量降序排列
@@ -334,6 +341,8 @@ class TestsController extends AdminController
             ->groupBy('sale_date')
             ->get()
             ->toArray();
+
+//        print_r($offer_sale);exit;
 
         $sale_date = array_column($offer_sale, 'sale_date');
         $total_sales = array_column($offer_sale, 'total_sales');
