@@ -43,7 +43,10 @@
 <script src="/vendor/laravel-admin/intelligences/jquery.validate.min.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/intelligences/select2.js" type="text/javascript"></script>
 
+
 <script src="/vendor/laravel-admin/intelligences/select21.js" type="text/javascript"></script>
+
+
 
 <script src="/vendor/laravel-admin/intelligences/bootstrap-datepicker.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/intelligences/bootstrap-timepicker.min.js" type="text/javascript"></script>
@@ -521,7 +524,7 @@
                                         </div>
                                         <div class="input-append success col-xs-8 col-sm-8">
                                             <div class="row  ">
-                                                <input type="text" class="form-control date_start1 date_pic_wid sandbox-advance">
+                                                <input type="text" class="form-control date_start1 date_pic_wid sandbox-advance1">
                                                 <span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>
                                             </div>
                                         </div>
@@ -539,7 +542,7 @@
                                         </div>
                                         <div class="input-append success col-xs-8 col-sm-8">
                                             <div class="row ">
-                                                <input type="text" class="form-control date_end1 date_pic_wid sandbox-advance">
+                                                <input type="text" class="form-control date_end1 date_pic_wid sandbox-advance1">
                                                 <span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>
                                             </div>
                                         </div>
@@ -956,7 +959,9 @@
 
 
 
-        <script src="/vendor/laravel-admin/intelligences/functions1.js"></script>
+{{--        <script src="/vendor/laravel-admin/intelligences/functions1.js"></script>--}}
+
+
         <script src="/vendor/laravel-admin/intelligences/graphics.js"></script>
         <script src="/vendor/laravel-admin/intelligences/intelligence.js"></script>
 
