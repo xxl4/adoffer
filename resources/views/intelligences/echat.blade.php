@@ -26,8 +26,8 @@
 
 <!-- END CONTENT -->
 <!-- BEGIN CORE JS FRAMEWORK-->
-<script src="/vendor/laravel-admin/intelligences/1927844693922741" async=""></script>
-<script async="" src="/vendor/laravel-admin/intelligences/fbevents.js"></script>
+{{--<script src="/vendor/laravel-admin/intelligences/1927844693922741" async=""></script>--}}
+{{--<script async="" src="/vendor/laravel-admin/intelligences/fbevents.js"></script>--}}
 <script async="" src="/vendor/laravel-admin/intelligences/roundtrip.js"></script>
 <script src="/vendor/laravel-admin/intelligences/pace.min.js" type="text/javascript"></script>
 <!-- BEGIN JS DEPENDECENCIES-->
@@ -83,35 +83,35 @@
 <script type="text/javascript" src="/vendor/laravel-admin/intelligences/notifications.js"></script>
 <script type="text/javascript" src="/vendor/laravel-admin/intelligences/email-broadcast.js"></script>
 
-<script type="text/javascript">
-    adroll_adv_id = "BBRDVRROJ5B3ZCI2VHENNY";
-    adroll_pix_id = "ABU5YKBIZJEL5KHFXZZB7T";
-    adroll_version = "2.0";
+{{--<script type="text/javascript">--}}
+{{--    adroll_adv_id = "BBRDVRROJ5B3ZCI2VHENNY";--}}
+{{--    adroll_pix_id = "ABU5YKBIZJEL5KHFXZZB7T";--}}
+{{--    adroll_version = "2.0";--}}
 
-    (function(w, d, e, o, a) {
-        w.__adroll_loaded = true;
-        w.adroll = w.adroll || [];
-        w.adroll.f = [ 'setProperties', 'identify', 'track' ];
-        var roundtripUrl = "https://s.adroll.com/j/" + adroll_adv_id
-            + "/roundtrip.js";
-        for (a = 0; a < w.adroll.f.length; a++) {
-            w.adroll[w.adroll.f[a]] = w.adroll[w.adroll.f[a]] || (function(n) {
-                return function() {
-                    w.adroll.push([ n, arguments ])
-                }
-            })(w.adroll.f[a])
-        }
+{{--    (function(w, d, e, o, a) {--}}
+{{--        w.__adroll_loaded = true;--}}
+{{--        w.adroll = w.adroll || [];--}}
+{{--        w.adroll.f = [ 'setProperties', 'identify', 'track' ];--}}
+{{--        var roundtripUrl = "https://s.adroll.com/j/" + adroll_adv_id--}}
+{{--            + "/roundtrip.js";--}}
+{{--        for (a = 0; a < w.adroll.f.length; a++) {--}}
+{{--            w.adroll[w.adroll.f[a]] = w.adroll[w.adroll.f[a]] || (function(n) {--}}
+{{--                return function() {--}}
+{{--                    w.adroll.push([ n, arguments ])--}}
+{{--                }--}}
+{{--            })(w.adroll.f[a])--}}
+{{--        }--}}
 
-        e = d.createElement('script');
-        o = d.getElementsByTagName('script')[0];
-        e.async = 1;
-        e.src = roundtripUrl;
-        o.parentNode.insertBefore(e, o);
-    })(window, document);
-    adroll.track("pageView");
-</script>
+{{--        e = d.createElement('script');--}}
+{{--        o = d.getElementsByTagName('script')[0];--}}
+{{--        e.async = 1;--}}
+{{--        e.src = roundtripUrl;--}}
+{{--        o.parentNode.insertBefore(e, o);--}}
+{{--    })(window, document);--}}
+{{--    adroll.track("pageView");--}}
+{{--</script>--}}
 <meta http-equiv="origin-trial" content="A41wt2Lsq30A9Ox/WehogvJckPI4aY9RoSxhb8FMtVnqaUle1AtI6Yf7Wk+7+Wm0AfDDOkMX+Wn6wnDpBWYgWwYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Fkcm9sbC5jb206NDQzIiwiZmVhdHVyZSI6IkludGVyZXN0Q29ob3J0QVBJIiwiZXhwaXJ5IjoxNjI2MjIwNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==">
-<script type="text/javascript" src="/vendor/laravel-admin/intelligences/BBRDVRROJ5B3ZCI2VHENNY"></script>
+{{--<script type="text/javascript" src="/vendor/laravel-admin/intelligences/BBRDVRROJ5B3ZCI2VHENNY"></script>--}}
 
 <style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
 
