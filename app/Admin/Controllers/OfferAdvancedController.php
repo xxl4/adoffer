@@ -27,7 +27,7 @@ class OfferAdvancedController extends AdminController
     {
         $grid = new Grid(new OfferLog());
 
-        $grid->column('id', __('Id'))->filter();
+        $grid->column('id', __('Id'));
         $grid->column('created_at', __('Create at'));
         $grid->column('offer.offer_name', __('OFFER'));
         $grid->column('country.country', __('COUNTRY'));
@@ -44,6 +44,7 @@ class OfferAdvancedController extends AdminController
         $grid->column('clickid', __('Clickid'));
         $grid->column('clickid_time', __('Clickid Time'));
 
+        $grid->model()->orderBy('created_at', 'desc');
 
         $grid->paginate(20);
         $grid->disableCreation();
