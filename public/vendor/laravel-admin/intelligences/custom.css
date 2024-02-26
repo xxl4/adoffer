@@ -173,7 +173,7 @@ p.form-control{
 	background-repeat: no-repeat !important;
 }
 .select2-selection--multiple[aria-expanded="true"]{
-	background-image: url(../images/open.png) !important;
+	/*background-image: url(../images/open.png) !important;*/
 	background-size: 12px !important;
 	background-position: 97% 32% !important;
 	background-repeat: no-repeat !important;
