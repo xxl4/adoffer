@@ -69,7 +69,7 @@ class OfferAdvancedController extends AdminController
 //                $query->whereBetween('offer_logs.created_at', [request()->input('created_at'), request()->input('created_at')]);
 //            }, 'Child Created At Range')->datetime(); // 这里 'Child Created A
 
-                
+
 
             $filter->column(1/2, function ($filter) {
                 $filter->like('token','Token');
@@ -138,13 +138,17 @@ class OfferAdvancedController extends AdminController
 //
 //});
 
-
+        $grid->actions(function ($actions) {
+            //关闭行操作 删除
+            $actions->disableDelete();
+            $actions->disableEdit();
+        });
 
 //        $grid->disableActions();
-//        $grid->disableCreation();
+//        $grid->disableEdit();
 //        $grid->disablePagination();//禁用分页
 //        $grid->model()->orderBy('id','desc')->limit(20);
-//        $grid->disableExport();
+        $grid->disableExport();
 //        $grid->disableColumnSelector();
 //        $grid->disableFilter();
 

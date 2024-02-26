@@ -760,7 +760,9 @@
         </div>
     </div>
 
-</div><iframe id="adroll_slg" src="./M4TRIX - REPORTS_files/iframe_content.html" width="1" height="1" frameborder="0" marginwidth="0" marginheight="0" allow="join-ad-interest-group"></iframe>
+</div>
+
+{{--<iframe id="adroll_slg" src="./M4TRIX - REPORTS_files/iframe_content.html" width="1" height="1" frameborder="0" marginwidth="0" marginheight="0" allow="join-ad-interest-group"></iframe>--}}
 
 <!-- Modal -->
 <div class="modal fade modal-v-center" id="userTutorialExploreModal" tabindex="-1" role="dialog" aria-labelledby="userTutorialExploreModalLabel">

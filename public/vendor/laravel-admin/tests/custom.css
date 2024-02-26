@@ -167,7 +167,7 @@ p.form-control{
 	padding: 0px 20px 0px 3px;
 }
 .select2-selection--multiple[aria-expanded="false"]{
-	background-image: url(../images/close.png) !important;
+	/*background-image: url(../images/close.png) !important;*/
 	background-size: 12px !important;
 	background-position: 97% 32% !important;
 	background-repeat: no-repeat !important;
