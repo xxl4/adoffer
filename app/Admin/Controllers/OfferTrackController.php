@@ -61,7 +61,7 @@ class OfferTrackController extends AdminController
         $show->field('id', __('Id'));
         $show->field('track_name', __('Track Name'));
 //        $show->field('track_link', __('Track Link'));
-        $show->field('track_type_id', __('Track Type'));
+        $show->field('track_type_id', __('Track Tab'));
         $show->field('created_at', __('Create at'));
 //        $show->field('updated_at', __('Update at'));
 
