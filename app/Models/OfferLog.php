@@ -36,6 +36,10 @@ class OfferLog extends Model
         return $this->belongsTo(Geos::class);
     }
 
+
+
+
+
     //DateTimeInterface
     protected function serializeDate(\DateTimeInterface $date)
 

@@ -44,9 +44,16 @@ Route::group([
     $router->get('tests/echart', "TestsController@echart")->name('admin.tests');
     $router->get('tests/offerPie', "TestsController@offerPie")->name('admin.tests');
     $router->get('tests/countryPie', "TestsController@countryPie")->name('admin.tests');
-
     $router->post('tests/query', 'TestsController@query')->name('admin.query');
 
+
     $router->resource('track_lists', 'TrackListsController')->names('admin.TrackLists');
+
+
+    $router->get('intelligences/echat', "IntelligencesController@echat")->name('admin.Intelligences');
+    $router->get('intelligences/offerPie', "IntelligencesController@offerPie")->name('admin.Intelligences');
+    $router->get('intelligences/countryPie', "IntelligencesController@countryPie")->name('admin.Intelligences');
+    $router->post('intelligences/query', 'IntelligencesController@query')->name('admin.query');
+
 
 });

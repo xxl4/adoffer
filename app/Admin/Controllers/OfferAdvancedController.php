@@ -56,7 +56,24 @@ class OfferAdvancedController extends AdminController
             $filter->column(1/2, function ($filter) {
                 $filter->like('geos.country','Country');
             });
+
+
             $filter->between('created_at', 'created_at')->datetime();
+
+//            $filter->where(function ($query) {
+//                $query->whereBetween('offerLogs.created_at', request()->input('created_at'));
+//            }, 'Created At')->date(); // 这里 'Created At' 是筛选器的标签名称，可以根据实际情况修改
+
+//            $filter->where(function ($query) {
+//                $query->whereBetween('offer_logs.created_at', [request()->input('created_at'), request()->input('created_at')]);
+//            }, 'Parent Created At Range')->datetime(); // 这里 'Parent Created At Range' 是筛选器的标签名称，可以根据实际情况修改
+
+//            $filter->between(function ($query) {
+//                $query->whereBetween('offer_logs.created_at', [request()->input('created_at'), request()->input('created_at')]);
+//            }, 'Child Created At Range')->datetime(); // 这里 'Child Created A
+
+
+
             $filter->column(1/2, function ($filter) {
                 $filter->like('token','Token');
             });

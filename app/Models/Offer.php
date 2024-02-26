@@ -25,6 +25,12 @@ class Offer extends Model
         'image'
     ];
 
+
+    public function offerLogs()
+    {
+        return $this->hasMany(OfferLog::class);
+    }
+
 // 定义一对多关系
     public function comments()
     {
