@@ -34,7 +34,7 @@
 <script src="/vendor/laravel-admin/intelligences/jquery-2.1.4.js"></script>
 <!--	<script src="assets/plugins/bootstrapv3/js/bootstrap.min.js" type="text/javascript"></script>-->
 <script src="/vendor/laravel-admin/intelligences/bootstrap.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/intelligences/bootstrap-popover-custom-class.min.js" type="text/javascript"></script>
+{{--<script src="/vendor/laravel-admin/intelligences/bootstrap-popover-custom-class.min.js" type="text/javascript"></script>--}}
 <script src="/vendor/laravel-admin/intelligences/raphael-min.js"></script>
 <script src="/vendor/laravel-admin/intelligences/jqueryblockui.min.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/intelligences/jquery.unveil.min.js" type="text/javascript"></script>
@@ -1083,7 +1083,7 @@
             <!--<div class="loader-spinner"></div>-->
 
             <!--M4trix Loader-->
-            <img src="./M4TRIX - NETWORK_files/squares-preloader-gif.svg" alt="">
+{{--            <img src="./M4TRIX - NETWORK_files/squares-preloader-gif.svg" alt="">--}}
         </div>
         <div class="input-container">
             <input type="text" id="userInput" placeholder="Type your message...">
@@ -1146,7 +1146,12 @@
 {{--        </div> <div class="icon info"></div> --}}
 {{--        <div class="icon success"> <span class="line tip"></span> <span class="line long"></span> <div class="placeholder"></div> <div class="fix"></div> </div> <div class="icon custom"></div> <h2>Title</h2><p class="lead text-muted">Text</p><p><button class="cancel btn btn-lg" tabindex="2">Cancel</button> <button class="confirm btn btn-lg" tabindex="1">OK</button></p></div>--}}
 
-</div><iframe id="adroll_slg" src="./M4TRIX - NETWORK_files/iframe_content.html" width="1" height="1" frameborder="0" marginwidth="0" marginheight="0" allow="join-ad-interest-group"></iframe><div class="cke_screen_reader_only cke_copyformatting_notification"><div aria-live="polite"></div></div>
+</div>
+
+{{--<iframe id="adroll_slg" src="./M4TRIX - NETWORK_files/iframe_content.html" width="1" height="1" frameborder="0" marginwidth="0" marginheight="0" allow="join-ad-interest-group"></iframe>--}}
+
+<div class="cke_screen_reader_only cke_copyformatting_notification">
+    <div aria-live="polite"></div></div>
 
 <script>
     $(document).ready(function(){

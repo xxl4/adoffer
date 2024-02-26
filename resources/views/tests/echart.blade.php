@@ -32,14 +32,16 @@
 
 <!-- END CONTENT -->
 <!-- BEGIN CORE JS FRAMEWORK-->
-<script async="" src="/vendor/laravel-admin/tests/fbevents.js"></script>
+{{--<script async="" src="/vendor/laravel-admin/tests/fbevents.js"></script>--}}
+
+
 <script async="" src="/vendor/laravel-admin/tests/roundtrip.js"></script>
 <script src="/vendor/laravel-admin/tests/pace.min.js" type="text/javascript"></script>
 <!-- BEGIN JS DEPENDECENCIES-->
 <script src="/vendor/laravel-admin/tests/jquery-2.1.4.js"></script>
 <!--	<script src="assets/plugins/bootstrapv3/js/bootstrap.min.js" type="text/javascript"></script>-->
 <script src="/vendor/laravel-admin/tests/bootstrap.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/tests/bootstrap-popover-custom-class.min.js" type="text/javascript"></script>
+{{--<script src="/vendor/laravel-admin/tests/bootstrap-popover-custom-class.min.js" type="text/javascript"></script>--}}
 <script src="/vendor/laravel-admin/tests/raphael-min.js"></script>
 <script src="/vendor/laravel-admin/tests/jqueryblockui.min.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/tests/jquery.unveil.min.js" type="text/javascript"></script>
@@ -63,12 +65,12 @@
 <link href="/vendor/laravel-admin/tests/lity.css" rel="stylesheet">
 <script src="/vendor/laravel-admin/tests/lity.js"></script>
 <script src="/vendor/laravel-admin/tests/jquery.cookie.js"></script>
-<script src="/vendor/laravel-admin/tests/main.js"></script>
+{{--<script src="/vendor/laravel-admin/tests/main.js"></script>--}}
 <script type="text/javascript" src="/vendor/laravel-admin/tests/notifications.js"></script>
 <script type="text/javascript" src="/vendor/laravel-admin/tests/email-broadcast.js"></script>
 
 
-<script type="text/javascript" src="/vendor/laravel-admin/tests/BBRDVRROJ5B3ZCI2VHENNY"></script>
+{{--<script type="text/javascript" src="/vendor/laravel-admin/tests/BBRDVRROJ5B3ZCI2VHENNY"></script>--}}
 <script type="text/javascript" src="/vendor/laravel-admin/tests/sendrolling.js"></script>
 
 <script src="/vendor/laravel-admin/analytic/echarts.min.js"></script>
@@ -682,7 +684,7 @@
             <script src="/vendor/laravel-admin/tests/jquery.flot.orderBars.js"></script>
             <script src="/vendor/laravel-admin/tests/jquery-sparkline.js"></script>
 
-            <script src="/vendor/laravel-admin/tests/graphics.js"></script>
+{{--            <script src="/vendor/laravel-admin/tests/graphics.js"></script>--}}
             <script src="/vendor/laravel-admin/tests/functions.js"></script>
             <script>
                 $(document).ready(function(){
