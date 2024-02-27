@@ -21,12 +21,12 @@ var reporting = {
 			};
 
 			function formatState (state) {
-				if(state.text != 'Searching…'){
-					var country_falg = $('<span style="background-image: url(images/flags/'+state.text.replace(/ /g,'-')+'-Flag.png); margin-right: 5px; display:inline-block; background-size:25px; background-repeat: no-repeat; width:25px;height:25px; vertical-align: middle;"></span><span style="vertical-align: middle; display:inline-block;">'+state.text+'</span>');
-					return country_falg;
-				}else{
+				// if(state.text != 'Searching…'){
+				// 	var country_falg = $('<span style="background-image: url(images/flags/'+state.text.replace(/ /g,'-')+'-Flag.png); margin-right: 5px; display:inline-block; background-size:25px; background-repeat: no-repeat; width:25px;height:25px; vertical-align: middle;"></span><span style="vertical-align: middle; display:inline-block;">'+state.text+'</span>');
+				// 	return country_falg;
+				// }else{
 					return state.text;
-				}
+				// }
 			};
 
 			$(".select2_offers").select2({
@@ -151,7 +151,7 @@ var reporting = {
 		$.ajax({
 			method: "POST",
 			dataType: 'json',
-			url: "classes/Class.reporting.php",
+			url: "",
 			data: {
 				step: "show_to_date",
 				options: {

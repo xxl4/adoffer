@@ -1,45 +1,32 @@
-{{--<link href="/vendor/laravel-admin/test/select2.css" rel="stylesheet" type="text/css" media="screen">--}}
-<link href="/vendor/laravel-admin/test/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen">
+<link href="/vendor/laravel-admin/test/select2.css" rel="stylesheet" type="text/css" media="screen">
+<link href="/vendor/laravel-admin/tests/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen">
+
+<link href="/vendor/laravel-admin/test/bootstrap.min.css" rel="stylesheet" type="text/css">
 
 
-{{--<link href="/vendor/laravel-admin/test/bootstrap.min.css" rel="stylesheet" type="text/css">--}}
+<link href="/vendor/laravel-admin/test/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/test/demo.css">
 
 
-{{--<link href="/vendor/laravel-admin/test/bootstrap-theme.min.css" rel="stylesheet" type="text/css">--}}
-{{--<link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/test/demo.css">--}}
-
-
-{{--<link href="/vendor/laravel-admin/test/font-awesome.css" rel="stylesheet" type="text/css">--}}
-
+<link href="/vendor/laravel-admin/test/font-awesome.css" rel="stylesheet" type="text/css">
 
 <link href="/vendor/laravel-admin/test/animate.min.css" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-{{--<script src="{{ asset('js/summary.js') }}"></script>--}}
-
-
-{{--<link href="/vendor/laravel-admin/test/jquery.scrollbar.css" rel="stylesheet" type="text/css">--}}
-{{--<link href="/vendor/laravel-admin/test/datepicker.css" rel="stylesheet" type="text/css">--}}
+<link href="/vendor/laravel-admin/test/jquery.scrollbar.css" rel="stylesheet" type="text/css">
+<link href="/vendor/laravel-admin/test/datepicker.css" rel="stylesheet" type="text/css">
 {{--<link rel="stylesheet" href="/vendor/laravel-admin/test/sweet-alert.css">--}}
-{{--<link rel="stylesheet" href="/vendor/laravel-admin/test/rickshaw.css" type="text/css" media="screen">--}}
-{{--<link rel="stylesheet" href="/vendor/laravel-admin/test/mapplic.css" type="text/css" media="screen">--}}
-{{--<link rel="stylesheet" href="/vendor/laravel-admin/test/ionicons.css" type="text/css">--}}
-{{--<link href="/vendor/laravel-admin/test/messenger.css" rel="stylesheet" type="text/css" media="screen">--}}
-{{--<link href="/vendor/laravel-admin/test/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen">--}}
-{{--<link rel="icon" type="image/png" href="https://m4trix.network/Reporting-platform/images/favicon.png">--}}
-{{--<link href="/vendor/laravel-admin/test/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" media="screen">--}}
+<link rel="stylesheet" href="/vendor/laravel-admin/test/rickshaw.css" type="text/css" media="screen">
+<link rel="stylesheet" href="/vendor/laravel-admin/test/mapplic.css" type="text/css" media="screen">
+<link rel="stylesheet" href="/vendor/laravel-admin/test/ionicons.css" type="text/css">
+<link href="/vendor/laravel-admin/test/messenger.css" rel="stylesheet" type="text/css" media="screen">
+<link href="/vendor/laravel-admin/test/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen">
+<link rel="icon" type="image/png" href="https://m4trix.network/Reporting-platform/images/favicon.png">
+<link href="/vendor/laravel-admin/test/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" media="screen">
 
-<link rel="stylesheet" href="/vendor/laravel-admin/analytic/bootstrap-select.min.css">
-<script src="/vendor/laravel-admin/analytic/bootstrap-select.min.js"></script>
-<script src="/vendor/laravel-admin/analytic/clipboard.min.js"></script>
+<link rel="stylesheet" href="/vendor/laravel-admin/test/bootstrap-select.min.css">
+<script src="/vendor/laravel-admin/test/bootstrap-select.min.js"></script>
+<script src="/vendor/laravel-admin/test/clipboard.min.js"></script>
 
 
-<!-- END PLUGIN CSS -->
-<!-- BEGIN CORE CSS FRAMEWORK -->
 <link href="/vendor/laravel-admin/test/icon" rel="stylesheet">
 <link href="/vendor/laravel-admin/test/webarch.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/test/custom.css" rel="stylesheet" type="text/css">
@@ -52,18 +39,8 @@
 {{--<script src="u5" type="text/javascript"></script>--}}
 <!-- TEXT EDITOR -->
 
-{{--<script>var switch_theme = 0;</script>--}}
+<script>var switch_theme = 0;</script>
 <link href="/vendor/laravel-admin/test/lity.css" rel="stylesheet">
-
-{{--<script>--}}
-{{--    window.networks = [{"net": "net", "name": "All networks", "uid": "", "role": ""}];--}}
-{{--    window.net = 'net';--}}
-{{--    window.selectedUid = '';--}}
-{{--    window.selectedRole = '';--}}
-{{--</script>--}}
-
-
-
 
 <div class="pace  pace-inactive">
     <div class="pace-progress" data-progress-text="100%" data-progress="99"
@@ -74,20 +51,6 @@
 </div>
 <form method="POST" id="form_id">
     <div class="page-container row-fluid">
-
-{{--        <a href="?id=offer#" class="scrollup">Scroll</a>--}}
-
-
-{{--        <div class="footer-widget">--}}
-{{--            <div class="pull-right">--}}
-{{--                <a class="exit" href="javascript:void(0);"><i class="material-icons">power_settings_new</i></a>--}}
-{{--            </div>--}}
-{{--            <div>--}}
-{{--                <span class="va-sub">Network</span>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
-
         <link href="/vendor/laravel-admin/test/network.css" rel="stylesheet" type="text/css">
 
         <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}"/>
@@ -323,17 +286,6 @@
                                                                                             <div class="row">
                                                                                                 @foreach ($item3 as $key4=>$item4)
                                                                                                     <div class="col-md-12">
-                                                                                                        {{--                                                                                                        <div class="padding-for_links">--}}
-                                                                                                        {{--                                                                                                            <div>{{$item4['track_name']}}</div>--}}
-                                                                                                        {{--                                                                                                            <input  style="width: calc(100% - 100px)"  readonly="" type="text" class="clipboard-1-0-0-1-2{{$key3.'-'.$key4}}" value="{{$item4['track_link']}}">--}}
-                                                                                                        {{--                                                                                                            <a href=""  target="_blank" class=" dynamicDomainTrackingLink">--}}
-                                                                                                        {{--                                                                                                                <i class="icon ion-eye pull-right"></i>--}}
-                                                                                                        {{--                                                                                                            </a>--}}
-                                                                                                        {{--                                                                                                            <a class="copp pull-right btn btn-success btn-cons copy-button1" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-2{{$key3.$key4}}">Copy</a>--}}
-                                                                                                        {{--                                                                                                        </div>--}}
-
-
-
                                                                                                         <div class="padding-for_links">
                                                                                                             <div>{{$item4['track_name']}}</div>
                                                                                                             <input readonly="" style="width: calc(100% - 100px)" type="text" class="clipboard-1-0-0-1{{$key2.'-'.$key3.'-'.$key4}}" value="{{$item4['track_link']}}">
@@ -489,10 +441,6 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <p>{{$item1['track_des']}}</p>
-                                                            {{--                                                        <p>You can use any of the 3 custom parameters agnostically.</p>--}}
-                                                            {{--                                                        <p>Replace {AFFID}, {SUBID}, {CLICKID} with your own tracking--}}
-                                                            {{--                                                            variables and get them feed-backed in your--}}
-                                                            {{--                                                            pixel/postback.</p>--}}
                                                         </div>
                                                         <div class="col-md-12">
 
@@ -667,10 +615,6 @@
                         </div>
                     </div>
                 </div>
-
-                {{--        <script src="/vendor/laravel-admin/test/js_offer_top_geos.js.下载"></script>--}}
-                {{--        <script src="/vendor/laravel-admin/test/offer.js"></script>--}}
-
             </div>
 
         </div>

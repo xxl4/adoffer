@@ -10,7 +10,7 @@
 <link href="/vendor/laravel-admin/tests/animate.min.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/tests/jquery.scrollbar.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/tests/datepicker.css" rel="stylesheet" type="text/css">
-{{--<link rel="stylesheet" href="/vendor/laravel-admin/tests/sweet-alert.css">--}}
+<link rel="stylesheet" href="/vendor/laravel-admin/tests/sweet-alert.css">
 <link rel="stylesheet" href="/vendor/laravel-admin/tests/rickshaw.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/tests/mapplic.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/tests/ionicons.css" type="text/css">
@@ -32,7 +32,7 @@
 
 <!-- END CONTENT -->
 <!-- BEGIN CORE JS FRAMEWORK-->
-{{--<script async="" src="/vendor/laravel-admin/tests/fbevents.js"></script>--}}
+<script async="" src="/vendor/laravel-admin/tests/fbevents.js"></script>
 
 
 <script async="" src="/vendor/laravel-admin/tests/roundtrip.js"></script>
@@ -41,18 +41,18 @@
 <script src="/vendor/laravel-admin/tests/jquery-2.1.4.js"></script>
 <!--	<script src="assets/plugins/bootstrapv3/js/bootstrap.min.js" type="text/javascript"></script>-->
 <script src="/vendor/laravel-admin/tests/bootstrap.js" type="text/javascript"></script>
-{{--<script src="/vendor/laravel-admin/tests/bootstrap-popover-custom-class.min.js" type="text/javascript"></script>--}}
+<script src="/vendor/laravel-admin/tests/bootstrap-popover-custom-class.min.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/tests/raphael-min.js"></script>
 <script src="/vendor/laravel-admin/tests/jqueryblockui.min.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/tests/jquery.unveil.min.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/tests/jquery.scrollbar.min.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/tests/jquery.animateNumbers.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/tests/jquery.validate.min.js" type="text/javascript"></script>
-{{--<script src="/vendor/laravel-admin/tests/select2.js" type="text/javascript"></script>--}}
+<script src="/vendor/laravel-admin/tests/select2.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/tests/bootstrap-datepicker.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/tests/bootstrap-timepicker.min.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/tests/form_elements.js" type="text/javascript"></script>
-{{--<script src="/vendor/laravel-admin/tests/sweet-alert.min.js"></script>--}}
+<script src="/vendor/laravel-admin/tests/sweet-alert.min.js"></script>
 <script src="/vendor/laravel-admin/tests/clipboard.js"></script>
 <script src="/vendor/laravel-admin/tests/messenger.min.js" type="text/javascript"></script>
 <!-- END CORE JS DEPENDECENCIES-->
@@ -66,7 +66,7 @@
 <script src="/vendor/laravel-admin/tests/lity.js"></script>
 <script src="/vendor/laravel-admin/tests/jquery.cookie.js"></script>
 <script type="text/javascript" src="/vendor/laravel-admin/tests/sendrolling.js"></script>
-<script src="/vendor/laravel-admin/analytic/echarts.min.js"></script>
+<script src="/vendor/laravel-admin/tests/echarts.min.js"></script>
 <div style="width: 1px; height: 1px; display: inline; position: absolute;"></div>
 <div class="pace  pace-inactive">
     <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
@@ -92,6 +92,10 @@
                                     <div class="timezone">
                                         <select class="select_timezone select2-hidden-accessible" tabindex="-1" aria-hidden="true">
                                             <option timezoneid="1" gmtadjustment="GMT-12:00" usedaylighttime="0" data-val="-12" value="1">(GMT-12:00) International Date Line West</option>
+
+
+
+
                                             <option timezoneid="2" gmtadjustment="GMT-11:00" usedaylighttime="0" data-val="-11" value="2">(GMT-11:00) Midway Island, Samoa</option>
                                             <option timezoneid="3" gmtadjustment="GMT-10:00" usedaylighttime="0" data-val="-10" value="3">(GMT-10:00) Hawaii</option>
                                             <option timezoneid="4" gmtadjustment="GMT-09:00" usedaylighttime="1" data-val="-9" value="4">(GMT-09:00) Alaska</option>
@@ -173,6 +177,9 @@
                                             <option timezoneid="80" gmtadjustment="GMT+12:00" usedaylighttime="1" data-val="12" value="80">(GMT+12:00) Auckland, Wellington</option>
                                             <option timezoneid="81" gmtadjustment="GMT+12:00" usedaylighttime="0" data-val="12" value="81">(GMT+12:00) Fiji, Kamchatka, Marshall Is.</option>
                                             <option timezoneid="82" gmtadjustment="GMT+13:00" usedaylighttime="0" data-val="13" value="82">(GMT+13:00) Nuku'alofa</option>
+
+
+
                                         </select>
                                         <span class="select2 select2-container select2-container--default" dir="ltr">
 										<span class="dropdown-wrapper" aria-hidden="true"></span>
@@ -415,7 +422,7 @@
         <script src="/vendor/laravel-admin/tests/jquery.flot.orderBars.js"></script>
         <script src="/vendor/laravel-admin/tests/jquery-sparkline.js"></script>
 
-        {{--            <script src="/vendor/laravel-admin/tests/graphics.js"></script>--}}
+                    <script src="/vendor/laravel-admin/tests/graphics.js"></script>
         <script src="/vendor/laravel-admin/tests/functions.js"></script>
         <script>
             $(document).ready(function(){
