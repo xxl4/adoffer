@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="/vendor/laravel-admin/analytic/bootstrap-select.min.css">
 <script src="/vendor/laravel-admin/analytic/bootstrap-select.min.js"></script>
 <script src="/vendor/laravel-admin/analytic/clipboard.min.js"></script>
+
+
 <!-- END PLUGIN CSS -->
 <!-- BEGIN CORE CSS FRAMEWORK -->
 <link href="/vendor/laravel-admin/test/icon" rel="stylesheet">
@@ -36,12 +38,12 @@
 <script>var switch_theme = 0;</script>
 <link href="/vendor/laravel-admin/test/lity.css" rel="stylesheet">
 
-<script>
-    window.networks = [{"net": "net", "name": "All networks", "uid": "", "role": ""}];
-    window.net = 'net';
-    window.selectedUid = '';
-    window.selectedRole = '';
-</script>
+{{--<script>--}}
+{{--    window.networks = [{"net": "net", "name": "All networks", "uid": "", "role": ""}];--}}
+{{--    window.net = 'net';--}}
+{{--    window.selectedUid = '';--}}
+{{--    window.selectedRole = '';--}}
+{{--</script>--}}
 
 
 
@@ -875,7 +877,7 @@
                     var innerValue = innerLi.textContent || innerLi.innerText;
 
                     // 输出内层<li>元素的值
-                    // console.log('Inner Value:', innerValue);
+                    console.log('Inner Value:', innerValue);
                 });
 
 
