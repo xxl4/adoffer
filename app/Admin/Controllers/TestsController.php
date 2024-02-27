@@ -280,6 +280,8 @@ class TestsController extends AdminController
 
 
         $data = response()->json(['data' => $data]);
+
+
 //        return $content
 //            ->header('Chartjs')
 //            ->body(view('analytics.echat'));

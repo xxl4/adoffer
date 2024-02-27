@@ -875,7 +875,7 @@
                     var innerValue = innerLi.textContent || innerLi.innerText;
 
                     // 输出内层<li>元素的值
-                    console.log('Inner Value:', innerValue);
+                    // console.log('Inner Value:', innerValue);
                 });
 
 
