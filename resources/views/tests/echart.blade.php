@@ -67,7 +67,7 @@
 <script src="/vendor/laravel-admin/tests/jquery.cookie.js"></script>
 {{--<script src="/vendor/laravel-admin/tests/main.js"></script>--}}
 <script type="text/javascript" src="/vendor/laravel-admin/tests/notifications.js"></script>
-<script type="text/javascript" src="/vendor/laravel-admin/tests/email-broadcast.js"></script>
+{{--<script type="text/javascript" src="/vendor/laravel-admin/tests/email-broadcast.js"></script>--}}
 
 
 {{--<script type="text/javascript" src="/vendor/laravel-admin/tests/BBRDVRROJ5B3ZCI2VHENNY"></script>--}}

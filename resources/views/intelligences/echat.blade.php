@@ -524,7 +524,7 @@
                                         </div>
                                         <div class="input-append success col-xs-8 col-sm-8">
                                             <div class="row  ">
-                                                <input type="text" class="form-control date_start1 date_pic_wid sandbox-advance1">
+                                                <input type="text" class="form-control date_start1 date_pic_wid sandbox-advance">
                                                 <span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>
                                             </div>
                                         </div>
@@ -542,7 +542,7 @@
                                         </div>
                                         <div class="input-append success col-xs-8 col-sm-8">
                                             <div class="row ">
-                                                <input type="text" class="form-control date_end1 date_pic_wid sandbox-advance1">
+                                                <input type="text" class="form-control date_end1 date_pic_wid sandbox-advance">
                                                 <span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>
                                             </div>
                                         </div>

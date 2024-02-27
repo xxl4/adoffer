@@ -95,11 +95,11 @@ var calendar_date = {
 
 		switch (selected_selector) {
 			case 'today':
-			$ ( '.sandbox-advance1'+suffix ). datepicker ( 'update' ,  new  Date ( current_year ,  current_month ,  calendar_day ));
+			$ ( '.sandbox-advance'+suffix ). datepicker ( 'update' ,  new  Date ( current_year ,  current_month ,  calendar_day ));
 			var str = $('.date_start1'+suffix).val();
 			break;
 			case 'yester':
-			$ ( '.sandbox-advance1'+suffix ). datepicker ( 'update' ,  new  Date ( current_year ,  current_month ,  calendar_day-1 ));
+			$ ( '.sandbox-advance'+suffix ). datepicker ( 'update' ,  new  Date ( current_year ,  current_month ,  calendar_day-1 ));
 			break;
 			case 'week':
 			if(week_day != 0){
@@ -161,7 +161,7 @@ var calendar_date = {
 				temp.setDate((cur_date.getDate()+1)-(week_day+7));
 			}
 		}else if($interval == 'day'){
-			$ ( '.sandbox-advance1' ). datepicker ( 'update' ,  new  Date ( current_year ,  current_month ,  calendar_day ));
+			$ ( '.sandbox-advance' ). datepicker ( 'update' ,  new  Date ( current_year ,  current_month ,  calendar_day ));
 			var str = $('.date_start1').val();
 		}
 		$ ( '.date_start1' ). datepicker ( 'update' ,  new  Date ( temp ));
