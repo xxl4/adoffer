@@ -30,7 +30,7 @@
 <style>.cke {
         visibility: hidden;
     }</style>
-<script src="u5" type="text/javascript"></script>
+{{--<script src="u5" type="text/javascript"></script>--}}
 <!-- TEXT EDITOR -->
 
 <script>var switch_theme = 0;</script>
