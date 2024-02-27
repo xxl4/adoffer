@@ -1,66 +1,57 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+CMS使用说明:
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+1、在offer content包括了offer所有的维护操作，包括offer新增、修改、删除，以及配套绑定的类别等等；其中offer operation 进行基础的offer新增；并展示offer的基础信息；
 
-## About Laravel
+![Image](https://github.com/xxl4/adoffer/blob/main/public/upload/image/image1.png)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+2、点击新增按钮后，添加offer的基础信息；
 
-## Learning Laravel
+![image-20240226144642566](https://github.com/xxl4/adoffer/blob/main/public/upload/image/image2.png)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+3、从这一步开始添加offer所绑定的信息内容，第一个就是对应的track link的tab名称，每个offer的track link内容模块可包含若干个tab的名称，每个tab还可包含若干可投放的track link;
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+![image-20240226145519800](https://github.com/xxl4/adoffer/blob/main/public/upload/image/image3.png)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+4、第二步操作track link,首先添加track link的名称，并选择对应跳转的落地页，同时选中所归属的track tab
 
-### Premium Partners
+![image-20240226151128238](https://github.com/xxl4/adoffer/blob/main/public/upload/image/image4.png)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5、落地页的管理，每一个track link都会有一个跳转的落地页，可在此处新增
 
-## Code of Conduct
+![image-20240226151338694](https://github.com/xxl4/adoffer/blob/main/public/upload/image/image5.png)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+6、追踪域名的维护
 
-## License
+![image-20240226151815890](https://github.com/xxl4/adoffer/blob/main/public/upload/image/image6.png)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+7、offer 对应的creative内容链接的维护，此处新建后，可以offer operation菜单进行下拉选择
+
+![image-20240226152326143](https://github.com/xxl4/adoffer/blob/main/public/upload/image/image7.png)
+
+
+
+8、Report下的Advanced 展示了所有回传到cms的订单记录
+
+![image-20240226154114487](https://github.com/xxl4/adoffer/blob/main/public/upload/image/image8.png)
+
+
+
+9、Report 下的Analytics 展示的基础图表，以及销售额的汇总
+
+![image-20240226154951250](https://github.com/xxl4/adoffer/blob/main/public/upload/image/image9.png)
+
+
+
+10、销量前三的offer分布
+
+![image-20240226155419431](https://github.com/xxl4/adoffer/blob/main/public/upload/image/image10.png)
