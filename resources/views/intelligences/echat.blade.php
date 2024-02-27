@@ -47,7 +47,7 @@
 
 
 <script src="/vendor/laravel-admin/intelligences/select2.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/intelligences/select21.js" type="text/javascript"></script>
+{{--<script src="/vendor/laravel-admin/intelligences/select21.js" type="text/javascript"></script>--}}
 
 
 
