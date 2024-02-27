@@ -1,20 +1,37 @@
-<link href="/vendor/laravel-admin/test/select2.css" rel="stylesheet" type="text/css" media="screen">
+{{--<link href="/vendor/laravel-admin/test/select2.css" rel="stylesheet" type="text/css" media="screen">--}}
 <link href="/vendor/laravel-admin/test/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen">
-<link href="/vendor/laravel-admin/test/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link href="/vendor/laravel-admin/test/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/test/demo.css">
-<link href="/vendor/laravel-admin/test/font-awesome.css" rel="stylesheet" type="text/css">
+
+
+{{--<link href="/vendor/laravel-admin/test/bootstrap.min.css" rel="stylesheet" type="text/css">--}}
+
+
+{{--<link href="/vendor/laravel-admin/test/bootstrap-theme.min.css" rel="stylesheet" type="text/css">--}}
+{{--<link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/test/demo.css">--}}
+
+
+{{--<link href="/vendor/laravel-admin/test/font-awesome.css" rel="stylesheet" type="text/css">--}}
+
+
 <link href="/vendor/laravel-admin/test/animate.min.css" rel="stylesheet" type="text/css">
-<link href="/vendor/laravel-admin/test/jquery.scrollbar.css" rel="stylesheet" type="text/css">
-<link href="/vendor/laravel-admin/test/datepicker.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+{{--<script src="{{ asset('js/summary.js') }}"></script>--}}
+
+
+{{--<link href="/vendor/laravel-admin/test/jquery.scrollbar.css" rel="stylesheet" type="text/css">--}}
+{{--<link href="/vendor/laravel-admin/test/datepicker.css" rel="stylesheet" type="text/css">--}}
 {{--<link rel="stylesheet" href="/vendor/laravel-admin/test/sweet-alert.css">--}}
-<link rel="stylesheet" href="/vendor/laravel-admin/test/rickshaw.css" type="text/css" media="screen">
-<link rel="stylesheet" href="/vendor/laravel-admin/test/mapplic.css" type="text/css" media="screen">
-<link rel="stylesheet" href="/vendor/laravel-admin/test/ionicons.css" type="text/css">
-<link href="/vendor/laravel-admin/test/messenger.css" rel="stylesheet" type="text/css" media="screen">
-<link href="/vendor/laravel-admin/test/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen">
-<link rel="icon" type="image/png" href="https://m4trix.network/Reporting-platform/images/favicon.png">
-<link href="/vendor/laravel-admin/test/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" media="screen">
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/test/rickshaw.css" type="text/css" media="screen">--}}
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/test/mapplic.css" type="text/css" media="screen">--}}
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/test/ionicons.css" type="text/css">--}}
+{{--<link href="/vendor/laravel-admin/test/messenger.css" rel="stylesheet" type="text/css" media="screen">--}}
+{{--<link href="/vendor/laravel-admin/test/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen">--}}
+{{--<link rel="icon" type="image/png" href="https://m4trix.network/Reporting-platform/images/favicon.png">--}}
+{{--<link href="/vendor/laravel-admin/test/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" media="screen">--}}
 
 <link rel="stylesheet" href="/vendor/laravel-admin/analytic/bootstrap-select.min.css">
 <script src="/vendor/laravel-admin/analytic/bootstrap-select.min.js"></script>
@@ -35,7 +52,7 @@
 {{--<script src="u5" type="text/javascript"></script>--}}
 <!-- TEXT EDITOR -->
 
-<script>var switch_theme = 0;</script>
+{{--<script>var switch_theme = 0;</script>--}}
 <link href="/vendor/laravel-admin/test/lity.css" rel="stylesheet">
 
 {{--<script>--}}
@@ -877,7 +894,7 @@
                     var innerValue = innerLi.textContent || innerLi.innerText;
 
                     // 输出内层<li>元素的值
-                    console.log('Inner Value:', innerValue);
+                    // console.log('Inner Value:', innerValue);
                 });
 
 

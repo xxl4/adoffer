@@ -104,7 +104,7 @@ var reporting = {
 				var value = $(this).data('analytics-'+action);
 				if(!$('[data-analytics-'+action+'-active="'+value+'"]:visible').length){
 					$.ajax({
-						method: "POST",
+						method: "GET",
 						dataType: 'json',
 						url: "classes/Class.users.php",
 						data: {
@@ -149,7 +149,7 @@ var reporting = {
 		filter['offers'] = offers;
 
 		$.ajax({
-			method: "POST",
+			method: "GET",
 			dataType: 'json',
 			url: "",
 			data: {

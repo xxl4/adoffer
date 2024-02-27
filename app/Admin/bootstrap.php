@@ -19,4 +19,13 @@
  */
 
 Encore\Admin\Form::forget(['map', 'editor']);
-//Admin::js("/vendor/laravel-admin/analytic/Chart.min.js");
+
+
+Admin::js("/vendor/laravel-admin/analytic/Chart.min.js");
+
+
+Admin::js("/vendor/laravel-admin/tests/select2.js");
+Admin::js("/vendor/laravel-admin/analytic/echarts.min.js");
+Admin::js("/vendor/laravel-admin/tests/functions.js");
+
+//Admin::js("/vendor/laravel-admin/tests/summary.js");

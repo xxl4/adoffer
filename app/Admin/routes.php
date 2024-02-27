@@ -19,7 +19,9 @@ Route::group([
     //$router->resource('product/show', 'ProductController')->names('admin.Product');
 
     $router->get('product/show', "ProductController@show")->name('admin.product');
+
     $router->get('offer/show', "OfferController@show")->name('admin.offer');
+
     $router->post('offer/formList', "OfferController@show", 'admin.formList');
     $router->post('offer/query', 'OfferController@query')->name('admin.query');
     $router->resource('offer_track', 'OfferTrackController')->names('admin.OfferTrack');
@@ -29,7 +31,6 @@ Route::group([
     $router->resource('land_page', 'LandPageController')->names('admin.LandPage');
     $router->resource('delivery', 'DeliveryController')->names('admin.Delivery');
 
-
     $router->get('intelligence/echat', "IntelligenceController@echat")->name('admin.intelligence');
     $router->get('intelligence/offerPie', "IntelligenceController@offerPie")->name('admin.intelligence');
     $router->get('intelligence/countryPie', "IntelligenceController@countryPie")->name('admin.intelligence');
@@ -37,11 +38,16 @@ Route::group([
     $router->resource('offer_advanced', 'OfferAdvancedController')->names('admin.OfferAdvanced');
     $router->post('intelligence/query', 'IntelligenceController@query')->name('admin.query');
     $router->post('analytics/query', 'AnalyticsController@query')->name('admin.query');
-
     $router->get('analytics/echat', "AnalyticsController@echat")->name('admin.analytics');
 
 
-    $router->get('tests/echart', "TestsController@echart")->name('admin.tests');
+//    $router->resource('delivery', 'DeliveryController')->names('admin.Delivery');
+
+
+    $router->any('tests/echart', "TestsController@echart")->name('admin.tests');
+
+
+    $router->any('tests/echart', "TestsController@echart")->name('admin.tests');
     $router->get('tests/offerPie', "TestsController@offerPie")->name('admin.tests');
     $router->get('tests/countryPie', "TestsController@countryPie")->name('admin.tests');
     $router->post('tests/query', 'TestsController@query')->name('admin.query');

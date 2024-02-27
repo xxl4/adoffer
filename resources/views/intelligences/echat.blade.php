@@ -28,36 +28,41 @@
 <!-- BEGIN CORE JS FRAMEWORK-->
 {{--<script src="/vendor/laravel-admin/intelligences/1927844693922741" async=""></script>--}}
 {{--<script async="" src="/vendor/laravel-admin/intelligences/fbevents.js"></script>--}}
-<script async="" src="/vendor/laravel-admin/intelligences/roundtrip.js"></script>
-<script src="/vendor/laravel-admin/intelligences/pace.min.js" type="text/javascript"></script>
+
+
+
+{{--<script async="" src="/vendor/laravel-admin/intelligences/roundtrip.js"></script>--}}
+{{--<script src="/vendor/laravel-admin/intelligences/pace.min.js" type="text/javascript"></script>--}}
 <!-- BEGIN JS DEPENDECENCIES-->
-<script src="/vendor/laravel-admin/intelligences/jquery-2.1.4.js"></script>
+{{--<script src="/vendor/laravel-admin/intelligences/jquery-2.1.4.js"></script>--}}
 <!--	<script src="assets/plugins/bootstrapv3/js/bootstrap.min.js" type="text/javascript"></script>-->
-<script src="/vendor/laravel-admin/intelligences/bootstrap.js" type="text/javascript"></script>
+{{--<script src="/vendor/laravel-admin/intelligences/bootstrap.js" type="text/javascript"></script>--}}
 {{--<script src="/vendor/laravel-admin/intelligences/bootstrap-popover-custom-class.min.js" type="text/javascript"></script>--}}
-<script src="/vendor/laravel-admin/intelligences/raphael-min.js"></script>
-<script src="/vendor/laravel-admin/intelligences/jqueryblockui.min.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/intelligences/jquery.unveil.min.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/intelligences/jquery.scrollbar.min.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/intelligences/jquery.animateNumbers.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/intelligences/jquery.validate.min.js" type="text/javascript"></script>
+{{--<script src="/vendor/laravel-admin/intelligences/raphael-min.js"></script>--}}
+{{--<script src="/vendor/laravel-admin/intelligences/jqueryblockui.min.js" type="text/javascript"></script>--}}
+{{--<script src="/vendor/laravel-admin/intelligences/jquery.unveil.min.js" type="text/javascript"></script>--}}
+{{--<script src="/vendor/laravel-admin/intelligences/jquery.scrollbar.min.js" type="text/javascript"></script>--}}
+{{--<script src="/vendor/laravel-admin/intelligences/jquery.animateNumbers.js" type="text/javascript"></script>--}}
+{{--<script src="/vendor/laravel-admin/intelligences/jquery.validate.min.js" type="text/javascript"></script>--}}
+
+
 <script src="/vendor/laravel-admin/intelligences/select2.js" type="text/javascript"></script>
-
-
 <script src="/vendor/laravel-admin/intelligences/select21.js" type="text/javascript"></script>
 
 
 
-<script src="/vendor/laravel-admin/intelligences/bootstrap-datepicker.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/intelligences/bootstrap-timepicker.min.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/intelligences/form_elements.js" type="text/javascript"></script>
+{{--<script src="/vendor/laravel-admin/intelligences/bootstrap-datepicker.js" type="text/javascript"></script>--}}
+{{--<script src="/vendor/laravel-admin/intelligences/bootstrap-timepicker.min.js" type="text/javascript"></script>--}}
+
+
+{{--<script src="/vendor/laravel-admin/intelligences/form_elements.js" type="text/javascript"></script>--}}
 {{--<script src="/vendor/laravel-admin/intelligences/sweet-alert.min.js"></script>--}}
-<script src="/vendor/laravel-admin/intelligences/clipboard.js"></script>
-<script src="/vendor/laravel-admin/intelligences/messenger.min.js" type="text/javascript"></script>
+{{--<script src="/vendor/laravel-admin/intelligences/clipboard.js"></script>--}}
+{{--<script src="/vendor/laravel-admin/intelligences/messenger.min.js" type="text/javascript"></script>--}}
 <!-- END CORE JS DEPENDECENCIES-->
 <!-- BEGIN CORE TEMPLATE JS -->
-<script src="/vendor/laravel-admin/intelligences/webarch.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/intelligences/chat.js" type="text/javascript"></script>
+{{--<script src="/vendor/laravel-admin/intelligences/webarch.js" type="text/javascript"></script>--}}
+{{--<script src="/vendor/laravel-admin/intelligences/chat.js" type="text/javascript"></script>--}}
 <!-- END CORE TEMPLATE JS -->
 
 <!-- TEXT EDITOR -->
@@ -70,9 +75,9 @@
 
 <!-- for tutorial.php || headerMenuFaq.php || faq.php -->
 <link href="/vendor/laravel-admin/intelligences/lity.css" rel="stylesheet">
-<script src="/vendor/laravel-admin/intelligences/lity.js"></script>
+{{--<script src="/vendor/laravel-admin/intelligences/lity.js"></script>--}}
 
-<script src="/vendor/laravel-admin/intelligences/jquery.cookie.js"></script>
+{{--<script src="/vendor/laravel-admin/intelligences/jquery.cookie.js"></script>--}}
 <script>
     window.networks = [{"net":"net","name":"All networks","uid":"","role":""}];
     window.net = 'net';
@@ -80,7 +85,13 @@
     window.selectedRole = '';
 </script>
 {{--<script src="/vendor/laravel-admin/intelligences/main.js"></script>--}}
-<script type="text/javascript" src="/vendor/laravel-admin/intelligences/notifications.js"></script>
+
+
+{{--<script type="text/javascript" src="/vendor/laravel-admin/intelligences/notifications.js"></script>--}}
+
+
+
+
 {{--<script type="text/javascript" src="/vendor/laravel-admin/intelligences/email-broadcast.js"></script>--}}
 
 {{--<script type="text/javascript">--}}
@@ -117,7 +128,9 @@
 
 {{--<script type="text/javascript" src="/vendor/laravel-admin/intelligences/config(1).js"></script>--}}
 
-<script type="text/javascript" src="/vendor/laravel-admin/intelligences/sendrolling.js"></script>
+{{--<script type="text/javascript" src="/vendor/laravel-admin/intelligences/sendrolling.js"></script>--}}
+
+
 <link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/intelligences/editor.css">
 {{--<script type="text/javascript" src="/vendor/laravel-admin/intelligences/zh-cn.js"></script>--}}
 {{--<script type="text/javascript" src="/vendor/laravel-admin/intelligences/styles.js"></script>--}}
@@ -277,7 +290,7 @@
                                     </div>
 
 
-
+                                    <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}"/>
 
 {{--                                    <div class="col-xs-12">--}}
 {{--                                        <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding">--}}
@@ -948,13 +961,15 @@
 
 
 
-        <script src="/vendor/laravel-admin/intelligences/jquery-sparkline.min.js"></script>
-        <script src="/vendor/laravel-admin/intelligences/jquery.easypiechart.min.js"></script>
-        <script src="/vendor/laravel-admin/intelligences/jquery.flot.js"></script>
-        <script src="/vendor/laravel-admin/intelligences/jquery.flot.time.min.js"></script>
-        <script src="/vendor/laravel-admin/intelligences/jquery.flot.selection.min.js"></script>
-        <script src="/vendor/laravel-admin/intelligences/jquery.flot.animator.min.js"></script>
-        <script src="/vendor/laravel-admin/intelligences/jquery.flot.orderBars.js"></script>
+{{--        <script src="/vendor/laravel-admin/intelligences/jquery-sparkline.min.js"></script>--}}
+{{--        <script src="/vendor/laravel-admin/intelligences/jquery.easypiechart.min.js"></script>--}}
+{{--        <script src="/vendor/laravel-admin/intelligences/jquery.flot.js"></script>--}}
+{{--        <script src="/vendor/laravel-admin/intelligences/jquery.flot.time.min.js"></script>--}}
+{{--        <script src="/vendor/laravel-admin/intelligences/jquery.flot.selection.min.js"></script>--}}
+{{--        <script src="/vendor/laravel-admin/intelligences/jquery.flot.animator.min.js"></script>--}}
+{{--        <script src="/vendor/laravel-admin/intelligences/jquery.flot.orderBars.js"></script>--}}
+
+
         <script src="/vendor/laravel-admin/intelligences/functions.js"></script>
 
 
@@ -962,13 +977,13 @@
 {{--        <script src="/vendor/laravel-admin/intelligences/functions1.js"></script>--}}
 
 
-        <script src="/vendor/laravel-admin/intelligences/graphics.js"></script>
-        <script src="/vendor/laravel-admin/intelligences/intelligence.js"></script>
+{{--        <script src="/vendor/laravel-admin/intelligences/graphics.js"></script>--}}
+{{--        <script src="/vendor/laravel-admin/intelligences/intelligence.js"></script>--}}
 
 <script src="/vendor/laravel-admin/tests/summary.js"></script>
 
 
-{{--<script src="/vendor/laravel-admin/tests/advanced.js"></script>--}}
+<script src="/vendor/laravel-admin/tests/advanced.js"></script>
 
 
 <script src="/vendor/laravel-admin/intelligences/advanced1.js"></script>
