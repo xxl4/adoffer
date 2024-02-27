@@ -154,11 +154,11 @@
                                         <ul class="nav nav-tabs" role="tablist">
                                             <li class="active"><a href="#tab0Offer_<?php echo $key;?>" role="tab"
                                                                   data-toggle="tab"
-                                                                  onclick="openTab('{{$item['id'].'_'.$item['offer_name']}}')">Summary</a>
+                                                                  >Summary</a>
                                             </li>
                                             <li><a href="#tab0Description_<?php echo $key;?>" role="tab"
                                                    data-toggle="tab"
-                                                   onclick="openTab('{{$item['id'].'_'.$item['des']}}')">Description</a>
+                                                   >Description</a>
                                             </li>
                                             <li><a href="#tab0Geos_<?php echo $key;?>" role="tab" data-toggle="tab">Accepted
                                                     Geos</a></li>

@@ -832,7 +832,7 @@
 {{--        // 初始化 ECharts 实例--}}
         var myChart = echarts.init(document.getElementById('myPieChart'));
         var pieData = data.processedData;
-        console.log('饼图111',pieData)
+        // console.log('饼图111',pieData)
 
         var defaultLabel = '默认标签名\n默认值';
 {{--        // 图表配置--}}
@@ -887,7 +887,7 @@
             myChart.resize();
         });
 
-    console.log('日志打印',data.sale_date)
+    // console.log('日志打印',data.sale_date)
 
 
     var myLineChart = new Chart(ctx, {
@@ -932,7 +932,7 @@
                         var selectedCategory = document.getElementById('updateChart').value;
 
 
-                        console.log('下拉框值',selectedCategory)
+                        // console.log('下拉框值',selectedCategory)
 
                         if (selectedCategory === '1') {
                             myLineChart.data.datasets[0].data = data.offer_count.total_sales;
@@ -1032,11 +1032,11 @@
 
 
 
-
-              console.log('返回数据offer',offer)
-                console.log('返回数据geos',geos)
-                console.log('返回数据start_date',start_date)
-                console.log('返回数据end_date',end_date)
+              //
+              // console.log('返回数据offer',offer)
+              //   console.log('返回数据geos',geos)
+              //   console.log('返回数据start_date',start_date)
+              //   console.log('返回数据end_date',end_date)
 
 
             function updateBarData() {
@@ -1061,7 +1061,7 @@
                             var barData = data.country.country_total_count;
                         }
 
-                        console.log('返回数据',barData)
+                        // console.log('返回数据',barData)
 
                         var barOption = {
                             xAxis: {
@@ -1198,7 +1198,7 @@
 
                         var lineSelectedCategory = document.getElementById('updateChart').value;
 
-                        console.log('筛选数据',lineSelectedCategory)
+                        // console.log('筛选数据',lineSelectedCategory)
 
                         if (lineSelectedCategory === '1') {
                             myLineChart.data.datasets[0].data = data.offer_count.total_sales;
