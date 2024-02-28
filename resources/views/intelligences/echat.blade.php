@@ -8,23 +8,15 @@
 <link href="/vendor/laravel-admin/intelligences/animate.min.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/intelligences/jquery.scrollbar.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/intelligences/datepicker.css" rel="stylesheet" type="text/css">
-{{--<link rel="stylesheet" href="/vendor/laravel-admin/intelligences/sweet-alert.css">--}}
 <link rel="stylesheet" href="/vendor/laravel-admin/intelligences/rickshaw.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/intelligences/mapplic.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/intelligences/ionicons.css" type="text/css">
 <link href="/vendor/laravel-admin/intelligences/messenger.css" rel="stylesheet" type="text/css" media="screen">
 <link href="/vendor/laravel-admin/intelligences/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen">
 
-
-
-
-
-<!-- END PLUGIN CSS -->
-<!-- BEGIN CORE CSS FRAMEWORK -->
-{{--<link href="/vendor/laravel-admin/intelligences/icon" rel="stylesheet">--}}
 <link href="/vendor/laravel-admin/intelligences/webarch.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/intelligences/custom.css" rel="stylesheet" type="text/css">
-{{--<link rel="stylesheet" href="/vendor/laravel-admin/intelligences/links_img.css">--}}
+
 
 <script src="/vendor/laravel-admin/intelligences/select2.js" type="text/javascript"></script>
 
@@ -82,7 +74,7 @@
                                                 </div>
                                                 <div class="input-append success col-xs-8 col-sm-8">
                                                     <div class="row">
-                                                        <input type="text" class="form-control date_start date_pic_wid sandbox-advance" id="start_date">
+                                                        <input type="text" class="form-control date_start date_pic_wid sandbox-advance" id="start_date" value="<?php echo date("d/m/Y") ?>">
                                                         <span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>
                                                     </div>
                                                 </div>
@@ -97,7 +89,7 @@
                                                 </div>
                                                 <div class="input-append success col-xs-8 col-sm-8">
                                                     <div class="row">
-                                                        <input type="text" class="form-control date_end date_pic_wid sandbox-advance" id="end_date">
+                                                        <input type="text" class="form-control date_end date_pic_wid sandbox-advance" id="end_date" value="<?php echo date("d/m/Y") ?>">
                                                         <span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>
                                                     </div>
                                                 </div>
@@ -113,20 +105,6 @@
                                                             @endforeach
 
                                                         </select>
-
-                                                        <!--										<span class="select2 select2-container select2-container&#45;&#45;default" dir="ltr">-->
-                                                        <!--											<span class="selection">-->
-                                                        <!--												<span class="select2-selection select2-selection&#45;&#45;multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1">-->
-                                                        <!--													<ul class="select2-selection__rendered">-->
-                                                        <!--														<li class="select2-search select2-search&#45;&#45;inline">-->
-                                                        <!--											<input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="Select Offers Geos" style="width: 277px;">-->
-                                                        <!--										</li>-->
-                                                        <!--										</ul>-->
-                                                        <!--										</span>-->
-                                                        <!--										</span>-->
-                                                        <!--											<span class="dropdown-wrapper" aria-hidden="true"></span>-->
-                                                        <!--										</span>-->
-
 
 
 
@@ -152,80 +130,6 @@
 
                                     <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}"/>
 
-{{--                                    <div class="col-xs-12">--}}
-{{--                                        <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding">--}}
-{{--                                            <div class="row">--}}
-{{--                                                <div class="col-xs-12">--}}
-{{--                                                    <select class="list_date_suf_ select2_list padding_left select2-hidden-accessible" data-suffix="offers" style="margin-bottom: 10px;" name="date" tabindex="-1" aria-hidden="true">--}}
-{{--                                                        <option value="today">Today</option>--}}
-{{--                                                        <option value="yester">Yesterday</option>--}}
-{{--                                                        <option value="week">Current Week</option>--}}
-{{--                                                        <option value="month">Current Month</option>--}}
-{{--                                                        <option value="year">Year To Date</option>--}}
-{{--                                                        <option value="l_week">Last Week</option>--}}
-{{--                                                        <option value="l_month">Last Month</option>--}}
-{{--                                                        <option value="calendar">Custom</option>--}}
-{{--                                                    </select><span class="select2 select2-container select2-container--default" dir="ltr"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2--container"><span class="select2-selection__rendered" id="select2--container" title="Last Week">Last Week</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                        --}}
-{{--                                        --}}
-{{--                                        --}}
-{{--                                        <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding calendar_padding">--}}
-{{--                                            <div class="col-xs-4 col-sm-4">--}}
-{{--                                                <div class="row">--}}
-{{--                                                    <div class="about_color">--}}
-{{--                                                        <p class="about_inputs">Start</p>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="input-append success col-xs-8 col-sm-8">--}}
-{{--                                                <div class="row">--}}
-{{--                                                    <input type="text" class="form-control date_start_suf_ date_start_suf_offers date_pic_wid sandbox-advance_suf_offers">--}}
-{{--                                                    <span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                        --}}
-{{--                                        --}}
-{{--                                        <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding calendar_padding">--}}
-{{--                                            <div class="col-xs-4 col-sm-4">--}}
-{{--                                                <div class="row">--}}
-{{--                                                    <div class="about_color">--}}
-{{--                                                        <p class="about_inputs">End</p>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="input-append success col-xs-8 col-sm-8">--}}
-{{--                                                <div class="row">--}}
-{{--                                                    <input type="text" class="form-control date_end_suf_ date_end_suf_offers date_pic_wid sandbox-advance_suf_offers">--}}
-{{--                                                    <span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                        --}}
-{{--                                        --}}
-{{--                                        <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1">--}}
-{{--                                            <div class="row">--}}
-{{--                                                <div class="col-xs-12 use_small_padding">--}}
-{{--                                                    <select class="select2_geos select2-hidden-accessible" name="geos" id="geos_offers" data-suffix="offers" multiple="" tabindex="-1" aria-hidden="true">--}}
-{{--                                                        <option value="Albania">Albania</option>--}}
-
-{{--                                                    </select><span class="select2 select2-container select2-container--default" dir="ltr"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="All Geos" style="width: 269px;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>--}}
-{{--                                                    <style>--}}
-
-{{--                                                    </style>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-
-
-
-
-
 
 
                                 </div>
@@ -236,12 +140,6 @@
 
                                             <canvas id="myPieChart" style="width: 484px;height:233px;"></canvas>
 
-{{--                                            <canvas width="548" height="274" style="display: inline-block; width: 548px; height: 274px; vertical-align: top;"></canvas>--}}
-
-
-{{--                                            <table style="position:absolute;top:9px;right:9px;;font-size:smaller;color:#545454">--}}
-{{--                                                <tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #0aa699;overflow:hidden"></div></div></td><td class="legendLabel">TVShareMax</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #0090d9;overflow:hidden"></div></div></td><td class="legendLabel">MaxPhone</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #fdd01c;overflow:hidden"></div></div></td><td class="legendLabel">RealAction Pro</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #f35958;overflow:hidden"></div></div></td><td class="legendLabel">Rest</td></tr></tbody>--}}
-{{--                                            </table>--}}
 
 
                                         </div>
@@ -276,35 +174,7 @@
                                             </tr>
 
                                             @endforeach
-{{--                                            <tr>--}}
-{{--                                                <td class="v-align-middle">--}}
-{{--                                                    <span class="muted">Ecommerce - MaxPhone INTL - All Languages - EXCLUSIVE</span>--}}
-{{--                                                </td>--}}
-{{--                                                <td>--}}
-{{--                                                    <span class="muted">10.8 % </span>--}}
-{{--                                                </td>--}}
-{{--                                                <td class="v-align-middle">--}}
-{{--                                                    <div class="progress">--}}
-{{--                                                        <div data-percentage="10.8%" class="progress-bar animate-progress-bar" style="width: 10.81081081081081%; background-color:#0090d9">--}}
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
-{{--                                                </td>--}}
-{{--                                            </tr>--}}
 
-{{--                                            <tr>--}}
-{{--                                                <td class="v-align-middle">--}}
-{{--                                                    <span class="muted">Ecommerce - RealAction Pro INTL - All Languages - EXCLUSIVE</span>--}}
-{{--                                                </td>--}}
-{{--                                                <td>--}}
-{{--                                                    <span class="muted">5.4 % </span>--}}
-{{--                                                </td>--}}
-{{--                                                <td class="v-align-middle">--}}
-{{--                                                    <div class="progress">--}}
-{{--                                                        <div data-percentage="5.4%" class="progress-bar animate-progress-bar" style="width: 5.405405405405405%; background-color:#fdd01c">--}}
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
-{{--                                                </td>--}}
-{{--                                            </tr>--}}
 
                                             </tbody>
                                         </table>
@@ -376,9 +246,6 @@
                                                     <option value="calendar">Custom</option>
                                                 </select>
 
-
-
-{{--                                                <span class="select2 select2-container select2-container--default" dir="ltr"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2--container"><span class="select2-selection__rendered" id="select2--container" title="Today">Today</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>--}}
 
 
 
@@ -454,94 +321,6 @@
 
 
                                 </div>
-
-
-{{--                                <div class="row">--}}
-
-
-
-{{--                                    <div class="col-xs-12">--}}
-
-
-{{--                                        <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding">--}}
-{{--                                            <div class="row">--}}
-{{--                                                <div class="col-xs-12">--}}
-{{--                                                    <select class="list_date_suf_ select2_list padding_left select2-hidden-accessible" data-suffix="geo" style="margin-bottom: 10px;" name="date" tabindex="-1" aria-hidden="true">--}}
-{{--                                                        <option value="today">Today</option>--}}
-{{--                                                        <option value="yester">Yesterday</option>--}}
-{{--                                                        <option value="week">Current Week</option>--}}
-{{--                                                        <option value="month">Current Month</option>--}}
-{{--                                                        <option value="year">Year To Date</option>--}}
-{{--                                                        <option value="l_week">Last Week</option>--}}
-{{--                                                        <option value="l_month">Last Month</option>--}}
-{{--                                                        <option value="calendar">Custom</option>--}}
-{{--                                                    </select><span class="select2 select2-container select2-container--default" dir="ltr"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2--container"><span class="select2-selection__rendered" id="select2--container" title="Last Week">Last Week</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-
-
-{{--                                        <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding calendar_padding">--}}
-{{--                                            <div class="col-xs-4 col-sm-4">--}}
-{{--                                                <div class="row">--}}
-{{--                                                    <div class="about_color">--}}
-{{--                                                        <p class="about_inputs">Start</p>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="input-append success col-xs-8 col-sm-8">--}}
-{{--                                                <div class="row">--}}
-{{--                                                    <input type="text" class="form-control date_start_suf_ date_start_suf_geo date_pic_wid sandbox-advance_suf_geo">--}}
-{{--                                                    <span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-
-
-
-{{--                                        <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding calendar_padding">--}}
-{{--                                            <div class="col-xs-4 col-sm-4">--}}
-{{--                                                <div class="row">--}}
-{{--                                                    <div class="about_color">--}}
-{{--                                                        <p class="about_inputs">End</p>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="input-append success col-xs-8 col-sm-8">--}}
-{{--                                                <div class="row">--}}
-{{--                                                    <input type="text" class="form-control date_end_suf_ date_end_suf_geo date_pic_wid sandbox-advance_suf_geo">--}}
-{{--                                                    <span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-
-
-
-
-{{--                                        <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1">--}}
-{{--                                            <div class="row">--}}
-{{--                                                <div class="col-xs-12 use_small_padding">--}}
-{{--                                                    <select class="select2_offers select2-hidden-accessible" name="offers" data-suffix="geo" id="offers_geo" multiple="" tabindex="-1" aria-hidden="true">--}}
-{{--                                                        <option value="DroneX">Ecommerce - DroneX INTL - All Languages - EXCLUSIVE</option>--}}
-
-{{--                                                    </select><span class="select2 select2-container select2-container--default" dir="ltr"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="All Offers" style="width: 269px;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-
-
-
-
-
-{{--                                    </div>--}}
-
-
-
-
-
-{{--                                </div>--}}
-
-
 
 
                                 <br>
@@ -720,32 +499,7 @@
                                         <canvas id="myBarChart" style="height: 100px;width: 400px!important;"></canvas>
 
 
-                                        {{--                                        <div id="placeholder-bar-chart" style="min-height: 250px; padding: 0px; position: relative;">--}}
-
-{{--                                            <canvas class="base" width="1795" height="250"></canvas>--}}
-
-{{--                                            <canvas class="overlay" width="1795" height="250" style="position: absolute; left: 0px; top: 0px;"></canvas>--}}
-{{--                                            <div class="tickLabels" style="font-size:smaller">--}}
-{{--                                                <div class="xAxis x1Axis" style="color:#545454">--}}
-{{--                                                    <div class="tickLabel" style="position:absolute;text-align:center;left:282px;top:234px;width:448px">Jan</div>--}}
-{{--                                                    <div class="tickLabel" style="position:absolute;text-align:center;left:1167px;top:234px;width:448px">Feb</div>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="yAxis y1Axis" style="color:#545454">--}}
-{{--                                                    <div class="tickLabel" style="position:absolute;text-align:right;top:217px;right:1783px;width:12px">0%</div>--}}
-{{--                                                    <div class="tickLabel" style="position:absolute;text-align:right;top:185px;right:1783px;width:12px">5%</div>--}}
-{{--                                                    <div class="tickLabel" style="position:absolute;text-align:right;top:154px;right:1783px;width:12px">10%</div>--}}
-{{--                                                    <div class="tickLabel" style="position:absolute;text-align:right;top:122px;right:1783px;width:12px">15%</div>--}}
-{{--                                                    <div class="tickLabel" style="position:absolute;text-align:right;top:91px;right:1783px;width:12px">20%</div>--}}
-{{--                                                    <div class="tickLabel" style="position:absolute;text-align:right;top:59px;right:1783px;width:12px">25%</div>--}}
-{{--                                                    <div class="tickLabel" style="position:absolute;text-align:right;top:28px;right:1783px;width:12px">30%</div>--}}
-{{--                                                    <div class="tickLabel" style="position:absolute;text-align:right;top:-4px;right:1783px;width:12px">35%</div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            --}}
-{{--                                            <div class="legend"><div style="position: absolute; width: 1795px; height: 20px; top: 9px; right: 9px; background-color: rgb(255, 255, 255); opacity: 0.85;"> </div><table style="position:absolute;top:9px;right:9px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #0aa699;overflow:hidden"></div></div></td><td class="legendLabel">ClearView</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #0090d9;overflow:hidden"></div></div></td><td class="legendLabel">MaxPhone</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #fdd01c;overflow:hidden"></div></div></td><td class="legendLabel">WIFI UltraBoost</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #f35958;overflow:hidden"></div></div></td><td class="legendLabel">TVShareMax</td></tr></tbody></table></div>--}}
-{{--                                        --}}
-{{--                                        --}}
-{{--                                        </div>--}}
+                                   
                                     </div>
                                 </div>
 
@@ -763,10 +517,7 @@
                                 </div>
                             </div>
                             <div class="grid-body no-border">
-                                <!-- <h4>Monthly Progression Of The Top 3 Chart</h4> -->
-                                <!-- <p>This section give a high level view on the top 3 offers evolution across the current year.
-                                    Graph:
-                                </p> -->
+          
                                 <br>
                                 <div class="row">
                                     <div class="col-xs-12 ">
@@ -792,10 +543,7 @@
                                 </div>
                             </div>
                             <div class="grid-body no-border">
-                                <!-- <h4>Monthly Progression Of The Top 3 Chart</h4> -->
-                                <!-- <p>This section give a high level view on the top 3 offers evolution across the current year.
-                                    Graph:
-                                </p> -->
+
                                 <br>
                                 <div class="row">
                                     <div class="col-xs-12 ">
@@ -812,114 +560,16 @@
                     </div>
                 </div>
             </div>
-{{--        </div>--}}
 
-
-
-
-
-
-
-
-{{--        <script src="/vendor/laravel-admin/intelligences/jquery-sparkline.min.js"></script>--}}
-{{--        <script src="/vendor/laravel-admin/intelligences/jquery.easypiechart.min.js"></script>--}}
-{{--        <script src="/vendor/laravel-admin/intelligences/jquery.flot.js"></script>--}}
-{{--        <script src="/vendor/laravel-admin/intelligences/jquery.flot.time.min.js"></script>--}}
-{{--        <script src="/vendor/laravel-admin/intelligences/jquery.flot.selection.min.js"></script>--}}
-{{--        <script src="/vendor/laravel-admin/intelligences/jquery.flot.animator.min.js"></script>--}}
-{{--        <script src="/vendor/laravel-admin/intelligences/jquery.flot.orderBars.js"></script>--}}
-
-
-        <script src="/vendor/laravel-admin/intelligences/functions.js"></script>
-
-
-
-{{--        <script src="/vendor/laravel-admin/intelligences/functions1.js"></script>--}}
-
-
-{{--        <script src="/vendor/laravel-admin/intelligences/graphics.js"></script>--}}
-{{--        <script src="/vendor/laravel-admin/intelligences/intelligence.js"></script>--}}
-
+<script src="/vendor/laravel-admin/intelligences/functions.js"></script>
 <script src="/vendor/laravel-admin/tests/summary.js"></script>
-
-
 <script src="/vendor/laravel-admin/tests/advanced.js"></script>
-
-
 <script src="/vendor/laravel-admin/intelligences/advanced1.js"></script>
-
-
-
-        <!--<script type="text/javascript">-->
-        <!--	var top_3_intl = {"main_data":{"2024-01-01":{"ClearView":19.75609756097561,"MaxPhone":17.317073170731707,"WIFI UltraBoost":5.365853658536586},"2024-02-01":{"TVShareMax":32.608695652173914,"MaxPhone":16.666666666666668,"ClearView":15.217391304347826}},"start_date":"2023-12-15","end_date":"2024-02-15"};-->
-        <!--	var new_offers = {"2024-01-23 07:26:23":{"offer_name":"E-commerce - KneeBoost Pro INTL - All Languages - EXCLUSIVE","release_date":"2024-01-23 07:26:23","payout":"$28","link_preview":"https:\/\/popularhitech.com\/intl\/?prod=kneeboostpro&net={NETWORK}&aff={AFFID}&sid={SUBID}&cid={CLICKID}","name":"KneeBoost Pro"},"2023-11-15 14:46:02":{"offer_name":"E-commerce - CozyTime Pro INTL - All Languages - EXCLUSIVE","release_date":"2023-11-15 14:46:02","payout":"$40","link_preview":"https:\/\/popularhitech.com\/intl\/?prod=cozytimepro&net={NETWORK}&aff={AFFID}&sid={SUBID}&cid={CLICKID}","name":"CozyTime Pro"},"2023-10-27 19:11:50":{"offer_name":"E-commerce - SkinBliss INTL - All Languages - EXCLUSIVE","release_date":"2023-10-27 19:11:50","payout":"$65","link_preview":"https:\/\/bioresponse.co\/?net={NETWORK}&aff={AFFID}&sid={SUBID}&cid={CLICKID}","name":"Skincare"}};-->
-
-        <!--	intelligence.intelligence_top_3_offers(top_3_intl);-->
-        <!--	intelligence.intelligence_new_offers(new_offers);-->
-        <!--</script>-->
-
-
-
-
-
-
-
-
-{{--</div>--}}
-
-
-
-
-
-
-
-{{--<iframe width="1" height="1" name="__tcfapiLocator" style="visibility: hidden;" src="/vendor/laravel-admin/intelligences/saved_resource(2).html"></iframe><div id="tooltip" style="position: absolute; display: none; border: 1px solid rgb(240, 240, 240); padding: 2px; background-color: rgb(255, 255, 255); z-index: 99999; opacity: 0.8;">--}}
 
 
 </div>
 
-<!-- BEGIN CHAT -->
-{{--<div class="chat-window-wrapper">--}}
-{{--    <div id="main-chat-wrapper" class="inner-content">--}}
-{{--        <div class="chat-window-wrapper" id="messages-wrapper">--}}
-{{--            <div class="scroll-wrapper chat-messages scrollbar-dynamic clearfix" style="position: relative;">--}}
 
-
-{{--                <div id="chat-window-element" class="chat-messages scrollbar-dynamic clearfix scroll-content scroll-scrollx_visible" style="margin-bottom: -17px; margin-right: -17px; height: 1048px;">--}}
-{{--                    <div class="inner-scroll-content clearfix">--}}
-{{--                        <div id="greeting-msg" class="user-details-wrapper answer" style="display: none;">--}}
-{{--                            <div class="user-profile">--}}
-{{--                                <img src="./M4TRIX - NETWORK_files/morpheus.jpg" alt="" data-src="images/morpheus.jpg" data-src-retina="images/morpheus.jpg" width="35" height="35">--}}
-{{--                            </div>--}}
-{{--                            <div class="user-details">--}}
-{{--                                <div class="bubble">--}}
-{{--                                    <p>Hello, I`m Morpheus, the M4trix AI support manager</p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="chat-container" id="chatContainer"></div>--}}
-{{--                        <div id="chat-bubble-load" class="chat-bubble-loader" style="display: none;">--}}
-{{--                            <div class="typing">--}}
-{{--                                <div class="dot"></div>--}}
-{{--                                <div class="dot"></div>--}}
-{{--                                <div class="dot"></div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-
-{{--                <div class="scroll-element scroll-x scroll-scrollx_visible"><div class="scroll-element_outer">    <div class="scroll-element_size"></div>    <div class="scroll-element_track"></div>    <div class="scroll-bar" style="width: 240px; left: 0px;"></div></div></div><div class="scroll-element scroll-y scroll-scrollx_visible"><div class="scroll-element_outer">    <div class="scroll-element_size"></div>    <div class="scroll-element_track"></div>    <div class="scroll-bar" style="height: 92px;"></div></div></div></div>--}}
-{{--            <div class="chat-input-wrapper">--}}
-{{--                <textarea id="userInput" rows="1" placeholder="Type your message"></textarea>--}}
-{{--            </div>--}}
-{{--            <div class="clearfix"></div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
-<!-- END CHAT -->
-
-<!-- END PAGE CONTAINER -->
 
 <!-- Modal -->
 <div class="modal fade" id="notification_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -989,22 +639,7 @@
         </div>
     </div>
 </div>
-{{--<script>--}}
-{{--    async function query(data){--}}
-{{--        const response = await fetch(--}}
-{{--            "https://flowise.novads.co/api/v1/prediction/cf608554-c807-477e-8916-7e00cadfc4a6",--}}
-{{--            {--}}
-{{--                headers: {--}}
-{{--                    // Authorization: "Bearer ZPfTkVz8aZZhm27WX7cWQ0fbc6gsuEKjSojnefa3wW4=",--}}
-{{--                    "Content-Type": "application/json"--}}
-{{--                },--}}
-{{--                method: "POST",--}}
-{{--                body: JSON.stringify({question: data})--}}
-{{--            }--}}
-{{--        );--}}
-{{--        const result = await response.json();--}}
-{{--    }--}}
-{{--</script>--}}
+
 
 
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"><div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div></div><div id="tooltip" style="position: absolute; display: none; border: 1px solid rgb(240, 240, 240); padding: 2px; background-color: rgb(255, 255, 255); z-index: 99999; opacity: 0.8;"></div><div><div class="sweet-overlay" tabindex="-1"></div>
@@ -1020,9 +655,12 @@
 
 <script>
     $(document).ready(function(){
-        $(".select2_list").select2();
-        $(".select2_list").val("week").trigger("change");
 
+        
+        $(".select2_list").select2();
+        console.log("select2_list")
+        $(".select2_list").val("week").trigger("change");
+        console.log("select2_list 2")
 
         $(".select2_list1").select2();
         $(".select2_list1").val("week").trigger("change");
@@ -1030,6 +668,9 @@
 
         $(".select_timezone").select2();
         $(".select_timezone").val("64").trigger("change");
+
+        
+
     });
 </script>
 
