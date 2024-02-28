@@ -168,30 +168,20 @@
                                                         <table class="table table-striped table-flip-scroll cf">
                                                             <thead class="cf">
 
-{{--                                                            @php--}}
-{{--                                                            print_r("<pre/>");--}}
-{{--                                                            print_r($item['track_list']);exit;--}}
+                                                            @php
 
-
-{{--                                                            if(!empty($item['track_list'])){--}}
-
-{{--                                                                foreach ($item['track_list'] as $x=>$y){--}}
-
-
-{{--                                                                    --}}
-{{--                                                                }--}}
-
-
-{{--                                                            }--}}
-
-
-{{--                                                                 @endphp--}}
+                                                            $land = '';
+                                                            if(!empty($item['track_list'])){
+                                                                foreach ($item['track_list'] as $x=>$y){
+                                                                   $land = isset($item['track_list'][$x][0]['land_link']) ? $item['track_list'][$x][0]['land_link'] : '';
+                                                                }
+                                                            }
+                                                                 @endphp
 
 
 
                                                             <tr>
-                                                                <th><a href="@if(!empty($item['track_list'][0][0]['track_link'])){{$item['track_list'][0][0]['track_link']}}
-                                                             @else'' @endif" target="_blank">
+                                                                <th><a href="{{$land}}" target="_blank">
                                                                         <span class="offer-product-img-container"
                                                                               data-original-title="" title="">
                                                                             <img src="{{env('APP_URL').'/upload/'.$item['image']}}">
@@ -252,15 +242,30 @@
                                                         <p>{{$item['track_des']}}</p>
                                                     </div>
                                                     <div class="col-md-12">
+                                                        <br>
+                                                        <p>Traffic sources sometimes block certain URLs and/or
+                                                            companies, we
+                                                            offer different tracking domains to choose from.</p>
+
+                                                        <!-- dropdown domains -->
+                                                        <div class="btn-group m-b-30">
+                                                            <a class="btn btn-success dropdown-toggle m-b-5"
+                                                               data-toggle="dropdown" href="?id=offer#">Select your
+                                                                tracking
+                                                                domain<span class="caret"></span></a>
+                                                            <ul class="dropdown-menu domains-menu"  id="myList<?php echo $key;?>">
+                                                                <li><a href="javascript:void(0);" class="offersDomain"
+                                                                       data-domain="">https://urgoodeal.com</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+
+
                                                         <div class="row">
                                                             <div class="col-md-12">
-
                                                                 <!-- filter tabs -->
                                                                 <div class="tabbable tabs-left tabs-bg">
                                                                     <ul class="nav nav-tabs" role="tablist">
-
-
-
                                                                         @php
                                                                             $index = 0;
                                                                         @endphp
@@ -275,8 +280,6 @@
                                                                             @else
                                                                                 <li><a href="?id=offer#advertorialpages12-1<?php echo $key2.$key?>" role="tab" data-toggle="tab"><?php echo $key2?></a></li>
                                                                             @endif
-
-
 
 
                                                                             @php
@@ -411,10 +414,21 @@
                                                         <div class="col-md-12">
                                                             <table class="table table-striped table-flip-scroll cf">
                                                                 <thead class="cf">
+
+
+                                                                @php
+
+                                                                    $land_copy = '';
+                                                                    if(!empty($item1['track_list'])){
+                                                                        foreach ($item1['track_list'] as $x=>$y){
+                                                                           $land_copy = isset($item1['track_list'][$x][0]['land_link']) ? $item1['track_list'][$x][0]['land_link'] : '';
+                                                                        }
+                                                                    }
+                                                                @endphp
+
                                                                 <tr>
                                                                     <th>
-                                                                        <a href="@if(!empty($item1['track_list'][0][0]['track_link'])){{$item1['track_list'][0][0]['track_link']}}
-                                                             @else'' @endif" target="_blank">
+                                                                        <a href="{{$land_copy}}" target="_blank">
                                                                         <span class="offer-product-img-container"
                                                                               data-original-title="" title="">
                                                                             <img src="{{env('APP_URL').'/upload/'.$item1['image']}}">
