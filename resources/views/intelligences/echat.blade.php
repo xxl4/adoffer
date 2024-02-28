@@ -14,156 +14,20 @@
 <link rel="stylesheet" href="/vendor/laravel-admin/intelligences/ionicons.css" type="text/css">
 <link href="/vendor/laravel-admin/intelligences/messenger.css" rel="stylesheet" type="text/css" media="screen">
 <link href="/vendor/laravel-admin/intelligences/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen">
-<link rel="icon" type="image/png" href="https://m4trix.network/Reporting-platform/images/favicon.png">
-<link href="/vendor/laravel-admin/intelligences/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" media="screen">
+
+
+
+
+
 <!-- END PLUGIN CSS -->
 <!-- BEGIN CORE CSS FRAMEWORK -->
 <link href="/vendor/laravel-admin/intelligences/icon" rel="stylesheet">
 <link href="/vendor/laravel-admin/intelligences/webarch.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/intelligences/custom.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="/vendor/laravel-admin/intelligences/links_img.css">
-<!-- END CORE CSS FRAMEWORK -->
-
-<!-- END CONTENT -->
-<!-- BEGIN CORE JS FRAMEWORK-->
-{{--<script src="/vendor/laravel-admin/intelligences/1927844693922741" async=""></script>--}}
-{{--<script async="" src="/vendor/laravel-admin/intelligences/fbevents.js"></script>--}}
-
-
-
-{{--<script async="" src="/vendor/laravel-admin/intelligences/roundtrip.js"></script>--}}
-{{--<script src="/vendor/laravel-admin/intelligences/pace.min.js" type="text/javascript"></script>--}}
-<!-- BEGIN JS DEPENDECENCIES-->
-{{--<script src="/vendor/laravel-admin/intelligences/jquery-2.1.4.js"></script>--}}
-<!--	<script src="assets/plugins/bootstrapv3/js/bootstrap.min.js" type="text/javascript"></script>-->
-{{--<script src="/vendor/laravel-admin/intelligences/bootstrap.js" type="text/javascript"></script>--}}
-{{--<script src="/vendor/laravel-admin/intelligences/bootstrap-popover-custom-class.min.js" type="text/javascript"></script>--}}
-{{--<script src="/vendor/laravel-admin/intelligences/raphael-min.js"></script>--}}
-{{--<script src="/vendor/laravel-admin/intelligences/jqueryblockui.min.js" type="text/javascript"></script>--}}
-{{--<script src="/vendor/laravel-admin/intelligences/jquery.unveil.min.js" type="text/javascript"></script>--}}
-{{--<script src="/vendor/laravel-admin/intelligences/jquery.scrollbar.min.js" type="text/javascript"></script>--}}
-{{--<script src="/vendor/laravel-admin/intelligences/jquery.animateNumbers.js" type="text/javascript"></script>--}}
-{{--<script src="/vendor/laravel-admin/intelligences/jquery.validate.min.js" type="text/javascript"></script>--}}
-
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/intelligences/links_img.css">--}}
 
 <script src="/vendor/laravel-admin/intelligences/select2.js" type="text/javascript"></script>
-{{--<script src="/vendor/laravel-admin/intelligences/select21.js" type="text/javascript"></script>--}}
 
-
-
-{{--<script src="/vendor/laravel-admin/intelligences/bootstrap-datepicker.js" type="text/javascript"></script>--}}
-{{--<script src="/vendor/laravel-admin/intelligences/bootstrap-timepicker.min.js" type="text/javascript"></script>--}}
-
-
-{{--<script src="/vendor/laravel-admin/intelligences/form_elements.js" type="text/javascript"></script>--}}
-{{--<script src="/vendor/laravel-admin/intelligences/sweet-alert.min.js"></script>--}}
-{{--<script src="/vendor/laravel-admin/intelligences/clipboard.js"></script>--}}
-{{--<script src="/vendor/laravel-admin/intelligences/messenger.min.js" type="text/javascript"></script>--}}
-<!-- END CORE JS DEPENDECENCIES-->
-<!-- BEGIN CORE TEMPLATE JS -->
-{{--<script src="/vendor/laravel-admin/intelligences/webarch.js" type="text/javascript"></script>--}}
-{{--<script src="/vendor/laravel-admin/intelligences/chat.js" type="text/javascript"></script>--}}
-<!-- END CORE TEMPLATE JS -->
-
-<!-- TEXT EDITOR -->
-
-{{--<script src="/vendor/laravel-admin/intelligences/ckeditor.js" type="text/javascript"></script><style>.cke{visibility:hidden;}</style>--}}
-{{--<script src="/vendor/laravel-admin/intelligences/config.js" type="text/javascript"></script>--}}
-<!-- TEXT EDITOR -->
-
-<script>var switch_theme = 0;</script>
-
-<!-- for tutorial.php || headerMenuFaq.php || faq.php -->
-<link href="/vendor/laravel-admin/intelligences/lity.css" rel="stylesheet">
-{{--<script src="/vendor/laravel-admin/intelligences/lity.js"></script>--}}
-
-{{--<script src="/vendor/laravel-admin/intelligences/jquery.cookie.js"></script>--}}
-<script>
-    window.networks = [{"net":"net","name":"All networks","uid":"","role":""}];
-    window.net = 'net';
-    window.selectedUid = '';
-    window.selectedRole = '';
-</script>
-{{--<script src="/vendor/laravel-admin/intelligences/main.js"></script>--}}
-
-
-{{--<script type="text/javascript" src="/vendor/laravel-admin/intelligences/notifications.js"></script>--}}
-
-
-
-
-{{--<script type="text/javascript" src="/vendor/laravel-admin/intelligences/email-broadcast.js"></script>--}}
-
-{{--<script type="text/javascript">--}}
-{{--    adroll_adv_id = "BBRDVRROJ5B3ZCI2VHENNY";--}}
-{{--    adroll_pix_id = "ABU5YKBIZJEL5KHFXZZB7T";--}}
-{{--    adroll_version = "2.0";--}}
-
-{{--    (function(w, d, e, o, a) {--}}
-{{--        w.__adroll_loaded = true;--}}
-{{--        w.adroll = w.adroll || [];--}}
-{{--        w.adroll.f = [ 'setProperties', 'identify', 'track' ];--}}
-{{--        var roundtripUrl = "https://s.adroll.com/j/" + adroll_adv_id--}}
-{{--            + "/roundtrip.js";--}}
-{{--        for (a = 0; a < w.adroll.f.length; a++) {--}}
-{{--            w.adroll[w.adroll.f[a]] = w.adroll[w.adroll.f[a]] || (function(n) {--}}
-{{--                return function() {--}}
-{{--                    w.adroll.push([ n, arguments ])--}}
-{{--                }--}}
-{{--            })(w.adroll.f[a])--}}
-{{--        }--}}
-
-{{--        e = d.createElement('script');--}}
-{{--        o = d.getElementsByTagName('script')[0];--}}
-{{--        e.async = 1;--}}
-{{--        e.src = roundtripUrl;--}}
-{{--        o.parentNode.insertBefore(e, o);--}}
-{{--    })(window, document);--}}
-{{--    adroll.track("pageView");--}}
-{{--</script>--}}
-<meta http-equiv="origin-trial" content="A41wt2Lsq30A9Ox/WehogvJckPI4aY9RoSxhb8FMtVnqaUle1AtI6Yf7Wk+7+Wm0AfDDOkMX+Wn6wnDpBWYgWwYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Fkcm9sbC5jb206NDQzIiwiZmVhdHVyZSI6IkludGVyZXN0Q29ob3J0QVBJIiwiZXhwaXJ5IjoxNjI2MjIwNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==">
-{{--<script type="text/javascript" src="/vendor/laravel-admin/intelligences/BBRDVRROJ5B3ZCI2VHENNY"></script>--}}
-
-<style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
-
-{{--<script type="text/javascript" src="/vendor/laravel-admin/intelligences/config(1).js"></script>--}}
-
-{{--<script type="text/javascript" src="/vendor/laravel-admin/intelligences/sendrolling.js"></script>--}}
-
-
-<link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/intelligences/editor.css">
-{{--<script type="text/javascript" src="/vendor/laravel-admin/intelligences/zh-cn.js"></script>--}}
-{{--<script type="text/javascript" src="/vendor/laravel-admin/intelligences/styles.js"></script>--}}
-<link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/intelligences/scayt.css">
-<link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/intelligences/dialog.css">
-<link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/intelligences/tableselection.css">
-<link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/intelligences/wsc.css">
-<link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/intelligences/copyformatting.css">
-
-
-
-
-{{--<div class="pace  pace-inactive"><div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">--}}
-{{--        <div class="pace-progress-inner"></div>--}}
-{{--    </div>--}}
-{{--    <div class="pace-activity"></div></div>--}}
-
-
-
-<!-- BEGIN CONTENT -->
-{{--<div class="page-container row-fluid">--}}
-    <!-- BEGIN SIDEBAR -->
-
-
-    <!-- END SIDEBAR -->
-    <!-- BEGIN PAGE CONTAINER-->
-{{--    <div class="page-content">--}}
-
-
-
-
-{{--        <div class="content">--}}
-            <!-- BEGIN PlACE PAGE CONTENT HERE -->
             <title>Reporting platform</title>
             <link href="/vendor/laravel-admin/intelligences/jquery.dataTables.css" rel="stylesheet" type="text/css">
             <link href="/vendor/laravel-admin/intelligences/datatables.responsive.css" rel="stylesheet" type="text/css" media="screen">
@@ -171,10 +35,6 @@
 
             <div class="col-md-12">
                 <div class="row">
-
-
-
-
                     <div class="col-md-12">
                         <div class="grid simple">
                             <div class="grid-title no-border">
