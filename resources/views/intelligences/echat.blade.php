@@ -21,7 +21,7 @@
 
 <!-- END PLUGIN CSS -->
 <!-- BEGIN CORE CSS FRAMEWORK -->
-<link href="/vendor/laravel-admin/intelligences/icon" rel="stylesheet">
+{{--<link href="/vendor/laravel-admin/intelligences/icon" rel="stylesheet">--}}
 <link href="/vendor/laravel-admin/intelligences/webarch.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/intelligences/custom.css" rel="stylesheet" type="text/css">
 {{--<link rel="stylesheet" href="/vendor/laravel-admin/intelligences/links_img.css">--}}
@@ -873,7 +873,7 @@
 
 
 
-<iframe width="1" height="1" name="__tcfapiLocator" style="visibility: hidden;" src="/vendor/laravel-admin/intelligences/saved_resource(2).html"></iframe><div id="tooltip" style="position: absolute; display: none; border: 1px solid rgb(240, 240, 240); padding: 2px; background-color: rgb(255, 255, 255); z-index: 99999; opacity: 0.8;">
+{{--<iframe width="1" height="1" name="__tcfapiLocator" style="visibility: hidden;" src="/vendor/laravel-admin/intelligences/saved_resource(2).html"></iframe><div id="tooltip" style="position: absolute; display: none; border: 1px solid rgb(240, 240, 240); padding: 2px; background-color: rgb(255, 255, 255); z-index: 99999; opacity: 0.8;">--}}
 
 
 </div>
@@ -1010,20 +1010,10 @@
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"><div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div></div><div id="tooltip" style="position: absolute; display: none; border: 1px solid rgb(240, 240, 240); padding: 2px; background-color: rgb(255, 255, 255); z-index: 99999; opacity: 0.8;"></div><div><div class="sweet-overlay" tabindex="-1"></div>
 
 
-{{--    <div class="sweet-alert" tabindex="-1">--}}
-{{--        <div class="icon error">--}}
-{{--            <span class="x-mark">--}}
-{{--                <span class="line left"></span>--}}
-{{--                <span class="line right"></span>--}}
-{{--            </span></div><div class="icon warning">--}}
-{{--            <span class="body"></span> --}}
-{{--            <span class="dot"></span> --}}
-{{--        </div> <div class="icon info"></div> --}}
-{{--        <div class="icon success"> <span class="line tip"></span> <span class="line long"></span> <div class="placeholder"></div> <div class="fix"></div> </div> <div class="icon custom"></div> <h2>Title</h2><p class="lead text-muted">Text</p><p><button class="cancel btn btn-lg" tabindex="2">Cancel</button> <button class="confirm btn btn-lg" tabindex="1">OK</button></p></div>--}}
 
 </div>
 
-{{--<iframe id="adroll_slg" src="./M4TRIX - NETWORK_files/iframe_content.html" width="1" height="1" frameborder="0" marginwidth="0" marginheight="0" allow="join-ad-interest-group"></iframe>--}}
+
 
 <div class="cke_screen_reader_only cke_copyformatting_notification">
     <div aria-live="polite"></div></div>
