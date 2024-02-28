@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Creatives;
 use App\Models\Delivery;
 use App\Models\Geos;
+use App\Models\LandPage;
 use App\Models\Offer;
 use App\Models\OfferTracks;
 use App\Models\OfferTracksCate;
@@ -138,15 +139,10 @@ class OfferController extends AdminController
         $filteredDataArray = Offer::where('offer_status', 1)->where($where)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
         $filteredDataArrayCopy = Offer::where('offer_status', 1)->where($where)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
 
-
-
-//        var_dump(empty($filteredDataArray) && !empty($filteredDataArrayCopy));exit;
-
         if (empty($filteredDataArray) && !empty($filteredDataArrayCopy)) {
             $filteredDataArray = $filteredDataArrayCopy;
             $filteredDataArrayCopy = [];
         }
-
 
         if (!empty($filteredDataArray)) {
             foreach ($filteredDataArray as $key => $value) {
@@ -173,6 +169,9 @@ class OfferController extends AdminController
                     foreach ($track_list as $x => $y) {
                         $param = 'api/offers/jump?admin_id=' . $admin_id . '&cateid=' . $v['id'] . '&offer_id=' . $value['id'] . '&track_id=' . $y['id'];
                         $track_list[$x]['track_link'] = $delivery_link . $param;
+                        $land_link =  LandPage::where('id',$y['land_id'])->value('land_link');
+                        $track_list[$x]['land_link'] =!empty($land_link) ? $land_link :'';
+
                     }
                     $finalArray[$v['track_cate']] = $track_list;
                 }
@@ -211,6 +210,11 @@ class OfferController extends AdminController
                     foreach ($track_list_copy as $x => $y) {
                         $param = 'api/offers/jump?admin_id=' . $admin_id . '&cateid=' . $v['id'] . '&offer_id=' . $value['id'] . '&track_id=' . $y['id'];
                         $track_list_copy[$x]['track_link'] = $delivery_link . $param;
+
+                        $land_link =  LandPage::where('id',$y['land_id'])->value('land_link');
+                        $track_list_copy[$x]['land_link'] =!empty($land_link) ? $land_link :'';
+
+
                     }
                     $finalArrayCopy[$v['track_cate']] = $track_list_copy;
                 }
@@ -223,6 +227,10 @@ class OfferController extends AdminController
         }
         $filteredDataArray = array_values($filteredDataArray);
         $filteredDataArrayCopy = array_values($filteredDataArrayCopy);
+
+
+//        print_r("<pre/>");
+//        print_r($filteredDataArray);exit;
 
 
         $data = [

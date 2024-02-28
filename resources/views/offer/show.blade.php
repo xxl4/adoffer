@@ -167,6 +167,28 @@
                                                     <div class="col-md-12">
                                                         <table class="table table-striped table-flip-scroll cf">
                                                             <thead class="cf">
+
+{{--                                                            @php--}}
+{{--                                                            print_r("<pre/>");--}}
+{{--                                                            print_r($item['track_list']);exit;--}}
+
+
+{{--                                                            if(!empty($item['track_list'])){--}}
+
+{{--                                                                foreach ($item['track_list'] as $x=>$y){--}}
+
+
+{{--                                                                    --}}
+{{--                                                                }--}}
+
+
+{{--                                                            }--}}
+
+
+{{--                                                                 @endphp--}}
+
+
+
                                                             <tr>
                                                                 <th><a href="@if(!empty($item['track_list'][0][0]['track_link'])){{$item['track_list'][0][0]['track_link']}}
                                                              @else'' @endif" target="_blank">
