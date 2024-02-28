@@ -134,133 +134,95 @@ class OfferController extends AdminController
         $geos_list = Geos::get()->toArray();
         $category_list = Category::get()->toArray();
 
+        //数据分为左右处理
         $filteredDataArray = Offer::where('offer_status', 1)->where($where)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
         $filteredDataArrayCopy = Offer::where('offer_status', 1)->where($where)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
 
-//        print_r("<pre/>");
-//        print_r($filteredDataArrayCopy);exit;
-
-        foreach ($filteredDataArray as $key => $value) {
-
-            $accepted_area = Geos::whereIn('id', $value['accepted_area'])->select('country')->get()->toArray();
-
-            $accepted_area_data = '';
-            foreach ($accepted_area as $k => $v) {
-                $accepted_area_data .= $v['country'] . ',';
-            }
-//            print_r($accepted_area_data);exit;
-
-            $filteredDataArray[$key]['accepted_area'] = trim($accepted_area_data, ',');
-            $track_cate = OfferTracksCates::whereIn('id', $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
-
-            $delivery_info = Delivery::where('status',1)->get()->toArray();
 
 
-            $delivery_link = !empty($delivery_info[0]['delivery_link']) ? $delivery_info[0]['delivery_link'] : '';
+//        var_dump(empty($filteredDataArray) && !empty($filteredDataArrayCopy));exit;
 
-//            print_r("<pre/>");
-//            print_r($track_cate);exit;
-
-//            print_r("<pre/>");
-//            print_r($track_cate);exit;
-
-            $fieldToSwap = 'track_cate';
-            //// 使用 array_map 函数进行互换
-            $swappedArray = array_map(function ($key1, $item) use ($fieldToSwap) {
-                return [$item[$fieldToSwap] => array_merge(['key' => $key1], $item)];
-            }, array_keys($track_cate), $track_cate);
-            // 将结果数组进行合并
-            $finalArray = array_merge(...$swappedArray);
-//
-//            print_r("<pre/>");
-//            print_r($finalArray);exit;
-
-
-
-            foreach ($track_cate as $k => $v) {
-                $track_list = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();  // $finalArray[$k]
-
-                foreach ($track_list as $x => $y) {
-                    $param = 'api/offers/jump?admin_id=' . $admin_id . '&cateid='.$v['id'].'&offer_id='.$value['id'].'&track_id='.$y['id'];
-                    /*  $track_list[$x]['track_link'] = $y['track_link'] . $param;*/
-
-                    $track_list[$x]['track_link'] = $delivery_link . $param;
-
-                }
-
-
-
-//                $finalArray[$k] = $track_list;
-                $finalArray[$v['track_cate']] = $track_list;
-
-            }
-
-
-
-            $filteredDataArray[$key]['track_list'] = $finalArray;
-            $filteredDataArray[$key]['creatives'] = Creatives::whereIn('id', $value['creatives_id'])->get()->toArray();
+        if (empty($filteredDataArray) && !empty($filteredDataArrayCopy)) {
+            $filteredDataArray = $filteredDataArrayCopy;
+            $filteredDataArrayCopy = [];
         }
 
-//        print_r("<pre/>");
-//        print_r($filteredDataArray);exit;
 
-
-
-        foreach ($filteredDataArrayCopy as $key => $value) {
-
-
-            $track_cate = OfferTracksCates::whereIn('id', $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
-
-
-//            $filteredDataArrayCopy[$key]['accepted_area'] = Geos::whereIn('id',$value['accepted_area'])->get()->toArray();
-
-            $accepted_area = Geos::whereIn('id', $value['accepted_area'])->get()->toArray();
-
-            $accepted_area_data = '';
-            foreach ($accepted_area as $k => $v) {
-                $accepted_area_data .= $v['country'] . ',';
-            }
-
-            $filteredDataArrayCopy[$key]['accepted_area'] = trim($accepted_area_data, ',');
-
-            $fieldToSwap = 'track_cate';
-            //// 使用 array_map 函数进行互换
-            $swappedArray = array_map(function ($key1, $item) use ($fieldToSwap) {
-                return [$item[$fieldToSwap] => array_merge(['key' => $key1], $item)];
-            }, array_keys($track_cate), $track_cate);
-            // 将结果数组进行合并
-            $finalArrayCopy = array_merge(...$swappedArray);
-
-//            print_r("<pre/>");
-//            print_r($track_cate);exit;
-
-
-            foreach ($track_cate as $k => $v) {
-                $track_list_copy = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();//$v['track_cate'].'_'.$k
-
-                foreach ($track_list_copy as $x => $y) {
-                    $param = 'api/offers/jump?admin_id=' . $admin_id . '&cateid='.$v['id'].'&offer_id='.$value['id'].'&track_id='.$y['id'];
-//                    $track_list_copy[$x]['track_link'] = $y['track_link'] . $param;
-
-                    $track_list_copy[$x]['track_link'] = $delivery_link . $param;
-
+        if (!empty($filteredDataArray)) {
+            foreach ($filteredDataArray as $key => $value) {
+                $accepted_area = Geos::whereIn('id', $value['accepted_area'])->select('country')->get()->toArray();
+                $accepted_area_data = '';
+                foreach ($accepted_area as $k => $v) {
+                    $accepted_area_data .= $v['country'] . ',';
                 }
-//                $finalArrayCopy[$k] = $track_list_copy;
 
-                $finalArrayCopy[$v['track_cate']]= $track_list_copy;
+                $filteredDataArray[$key]['accepted_area'] = trim($accepted_area_data, ',');
+                $track_cate = OfferTracksCates::whereIn('id', $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
+                $delivery_info = Delivery::where('status', 1)->get()->toArray();
+                $delivery_link = !empty($delivery_info[0]['delivery_link']) ? $delivery_info[0]['delivery_link'] : '';
+
+                $fieldToSwap = 'track_cate';
+                $swappedArray = array_map(function ($key1, $item) use ($fieldToSwap) {
+                    return [$item[$fieldToSwap] => array_merge(['key' => $key1], $item)];
+                }, array_keys($track_cate), $track_cate);
+                // 将结果数组进行合并
+                $finalArray = array_merge(...$swappedArray);
+                foreach ($track_cate as $k => $v) {
+                    $track_list = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();  // $finalArray[$k]
+
+                    foreach ($track_list as $x => $y) {
+                        $param = 'api/offers/jump?admin_id=' . $admin_id . '&cateid=' . $v['id'] . '&offer_id=' . $value['id'] . '&track_id=' . $y['id'];
+                        $track_list[$x]['track_link'] = $delivery_link . $param;
+                    }
+                    $finalArray[$v['track_cate']] = $track_list;
+                }
+                $filteredDataArray[$key]['track_list'] = $finalArray;
+                $filteredDataArray[$key]['creatives'] = Creatives::whereIn('id', $value['creatives_id'])->get()->toArray();
             }
-
-            $filteredDataArrayCopy[$key]['track_list'] = $finalArrayCopy;
-            $filteredDataArrayCopy[$key]['creatives'] = Creatives::whereIn('id', $value['creatives_id'])->get()->toArray();
+        } else {
+            $filteredDataArray = [];
         }
-//        print_r("<pre/>");
-//        print_r($filteredDataArrayCopy);exit;
 
+
+        if (!empty($filteredDataArrayCopy)) {
+            foreach ($filteredDataArrayCopy as $key => $value) {
+                $track_cate = OfferTracksCates::whereIn('id', $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
+                $accepted_area = Geos::whereIn('id', $value['accepted_area'])->get()->toArray();
+
+                $accepted_area_data = '';
+                foreach ($accepted_area as $k => $v) {
+                    $accepted_area_data .= $v['country'] . ',';
+                }
+
+                $filteredDataArrayCopy[$key]['accepted_area'] = trim($accepted_area_data, ',');
+
+                $fieldToSwap = 'track_cate';
+                //// 使用 array_map 函数进行互换
+                $swappedArray = array_map(function ($key1, $item) use ($fieldToSwap) {
+                    return [$item[$fieldToSwap] => array_merge(['key' => $key1], $item)];
+                }, array_keys($track_cate), $track_cate);
+                // 将结果数组进行合并
+                $finalArrayCopy = array_merge(...$swappedArray);
+
+
+                foreach ($track_cate as $k => $v) {
+                    $track_list_copy = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();//$v['track_cate'].'_'.$k
+
+                    foreach ($track_list_copy as $x => $y) {
+                        $param = 'api/offers/jump?admin_id=' . $admin_id . '&cateid=' . $v['id'] . '&offer_id=' . $value['id'] . '&track_id=' . $y['id'];
+                        $track_list_copy[$x]['track_link'] = $delivery_link . $param;
+                    }
+                    $finalArrayCopy[$v['track_cate']] = $track_list_copy;
+                }
+
+                $filteredDataArrayCopy[$key]['track_list'] = $finalArrayCopy;
+                $filteredDataArrayCopy[$key]['creatives'] = Creatives::whereIn('id', $value['creatives_id'])->get()->toArray();
+            }
+        } else {
+            $filteredDataArrayCopy = [];
+        }
         $filteredDataArray = array_values($filteredDataArray);
         $filteredDataArrayCopy = array_values($filteredDataArrayCopy);
-
-
-
 
 
         $data = [
@@ -269,10 +231,6 @@ class OfferController extends AdminController
             'category_list' => $category_list,
             'offer1' => $filteredDataArrayCopy,
         ];
-
-//        print_r("<pre/>");
-//        print_r($data);exit;
-
 
         return $content->title('详情')
             ->description('简介')
@@ -292,8 +250,6 @@ class OfferController extends AdminController
         $geos = $request->input('geos');
         $sort = $request->input('sort');
         $where = [];
-
-
 
 
         if (!empty($category)) {
@@ -366,9 +322,6 @@ class OfferController extends AdminController
             ->orderBy($field, $order)->get()->toArray();//奇数
 
 
-
-
-
         $filteredDataArrayCopy = Offer::where(function ($query) use ($geos) {
             $values = explode(',', $geos);
             foreach ($values as $value) {
@@ -384,14 +337,18 @@ class OfferController extends AdminController
             ->orderBy($field, $order)->get()->toArray();//奇数
 
 
-
 //        print_r("<pre/>");
 //        print_r($filteredDataArrayCopy);exit;
 
 
+        if (empty($filteredDataArray) && !empty($filteredDataArrayCopy)) {
+            $filteredDataArray = $filteredDataArrayCopy;
+            $filteredDataArrayCopy = [];
+        }
+
+
         if (!empty($filteredDataArray)) {
             foreach ($filteredDataArray as $key => $value) {
-
 
                 $accepted_area = Geos::whereIn('id', $value['accepted_area'])->select('country')->get()->toArray();
                 $accepted_area_data = '';
@@ -492,10 +449,8 @@ class OfferController extends AdminController
                 $data1 = '';
                 foreach ($i as $key4 => $item4) {
 
-                    $param = '?admin_id=' . $admin_id . '&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id='.$item['id'].'&track_id='.$item4['id'];
+                    $param = '?admin_id=' . $admin_id . '&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id=' . $item['id'] . '&track_id=' . $item4['id'];
                     $item4['track_link'] = $item4['track_link'] . $param;
-
-
 
 
                     $data1 .= '<div class="col-md-12"><div class="padding-for_links"><div>' . $item4['track_name'] . '</div><input  style="width: calc(100% - 100px)" readonly="" type="text" class="clipboard-1-0-0-1' . $k . '-1' . $key4 . '" value="' . $item4['track_link'] . '"><a href="' . $item4['track_link'] . '"><i class="icon ion-eye pull-right"></i></a><a class="copp pull-right btn btn-success btn-cons copy-button" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-1' . $k . '-1' . $key4 . '">Copy</a></div></div>';
@@ -576,7 +531,7 @@ class OfferController extends AdminController
                 $data1 = '';
                 foreach ($i as $key4 => $item4) {
 
-                    $param = '?admin_id=' . $admin_id . '&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id='.$item['id'].'&track_id='.$item4['id'];;
+                    $param = '?admin_id=' . $admin_id . '&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id=' . $item['id'] . '&track_id=' . $item4['id'];;
                     $item4['track_link'] = $item4['track_link'] . $param;
 
 
@@ -687,13 +642,6 @@ class OfferController extends AdminController
         $form->multipleSelect('creatives_id', __('Creatives'))->options(Creatives::all()->pluck('name', 'id'))->required();
 
 
-
-
-
-
-
-
-
 //        $form->multipleSelect('admin', __('Track Cate'))->options(OfferTracksCates::all()->pluck('track_cate', 'id'))->required();
 
 //        $form->saving(function (Form $form) {
@@ -706,8 +654,6 @@ class OfferController extends AdminController
 //
 //            print_r($form->track_cate_id);exit;
 //        });
-
-
 
 
         return $form;

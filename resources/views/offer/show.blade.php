@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="/vendor/laravel-admin/test/demo.css">
 
 
-<link href="/vendor/laravel-admin/test/font-awesome.css" rel="stylesheet" type="text/css">
+{{--<link href="/vendor/laravel-admin/test/font-awesome.css" rel="stylesheet" type="text/css">--}}
 
 
 <link href="/vendor/laravel-admin/test/animate.min.css" rel="stylesheet" type="text/css">
@@ -18,7 +18,7 @@
 {{--<link rel="stylesheet" href="/vendor/laravel-admin/test/sweet-alert.css">--}}
 <link rel="stylesheet" href="/vendor/laravel-admin/test/rickshaw.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/test/mapplic.css" type="text/css" media="screen">
-<link rel="stylesheet" href="/vendor/laravel-admin/test/ionicons.css" type="text/css">
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/test/ionicons.css" type="text/css">--}}
 <link href="/vendor/laravel-admin/test/messenger.css" rel="stylesheet" type="text/css" media="screen">
 <link href="/vendor/laravel-admin/test/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen">
 <link rel="icon" type="image/png" href="https://m4trix.network/Reporting-platform/images/favicon.png">
@@ -705,7 +705,7 @@
                     <!--<div class="loader-spinner"></div>-->
 
                     <!--M4trix Loader-->
-                    <img src="/vendor/laravel-admin/test/squares-preloader-gif.svg" alt="">
+{{--                    <img src="/vendor/laravel-admin/test/squares-preloader-gif.svg" alt="">--}}
                 </div>
                 <div class="input-container">
                     <input type="text" id="userInput" placeholder="Type your message...">
