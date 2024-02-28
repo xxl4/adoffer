@@ -108,8 +108,6 @@
 
 
 
-
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -129,8 +127,6 @@
 
 
                                     <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}"/>
-
-
 
                                 </div>
                                 <br>
@@ -248,7 +244,6 @@
 
 
 
-
                                             </div>
                                         </div>
                                     </div>
@@ -321,6 +316,9 @@
 
 
                                 </div>
+
+
+
 
 
                                 <br>
@@ -498,8 +496,6 @@
 
                                         <canvas id="myBarChart" style="height: 100px;width: 400px!important;"></canvas>
 
-
-                                   
                                     </div>
                                 </div>
 
@@ -561,10 +557,12 @@
                 </div>
             </div>
 
+
 <script src="/vendor/laravel-admin/intelligences/functions.js"></script>
 <script src="/vendor/laravel-admin/tests/summary.js"></script>
 <script src="/vendor/laravel-admin/tests/advanced.js"></script>
 <script src="/vendor/laravel-admin/intelligences/advanced1.js"></script>
+
 
 
 </div>
@@ -639,8 +637,6 @@
         </div>
     </div>
 </div>
-
-
 
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"><div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div></div><div id="tooltip" style="position: absolute; display: none; border: 1px solid rgb(240, 240, 240); padding: 2px; background-color: rgb(255, 255, 255); z-index: 99999; opacity: 0.8;"></div><div><div class="sweet-overlay" tabindex="-1"></div>
 
