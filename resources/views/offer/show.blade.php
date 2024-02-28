@@ -31,7 +31,8 @@
 
 <!-- END PLUGIN CSS -->
 <!-- BEGIN CORE CSS FRAMEWORK -->
-<link href="/vendor/laravel-admin/test/icon" rel="stylesheet">
+{{--<link href="/vendor/laravel-admin/test/icon" rel="stylesheet">--}}
+
 <link href="/vendor/laravel-admin/test/webarch.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/test/custom.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/vendor/laravel-admin/test/links_img.css">
@@ -40,21 +41,10 @@
 <style>.cke {
         visibility: hidden;
     }</style>
-{{--<script src="u5" type="text/javascript"></script>--}}
 <!-- TEXT EDITOR -->
 
 <script>var switch_theme = 0;</script>
 <link href="/vendor/laravel-admin/test/lity.css" rel="stylesheet">
-
-{{--<script>--}}
-{{--    window.networks = [{"net": "net", "name": "All networks", "uid": "", "role": ""}];--}}
-{{--    window.net = 'net';--}}
-{{--    window.selectedUid = '';--}}
-{{--    window.selectedRole = '';--}}
-{{--</script>--}}
-
-
-
 
 <div class="pace  pace-inactive">
     <div class="pace-progress" data-progress-text="100%" data-progress="99"
@@ -65,19 +55,6 @@
 </div>
 <form method="POST" id="form_id">
     <div class="page-container row-fluid">
-
-{{--        <a href="?id=offer#" class="scrollup">Scroll</a>--}}
-
-
-{{--        <div class="footer-widget">--}}
-{{--            <div class="pull-right">--}}
-{{--                <a class="exit" href="javascript:void(0);"><i class="material-icons">power_settings_new</i></a>--}}
-{{--            </div>--}}
-{{--            <div>--}}
-{{--                <span class="va-sub">Network</span>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
 
         <link href="/vendor/laravel-admin/test/network.css" rel="stylesheet" type="text/css">
 
@@ -293,12 +270,6 @@
                                                                         @endphp
 
                                                                         @foreach ($item['track_list'] as $key3=>$item3)
-
-
-                                                                            {{--                                                                            @php--}}
-                                                                            {{--                                                                                echo $index1;--}}
-                                                                            {{--                                                                            @endphp--}}
-
                                                                             @if($index1==0)
                                                                                 <div class="tab-pane active" id="advertorialpages12-1<?php echo $key3.$key?>">
                                                                                     @else
@@ -480,10 +451,6 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <p>{{$item1['track_des']}}</p>
-                                                            {{--                                                        <p>You can use any of the 3 custom parameters agnostically.</p>--}}
-                                                            {{--                                                        <p>Replace {AFFID}, {SUBID}, {CLICKID} with your own tracking--}}
-                                                            {{--                                                            variables and get them feed-backed in your--}}
-                                                            {{--                                                            pixel/postback.</p>--}}
                                                         </div>
                                                         <div class="col-md-12">
 
@@ -658,9 +625,6 @@
                         </div>
                     </div>
                 </div>
-
-                {{--        <script src="/vendor/laravel-admin/test/js_offer_top_geos.js.下载"></script>--}}
-                {{--        <script src="/vendor/laravel-admin/test/offer.js"></script>--}}
 
             </div>
 
