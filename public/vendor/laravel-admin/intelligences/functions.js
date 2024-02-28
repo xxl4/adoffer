@@ -146,6 +146,9 @@ var calendar_date = {
 		}
 	},
 	select_default_time : function($interval){
+
+        console.log('设置默认时间')
+
 		var cur_date = new Date();
 		var current_year = cur_date.getFullYear();
 		var current_month = cur_date.getMonth();
@@ -170,5 +173,9 @@ var calendar_date = {
 }
 
 $(function(){
+
+
 	calendar_date.init();
+
+
 });

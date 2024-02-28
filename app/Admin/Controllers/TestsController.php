@@ -48,9 +48,6 @@ class TestsController extends AdminController
     public function echart(Content $content)
     {
 
-
-
-
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
         $net_id = $currentUser->id; // 输出当前用户名称
         $where = [];
@@ -61,15 +58,10 @@ class TestsController extends AdminController
 
         $geos_list = Geos::get()->toArray();//国家列表
         $offer_list = Offer::where($where)->get()->toArray();//offer列表
-
-
-//        $startDate = date('Y-m-d 00:00:00', strtotime("-30 days")); //默认最近一周的数据
-
-
-        $startDate = date('Y-m-d 00:00:00');//默认当天数据
+        $firstDayOfWeek = date('Y-m-d', strtotime("this week Monday"));
+        $startDate = $firstDayOfWeek.' 00:00:00';
 
         $endDate = date('Y-m-d H:i:s');
-
         //查询当前月的销售金额记录并按数量降序排列
         $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
             ->select(DB::raw('SUM(revenue) as total_sales'), DB::raw('count(id) as total_count'),DB::raw('DATE(created_at) as sale_date'))
@@ -307,44 +299,53 @@ class TestsController extends AdminController
         $offer = $request->input('offer');
 
 
-        $start_date = \DateTime::createFromFormat('d/m/Y', $start_date);
-        $end_date = \DateTime::createFromFormat('d/m/Y', $end_date);
+        // 创建 DateTime 对象，指定输入的日期格式为 d/m/Y
+        $startDateTime = \DateTime::createFromFormat('d/m/Y', $start_date);
+        $start_date = $startDateTime->format('Y-m-d');
 
-        $start_date = $start_date->format('Y-m-d');
-        $end_date = $end_date->format('Y-m-d');
-
-//        var_dump($start_date);exit;
+        // 创建 DateTime 对象，指定输入的日期格式为 d/m/Y
+        $endDateTime = \DateTime::createFromFormat('d/m/Y', $end_date);
+        $end_date = $endDateTime->format('Y-m-d');
 
         if (!empty($start_date) && !empty($end_date)) {
             $startDate = $start_date . ' 00:00:00';
             $endDate = $end_date . ' 23:59:59';
         } else {
-            $startDate = date('Y-m-d 00:00:00', strtotime("-30 days"));
+            $startDate = date('Y-m-d 00:00:00', strtotime("-60 days"));
             $endDate = date('Y-m-d 23:59:59');
         }
 
         $where = [];
+        $where[] = ['status',2];
         if (!empty($country)) {
-            $where[] = ['country_id', 'in', $country];
+            $where[] = [function ($query) use ($country) {
+                $query->whereIn('country_id', $country);
+            }];
         }
         if (!empty($offer)) {
-            $where[] = ['offer_id', 'in', $offer];
+            $where[] = [function ($query) use ($offer) {
+                $query->whereIn('offer_id', $offer);
+            }];
         }
         if ($net_id !== 1 && $net_id !== 2) {
             $where[] = ['admin_id', '=', $net_id];
         }
-//        print_r($start_date);exit;
 
+
+
+//        DB::connection()->enableQueryLog();
 
         //查询当前月的销售金额记录并按数量降序排列
-        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
+        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
             ->where($where)
             ->select(DB::raw('SUM(revenue) as total_sales'), DB::raw('count(id) as total_count'), DB::raw('DATE(created_at) as sale_date'))
             ->groupBy('sale_date')
             ->get()
             ->toArray();
+//        $log = DB::getQueryLog();
+//        dd($log);exit;
 
-//        print_r($offer_sale);exit;
+//        print_r($log);exit;
 
         $sale_date = array_column($offer_sale, 'sale_date');
         $total_sales = array_column($offer_sale, 'total_sales');
@@ -409,6 +410,7 @@ class TestsController extends AdminController
 
             $topByCountry = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
                 ->whereIn('offer_id', explode(',', trim($offer_ids, ',')))
+                ->where($where)
                 ->select('country_id', DB::raw('SUM(revenue) as country_total_sales'), DB::raw('Count(id) as country_total_count'))
                 ->groupBy('country_id')
                 ->orderByDesc('country_total_sales')
@@ -430,6 +432,7 @@ class TestsController extends AdminController
                 $offer_detail = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
                     ->whereIn('offer_id', explode(',', trim($offer_ids, ',')))
                     ->where('country_id',$v['country_id'])
+                    ->where($where)
                     ->select('offer_id', DB::raw('SUM(revenue) as country_total_sales'), DB::raw('COUNT(id) as country_total_count'))
                     ->groupBy('offer_id')
                     ->orderByDesc('country_total_sales')
@@ -527,6 +530,11 @@ class TestsController extends AdminController
             'country' => $country,
 
         ];
+
+//        print_r("<pre/>");
+//        print_r($country);exit;
+
+
         return response()->json($data);
     }
 
@@ -553,38 +561,6 @@ class TestsController extends AdminController
         $grid = new Grid(new Offer());
         $grid->model()->orderBy('id', 'desc');
         $grid->column('id', __('Id'));
-        $grid->column('offer_name', __('Offer name'));
-        $grid->column('cate_id', __('Cate id'));
-        $grid->column('image', __('Image'))->image('', 50, 50);
-        $grid->column('des', __('Des'));
-        $grid->column('offer_link', __('Offer link'))->link();
-        $grid->column('offer_price', __('Offer price'));
-        $grid->column('offer_status', __('Offer status'))->using(['1' => 'Live', '2' => 'Paused'])->label([
-            1 => 'success',
-            2 => 'danger',
-        ]);
-        $grid->column('created_at', __('Create at'));
-        $grid->column('updated_at', __('Update at'));
-        $grid->actions(function ($actions) {
-            $actions->add(new Replicate);
-        });
-
-        $grid->column('cate_id', 'Categories')->display(function () {
-//            $categoryIds = explode(',', $this->cate_id);
-            $categories = Category::whereIn('id', $this->cate_id)->pluck('category_name')->toArray();
-
-            return implode(', ', $categories);
-        })->label();
-        $grid->batchActions(function ($batch) {
-//            $batch->disableDelete();
-        });
-
-        $grid->actions(function ($actions) {
-            $actions->disableView();
-        });
-
-
-        $grid->paginate(10);
         return $grid;
     }
 
@@ -598,18 +574,7 @@ class TestsController extends AdminController
     protected function detail($id)
     {
         $show = new Show(Offer::findOrFail($id));
-
         $show->field('id', __('Id'));
-        $show->field('offer_name', __('Offer name'));
-        $show->field('cate_id', __('Cate id'));
-        $show->field('des', __('Des'));
-        $show->field('offer_link', __('Offer link'));
-        $show->field('offer_price', __('Offer price'));
-        $show->field('offer_status', __('Offer status'));
-        $show->field('image', __('Image'));
-        $show->field('created_at', __('Create at'));
-        $show->field('updated_at', __('Update at'));
-
         return $show;
     }
 
@@ -631,7 +596,6 @@ class TestsController extends AdminController
      */
     public function show($id, Content $content)
     {
-//        echo phpinfo();exit;
 
         $geos_list = Geos::get()->toArray();
         $category_list = Category::get()->toArray();

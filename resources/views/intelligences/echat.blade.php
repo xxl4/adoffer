@@ -297,7 +297,7 @@
                                             <div class="col-xs-12 use_small_padding">
                                                 <select class="select2_offers select2-hidden-accessible" name="offers" id="offers" multiple="" tabindex="-1" aria-hidden="true">
                                                     @foreach ($all_offer as $key=>$item)
-                                                    <option value="DroneX">{{$item['offer_name']}}</option>
+                                                    <option value={{$item['id']}}>{{$item['offer_name']}}</option>
                                                     @endforeach
                                                 </select>
 
@@ -564,18 +564,19 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-        <script src="/vendor/laravel-admin/intelligences/functions.js"></script>
-<script src="/vendor/laravel-admin/tests/summary.js"></script>
+        <script defer  src="/vendor/laravel-admin/intelligences/functions.js"></script>
+        <script defer src="/vendor/laravel-admin/intelligences/summary.js"></script>
+
+
 <script src="/vendor/laravel-admin/tests/advanced.js"></script>
 <script src="/vendor/laravel-admin/intelligences/advanced1.js"></script>
-
+<script defer  src="/vendor/laravel-admin/intelligences/functions1.js"></script>
 
 
 
@@ -672,6 +673,8 @@
 
 <script>
     $(document).ready(function(){
+
+
         $(".select2_list").select2();
         $(".select2_list").val("week").trigger("change");
 
@@ -682,6 +685,16 @@
 
         $(".select_timezone").select2();
         $(".select_timezone").val("64").trigger("change");
+
+        calendar_date.init();
+        calendar_date.select_default_time('week');
+
+        calendar_date1.init();
+        calendar_date1.select_default_time('week');
+
+        reporting.init();
+
+
     });
 </script>
 

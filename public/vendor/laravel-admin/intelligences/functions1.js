@@ -1,4 +1,4 @@
-var calendar_date = {
+var calendar_date1 = {
 	selected_date : {},
 	init : function(){
 
@@ -33,10 +33,10 @@ var calendar_date = {
 		});
 
 		$('.list_date1').on('change', function(){
-			calendar_date.selector_date($('.list_date1').find('option:selected').val());
+			calendar_date1.selector_date($('.list_date1').find('option:selected').val());
 		});
 
-		calendar_date.active_calendar_button();
+		calendar_date1.active_calendar_button();
 	},
 	active_calendar_button : function(){
 		$('.add-on').on('click', function(event){
@@ -170,5 +170,5 @@ var calendar_date = {
 }
 
 $(function(){
-	calendar_date.init();
+	calendar_date1.init();
 });

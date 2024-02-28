@@ -20,7 +20,6 @@
 <link href="/vendor/laravel-admin/tests/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" media="screen">
 <!-- END PLUGIN CSS -->
 <!-- BEGIN CORE CSS FRAMEWORK -->
-<link href="/vendor/laravel-admin/tests/icon" rel="stylesheet">
 <link href="/vendor/laravel-admin/tests/webarch.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/tests/custom.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/vendor/laravel-admin/tests/links_img.css">
@@ -32,13 +31,13 @@
 
 <!-- END CONTENT -->
 <!-- BEGIN CORE JS FRAMEWORK-->
-<script async="" src="/vendor/laravel-admin/tests/fbevents.js"></script>
+{{--<script async="" src="/vendor/laravel-admin/tests/fbevents.js"></script>--}}
 
 
 <script async="" src="/vendor/laravel-admin/tests/roundtrip.js"></script>
 <script src="/vendor/laravel-admin/tests/pace.min.js" type="text/javascript"></script>
 <!-- BEGIN JS DEPENDECENCIES-->
-<script src="/vendor/laravel-admin/tests/jquery-2.1.4.js"></script>
+{{--<script src="/vendor/laravel-admin/tests/jquery-2.1.4.js"></script>--}}
 <!--	<script src="assets/plugins/bootstrapv3/js/bootstrap.min.js" type="text/javascript"></script>-->
 <script src="/vendor/laravel-admin/tests/bootstrap.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/tests/bootstrap-popover-custom-class.min.js" type="text/javascript"></script>
@@ -74,7 +73,6 @@
     </div>
     <div class="pace-activity"></div></div>
 
-<iframe width="1" height="1" name="__tcfapiLocator" style="visibility: hidden;" src="/vendor/laravel-admin/tests/saved_resource.html"></iframe>
 <!-- END HEADER -->
 <!-- BEGIN CONTENT -->
 <div class="page-container row-fluid">
@@ -416,21 +414,30 @@
             </div>
         </div>
 
-        <script src="/vendor/laravel-admin/tests/morris.min.js"></script>
-        <script src="/vendor/laravel-admin/tests/jquery.flot.js"></script>
-        <script src="/vendor/laravel-admin/tests/jquery.flot.animator.min.js"></script>
-        <script src="/vendor/laravel-admin/tests/jquery.flot.orderBars.js"></script>
-        <script src="/vendor/laravel-admin/tests/jquery-sparkline.js"></script>
+{{--        <script src="/vendor/laravel-admin/tests/morris.min.js"></script>--}}
+{{--        <script src="/vendor/laravel-admin/tests/jquery.flot.js"></script>--}}
+{{--        <script src="/vendor/laravel-admin/tests/jquery.flot.animator.min.js"></script>--}}
+{{--        <script src="/vendor/laravel-admin/tests/jquery.flot.orderBars.js"></script>--}}
+{{--        <script src="/vendor/laravel-admin/tests/jquery-sparkline.js"></script>--}}
 
-                    <script src="/vendor/laravel-admin/tests/graphics.js"></script>
+
         <script src="/vendor/laravel-admin/tests/functions.js"></script>
         <script>
             $(document).ready(function(){
                 $(".select2_list").select2();
-                $(".select2_list").val("today").trigger("change");
+                $(".select2_list").val("week").trigger("change");
 
                 $(".select_timezone").select2();
                 $(".select_timezone").val("64").trigger("change");
+
+                calendar_date.init();
+                calendar_date.select_default_time('week');
+
+                // calendar_date1.init();
+                // calendar_date1.select_default_time('week');
+
+                reporting.init();
+
             });
         </script>
         <style type="text/css">
@@ -440,10 +447,10 @@
         </style>
         <script src="/vendor/laravel-admin/tests/data_table.js"></script>
         <script src="/vendor/laravel-admin/tests/summary.js"></script>
-        <script src="/vendor/laravel-admin/tests/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="/vendor/laravel-admin/tests/dataTables.tableTools.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="/vendor/laravel-admin/tests/datatables.responsive.js"></script>
-        <script type="text/javascript" src="/vendor/laravel-admin/tests/lodash.min.js"></script>
+{{--        <script src="/vendor/laravel-admin/tests/jquery.dataTables.min.js" type="text/javascript"></script>--}}
+{{--        <script src="/vendor/laravel-admin/tests/dataTables.tableTools.min.js" type="text/javascript"></script>--}}
+{{--        <script type="text/javascript" src="/vendor/laravel-admin/tests/datatables.responsive.js"></script>--}}
+{{--        <script type="text/javascript" src="/vendor/laravel-admin/tests/lodash.min.js"></script>--}}
 
 
 
@@ -535,31 +542,13 @@
 </div>
 <div>
     <div class="sweet-overlay" tabindex="-1"></div>
-    {{--    <div class="sweet-alert" tabindex="-1">--}}
-    {{--        <div class="icon error"><span class="x-mark"><span class="line left"></span><span class="line right"></span></span></div>--}}
-    {{--        <div class="icon warning"> <span class="body"></span> <span class="dot"></span> </div>--}}
-    {{--        <div class="icon info"></div>--}}
-    {{--        <div class="icon success"> <span class="line tip"></span> <span class="line long"></span> <div class="placeholder"></div> <div class="fix"></div> </div>--}}
-    {{--        <div class="icon custom"></div>--}}
-    {{--        <h2>Title</h2>--}}
-    {{--        <p class="lead text-muted">Text</p>--}}
-    {{--        <p><button class="cancel btn btn-lg" tabindex="2">Cancel</button> <button class="confirm btn btn-lg" tabindex="1">OK</button></p>--}}
-    {{--    </div>--}}
+
 
 </div>
 <div id="tooltip" style="position: absolute; border: 1px solid rgb(255, 221, 221); padding: 2px; background-color: rgb(255, 238, 238); z-index: 99999; opacity: 0.8; top: 794px; left: 1215.14px; display: none;">BarXStop: $5,160<br>SilentSnore: $240<br></div>
 
 <script type="text/javascript">
     var frontendData = @json($data);
-
-
-    // console.log('日志打印',frontendData)
-
-
-    {{--    $(function () {--}}
-    {{--        $('.selectpicker').selectpicker();--}}
-    {{--    });--}}
-
 
     $(document).ready(function () {
 
@@ -765,17 +754,6 @@
             var geos = $('#geos').val();
             var start_date = $('#start_date').val();
             var end_date = $('#end_date').val();
-
-
-
-
-
-
-            console.log('返回数据offer',offer)
-            console.log('返回数据geos',geos)
-            console.log('返回数据start_date',start_date)
-            console.log('返回数据end_date',end_date)
-
 
             function updateBarData() {
                 $.ajax({
@@ -1061,29 +1039,4 @@
         });
     });
 
-
-    {{--    function updatePieChart(newData) {--}}
-    {{--        // 判断数据是否符合预期格式--}}
-    {{--        if (isValidDataFormat(newData)) {--}}
-    {{--            myPieChart.data = newData;--}}
-    {{--            myPieChart.update();--}}
-    {{--        } else {--}}
-    {{--            console.error('Invalid data format');--}}
-    {{--        }--}}
-    {{--    }--}}
-
-
-    {{--    // 判断数据是否符合预期格式--}}
-    {{--    function isValidDataFormat(data) {--}}
-    {{--        return (--}}
-    {{--            data &&--}}
-    {{--            data.labels &&--}}
-    {{--            Array.isArray(data.labels) &&--}}
-    {{--            data.datasets &&--}}
-    {{--            Array.isArray(data.datasets) &&--}}
-    {{--            data.datasets.length > 0 &&--}}
-    {{--            data.datasets[0].data &&--}}
-    {{--            Array.isArray(data.datasets[0].data)--}}
-    //         );
-    //     }
 </script>

@@ -54,9 +54,9 @@ class IntelligencesController extends AdminController
         }
 
         $geos_list = Geos::get()->toArray();//国家列表
-        $startDate = date('Y-m-d 00:00:00', strtotime("-7 days")); //默认最近一周的数据
+        $firstDayOfWeek = date('Y-m-d', strtotime("this week Monday"));
+        $startDate = $firstDayOfWeek.' 00:00:00';
         $endDate = date('Y-m-d H:i:s');
-
         //查询当前月的销售金额记录并按数量降序排列
         $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)->where('status',2)
             ->select(DB::raw('SUM(revenue) as total_sales'), 'offer_id')
@@ -68,7 +68,6 @@ class IntelligencesController extends AdminController
 
 
         $offer_log_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)->where($where)->sum('revenue');
-
         foreach ($offer_sale as $key => $value) {
 
             if($offer_log_count==0){
@@ -78,17 +77,12 @@ class IntelligencesController extends AdminController
 
             }
 
-
-
-
             $offer_sale[$key]['offer_name'] = Offer::where('id', $value['offer_id'])->value('offer_name');
             //  $offer_sale[$key]['sales_copy'] = Offer::where('id', $value['offer_id'])->value('offer_name');
-
             unset($offer_sale[$key]['total_sales']);
             unset($offer_sale[$key]['offer_id']);
 
         }
-
 
 
 
@@ -207,58 +201,49 @@ class IntelligencesController extends AdminController
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
         $net_id = $currentUser->id; // 输出当前用户名称
 
-
-
-
-
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
         $country = $request->input('country');
+        //print_r($start_date);exit;
+        // 创建 DateTime 对象，指定输入的日期格式为 d/m/Y
+        $startDateTime = \DateTime::createFromFormat('d/m/Y', $start_date);
+        $start_date = $startDateTime->format('Y-m-d');
 
+        // 创建 DateTime 对象，指定输入的日期格式为 d/m/Y
+        $endDateTime = \DateTime::createFromFormat('d/m/Y', $end_date);
+        $end_date = $endDateTime->format('Y-m-d');
 
-        $start_date = \DateTime::createFromFormat('d/m/Y', $start_date);
-        $end_date = \DateTime::createFromFormat('d/m/Y', $end_date);
-
-        $start_date = $start_date->format('Y-m-d');
-        $end_date = $end_date->format('Y-m-d');
 
 
         if (!empty($start_date) && !empty($end_date)) {
-
-            $start_date = substr($start_date, 0, 10);
-            $end_date = substr($end_date, 0, 10);
-
-
-            $start_date = date('Y-m-d', strtotime($start_date));
-            $end_date = date('Y-m-d', strtotime($end_date));
-
             $startDate = $start_date . ' 00:00:00';
             $endDate = $end_date . ' 23:59:59';
         } else {
-            $startDate = date('Y-m-d 00:00:00', strtotime("-7 days"));
+            $firstDayOfWeek = date('Y-m-d', strtotime("this week Monday"));
+            $startDate = $firstDayOfWeek.' 00:00:00';
             $endDate = date('Y-m-d 23:59:59');
         }
 
+
+
         $where = [];
+        $where[] = ['status',2];
         if (!empty($country)) {
-            $where[] = ['country_id', 'in', $country];
+            $where[] = [function ($query) use ($country) {
+                $query->whereIn('country_id', $country);
+            }];
         }
         if($net_id!==1 && $net_id!==2){
             $where[]=['admin_id','=',$net_id];
         }
-        DB::connection()->enableQueryLog();
-
         //查询当前月的销售记录并按数量降序排列
-        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
+        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
             ->where($where)
             ->select(DB::raw('SUM(revenue) as total_sales'), 'offer_id')
             ->groupBy('offer_id')
             ->orderByDesc('total_sales')
             ->take(3)
             ->get()->toArray();
-
-        $carNamedata = DB::getQueryLog();
-
 
         foreach ($offer_sale as $key => $value) {
             $offer_sale[$key]['offer_id'] = Offer::where('id', $value['offer_id'])->value('offer_name');
@@ -325,53 +310,43 @@ class IntelligencesController extends AdminController
 
     public function countryPie(Request $request)
     {
+
+
+
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
         $net_id = $currentUser->id; // 输出当前用户名称
-
 
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
         $offers = $request->input('offers');
 
-//        print_r($start_date);exit;
+        // 创建 DateTime 对象，指定输入的日期格式为 d/m/Y
+        $startDateTime = \DateTime::createFromFormat('d/m/Y', $start_date);
+        $start_date = $startDateTime->format('Y-m-d');
 
-
-        $start_date = \DateTime::createFromFormat('d/m/Y', $start_date);
-        $end_date = \DateTime::createFromFormat('d/m/Y', $end_date);
-
-        $start_date = $start_date->format('Y-m-d');
-        $end_date = $end_date->format('Y-m-d');
-
-
+        // 创建 DateTime 对象，指定输入的日期格式为 d/m/Y
+        $endDateTime = \DateTime::createFromFormat('d/m/Y', $end_date);
+        $end_date = $endDateTime->format('Y-m-d');
 
         if (!empty($start_date) && !empty($end_date)) {
-
-            $start_date = substr($start_date, 0, 10);
-            $end_date = substr($end_date, 0, 10);
-
-
-            $start_date = date('Y-m-d', strtotime($start_date));
-            $end_date = date('Y-m-d', strtotime($end_date));
-
             $startDate = $start_date . ' 00:00:00';
             $endDate = $end_date . ' 23:59:59';
         } else {
-            $startDate = date('Y-m-d 00:00:00', strtotime("-7 days"));
+            $firstDayOfWeek = date('Y-m-d', strtotime("this week Monday"));
+            $startDate = $firstDayOfWeek.' 00:00:00';
             $endDate = date('Y-m-d 23:59:59');
         }
 
-
-
-//        print_r($startDate);exit;
-
         $where = [];
         if (!empty($offers)) {
-            $where[] = ['offer_id', 'in', $offers];
+            $where[] = [function ($query) use ($offers) {
+                $query->whereIn('offer_id', $offers);
+            }];
         }
+
         if($net_id!==1 && $net_id!==2){
             $where[]=['admin_id','=',$net_id];
         }
-        DB::connection()->enableQueryLog();
 
         //查询当前月的销售记录并按数量降序排列
         $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
@@ -381,8 +356,6 @@ class IntelligencesController extends AdminController
             ->orderByDesc('total_sales')
             ->take(3)
             ->get()->toArray();
-        $carNamedata = DB::getQueryLog();
-
 
         foreach ($offer_sale as $key => $value) {
             $offer_sale[$key]['offer_id'] = Offer::where('id', $value['offer_id'])->value('offer_name');

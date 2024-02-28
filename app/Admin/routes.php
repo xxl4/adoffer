@@ -12,6 +12,10 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index')->name('home');
+    $router->post('home/dashboard', 'HomeController@dashboard')->name('home');
+    $router->any('home/query', 'HomeController@query')->name('home');
+
+
     $router->resource('users', UserController::class);
 //    $router->resource('offers', OfferController::class);
     $router->resource('product', ProductController::class);
