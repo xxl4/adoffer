@@ -136,7 +136,6 @@ class OfferController extends Controller
 
 
 
-        var_dump($ip);exit;
 
         try {
             $referrer = $request->header('referer');
