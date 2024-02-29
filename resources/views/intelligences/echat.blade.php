@@ -8,23 +8,15 @@
 <link href="/vendor/laravel-admin/intelligences/animate.min.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/intelligences/jquery.scrollbar.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/intelligences/datepicker.css" rel="stylesheet" type="text/css">
-{{--<link rel="stylesheet" href="/vendor/laravel-admin/intelligences/sweet-alert.css">--}}
 <link rel="stylesheet" href="/vendor/laravel-admin/intelligences/rickshaw.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/intelligences/mapplic.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/intelligences/ionicons.css" type="text/css">
 <link href="/vendor/laravel-admin/intelligences/messenger.css" rel="stylesheet" type="text/css" media="screen">
 <link href="/vendor/laravel-admin/intelligences/messenger-theme-flat.css" rel="stylesheet" type="text/css" media="screen">
 
-
-
-
-
-<!-- END PLUGIN CSS -->
-<!-- BEGIN CORE CSS FRAMEWORK -->
-{{--<link href="/vendor/laravel-admin/intelligences/icon" rel="stylesheet">--}}
 <link href="/vendor/laravel-admin/intelligences/webarch.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/intelligences/custom.css" rel="stylesheet" type="text/css">
-{{--<link rel="stylesheet" href="/vendor/laravel-admin/intelligences/links_img.css">--}}
+
 
 <script src="/vendor/laravel-admin/intelligences/select2.js" type="text/javascript"></script>
 
@@ -82,7 +74,7 @@
                                                 </div>
                                                 <div class="input-append success col-xs-8 col-sm-8">
                                                     <div class="row">
-                                                        <input type="text" class="form-control date_start date_pic_wid sandbox-advance" id="start_date">
+                                                        <input type="text" class="form-control date_start date_pic_wid sandbox-advance" id="start_date" value="<?php echo date("d/m/Y") ?>">
                                                         <span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>
                                                     </div>
                                                 </div>
@@ -97,7 +89,7 @@
                                                 </div>
                                                 <div class="input-append success col-xs-8 col-sm-8">
                                                     <div class="row">
-                                                        <input type="text" class="form-control date_end date_pic_wid sandbox-advance" id="end_date">
+                                                        <input type="text" class="form-control date_end date_pic_wid sandbox-advance" id="end_date" value="<?php echo date("d/m/Y") ?>">
                                                         <span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>
                                                     </div>
                                                 </div>
@@ -521,10 +513,7 @@
                                 </div>
                             </div>
                             <div class="grid-body no-border">
-                                <!-- <h4>Monthly Progression Of The Top 3 Chart</h4> -->
-                                <!-- <p>This section give a high level view on the top 3 offers evolution across the current year.
-                                    Graph:
-                                </p> -->
+          
                                 <br>
                                 <div class="row">
                                     <div class="col-xs-12 ">
@@ -550,10 +539,7 @@
                                 </div>
                             </div>
                             <div class="grid-body no-border">
-                                <!-- <h4>Monthly Progression Of The Top 3 Chart</h4> -->
-                                <!-- <p>This section give a high level view on the top 3 offers evolution across the current year.
-                                    Graph:
-                                </p> -->
+
                                 <br>
                                 <div class="row">
                                     <div class="col-xs-12 ">
@@ -570,20 +556,19 @@
                 </div>
             </div>
 
+<<<<<<< HEAD
         <script defer  src="/vendor/laravel-admin/intelligences/functions.js"></script>
         <script defer src="/vendor/laravel-admin/intelligences/summary.js"></script>
 
 
+=======
+
+<script src="/vendor/laravel-admin/intelligences/functions.js"></script>
+<script src="/vendor/laravel-admin/tests/summary.js"></script>
+>>>>>>> 213f933166bd09130c873f165551e5113d644066
 <script src="/vendor/laravel-admin/tests/advanced.js"></script>
 <script src="/vendor/laravel-admin/intelligences/advanced1.js"></script>
 <script defer  src="/vendor/laravel-admin/intelligences/functions1.js"></script>
-
-
-
-
-
-
-
 
 
 </div>
@@ -659,7 +644,6 @@
     </div>
 </div>
 
-
 <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"><div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div></div><div id="tooltip" style="position: absolute; display: none; border: 1px solid rgb(240, 240, 240); padding: 2px; background-color: rgb(255, 255, 255); z-index: 99999; opacity: 0.8;"></div><div><div class="sweet-overlay" tabindex="-1"></div>
 
 
@@ -673,11 +657,19 @@
 
 <script>
     $(document).ready(function(){
+<<<<<<< HEAD
 
 
         $(".select2_list").select2();
         $(".select2_list").val("week").trigger("change");
+=======
+>>>>>>> 213f933166bd09130c873f165551e5113d644066
 
+        
+        $(".select2_list").select2();
+        console.log("select2_list")
+        $(".select2_list").val("week").trigger("change");
+        console.log("select2_list 2")
 
         $(".select2_list1").select2();
         $(".select2_list1").val("week").trigger("change");
@@ -686,6 +678,7 @@
         $(".select_timezone").select2();
         $(".select_timezone").val("64").trigger("change");
 
+<<<<<<< HEAD
         calendar_date.init();
         calendar_date.select_default_time('week');
 
@@ -694,6 +687,9 @@
 
         reporting.init();
 
+=======
+        
+>>>>>>> 213f933166bd09130c873f165551e5113d644066
 
     });
 </script>

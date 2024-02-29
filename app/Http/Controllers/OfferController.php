@@ -269,7 +269,6 @@ class OfferController extends Controller
         curl_close($ch);//关闭curl
         return $output;
 
-
     }
 
 

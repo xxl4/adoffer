@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Geos;
+use App\Models\Locations;
 use App\Models\OfferLog;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\Dashboard;
@@ -163,12 +164,11 @@ class HomeController extends Controller
     public function query(Request $Request)
     {
 
+
      $data = Geos::limit(10)->get()->toArray();
 
         foreach ($data as $key=>$value){
             $data[$key]['id'] = $value['country_ios_code'];
-
-
         }
 
 
@@ -182,9 +182,9 @@ class HomeController extends Controller
         $data = [];
         // full_dashboard_data
         if($step=='full_dashboard_data') {
-            
+
         }
-        // 
+        //
         if($step=='dashboard_week_jvector') {
             $geos = [];
             $offers = [];
@@ -225,46 +225,102 @@ class HomeController extends Controller
 
         // last_sales
         if($step=='last_sales') {
-            
+
         }
 
         return response()->json($data);
     }
 
     public function reporting(Request $request) {
-        
-        $data = [];
 
-        //
+
+        $data = [];
         $data['mapheight'] = "900";
-        $data['mapwidth'] = "900";
-        $data['maxscale'] = "900";
-        $data['minimap'] = true;
+        $data['mapwidth'] = "1400";
+        $data['maxscale'] = "8";
+        $data['minimap'] = "true";
         $data['categories'] = [];
-        $data['sidebar'] = true;
+        $data['sidebar'] = "true";
         $levels = [];
         $levels[0]['id'] = "states";
-        $levels[0]['map'] = "/images/map.png";
-        $levels[0]['minimap'] = "/images/states/us-small.jpg";
+        $levels[0]['map'] = "images/map.png";
+        $levels[0]['minimap'] = "images/states/us-small.jpg";
         $levels[0]['title'] = "states";
         $locations = [];
 
-        $locations[] = [
-            'action'=> "tooltip",
-            'description'=> "tooltip",
-            'id'=> "au",
-            'pin'=> "hidden",
-            'pin'=> "hidden",
-            'select_detect'=> "Austria",
-            'title'=> "Austria",
-            'x'=> "0.5218",
-            'y'=> "0.3851",
-        ];
+//        $locations[] = [
+//            'action'=> "tooltip",
+//            'description'=> "tooltip",
+//            'id'=> "au",
+//            'pin'=> "hidden",
+//            'pin'=> "hidden",
+//            'select_detect'=> "Austria",
+//            'title'=> "Austria",
+//            'x'=> "0.5218",
+//            'y'=> "0.3851",
+//        ];
 
-        $levels[0]['locations'] = $locations;
+        $locations = Locations::get()->toArray();
 
+        $result = [];
+        foreach ($locations as $key=>$value){
+            $result[$key]['action'] = $value['action'];
+            $result[$key]['description'] = $value['description'];
+            $result[$key]['id'] = $value['type_id'];
+            $result[$key]['pin'] = $value['pin'];
+            $result[$key]['select_detect'] = $value['select_detect'];
+            $result[$key]['title'] = $value['title'];
+            $result[$key]['x'] = $value['x'];
+            $result[$key]['y'] = $value['y'];
+        }
+
+
+//        print_r($locations);exit;
+        $levels[0]['locations'] = $result;
         $data['levels'] = $levels;
 
+//        print_r("<pre/>");
+//        print_r($data);exit;
+
+        return response()->json($data);
+    }
+
+
+    public function dashboard(Request $request)
+    {
+
+        $data = [];
+        $geos = [];
+        $offers = [];
+
+        $geos['percentage'] = [33.673469387755105,16.3265306122449, 11.224489795918368,5.1020408163265305,5.1020408163265305,4.081632653061225,3.061224489795918,3.061224489795918,2.0408163265306123,2.0408163265306123,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061];
+
+        $geos['positions'] = [
+           '0'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],
+            '1'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'2'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'3'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'4'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'5'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'6'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'7'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'8'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'9'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'10'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'11'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'12'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'13'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'14'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'15'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'16'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'17'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'18'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'19'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'20'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'21'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],
+
+        ];
+
+        $geos['values'] = [33,16,11,5,5,4,3,3,2,2,1,1,1,1,1,1,1,1,1,1,1,1];
+
+        $offers['array_counts'] = [33,15,14,4,3,3,3,3,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+        $offers['array_percent_done'] = [
+           'db_names' => ["TVShareMax","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone",],
+            'link_preview'=>['123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123'],
+            'long_names'=>['123','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234'],
+            'name'=>['123','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234'],
+            'vals'=>['123','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234'],
+        ];
+
+        $top_3_country_offers = [
+            ''=>
+            
+        ];
+
+
+        $data['geos'] =$geos;
+        $data['offers'] =$offers;
+        $data['top_3_country_offers'] =$top_3_country_offers;
 
         return response()->json($data);
     }
