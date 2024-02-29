@@ -28,7 +28,7 @@ var home_vidgets = {
 
 		$.ajax({
 			method: 'POST',
-			url: '/admin/home/query',
+			url: window.domain + '/home/reporting',
 			dataType: "json",
 			data: request_data,
             headers: {
@@ -163,8 +163,12 @@ var home_vidgets = {
 
 		$.ajax({
 			method: 'post',
-			url: 'classes/Class.Dashboard.php',
+			//url: 'classes/Class.Dashboard.php',
+			url: window.domain + '/home/search',
 			dataType: 'json',
+			headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
 			data: {
 				step: 'dashboard_geos',
 				net : network,
@@ -211,8 +215,12 @@ var home_vidgets = {
 
 		$.ajax({
 			method: 'post',
-			url: 'classes/Class.Dashboard.php',
+			//url: 'classes/Class.Dashboard.php',
+			url: window.domain + '/home/search',
 			dataType: 'json',
+			headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
 			data: {
 				step: 'dashboard_offers',
 				max_offer : 5,
@@ -262,8 +270,12 @@ var home_vidgets = {
 
 		$.ajax({
 			method: 'post',
-			url: 'classes/Class.Dashboard.php',
+			//url: 'classes/Class.Dashboard.php',
+			url: window.domain + '/home/search',
 			dataType: 'json',
+			headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
 			data: {
 				step: 'dashboard_week_jvector',
 				net : network
@@ -329,7 +341,7 @@ var home_vidgets = {
 					});
 				}
 
-				$('.weekly_top_geo_per_offer').html(data_offers);
+				// $('.weekly_top_geo_per_offer').html(data_offers); disable it
 
 				$('[data-init="animate-progress-bar"], .animate-progress-bar').each(function () {
 					var data = $(this).data();
@@ -422,10 +434,16 @@ var home_vidgets = {
 			var network = 'net';
 		}
 
+		console.log("last sales block");
+
 		$.ajax({
 			method: 'post',
-			url: 'classes/Class.Dashboard.php',
+			//url: 'classes/Class.Dashboard.php',
+			url: window.domain + '/home/search',
 			dataType: 'json',
+			headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
 			data: {
 				step: 'full_dashboard_data',
 				net : network
@@ -472,8 +490,12 @@ var home_vidgets = {
 
 		$.ajax({
 			method:'post',
-			url:'classes/Class.Dashboard.php',
+			// url:'classes/Class.Dashboard.php',
+			url: window.domain + '/home/search',
 			dataType:'json',
+			headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
 			data:{
 				step:'last_sales',
 				net:network
