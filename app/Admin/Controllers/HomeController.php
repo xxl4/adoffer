@@ -11,7 +11,7 @@ use Encore\Admin\Layout\Content;
 use Encore\Admin\Layout\Row;
 use Encore\Admin\Widgets\Box;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 
 class HomeController extends Controller
@@ -174,6 +174,99 @@ class HomeController extends Controller
 
         $data['levels'][0]['locations'] = $data;
         return $data;
+    }
+
+    // search data
+    public function search(Request $request){
+        $step = $request->input("step");
+        $data = [];
+        // full_dashboard_data
+        if($step=='full_dashboard_data') {
+            
+        }
+        // 
+        if($step=='dashboard_week_jvector') {
+            $geos = [];
+            $offers = [];
+            $top_3_country_offers = [];
+
+
+            $percentags = [];
+            $positions = [];
+            $values = [];
+            $geos['percentags'] = $percentags;
+            $geos['positions'] = $positions;
+            $geos['values'] = $values;
+            $data['geos'] = $geos;
+
+            $array_counts = [];
+            $array_percent_done = [];
+            $offers['array_counts'] = $array_counts;
+            $offers['array_percent_done'] = $array_percent_done;
+
+
+            $data['offers'] = $offers;
+
+            $ClearView = [];
+            $MaxPhone = [];
+            $TVShareMax = [];
+
+            $top_3_country_offers['ClearView'] = $ClearView;
+            $top_3_country_offers['MaxPhone'] = $MaxPhone;
+            $top_3_country_offers['TVShareMax'] = $TVShareMax;
+
+            $data['top_3_country_offers'] = $top_3_country_offers;
+        }
+
+        // dashboard_geos
+        if($step=='dashboard_geos') {
+
+        }
+
+        // last_sales
+        if($step=='last_sales') {
+            
+        }
+
+        return response()->json($data);
+    }
+
+    public function reporting(Request $request) {
+        
+        $data = [];
+
+        //
+        $data['mapheight'] = "900";
+        $data['mapwidth'] = "900";
+        $data['maxscale'] = "900";
+        $data['minimap'] = true;
+        $data['categories'] = [];
+        $data['sidebar'] = true;
+        $levels = [];
+        $levels[0]['id'] = "states";
+        $levels[0]['map'] = "/images/map.png";
+        $levels[0]['minimap'] = "/images/states/us-small.jpg";
+        $levels[0]['title'] = "states";
+        $locations = [];
+
+        $locations[] = [
+            'action'=> "tooltip",
+            'description'=> "tooltip",
+            'id'=> "au",
+            'pin'=> "hidden",
+            'pin'=> "hidden",
+            'select_detect'=> "Austria",
+            'title'=> "Austria",
+            'x'=> "0.5218",
+            'y'=> "0.3851",
+        ];
+
+        $levels[0]['locations'] = $locations;
+
+        $data['levels'] = $levels;
+
+
+        return response()->json($data);
     }
 
 
