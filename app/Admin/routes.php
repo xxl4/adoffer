@@ -15,6 +15,9 @@ Route::group([
     $router->post('home/dashboard', 'HomeController@dashboard')->name('home');
     $router->any('home/query', 'HomeController@query')->name('home');
 
+    $router->post('home/search', 'HomeController@search')->name("admin.home.data");
+    $router->post('home/reporting', 'HomeController@reporting')->name("admin.home.reporting");
+
 
     $router->resource('users', UserController::class);
 //    $router->resource('offers', OfferController::class);
