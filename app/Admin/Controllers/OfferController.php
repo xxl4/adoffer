@@ -144,7 +144,7 @@ class OfferController extends AdminController
 
 
         //数据分为左右处理
-        $filteredDataArray = Offer::where($where)->whereNotNull('deleted_at')->get()->toArray();//奇数
+        $filteredDataArray = Offer::where($where)->whereNull('deleted_at')->get()->toArray();//奇数
 
         if (!empty($filteredDataArray)) {
             foreach ($filteredDataArray as $key => $value) {
@@ -284,7 +284,7 @@ class OfferController extends AdminController
                 foreach ($values2 as $value2) {
                     $query->orWhere('cate_id', 'like', "%$value2%");
                 }
-            })->where($where)->whereNotNull('deleted_at')
+            })->where($where)->whereNull('deleted_at')
             ->orderBy($field, $order)->get()->toArray();//奇数
 
 
