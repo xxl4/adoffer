@@ -136,8 +136,8 @@ class OfferController extends AdminController
         $category_list = Category::get()->toArray();
 
         //数据分为左右处理
-        $filteredDataArray = Offer::where('offer_status', 1)->where($where)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
-        $filteredDataArrayCopy = Offer::where('offer_status', 1)->where($where)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
+        $filteredDataArray = Offer::where('offer_status', 1)->where($where)->get()->toArray();//奇数
+
 
         if (empty($filteredDataArray) && !empty($filteredDataArrayCopy)) {
             $filteredDataArray = $filteredDataArrayCopy;
@@ -196,7 +196,7 @@ class OfferController extends AdminController
             'offer' => $filteredDataArray,
             'geos_list' => $geos_list,
             'category_list' => $category_list,
-            'offer1' => $filteredDataArrayCopy,
+//            'offer1' => $filteredDataArrayCopy,
         ];
 
         return $content->title('详情')
@@ -270,7 +270,7 @@ class OfferController extends AdminController
                 break;
         }
 
-//        $filteredDataArray = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
+//        $filteredDataArray = Offer::where('offer_status', 1)->where($where)->get()->toArray();//奇数
 //        $filteredDataArrayCopy = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
 
 
