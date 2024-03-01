@@ -5,10 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Offer extends Model
 {
+    use SoftDeletes;
     use HasApiTokens, HasFactory;
+
+
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'offer_name',

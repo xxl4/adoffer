@@ -24,6 +24,7 @@ use App\Admin\Actions\Post\Replicate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Encore\Admin\Facades\Admin;
 
 class OfferController extends AdminController
 {
@@ -50,9 +51,10 @@ class OfferController extends AdminController
         $grid->column('des', __('Des'));
         $grid->column('offer_link', __('Offer link'))->link();
         $grid->column('offer_price', __('Offer price'));
-        $grid->column('offer_status', __('Offer status'))->using(['1' => 'Live', '0' => 'Paused'])->label([
+        $grid->column('offer_status', __('Offer status'))->using(['1' => 'Live', '0' => 'Paused',2=>'Del'])->label([
             1 => 'success',
             0 => 'danger',
+            2 => 'Del',
         ]);
         $grid->column('created_at', __('Create at'));
         $grid->column('updated_at', __('Update at'));
@@ -116,7 +118,6 @@ class OfferController extends AdminController
 
     /**
      * Offer List
-     *
      * @param mixed $id
      * @return Show
      */
@@ -126,17 +127,24 @@ class OfferController extends AdminController
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
         $admin_id = $currentUser->id; // 输出当前用户名称
 
-        if ($admin_id == 1 || $admin_id == 2) {
-            $where = [];
-        } else {
-            $where[] = ['admin_id', '=', $admin_id];
+
+
+
+        $where = [];
+        $user_id = Admin::user()->id;
+        if(!Admin::user()->isAdministrator()){
+            $where['user_id'] = $user_id;
         }
+
 
         $geos_list = Geos::get()->toArray();
         $category_list = Category::get()->toArray();
 
+
+
+
         //数据分为左右处理
-        $filteredDataArray = Offer::where('offer_status', 1)->where($where)->get()->toArray();//奇数
+        $filteredDataArray = Offer::where($where)->whereNotNull('deleted_at')->get()->toArray();//奇数
 
         if (!empty($filteredDataArray)) {
             foreach ($filteredDataArray as $key => $value) {
@@ -276,7 +284,7 @@ class OfferController extends AdminController
                 foreach ($values2 as $value2) {
                     $query->orWhere('cate_id', 'like', "%$value2%");
                 }
-            })->where($where)
+            })->where($where)->whereNotNull('deleted_at')
             ->orderBy($field, $order)->get()->toArray();//奇数
 
 
@@ -554,16 +562,6 @@ class OfferController extends AdminController
     protected function form()
     {
         $form = new Form(new Offer());
-//        $data = Category::get()->toArray();
-
-//        foreach ($data as $item) {
-//            $_item = $item["id"];
-//            $_item1 = $item["category_name"];
-//            $arr[$_item] = $_item1;
-//        }
-
-//        $form->multipleSelect('cate_id', __('Offer Category'))->options($arr)->required();
-
         $form->text('offer_name', __('Offer name'))->required();
         $form->image('image', __('Offer Image'));
         $form->currency('offer_price', __('Payout'))->required();
@@ -594,6 +592,16 @@ class OfferController extends AdminController
 
         return $form;
     }
+
+    // 删除用户操作
+    public function del(int $id) {
+        // 软删除
+        Offer::where('id',$id)->update(['status'=>2]);
+        Offer::find($id)-> delete();
+
+        return ['status' => 2, 'msg' => '删除成功'];
+    }
+
 
 
 }
