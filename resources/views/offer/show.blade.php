@@ -136,7 +136,7 @@
                 <h4><span class="semi-bold"></span></h4>
                 <div class="tools tracking_block">
                     <a href="javascript:;" class="collapse"></a>
-                    <div class="col-mlg-6">
+                    <div class="col-mlg-12">
                         <div class="row">
 
                             <!--内容开始-->
@@ -145,7 +145,7 @@
 
                                 @foreach($data['offer'] as $key=>$offer)
 
-                                <div class="col-md-12 accord" data-offer_db="KneeBoost Pro">
+                                <div class="col-md-6 accord" data-offer_db="KneeBoost Pro <?php echo $key;?>">
                                     <ul class="nav nav-tabs" role="tablist">
                                         <li class="active"><a href="#tab<?php echo $key;?>Offer" role="tab" data-toggle="tab">Summary</a></li>
                                         <li><a href="#tab<?php echo $key;?>Description" role="tab" data-toggle="tab">Description</a></li>
