@@ -69,13 +69,9 @@ class OfferController extends Controller
             //查询到链接关联到的落地页
 
             if (!empty($res)) {
-//                $token = md5($offer_id . '/' . $admin_id . '/' . $track_id);
-
 
                 Log::info($admin_id);
-
-//                $update_data = OfferTracks::where('id', $track_id)->update(['random' => $token, 'query' => $queryString, 'offer_id' => $offer_id, 'admin_id' => $admin_id, 'updated_at' => date('Y-m-d H:i:s')]); //把生成的token和传递过来的参数保存
-
+                $ip = request()->getClientIp();
 
                 $insert = [];
                 $insert['track_id'] = $track_id;
@@ -84,6 +80,7 @@ class OfferController extends Controller
                 $insert['offer_id'] = $offer_id;
                 $insert['admin_id'] = $admin_id;
                 $insert['clickid'] = $clickid;
+                $insert['ip'] = $ip;
 
 
                 $insert['created_at'] = date('Y-m-d H:i:s');
@@ -125,7 +122,6 @@ class OfferController extends Controller
 
         Log::info($request);
         Log::info("回传接收数据");
-        $ip = request()->getClientIp();
         Log::info($ip);
         $ip = $_SERVER['REMOTE_ADDR'];
 
@@ -173,13 +169,13 @@ class OfferController extends Controller
             $currency_code = $request->input('currency_code');
 
 
-            $ip = request()->getClientIp();
-            Log::info($ip);
-            $country_res = geoip($ip)->toArray();//根据ip获取国家
+            $res = Db::table('track_lists as o')->where('o.random', $refer)->get()->first();
+
+            $country_res = geoip($res->ip)->toArray();//根据ip获取国家
             $country_id = Geos::where('country', $country_res['country'])->value('id');//获取国家id
 
 
-            $res = Db::table('track_lists as o')->where('o.random', $refer)->get()->first();
+
 
 
             // if (!empty($res)) {
@@ -189,7 +185,7 @@ class OfferController extends Controller
             $insert_data['track_id'] =!empty($res->track_id) ? $res->track_id : 0;
             $insert_data['admin_id'] =!empty($res->admin_id) ? $res->admin_id : 0;
 
-            $insert_data['ip'] = $ip;
+            $insert_data['ip'] = !empty($res->ip) ? $res->ip : 0;
             $insert_data['revenue'] = !empty($revenue) ? $revenue : 0;
             $insert_data['currency_code'] = !empty($currency_code) ? $currency_code : 0;
 
