@@ -1,8 +1,10 @@
-<style>
-.skin-black .content-header {
-    display: none;
-}
-</style>
+{{--<style>--}}
+{{--.skin-black .content-header {--}}
+{{--    display: none;--}}
+{{--}--}}
+{{--</style>--}}
+
+
 <link href="/vendor/laravel-admin/test/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen">
 <link href="/vendor/laravel-admin/test/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/test/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
@@ -866,10 +868,10 @@
                 // $("#test").html()
 
                 $('.categories_offer_left').empty();
-                $('.categories_offer_right').empty();
+                // $('.categories_offer_right').empty();
 
                 $('.categories_offer_left').html(data.left_data);
-                $('.categories_offer_right').html(data.right_data);
+                // $('.categories_offer_right').html(data.right_data);
 
                 console.info('返回数据', data)
                 // console.info('返回数据1')

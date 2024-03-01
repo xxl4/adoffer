@@ -116,6 +116,9 @@
     })(window, document);
     adroll.track("pageView");
 </script>
+
+
+
 <meta http-equiv="origin-trial" content="A41wt2Lsq30A9Ox/WehogvJckPI4aY9RoSxhb8FMtVnqaUle1AtI6Yf7Wk+7+Wm0AfDDOkMX+Wn6wnDpBWYgWwYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Fkcm9sbC5jb206NDQzIiwiZmVhdHVyZSI6IkludGVyZXN0Q29ob3J0QVBJIiwiZXhwaXJ5IjoxNjI2MjIwNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==">
 <script type="text/javascript" src="/vendor/laravel-admin/home/sendrolling.js"></script>
 <div style="width: 1px; height: 1px; display: inline; position: absolute;"></div>
@@ -146,7 +149,7 @@
                             <div class="col-md-12 m-b-10" data-sync-height="true">
                                 <div class="col-md-8 col-vlg-8 col-sm-8 no-padding -height" style="height: 550px;">
                                     <div class="tiles green mapplic-element" id="mapplic_demo" style="height: 550px;">
-                                        
+
                                     </div>
 
                                     <div class="clearfix"></div>
@@ -691,7 +694,7 @@
                                                     </div>							</div><div class="scroll-element scroll-x scroll-scrollx_visible scroll-scrolly_visible"><div class="scroll-element_outer">    <div class="scroll-element_size"></div>    <div class="scroll-element_track"></div>    <div class="scroll-bar" style="width: 87px; left: 0px;"></div></div></div><div class="scroll-element scroll-y scroll-scrollx_visible scroll-scrolly_visible"><div class="scroll-element_outer">    <div class="scroll-element_size"></div>    <div class="scroll-element_track"></div>    <div class="scroll-bar" style="height: 163px; top: 0px;"></div></div></div></div>
                                         </div>
                                         <div class="text-center m-t-10">
-                                            <a href="https://m4trix.network/Reporting-platform/Reporting-platform.php?id=account_notifications">See All</a>
+                                            <a href="javascript:void(0);">See All</a>
                                         </div>
                                     </div>
                                     <div class="wait_loader" style=""><img src="/vendor/laravel-admin/home/squares-preloader-gif.svg" alt=""></div>
@@ -830,7 +833,7 @@
                                             <div class="heading"> Last Week Top 10 Geos <i class="fa fa-map-marker"></i> </div>
                                         </div>
                                         <div id="world_weekly" style="height:405px">
-                                            
+
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -940,6 +943,15 @@
 
 <script type="text/javascript">
     var frontendData = @json($data);
+
+    $(document).ready(function(){
+
+        $(".breadcrumb").empty();
+
+
+
+    });
+
 </script>
 
 <script>
@@ -1050,7 +1062,7 @@
         message.className = 'user-details-wrapper answer';
         message.innerHTML = `
 				<div class="user-profile">
-					<img src="images/morpheus.jpg" alt="" data-src="assets/img/profiles/d.jpg" data-src-retina="assets/img/profiles/d2x.jpg" width="35" height="35">
+					<img src="" alt="" data-src="assets/img/profiles/d.jpg" data-src-retina="assets/img/profiles/d2x.jpg" width="35" height="35">
 				</div>
 				<div class="user-details">
 					<div class="bubble">
@@ -1226,7 +1238,7 @@
                 messageElementBubble.innerHTML = message.message;
                 if(message.message_bullet === 1) {
                     messageElementWrapper.innerHTML = `<div class="user-profile">
-								<img src="images/morpheus.jpg" alt="" data-src="assets/img/profiles/d.jpg" data-src-retina="assets/img/profiles/d2x.jpg" width="35" height="35">
+								<img src="" alt="" data-src="assets/img/profiles/d.jpg" data-src-retina="assets/img/profiles/d2x.jpg" width="35" height="35">
 							</div>`;
                 }
                 chatContainer.appendChild(messageElementWrapper);

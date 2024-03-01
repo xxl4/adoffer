@@ -50,9 +50,9 @@ class OfferController extends AdminController
         $grid->column('des', __('Des'));
         $grid->column('offer_link', __('Offer link'))->link();
         $grid->column('offer_price', __('Offer price'));
-        $grid->column('offer_status', __('Offer status'))->using(['1' => 'Live', '2' => 'Paused'])->label([
+        $grid->column('offer_status', __('Offer status'))->using(['1' => 'Live', '0' => 'Paused'])->label([
             1 => 'success',
-            2 => 'danger',
+            0 => 'danger',
         ]);
         $grid->column('created_at', __('Create at'));
         $grid->column('updated_at', __('Update at'));
@@ -193,9 +193,10 @@ class OfferController extends AdminController
 //            'offer1' => $filteredDataArrayCopy,
         ];
 
-        return $content->title('详情')
-            ->description('简介')
-            ->view('offer.show', compact('data'));
+//        print_r("<pre/>");
+//        print_r($data);exit;
+
+        return $content->view('offer.show', compact('data'));
     }
 
 
@@ -264,37 +265,18 @@ class OfferController extends AdminController
                 break;
         }
 
-//        $filteredDataArray = Offer::where('offer_status', 1)->where($where)->get()->toArray();//奇数
-//        $filteredDataArrayCopy = Offer::where('offer_status', 1)->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
-
 
         $filteredDataArray = Offer::where(function ($query) use ($geos) {
             $values = explode(',', $geos);
             foreach ($values as $value) {
                 $query->orWhere('accepted_area', 'like', "%$value%");
             }
-        })
-            ->where(function ($query) use ($category) {
+        })->where(function ($query) use ($category) {
                 $values2 = explode(',', $category);
                 foreach ($values2 as $value2) {
                     $query->orWhere('cate_id', 'like', "%$value2%");
                 }
-            })->whereRaw('MOD(id, 2) = 1')->where($where)
-            ->orderBy($field, $order)->get()->toArray();//奇数
-
-
-        $filteredDataArrayCopy = Offer::where(function ($query) use ($geos) {
-            $values = explode(',', $geos);
-            foreach ($values as $value) {
-                $query->orWhere('accepted_area', 'like', "%$value%");
-            }
-        })
-            ->where(function ($query) use ($category) {
-                $values2 = explode(',', $category);
-                foreach ($values2 as $value2) {
-                    $query->orWhere('cate_id', 'like', "%$value2%");
-                }
-            })->whereRaw('MOD(id, 2) = 0')->where($where)
+            })->where($where)
             ->orderBy($field, $order)->get()->toArray();//奇数
 
 

@@ -40,7 +40,6 @@ class TestsController extends AdminController
     public function index(Content $content)
     {
         return $content
-            ->header('Analytics')
             ->body(new Box('Bar chart', view('admin.tests.echart')));
     }
 
@@ -274,13 +273,8 @@ class TestsController extends AdminController
         $data = response()->json(['data' => $data]);
 
 
-//        return $content
-//            ->header('Chartjs')
-//            ->body(view('analytics.echat'));
-
 
         return $content
-            ->header('Chartjs')
             ->body(new Box('Bar chart', view('tests.echart', ['data' => $data, 'geos_list' => $geos_list, 'percent' => $percent, 'offer_count' => $offer_count, 'offer_list' => $offer_list])));
 
 

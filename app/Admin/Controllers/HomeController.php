@@ -144,8 +144,8 @@ class HomeController extends Controller
 //        print_r($offer_last_week);exit;
 
         return $content
-            ->title('Dashboard')
-            ->description('Description...')
+//            ->title('Dashboard')
+//            ->description('Description...')
             ->body(new Box('', view('admin.home.dashboard', ['data' => $data])));
 
 

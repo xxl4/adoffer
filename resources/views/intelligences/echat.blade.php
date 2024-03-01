@@ -513,7 +513,7 @@
                                 </div>
                             </div>
                             <div class="grid-body no-border">
-          
+
                                 <br>
                                 <div class="row">
                                     <div class="col-xs-12 ">
@@ -556,16 +556,11 @@
                 </div>
             </div>
 
-<<<<<<< HEAD
-        <script defer  src="/vendor/laravel-admin/intelligences/functions.js"></script>
-        <script defer src="/vendor/laravel-admin/intelligences/summary.js"></script>
 
-
-=======
 
 <script src="/vendor/laravel-admin/intelligences/functions.js"></script>
 <script src="/vendor/laravel-admin/tests/summary.js"></script>
->>>>>>> 213f933166bd09130c873f165551e5113d644066
+
 <script src="/vendor/laravel-admin/tests/advanced.js"></script>
 <script src="/vendor/laravel-admin/intelligences/advanced1.js"></script>
 <script defer  src="/vendor/laravel-admin/intelligences/functions1.js"></script>
@@ -644,7 +639,8 @@
     </div>
 </div>
 
-<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"><div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div></div><div id="tooltip" style="position: absolute; display: none; border: 1px solid rgb(240, 240, 240); padding: 2px; background-color: rgb(255, 255, 255); z-index: 99999; opacity: 0.8;"></div><div><div class="sweet-overlay" tabindex="-1"></div>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"><div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div></div><div id="tooltip" style="position: absolute; display: none; border: 1px solid rgb(240, 240, 240); padding: 2px; background-color: rgb(255, 255, 255); z-index: 99999; opacity: 0.8;"></div><div>
+{{--    <div class="sweet-overlay" tabindex="-1"></div>--}}
 
 
 
@@ -657,17 +653,13 @@
 
 <script>
     $(document).ready(function(){
-<<<<<<< HEAD
+
+        $(".breadcrumb").empty();
 
 
-        $(".select2_list").select2();
-        $(".select2_list").val("week").trigger("change");
-=======
->>>>>>> 213f933166bd09130c873f165551e5113d644066
-
-        
         $(".select2_list").select2();
         console.log("select2_list")
+
         $(".select2_list").val("week").trigger("change");
         console.log("select2_list 2")
 
@@ -678,18 +670,13 @@
         $(".select_timezone").select2();
         $(".select_timezone").val("64").trigger("change");
 
-<<<<<<< HEAD
-        calendar_date.init();
-        calendar_date.select_default_time('week');
+
 
         calendar_date1.init();
         calendar_date1.select_default_time('week');
 
         reporting.init();
 
-=======
-        
->>>>>>> 213f933166bd09130c873f165551e5113d644066
 
     });
 </script>

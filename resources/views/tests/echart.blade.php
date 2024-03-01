@@ -10,7 +10,7 @@
 <link href="/vendor/laravel-admin/tests/animate.min.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/tests/jquery.scrollbar.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/tests/datepicker.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="/vendor/laravel-admin/tests/sweet-alert.css">
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/tests/sweet-alert.css">--}}
 <link rel="stylesheet" href="/vendor/laravel-admin/tests/rickshaw.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/tests/mapplic.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/tests/ionicons.css" type="text/css">
@@ -51,7 +51,10 @@
 <script src="/vendor/laravel-admin/tests/bootstrap-datepicker.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/tests/bootstrap-timepicker.min.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/tests/form_elements.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/tests/sweet-alert.min.js"></script>
+
+{{--<script src="/vendor/laravel-admin/tests/sweet-alert.min.js"></script>--}}
+
+
 <script src="/vendor/laravel-admin/tests/clipboard.js"></script>
 <script src="/vendor/laravel-admin/tests/messenger.min.js" type="text/javascript"></script>
 <!-- END CORE JS DEPENDECENCIES-->
@@ -424,6 +427,9 @@
         <script src="/vendor/laravel-admin/tests/functions.js"></script>
         <script>
             $(document).ready(function(){
+
+                $(".breadcrumb").empty();
+
                 $(".select2_list").select2();
                 $(".select2_list").val("week").trigger("change");
 
