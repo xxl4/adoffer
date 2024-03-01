@@ -55,8 +55,6 @@ class OfferController extends Controller
             $REQUEST_URI = !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
 
 
-
-
             Log::info($track_id);
             Log::info("记录track_id");
 
@@ -117,14 +115,8 @@ class OfferController extends Controller
     {
 
 
-
-
-
         Log::info($request);
         Log::info("回传接收数据");
-        
-
-
 
 
         try {
@@ -169,21 +161,31 @@ class OfferController extends Controller
 
             $res = Db::table('track_lists as o')->where('o.random', $refer)->get()->first();
 
-            $country_res = geoip($res->ip)->toArray();//根据ip获取国家
-            $country_id = Geos::where('country', $country_res['country'])->value('id');//获取国家id
+
+            if (!empty($res)) {
+                $ip = $res->ip;
+
+                if (!empty($ip)) {
+                    $country_res = geoip($res->ip)->toArray();//根据ip获取国家
+                    $country_id = Geos::where('country', $country_res['country'])->value('id');//获取国家id
+                } else {
+                    $ip = null;
+                    $country_id = null;
+                }
+
+            } else {
+                $ip = null;
+                $country_id = null;
+            }
 
 
-
-
-
-            // if (!empty($res)) {
 
             $insert_data = [];
             $insert_data['offer_id'] = !empty($res->offer_id) ? $res->offer_id : 0;
-            $insert_data['track_id'] =!empty($res->track_id) ? $res->track_id : 0;
-            $insert_data['admin_id'] =!empty($res->admin_id) ? $res->admin_id : 0;
+            $insert_data['track_id'] = !empty($res->track_id) ? $res->track_id : 0;
+            $insert_data['admin_id'] = !empty($res->admin_id) ? $res->admin_id : 0;
 
-            $insert_data['ip'] = !empty($res->ip) ? $res->ip : 0;
+            $insert_data['ip'] = !empty($ip) ? $ip : null;
             $insert_data['revenue'] = !empty($revenue) ? $revenue : 0;
             $insert_data['currency_code'] = !empty($currency_code) ? $currency_code : 0;
 
@@ -209,14 +211,21 @@ class OfferController extends Controller
             $insert_data['token_time'] = !empty($res) ? $res->created_at : null;
 
 
-            $insert_data['clickid'] = !empty($res) ? $res->clickid : null;
+            $insert_data['clickid'] = !empty($res) ? $res->clickid : '';
             $insert_data['clickid_time'] = !empty($res) ? $res->created_at : null;
+
+
+//        print_r($insert_data);
+//        exit;
 
             $insert = OfferLog::insertGetId($insert_data);
 
-            if(!empty($res->clickid)){
-                $info = $this->post("https://track.heomai2021.com/click.php?cnv_id=".$res->clickid."&payout=".$revenue);
-                $info1 = $this->post("https://binom.heomai.com/click.php?cnv_id=".$res->clickid."&payout=".$revenue);
+//        var_dump($insert);exit;
+
+
+            if (isset($res) && !empty($res->clickid)) {
+                $info = $this->post("https://track.heomai2021.com/click.php?cnv_id=" . $res->clickid . "&payout=" . $revenue);
+                $info1 = $this->post("https://binom.heomai.com/click.php?cnv_id=" . $res->clickid . "&payout=" . $revenue);
                 Log::info($info);
                 Log::info('推送BM');
                 Log::info($info1);
@@ -229,11 +238,6 @@ class OfferController extends Controller
             }
 
 
-
-            // } else {
-            //     return $this->showMsg('1002', 'token不能为空');
-            // }
-
         } catch (\Exception $exception) {
 
             Log::error('回传数据错误' . $exception->getMessage());
@@ -242,11 +246,7 @@ class OfferController extends Controller
     }
 
 
-
-
-
     //美元是基础，汇率换算，
-
 
 
     protected function post($url)
