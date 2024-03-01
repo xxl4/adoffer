@@ -122,9 +122,7 @@ class OfferController extends Controller
 
         Log::info($request);
         Log::info("回传接收数据");
-        Log::info($ip);
-        $ip = $_SERVER['REMOTE_ADDR'];
-
+        
 
 
 
