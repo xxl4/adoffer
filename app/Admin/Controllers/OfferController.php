@@ -138,12 +138,6 @@ class OfferController extends AdminController
         //数据分为左右处理
         $filteredDataArray = Offer::where('offer_status', 1)->where($where)->get()->toArray();//奇数
 
-
-        if (empty($filteredDataArray) && !empty($filteredDataArrayCopy)) {
-            $filteredDataArray = $filteredDataArrayCopy;
-            $filteredDataArrayCopy = [];
-        }
-
         if (!empty($filteredDataArray)) {
             foreach ($filteredDataArray as $key => $value) {
                 $accepted_area = Geos::whereIn('id', $value['accepted_area'])->select('country')->get()->toArray();
@@ -304,11 +298,6 @@ class OfferController extends AdminController
             ->orderBy($field, $order)->get()->toArray();//奇数
 
 
-        if (empty($filteredDataArray) && !empty($filteredDataArrayCopy)) {
-            $filteredDataArray = $filteredDataArrayCopy;
-            $filteredDataArrayCopy = [];
-        }
-
 
         if (!empty($filteredDataArray)) {
 
@@ -358,9 +347,6 @@ class OfferController extends AdminController
             $filteredDataArray = '';
         }
 
-
-//        print_r("<pre/>");
-//        print_r($filteredDataArray);exit;
 
         $result = [
             'left_data' => $filteredDataArray,
