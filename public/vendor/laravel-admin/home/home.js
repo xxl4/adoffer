@@ -503,9 +503,13 @@ var home_vidgets = {
 				net:network
 			}
 		}).done(function(response){
+
+           console.log(response)
 			if(response && response.logout){
 				logout_visual.auto_logout(response.logout);
 			}else{
+
+
 				$('.last_sales').html(response);
 				home_vidgets.loader_hide($('.last_sales'));
 				$('.dashboard_note').height(($('.last_sale_container').length?$('.last_sale_container').height():500)-103);
