@@ -120,11 +120,7 @@ class OfferController extends Controller
     {
 
 
-        $timezone = request()->header('Time-Zone'); // 从HTTP头部获取时区信息
-        if (empty($timezone)) {
-            $timezone = config('app.timezone', 'UTC'); // 如果没有设置时区则使用默认值（配置文件中定义）
-        }
-        echo "客户端时区为：" . $timezone;exit;
+
 
 
         Log::info($request);

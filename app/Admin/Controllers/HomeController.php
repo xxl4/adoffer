@@ -48,13 +48,13 @@ class HomeController extends Controller
         $data['country'] = $country_top->country ?? '';
         $data['country_total'] = $country_top->country_total ?? 0;
 
-        if($data['today_sale']==0){
+        if ($data['today_sale'] == 0) {
             $data['country_percent'] = '0';
-        }else{
-            $data['country_percent'] = round(($data['country_total'] / $data['today_sale'])* 100) ;
+        } else {
+            $data['country_percent'] = round(($data['country_total'] / $data['today_sale']) * 100);
         }
 
-            //当天销量最多的offer数组以及占比百分比
+        //当天销量最多的offer数组以及占比百分比
         $offer_top = DB::table('offer_logs AS log')->where('log.status', 2)->where('log.created_at', '>', date('2023-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-d 23:59:59'))
             ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
             ->select(DB::raw('sum(log.revenue) as offer_total'), 'log.offer_id', 'o.offer_name')
@@ -65,12 +65,11 @@ class HomeController extends Controller
         $data['offer_name'] = $offer_top->offer_name ?? '';
         $data['offer_total'] = $offer_top->offer_total ?? 0;
 
-        if($data['today_sale']==0){
+        if ($data['today_sale'] == 0) {
             $data['offer_percent'] = '0';
-        }else{
-            $data['offer_percent'] = round(($data['offer_total'] / $data['today_sale'])* 100) ;
+        } else {
+            $data['offer_percent'] = round(($data['offer_total'] / $data['today_sale']) * 100);
         }
-
 
 
         $lastStartDate = date('Y-m-d 00:00:00', strtotime('last week monday'));
@@ -86,14 +85,13 @@ class HomeController extends Controller
 
 
         //上周有销售的offer总数
-        $offer_last_week = DB::table('offer_logs AS log')->where('log.status', 2)->where('log.created_at', '>',$lastStartDate)->where('log.created_at', '<=', $lastEndDate)
+        $offer_last_week = DB::table('offer_logs AS log')->where('log.status', 2)->where('log.created_at', '>', $lastStartDate)->where('log.created_at', '<=', $lastEndDate)
 //            ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
             ->select(DB::raw('count((log.offer_id)) as offer_count'), 'log.offer_id')
             ->groupBy('log.offer_id')
             ->orderByDesc('offer_count')
             ->get()->toArray();
         $offer_last_week_count = count($offer_last_week);
-
 
 
         //上周有销售的offer占比
@@ -108,45 +106,40 @@ class HomeController extends Controller
         $data['last_week_sale'] = OfferLog::where('status', 2)->where('created_at', '>', $lastStartDate)->where('created_at', '<=', $lastEndDate)->sum('revenue');
 
 
+        if (!empty($offer_last_week)) {
 
-        if(!empty($offer_last_week)){
-
-            foreach ($offer_last_week as $key=>$value){
-                $country_list = OfferLog::where('offer_id',$value->offer_id)
-                    ->select(DB::raw('sum(revenue) as offer_total'),'country_id')
+            foreach ($offer_last_week as $key => $value) {
+                $country_list = OfferLog::where('offer_id', $value->offer_id)
+                    ->select(DB::raw('sum(revenue) as offer_total'), 'country_id')
                     ->groupBy('country_id')->orderByDesc('offer_total')
                     ->limit(3)
                     ->get()->toArray();
 
 
-                if(!empty($country_list)){
+                if (!empty($country_list)) {
                     $country_name_list = '';
-                    foreach ($country_list as $x=>$y){
-                        $country_name = Geos::where('id',$y['country_id'])->value('country');
-                        $country_name_list .=$country_name.',';
+                    foreach ($country_list as $x => $y) {
+                        $country_name = Geos::where('id', $y['country_id'])->value('country');
+                        $country_name_list .= $country_name . ',';
                     }
                 }
 
 
-                $offer_last_week[$key]->country_id =$country_list;
-                $offer_last_week[$key]->country_list =trim($country_name_list,',');
+                $offer_last_week[$key]->country_id = $country_list;
+                $offer_last_week[$key]->country_list = trim($country_name_list, ',');
 
-                if($data['last_week_sale']==0){
+                if ($data['last_week_sale'] == 0) {
                     $offer_last_week[$key]->last_week_percent = 0;
-                }else{
-                    $offer_last_week[$key]->last_week_percent = round($value->offer_total/$data['last_week_sale']*100,2);
+                } else {
+                    $offer_last_week[$key]->last_week_percent = round($value->offer_total / $data['last_week_sale'] * 100, 2);
 
                 }
             }
 
 
-
-
-
-
         }
 
-        $data['offer_last_week']=$offer_last_week;
+        $data['offer_last_week'] = $offer_last_week;
 
 //        print_r("<pre/>");
 //        print_r($offer_last_week);exit;
@@ -160,14 +153,13 @@ class HomeController extends Controller
     }
 
 
-
     public function query(Request $Request)
     {
 
 
-     $data = Geos::limit(10)->get()->toArray();
+        $data = Geos::limit(10)->get()->toArray();
 
-        foreach ($data as $key=>$value){
+        foreach ($data as $key => $value) {
             $data[$key]['id'] = $value['country_ios_code'];
         }
 
@@ -177,15 +169,16 @@ class HomeController extends Controller
     }
 
     // search data
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $step = $request->input("step");
         $data = [];
         // full_dashboard_data
-        if($step=='full_dashboard_data') {
+        if ($step == 'full_dashboard_data') {
 
         }
         //
-        if($step=='dashboard_week_jvector') {
+        if ($step == 'dashboard_week_jvector') {
             $geos = [];
             $offers = [];
             $top_3_country_offers = [];
@@ -219,19 +212,20 @@ class HomeController extends Controller
         }
 
         // dashboard_geos
-        if($step=='dashboard_geos') {
+        if ($step == 'dashboard_geos') {
 
         }
 
         // last_sales
-        if($step=='last_sales') {
+        if ($step == 'last_sales') {
 
         }
 
         return response()->json($data);
     }
 
-    public function reporting(Request $request) {
+    public function reporting(Request $request)
+    {
 
 
         $data = [];
@@ -263,7 +257,7 @@ class HomeController extends Controller
         $locations = Locations::get()->toArray();
 
         $result = [];
-        foreach ($locations as $key=>$value){
+        foreach ($locations as $key => $value) {
             $result[$key]['action'] = $value['action'];
             $result[$key]['description'] = $value['description'];
             $result[$key]['id'] = $value['type_id'];
@@ -293,34 +287,34 @@ class HomeController extends Controller
         $geos = [];
         $offers = [];
 
-        $geos['percentage'] = [33.673469387755105,16.3265306122449, 11.224489795918368,5.1020408163265305,5.1020408163265305,4.081632653061225,3.061224489795918,3.061224489795918,2.0408163265306123,2.0408163265306123,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061];
+        $geos['percentage'] = [33.673469387755105, 16.3265306122449, 11.224489795918368, 5.1020408163265305, 5.1020408163265305, 4.081632653061225, 3.061224489795918, 3.061224489795918, 2.0408163265306123, 2.0408163265306123, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061];
 
         $geos['positions'] = [
-           '0'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],
-            '1'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'2'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'3'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'4'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'5'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'6'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'7'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'8'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'9'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'10'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'11'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'12'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'13'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'14'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'15'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'16'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'17'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'18'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'19'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'20'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],'21'=> ['latLng'=>[40.2,-107.7],'name'=>'United States'],
+            '0' => ['latLng' => [40.2, -107.7], 'name' => 'United States'],
+            '1' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '2' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '3' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '4' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '5' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '6' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '7' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '8' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '9' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '10' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '11' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '12' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '13' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '14' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '15' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '16' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '17' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '18' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '19' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '20' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '21' => ['latLng' => [40.2, -107.7], 'name' => 'United States']
 
         ];
 
-        $geos['values'] = [33,16,11,5,5,4,3,3,2,2,1,1,1,1,1,1,1,1,1,1,1,1];
+        $geos['values'] = [33, 16, 11, 5, 5, 4, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
-        $offers['array_counts'] = [33,15,14,4,3,3,3,3,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+        $offers['array_counts'] = [33, 15, 14, 4, 3, 3, 3, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
         $offers['array_percent_done'] = [
-           'db_names' => ["TVShareMax","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone","MaxPhone",],
-            'link_preview'=>['123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123','123'],
-            'long_names'=>['123','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234'],
-            'name'=>['123','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234'],
-            'vals'=>['123','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234','234'],
+            'db_names' => ["TVShareMax", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone", "MaxPhone",],
+            'link_preview' => ['123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123', '123'],
+            'long_names' => ['123', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234'],
+            'name' => ['123', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234'],
+            'vals' => ['123', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234', '234'],
         ];
 
         $top_3_country_offers = [
             //''=>
-            
+
         ];
 
 
-        $data['geos'] =$geos;
-        $data['offers'] =$offers;
-        $data['top_3_country_offers'] =$top_3_country_offers;
+        $data['geos'] = $geos;
+        $data['offers'] = $offers;
+        $data['top_3_country_offers'] = $top_3_country_offers;
 
         return response()->json($data);
     }
