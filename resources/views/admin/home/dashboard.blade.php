@@ -215,7 +215,7 @@
                                     </div>
                                     <div class="col-md-4 col-sm-3">
                                         <p class="semi-bold">THIS MONTH</p>
-                                        <h4><span class="item-count animate-number semi-bold month_peyout_price" data-value="{{$data['month_sale']}}" data-animation-duration="700">0</span> USD</h4>
+                                        <h4><span class="item-count animate-number semi-bold month_peyout_price" data-value="0" data-animation-duration="700">0</span> USD</h4>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -744,11 +744,11 @@
                                         <div class="row b-b b-grey p-b-10">
                                             <div class="col-md-6 col-sm-6 col-xs-6">
                                                 <p class="bold small-text">YOUR TOP GEOS TODAY</p>
-                                                <h3 class="bold text-success"><span class="top5country_percent">{{$data['country_percent']}}%</span></h3>
+                                                <h3 class="bold text-success"><span class="top5country_percent">0%</span></h3>
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6">
                                                 <p class="bold small-text">SALES</p>
-                                                <h3 class="bold text-black"><span class="top5country_count">{{$data['country_total']}}</span></h3>
+                                                <h3 class="bold text-black"><span class="top5country_count">0</span></h3>
                                             </div>
                                         </div>
                                         <div class="countries_data_count"></div>
@@ -757,11 +757,11 @@
                                         <div class="row b-b b-grey p-b-10">
                                             <div class="col-md-6 col-sm-6 col-xs-6">
                                                 <p class="bold small-text">YOUR TOP OFFERS TODAY</p>
-                                                <h3 class="bold text-success"><span class="top5offer_percent">{{$data['offer_percent']}}%</span></h3>
+                                                <h3 class="bold text-success"><span class="top5offer_percent">0%</span></h3>
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6">
                                                 <p class="bold small-text">SALES</p>
-                                                <h3 class="bold text-black"><span class="top5offer_count">{{$data['offer_total']}}</span></h3>
+                                                <h3 class="bold text-black"><span class="top5offer_count">0</span></h3>
                                             </div>
                                         </div>
                                         <div class="offers_data_count"></div>
