@@ -13,6 +13,7 @@ use Encore\Admin\Layout\Row;
 use Encore\Admin\Widgets\Box;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Encore\Admin\Facades\Admin;
 
 
 class HomeController extends Controller
@@ -21,6 +22,8 @@ class HomeController extends Controller
 
     public function index(Content $content)
     {
+
+        Admin::disablePjax();
 
         $data = [];
         //总销量
@@ -344,7 +347,7 @@ class HomeController extends Controller
         $data['sidebar'] = "true";
         $levels = [];
         $levels[0]['id'] = "states";
-        $levels[0]['map'] = "images/map.png";
+        $levels[0]['map'] = "/images/map.png";
         $levels[0]['minimap'] = "images/states/us-small.jpg";
         $levels[0]['title'] = "states";
         $locations = [];
