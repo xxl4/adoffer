@@ -1,4 +1,8 @@
-
+<style>
+    .skin-black .content-header {
+        display: none;
+    }
+</style>
 <link href="/vendor/laravel-admin/intelligences/select2.css" rel="stylesheet" type="text/css" media="screen">
 <link href="/vendor/laravel-admin/intelligences/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen">
 <link href="/vendor/laravel-admin/intelligences/bootstrap.min.css" rel="stylesheet" type="text/css">

@@ -1,4 +1,8 @@
-
+<style>
+    .skin-black .content-header {
+        display: none;
+    }
+</style>
 <title>M4TRIX - REPORTS</title>
 <!-- BEGIN PLUGIN CSS -->
 <link href="/vendor/laravel-admin/tests/select2.css" rel="stylesheet" type="text/css" media="screen">

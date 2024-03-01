@@ -124,6 +124,8 @@ class OfferController extends AdminController
     public function show($id, Content $content)
     {
 
+        Admin::disablePjax();
+
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
         $admin_id = $currentUser->id; // 输出当前用户名称
 

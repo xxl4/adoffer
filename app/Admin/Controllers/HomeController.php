@@ -179,14 +179,18 @@ class HomeController extends Controller
 
         $data = [];
         $data['all_count'] = OfferLog::where('status', 2)->groupBy('offer_id')->count();
-        $data['all_peyout_price'] = OfferLog::where('status', 2)->sum('revenue');
+
+            $all_peyout_price= OfferLog::where('status', 2)->sum('revenue');
+            $data['all_peyout_price'] = round($all_peyout_price,2);
 
         $data['day_peyout'] = OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-d 00:00:00'))->where('created_at', '<=', date('Y-m-d 23:59:59'))->groupBy('offer_id')->count();
-        $data['day_peyout_price'] = OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-d 00:00:00'))->where('created_at', '<=', date('Y-m-d 23:59:59'))->sum('revenue');
+
+        $day_peyout_price = OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-d 00:00:00'))->where('created_at', '<=', date('Y-m-d 23:59:59'))->sum('revenue');
+            $data['day_peyout_price'] =round($day_peyout_price,2);
         $data['message'] = false;
         $data['month_peyout_count'] = OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-1 00:00:00'))->where('created_at', '<=', date('Y-m-t 23:59:59'))->groupBy('offer_id')->count();
-        $data['month_peyout_price'] =OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-1 00:00:00'))->where('created_at', '<=', date('Y-m-t 23:59:59'))->sum('revenue');
-
+        $month_peyout_price =OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-1 00:00:00'))->where('created_at', '<=', date('Y-m-t 23:59:59'))->sum('revenue');
+            $data['month_peyout_price'] =round($month_peyout_price,2);
 
         }
         //
