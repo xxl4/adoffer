@@ -237,7 +237,7 @@ class OfferController extends AdminController
         }
 
 
-        $where[] = ['offer_status', '=', 1];
+//        $where[] = ['offer_status', '=', 1];
         if (!empty($keyword)) {
             $where[] = ['offer_name', 'like', "%$keyword%"];
         }
