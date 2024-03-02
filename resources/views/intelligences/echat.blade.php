@@ -46,11 +46,8 @@
                                 <h4><span class="semi-bold">Top 3 Offers filtered per date and geos</span></h4>
                                 <p>This section allows you to view and analyse the top 3 offers distribution per any selected date and country.</p>
                                 <div class="row">
-
-
                                     <div class="col-xs-12">
                                         <div class="row">
-
                                             <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding">
                                                 <div class="row">
                                                     <div class="col-xs-12">
@@ -128,23 +125,20 @@
                                             </div>
                                         </div>
                                     </div>
-
-
                                     <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}"/>
-
                                 </div>
                                 <br>
+
+
                                 <div class="row">
+                                    {{-- 第一张图--}}
                                     <div class="col-md-4">
                                         <div id="offers_date-pie" class="col-md-12" style="display: block;">
-
                                             <canvas id="myPieChart" style="width: 484px;height:233px;"></canvas>
-
-
-
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
+                                    {{-- 第一张表格--}}
                                     <div class="col-md-8">
                                         <table class="table no-more-tables offer_table" style="display: block;">
                                             <thead>
@@ -154,8 +148,7 @@
                                                 <th style="width:10%">Distribution</th>
                                             </tr>
                                             </thead>
-                                            <tbody   id="html_data">
-
+                                            <tbody id="html_data">
 
                                             @foreach ($offer_count as $key=>$item)
                                             <tr>
@@ -172,14 +165,16 @@
                                                     </div>
                                                 </td>
                                             </tr>
-
                                             @endforeach
-
-
                                             </tbody>
                                         </table>
                                     </div>
+
                                 </div>
+
+
+
+                                {{--第一章说明--}}
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="offers_date_no_data" style="display: none;">
@@ -204,6 +199,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -231,7 +228,6 @@
 
 
                                 <div class="row">
-
                                     <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding">
                                         <div class="row">
                                             <div class="col-xs-12">
@@ -245,13 +241,9 @@
                                                     <option value="l_month">Last Month</option>
                                                     <option value="calendar">Custom</option>
                                                 </select>
-
-
-
                                             </div>
                                         </div>
                                     </div>
-
 
                                     <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding calendar_padding">
                                         <div class="col-xs-4 col-sm-4">
@@ -269,8 +261,6 @@
                                         </div>
                                     </div>
 
-
-
                                     <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1 use_small_padding calendar_padding">
                                         <div class="col-xs-4 col-sm-4">
                                             <div class="row ">
@@ -287,7 +277,6 @@
                                         </div>
                                     </div>
 
-
                                     <div class="col-xs-12 col-md-6 col-lg-2_min_col_lg_1">
                                         <div class="row">
                                             <div class="col-xs-12 use_small_padding">
@@ -303,7 +292,6 @@
                                         </div>
                                     </div>
 
-
                                     <div class="col-xs-12 col-md-12 col-lg-1">
                                         <div class="row ">
                                             <div class="col-xs-12 use_small_padding">
@@ -315,10 +303,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-
-
                                 </div>
 
 
@@ -337,6 +321,12 @@
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
+
+
+
+
+
+
                                     <div class="col-md-8">
                                         <table class="table no-more-tables geo_table" style="display: block;">
                                             <thead>
@@ -352,20 +342,23 @@
 
                                             @foreach ($country_count as $key=>$item)
                                             <tr>
-                                                <td class="v-align-middle"><span class="muted">
-                                                        <img style="width:25px; margin-right:5px;" src="">{{$item['country_top']}}</span>
+                                                <td class="v-align-middle">
+                                                    <span class="muted">{{$item['country_top']}}</span>
                                                 </td>
                                                 <td>
                                                     <span class="muted">{{$item['country_percent']}} </span>
                                                 </td>
                                                 <td class="v-align-middle">
                                                     <div class="progress">
-                                                        <div data-percentage="47.3%" class="progress-bar animate-progress-bar" style="width:{{$item['country_percent']}}; background-color:#0aa699">
+                                                        <div data-percentage="{{$item['country_percent']}}" class="progress-bar animate-progress-bar" style="width:{{$item['country_percent']}}; background-color:#0aa699">
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
                                             @endforeach
+
+
+
 
 
 
@@ -401,6 +394,8 @@
                         </div>
                     </div>
 
+
+
                     <div class="col-md-6">
                         <div class="grid simple">
                             <div class="grid-title no-border">
@@ -417,10 +412,10 @@
                                 <div class="row">
                                     <div class="col-xs-12 opportunity-graph text-center"><div id="opportunity-graph" class="easy-pie-custom" data-percent="18.18"><span class="easy-pie-percent"><div style="line-Height:18px; width:80%; margin:35% auto;">TVShareMax 18.18</div></span><canvas height="192" width="192" style="height: 110px; width: 110px;"></canvas></div></div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
+
 
                     <div class="col-md-6">
                         <div class="grid simple">
@@ -700,13 +695,25 @@
             var labels = [month];
             //创建一个空的 datasets 数组
             var datasets = [];
+
+
+            // console.log(123,datasetsData.length)
+
+
+            if (datasetsData.length === 0) {
+                $('.offer_table, #offers_date-pie').css('display', 'none');
+                $('.offers_date_no_data').css('display', 'block');
+            }
+
+
             //循环遍历 datasetsData，创建数据集对象并添加到 datasets 数组 拼接柱状图数据
             for (var i = 0; i < datasetsData.length; i++) {
                 if (datasetsData[i] && datasetsData[i].length >= 2) {
                     var secondElement = datasetsData[i][1];
                 }
 
-                // console.log('123', datasetsData[i])
+
+
 
                 var dataset = {
                     label: secondElement,
@@ -765,6 +772,9 @@
     $(document).ready(function () {
         var data = frontendData.original.data;
         var ctx = document.getElementById('myPieChart').getContext('2d');
+
+
+
         var myPieChart = new Chart(ctx, {
             type: 'pie',
             data: {
@@ -808,13 +818,26 @@
                     success: function (data) {
 
                         var res = data.data.offer_sale;
-                        myPieChart.data.datasets[0].data = res.total_quantity;
-                        myPieChart.data.labels = res.offer;
-                        // 重新绘制图表
-                        myPieChart.update();
+                        if (res.total_quantity.length === 0) {
 
-                        $("#html_data").empty();
-                        $("#html_data").html(res.total_sales_html);
+                            $('.offer_table, #offers_date-pie').css('display', 'none');
+                            $('.offers_date_no_data').css('display', 'block');
+                        }else {
+                            $('.offer_table, #offers_date-pie').css('display', 'block');
+                            $('.offers_date_no_data').css('display', 'none');
+                            myPieChart.data.datasets[0].data = res.total_quantity;
+                            myPieChart.data.labels = res.offer;
+                            // 重新绘制图表
+                            myPieChart.update();
+
+                            $("#html_data").empty();
+                            $("#html_data").html(res.total_sales_html);
+                        }
+
+
+
+
+
                     },
                 });
             }
@@ -870,6 +893,13 @@
         var data = frontendData.original.data;
 
         var ctx = document.getElementById('myCountryPieChart').getContext('2d');
+
+
+        if (data.country_total_quantity.length === 0) {
+            $('.geo_table, #geo_date-pie').css('display', 'none');
+            $('.geo_date_no_data').css('display', 'block');
+        }
+
         var pieChart = new Chart(ctx, {
             type: 'pie',
             data: {
@@ -913,15 +943,49 @@
                     success: function (data) {
 
                         var res = data.data.offer_sale;
-                        // console.log('国家排行', res.country);
 
-                        pieChart.data.datasets[0].data = res.country_total_quantity;
-                        pieChart.data.labels = res.country;
-                        // 重新绘制图表
-                        pieChart.update();
+                        console.log(res.country_total_quantity.length === 0);
 
-                        $("#html_data_country").empty();
-                        $("#html_data_country").html(res.total_sales_html);
+                        if (res.country_total_quantity.length === 0) {
+                            $('.geo_table, #geo_date-pie').css('display', 'none');
+                            $('.geo_date_no_data').css('display', 'block');
+                        }else {
+
+
+
+                            $('.geo_table, #geo_date-pie').css('display', 'block');
+                            $('.geo_table, #geo_date-pie').height(263);
+                            $('.geo_date_no_data').css('display', 'none');
+
+
+
+
+                            pieChart.data.datasets[0].data = res.country_total_quantity;
+                            pieChart.data.labels = res.country;
+
+                            pieChart.options = {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                width: 484,
+                                height: 233,
+                                legend: {
+                                    display: true,
+                                    position: 'right',
+                                    align: 'center',
+                                    fontSize: 10
+                                }
+                            }
+
+
+                            // 重新绘制图表
+                            pieChart.update();
+
+                            $("#html_data_country").empty();
+                            $("#html_data_country").html(res.total_sales_html);
+                        }
+
+
+
 
                     },
                     error: function (error) {

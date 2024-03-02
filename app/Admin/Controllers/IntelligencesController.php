@@ -39,7 +39,7 @@ class IntelligencesController extends AdminController
     {
         return $content
 //            ->header('Chartjs')
-            ->body(new Box('Bar chart', view('admin.intelligences.echart')));
+            ->body(new Box('', view('admin.intelligences.echart')));
     }
 
 
@@ -189,7 +189,7 @@ class IntelligencesController extends AdminController
 
         return $content
 //            ->header('Chartjs')
-            ->body(new Box('Bar chart', view('intelligences.echat', ['data' => $data, 'category_lis' => $geos_list, 'offer_count' => $offer_count,'all_offer'=>$all_offer, 'country_count' => $country_count, 'offer_list' => $offer_list])));
+            ->body(new Box('', view('intelligences.echat', ['data' => $data, 'category_lis' => $geos_list, 'offer_count' => $offer_count,'all_offer'=>$all_offer, 'country_count' => $country_count, 'offer_list' => $offer_list])));
 
 
     }

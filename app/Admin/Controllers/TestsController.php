@@ -15,6 +15,7 @@ use App\Models\OfferTracksCates;
 use App\Models\TagsModel;
 use Carbon\Carbon;
 use Encore\Admin\Controllers\AdminController;
+use Encore\Admin\Facades\Admin;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
@@ -46,7 +47,7 @@ class TestsController extends AdminController
 
     public function echart(Content $content)
     {
-
+        Admin::disablePjax();
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
         $net_id = $currentUser->id; // 输出当前用户名称
         $where = [];
