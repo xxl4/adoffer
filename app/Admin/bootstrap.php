@@ -29,3 +29,4 @@ Encore\Admin\Form::forget(['map', 'editor']);
 //Admin::js("/vendor/laravel-admin/tests/functions.js");
 
 //Admin::js("/vendor/laravel-admin/tests/summary.js");
+app('view')->prependNamespace('admin', resource_path('views'));
