@@ -13,6 +13,7 @@ use App\Models\OfferTracks;
 use App\Models\OfferTracksCate;
 use App\Models\OfferTracksCates;
 use App\Models\TagsModel;
+use Encore\Admin\Auth\Database\Role;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -22,6 +23,7 @@ use Encore\Admin\Widgets\Table;
 use Encore\Admin\Actions\RowAction;
 use App\Admin\Actions\Post\Replicate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Encore\Admin\Facades\Admin;
@@ -129,13 +131,18 @@ class OfferController extends AdminController
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
         $admin_id = $currentUser->id; // 输出当前用户名称
 
+        $roles = $currentUser->roles; // 获取当前用户的角色集合
 
+        $role = '';
+        foreach ($roles as $role) {
+            $role = $role->id ;
+        }
 
 
         $where = [];
         $user_id = Admin::user()->id;
         if(!Admin::user()->isAdministrator()){
-            $where['user_id'] = $user_id;
+            $where['admin_roles_id'] = $role;
         }
 
 
@@ -215,13 +222,29 @@ class OfferController extends AdminController
 
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
         $admin_id = $currentUser->id; // 输出当前用户名称
+        $currentUser = auth()->user(); // 获取当前登录用户对象
+        $roles = $currentUser->roles; // 获取当前用户的角色集合
+
+        $role = '';
+        foreach ($roles as $role) {
+            $role = $role->id ;
+        }
+
+        $where = [];
+        $user_id = Admin::user()->id;
+        if(!Admin::user()->isAdministrator()){
+            $where['admin_roles_id'] = $role;
+        }
+
+//        print_r($where);exit;
+
 
         // 处理表单提交逻辑
         $keyword = $request->input('keyword');
         $category = $request->input('category');
         $geos = $request->input('geos');
         $sort = $request->input('sort');
-        $where = [];
+
 
 
         if (!empty($category)) {
@@ -532,6 +555,10 @@ class OfferController extends AdminController
 
         $form->multipleSelect('creatives_id', __('Creatives'))->options(Creatives::all()->pluck('name', 'id'))->required();
 
+
+
+
+        $form->multipleSelect('admin_roles_id', __('Roles'))->options(Role::all()->pluck('name', 'id'))->required();
 
 //        $form->multipleSelect('admin', __('Track Cate'))->options(OfferTracksCates::all()->pluck('track_cate', 'id'))->required();
 

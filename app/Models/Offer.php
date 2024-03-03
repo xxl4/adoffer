@@ -79,6 +79,17 @@ class Offer extends Model
 
 
 
+    public function getAdminRolesIdAttribute($value)
+    {
+        return explode(',', $value);
+    }
+
+    public function setAdminRolesIdAttribute($value)
+    {
+        $this->attributes['admin_roles_id'] = implode(',', $value);
+    }
+
+
     public function getTrackCateIdAttribute($value)
     {
         return explode(',', $value);
