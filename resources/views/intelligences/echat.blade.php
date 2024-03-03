@@ -1,8 +1,8 @@
-<style>
-    .skin-black .content-header {
-        display: none;
-    }
-</style>
+{{--<style>--}}
+{{--    .skin-black .content-header {--}}
+{{--        display: none;--}}
+{{--    }--}}
+{{--</style>--}}
 <link href="/vendor/laravel-admin/intelligences/select2.css" rel="stylesheet" type="text/css" media="screen">
 <link href="/vendor/laravel-admin/intelligences/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen">
 <link href="/vendor/laravel-admin/intelligences/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -653,7 +653,7 @@
 <script>
     $(document).ready(function(){
 
-        $(".breadcrumb").empty();
+
 
 
         $(".select2_list").select2();

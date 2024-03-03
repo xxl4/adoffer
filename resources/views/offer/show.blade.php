@@ -3,6 +3,8 @@
         display: none;
     }
 </style>
+<link rel="stylesheet" type="text/css" media="screen" href="https://cdn.staticfile.org/ionicons/2.0.1/css/ionicons.min.css">
+
 <link href="/vendor/laravel-admin/test/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen">
 <link href="/vendor/laravel-admin/test/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/test/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
@@ -47,15 +49,20 @@
 <script>var switch_theme = 0;</script>
 <link href="/vendor/laravel-admin/test/lity.css" rel="stylesheet">
 
-<div class="pace  pace-inactive">
-    <div class="pace-progress" data-progress-text="100%" data-progress="99"
-         style="transform: translate3d(100%, 0px, 0px);">
-        <div class="pace-progress-inner"></div>
-    </div>
-    <div class="pace-activity"></div>
-</div>
+{{--<div class="pace  pace-inactive">--}}
+{{--    <div class="pace-progress" data-progress-text="100%" data-progress="99"--}}
+{{--         style="transform: translate3d(100%, 0px, 0px);">--}}
+{{--        <div class="pace-progress-inner"></div>--}}
+{{--    </div>--}}
+{{--    <div class="pace-activity"></div>--}}
+{{--</div>--}}
+<div class="page-content">
+    <div class="content">
 <form method="POST" id="form_id">
-    <div class="page-container row-fluid">
+
+
+
+{{--    <div class="page-container row-fluid">--}}
 
         <link href="/vendor/laravel-admin/test/network.css" rel="stylesheet" type="text/css">
 
@@ -63,7 +70,7 @@
         <div class="form-group">
 
             <div class="col-sm-4" style="width: 20%!important;">
-                <select id="category" name="usertype" class="selectpicker show-tick form-control" multiple
+                <select id="category" name="usertype" class="selectpicker clearable show-tick form-control" multiple
                         data-max-options="3" data-live-search="true" data-none-selected-text="Select Offers Categories"
                         data-size="10">
                     @foreach ($data['category_list'] as $key=>$item)
@@ -161,7 +168,6 @@
 
 
                                                             @php
-
                                                                 $land = '';
                                                                 if(!empty($offer['track_list'])){
                                                                     foreach ($offer['track_list'] as $x=>$y){
@@ -172,7 +178,7 @@
 
                                                             <tr>
                                                                 <th><a href="{{$land}}" target="_blank"><span class="offer-product-img-container" data-original-title="" title="">
-                                                                        <img src="{{env('APP_URL').'/upload/'.$offer['image']}}" alt="KneeBoost Pro"></span>Offer Preview <i class="icon ion-eye"></i>
+                                                                        <img src="{{env('APP_URL').'/upload/'.$offer['image']}}" alt="KneeBoost Pro"></span>Offer Preview <i class="icon ion-ios-eye"></i>
 
                                                                     </a></th>
 
@@ -308,7 +314,7 @@
 
                                                     {{--                                                </div>--}}
                                                     <div class="col-md-12">
-                                                        <br>
+{{--                                                        <br>--}}
                                                         <p>{{$offer['track_des']}}</p>
 
                                                         <!-- dropdown domains -->
@@ -378,7 +384,7 @@
                                                                                                             <div>{{$item4['track_name']}}</div>
                                                                                                             <input readonly="" type="text" class="form-control trecking_link clipboard-0-0-0 dynamicDomainTrackingLink clipboard-1-0-0-1{{$key2.'-'.$key3.'-'.$key4}}" value="{{$item4['track_link']}}">
                                                                                                             <a href="{{$item4['track_link']}}" target="_blank" class=" dynamicDomainTrackingLink">
-                                                                                                                <i class="icon ion-eye pull-right"></i>
+                                                                                                                <i class="icon ion-ios-eye pull-right" style="font-size: 30px;"></i>
                                                                                                             </a>
                                                                                                             <a class="copp pull-right btn btn-success btn-cons copy-button" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-1{{$key2.'-'.$key3.'-'.$key4}}">Copy</a>
                                                                                                         </div>
@@ -414,19 +420,6 @@
                                                                 <a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="#">Select your Products Feed domain<span class="caret"></span></a>
                                                                 <ul class="dropdown-menu domains-menu domains-menu-feed">
                                                                     <li><a href="#" class="offersDomain" data-domain="https://urgoodeal.com">https://urgoodeal.com</a></li>
-                                                                    <li><a href="#" class="offersDomain" data-domain="https://xtechgadget.com">https://xtechgadget.com</a></li>
-                                                                    <li><a href="#" class="offersDomain" data-domain="https://popularhitech.com">https://popularhitech.com</a></li>
-                                                                    <li><a href="#" class="offersDomain" data-domain="https://buysmartproduct.com">https://buysmartproduct.com</a></li>
-                                                                    <li><a href="#" class="offersDomain" data-domain="https://storepx.com">https://storepx.com</a></li>
-                                                                    <li><a href="#" class="offersDomain" data-domain="https://airportxshop.com">https://airportxshop.com</a></li>
-                                                                    <li><a href="#" class="offersDomain" data-domain="https://flightxshop.com">https://flightxshop.com</a></li>
-                                                                    <li><a href="#" class="offersDomain" data-domain="https://blackfridaytechs.com">https://blackfridaytechs.com</a></li>
-                                                                    <li><a href="#" class="offersDomain" data-domain="https://techchristmasgift.com">https://techchristmasgift.com</a></li>
-                                                                    <li><a href="#" class="offersDomain" data-domain="https://gadgetronixs.com">https://gadgetronixs.com</a></li>
-                                                                    <li><a href="#" class="offersDomain" data-domain="https://luxurygadgetx.com">https://luxurygadgetx.com</a></li>
-                                                                    <li><a href="#" class="offersDomain" data-domain="https://newxventions.com">https://newxventions.com</a></li>
-                                                                    <li><a href="#" class="offersDomain" data-domain="https://appgogadget.com">https://appgogadget.com</a></li>
-                                                                    <li><a href="#" class="offersDomain" data-domain="https://todaystech.co">https://todaystech.co</a></li>
                                                                 </ul>
                                                             </div>
                                                             <!-- end dropdown domains -->
@@ -436,7 +429,7 @@
                                                             <div>Products Feed - All Products</div>
                                                             <input readonly="" type="text" class="form-control trecking_link clipboard-ProductsFeed-0 dynamicDomainTrackingLink" value="https://popularhitech.com/feed?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}">
                                                             <a href="https://popularhitech.com/feed?net=6546&amp;aff={AFFID}&amp;sid={SUBID}&amp;cid={CLICKID}" target="_blank" class="dynamicDomainTrackingLink">
-                                                                <i class="icon ion-eye pull-right"></i>
+                                                                <i class="icon ion-ios-eye pull-right" style="font-size: 30px"></i>
                                                             </a>
                                                             <button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-ProductsFeed-0">Copy</button>
                                                         </div>
@@ -697,7 +690,23 @@
             </div>
 
 
+
+
+
+
+        </div>
+
+
+
+
 </form>
+
+
+</div>
+</div>
+
+
+
 <script>
 
     $(function () {

@@ -1,9 +1,9 @@
 <!-- BEGIN PLUGIN CSS -->
-<style>
-    .skin-black .content-header {
-        display: none;
-    }
-</style>
+{{--<style>--}}
+{{--    .skin-black .content-header {--}}
+{{--        display: none;--}}
+{{--    }--}}
+{{--</style>--}}
 
 <link href="/vendor/laravel-admin/home/select2.css" rel="stylesheet" type="text/css" media="screen">
 <link href="/vendor/laravel-admin/home/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen">
@@ -14,7 +14,10 @@
 <link href="/vendor/laravel-admin/home/animate.min.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/home/jquery.scrollbar.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/home/datepicker.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="/vendor/laravel-admin/home/sweet-alert.css">
+
+{{--<link rel="stylesheet" href="/vendor/laravel-admin/home/sweet-alert.css">--}}
+
+
 <link rel="stylesheet" href="/vendor/laravel-admin/home/rickshaw.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/home/mapplic.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/home/ionicons.css" type="text/css">
@@ -47,7 +50,11 @@
 <script src="/vendor/laravel-admin/home/bootstrap-datepicker.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/home/bootstrap-timepicker.min.js" type="text/javascript"></script>
 <script src="/vendor/laravel-admin/home/form_elements.js" type="text/javascript"></script>
-<script src="/vendor/laravel-admin/home/sweet-alert.min.js"></script>
+
+
+{{--<script src="/vendor/laravel-admin/home/sweet-alert.min.js"></script>--}}
+
+
 <script src="/vendor/laravel-admin/home/clipboard.js"></script>
 <script src="/vendor/laravel-admin/home/messenger.min.js" type="text/javascript"></script>
 <!-- END CORE JS DEPENDECENCIES-->

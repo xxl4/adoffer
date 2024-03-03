@@ -1,8 +1,8 @@
-<style>
-    .skin-black .content-header {
-        display: none;
-    }
-</style>
+{{--<style>--}}
+{{--    .skin-black .content-header {--}}
+{{--        display: none;--}}
+{{--    }--}}
+{{--</style>--}}
 <title>M4TRIX - REPORTS</title>
 <!-- BEGIN PLUGIN CSS -->
 <link href="/vendor/laravel-admin/tests/select2.css" rel="stylesheet" type="text/css" media="screen">
@@ -14,7 +14,11 @@
 <link href="/vendor/laravel-admin/tests/animate.min.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/tests/jquery.scrollbar.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/tests/datepicker.css" rel="stylesheet" type="text/css">
+
+
 {{--<link rel="stylesheet" href="/vendor/laravel-admin/tests/sweet-alert.css">--}}
+
+
 <link rel="stylesheet" href="/vendor/laravel-admin/tests/rickshaw.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/tests/mapplic.css" type="text/css" media="screen">
 <link rel="stylesheet" href="/vendor/laravel-admin/tests/ionicons.css" type="text/css">
@@ -551,7 +555,7 @@
     </div>
 </div>
 <div>
-    <div class="sweet-overlay" tabindex="-1"></div>
+{{--    <div class="sweet-overlay" tabindex="-1"></div>--}}
 
 
 </div>
