@@ -245,6 +245,7 @@ class OfferController extends AdminController
         $geos = $request->input('geos');
         $sort = $request->input('sort');
 
+//        var_dump($geos);exit;
 
 
         if (!empty($category)) {

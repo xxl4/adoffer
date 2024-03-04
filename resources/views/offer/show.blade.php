@@ -3,8 +3,18 @@
         display: none;
     }
 </style>
-<link rel="stylesheet" type="text/css" media="screen" href="https://cdn.staticfile.org/ionicons/2.0.1/css/ionicons.min.css">
 
+<link href="/vendor/laravel-admin/test/select2.css" rel="stylesheet" type="text/css" media="screen">
+<link href="/vendor/laravel-admin/test/font-awesome.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/vendor/laravel-admin/test/sweet-alert.css">
+<link rel="stylesheet" href="/vendor/laravel-admin/test/ionicons.css" type="text/css">
+
+
+<link rel="stylesheet" type="text/css" href="https://s1.pstatp.com/cdn/expire-1-M/font-awesome/4.6.0/css/font-awesome.min.css">
+
+
+
+<link rel="stylesheet" type="text/css" media="screen" href="https://cdn.staticfile.org/ionicons/2.0.1/css/ionicons.min.css">
 <link href="/vendor/laravel-admin/test/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen">
 <link href="/vendor/laravel-admin/test/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="/vendor/laravel-admin/test/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
@@ -21,6 +31,12 @@
 <link rel="stylesheet" href="/vendor/laravel-admin/analytic/bootstrap-select.min.css">
 <script src="/vendor/laravel-admin/analytic/bootstrap-select.min.js"></script>
 <script src="/vendor/laravel-admin/analytic/clipboard.min.js"></script>
+
+<link rel="stylesheet" href="/vendor/laravel-admin/test/component-chosen.css">
+<script src="/vendor/laravel-admin/test/chosen.jquery.js"></script>
+
+
+
 <script>var switch_theme = 0;</script>
 <script src="/vendor/laravel-admin/test/jquery.cookie.js"></script>
 <script>
@@ -30,7 +46,7 @@
     window.selectedRole = '';
 </script>
 <script src="/vendor/laravel-admin/test/main.js"></script>
-
+<script src="/vendor/laravel-admin/test/select_del.js"></script>
 
 <!-- END PLUGIN CSS -->
 <!-- BEGIN CORE CSS FRAMEWORK -->
@@ -60,8 +76,6 @@
     <div class="content">
 <form method="POST" id="form_id">
 
-
-
 {{--    <div class="page-container row-fluid">--}}
 
         <link href="/vendor/laravel-admin/test/network.css" rel="stylesheet" type="text/css">
@@ -70,60 +84,99 @@
         <div class="form-group">
 
             <div class="col-sm-4" style="width: 20%!important;">
-                <select id="category" name="usertype" class="selectpicker clearable show-tick form-control" multiple
-                        data-max-options="3" data-live-search="true" data-none-selected-text="Select Offers Categories"
-                        data-size="10">
-                    @foreach ($data['category_list'] as $key=>$item)
-                        <option value="{{$item['id']}}"
-                                data-content="{{$item['category_name']}}">{{$item['category_name']}}</option>
-                    @endforeach
-                </select>
+
+                    <select id="multiple" class="form-control form-control-chosen category" data-placeholder="Select Offers Categories" multiple>
+
+                        @foreach ($data['category_list'] as $key=>$item)
+                            <option value="{{$item['id']}}"
+                                    data-content="{{$item['category_name']}}">{{$item['category_name']}}</option>
+                        @endforeach
+
+                    </select>
+
+
+
             </div>
 
 
             <div class="col-sm-4" style="width: 20%!important;">
-                <select id="geos" name="usertype" class="selectpicker show-tick form-control" multiple
-                        data-max-options="3"
-                        data-live-search="true" data-none-selected-text="Select Offers Geos" data-size="10">
+
+                <select id="multiple" class="form-control form-control-chosen geos" data-placeholder="Select Offers Geos" multiple>
+
                     @foreach ($data['geos_list'] as $key=>$item)
                         <option value="{{$item['id']}}"
                                 data-content="{{$item['country']}}">{{$item['country']}}</option>
                     @endforeach
 
                 </select>
+
+
+
             </div>
 
 
             <div class="col-sm-4" style="width: 20%!important;">
-                <select id="sort" name="usertype" class="selectpicker show-tick form-control" data-max-options="3"
-                        data-live-search="true" data-none-selected-text="Order By">
 
-                    <option value="0"
-                            data-content="Release Date (Newest on Top)">
-                        Release Date (Newest on Top)
-                    </option>
-                    <option value="1"
-                            data-content="Release Date (Oldest on Top)">
-                        Release Date (Oldest on Top)
-                    </option>
-                    <option value="2" data-content="Payout (High to Low)">
-                        Payout
-                        (High to Low)
-                    </option>
-                    <option value="3" data-content="Payout (Low to High)">
-                        Payout
-                        (Low to High)
-                    </option>
+
+{{--                <select id="sort" name="usertype" class="selectpicker show-tick form-control" data-max-options="3"--}}
+{{--                        data-live-search="true" data-none-selected-text="Order By">--}}
+
+
+{{--                    <select id="single" class="form-control form-control-chosen" data-placeholder="Order By" multiple>--}}
+
+
+{{--                    <option value="0"--}}
+{{--                            data-content="Release Date (Newest on Top)">--}}
+{{--                        Release Date (Newest on Top)--}}
+{{--                    </option>--}}
+{{--                    <option value="1"--}}
+{{--                            data-content="Release Date (Oldest on Top)">--}}
+{{--                        Release Date (Oldest on Top)--}}
+{{--                    </option>--}}
+{{--                    <option value="2" data-content="Payout (High to Low)">--}}
+{{--                        Payout--}}
+{{--                        (High to Low)--}}
+{{--                    </option>--}}
+{{--                    <option value="3" data-content="Payout (Low to High)">--}}
+{{--                        Payout--}}
+{{--                        (Low to High)--}}
+{{--                    </option>--}}
+
+                        <select id="single" class="form-control form-control-chosen sort" data-placeholder="Please select...">
+
+
+                                                <option value="0"
+                                                        data-content="Release Date (Newest on Top)">
+                                                    Release Date (Newest on Top)
+                                                </option>
+                                                <option value="1"
+                                                        data-content="Release Date (Oldest on Top)">
+                                                    Release Date (Oldest on Top)
+                                                </option>
+                                                <option value="2" data-content="Payout (High to Low)">
+                                                    Payout
+                                                    (High to Low)
+                                                </option>
+                                                <option value="3" data-content="Payout (Low to High)">
+                                                    Payout
+                                                    (Low to High)
+                                                </option>
+
+                        </select>
+
+
+
                 </select>
+
+
+
+
             </div>
 
             <div class="row">
                 <div class="col-sm-4" style="width: 20%!important;">
                     <input type="text" class="form-control" id="keyword" value="" placeholder="搜索...">
-
                     <p id="keyword1"></p>
-
-
                 </div>
                 <button id="searchBtn" class="btn btn-primary">搜索</button>
             </div>
@@ -135,6 +188,7 @@
                 <h4><span class="semi-bold"></span></h4>
                 <div class="tools tracking_block">
                     <a href="javascript:;" class="collapse"></a>
+
                     <div class="col-mlg-12">
                         <div class="row">
 
@@ -704,8 +758,38 @@
 
 </div>
 </div>
+<script type="text/javascript">
+    $('.form-control-chosen').chosen({
+        allow_single_deselect: true,
+        width: '100%'
+    });
+    $('.form-control-chosen-required').chosen({
+        allow_single_deselect: false,
+        width: '100%'
+    });
+    $('.form-control-chosen-search-threshold-100').chosen({
+        allow_single_deselect: true,
+        disable_search_threshold: 100,
+        width: '100%'
+    });
+    $('.form-control-chosen-optgroup').chosen({
+        width: '100%'
+    });
 
-
+    $(function() {
+        $('[title="clickable_optgroup"]').addClass('chosen-container-optgroup-clickable');
+    });
+    $(document).on('click', '[title="clickable_optgroup"] .group-result', function() {
+        var unselected = $(this).nextUntil('.group-result').not('.result-selected');
+        if(unselected.length) {
+            unselected.trigger('mouseup');
+        } else {
+            $(this).nextUntil('.group-result').each(function() {
+                $('a.search-choice-close[data-option-array-index="' + $(this).data('option-array-index') + '"]').trigger('click');
+            });
+        }
+    });
+</script>
 
 <script>
 
@@ -849,9 +933,9 @@
         var formData = $('#form_id').serialize();
         var keyword = $('#keyword').val();
         var _token = $('#_token').val();
-        var category = $('#category').val();
-        var geos = $('#geos').val();
-        var sort = $('#sort').val();
+        var category = $('.category').val();
+        var geos = $('.geos').val();
+        var sort = $('.sort').val();
 
         $.ajax({
             type: 'POST',
