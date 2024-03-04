@@ -155,6 +155,13 @@ class OfferController extends AdminController
         //数据分为左右处理
         $filteredDataArray = Offer::where($where)->whereNull('deleted_at')->get()->toArray();//奇数
 
+
+
+        $filteredDataArray = Offer::whereNull('deleted_at')->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
+        $filteredDataArrayCopy = Offer::whereNull('deleted_at')->whereRaw('MOD(id, 2) = 0')->get()->toArray();//偶数
+
+
+
         if (!empty($filteredDataArray)) {
             foreach ($filteredDataArray as $key => $value) {
                 $accepted_area = Geos::whereIn('id', $value['accepted_area'])->select('country')->get()->toArray();
@@ -202,12 +209,63 @@ class OfferController extends AdminController
             $filteredDataArray = [];
         }
 
+
+
+
+        if (!empty($filteredDataArrayCopy)) {
+            foreach ($filteredDataArrayCopy as $key => $value) {
+                $accepted_area = Geos::whereIn('id', $value['accepted_area'])->select('country')->get()->toArray();
+                $accepted_area_data = '';
+                foreach ($accepted_area as $k => $v) {
+                    $accepted_area_data .= $v['country'] . ',';
+                }
+
+                $filteredDataArrayCopy[$key]['accepted_area'] = trim($accepted_area_data, ',');
+                $track_cate = OfferTracksCates::whereIn('id', $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
+                $delivery_info = Delivery::where('status', 1)->get()->toArray();
+                $delivery_link = !empty($delivery_info[0]['delivery_link']) ? $delivery_info[0]['delivery_link'] : '';
+
+                $fieldToSwap = 'track_cate';
+                $swappedArray = array_map(function ($key1, $item) use ($fieldToSwap) {
+                    return [$item[$fieldToSwap] => array_merge(['key' => $key1], $item)];
+                }, array_keys($track_cate), $track_cate);
+                // 将结果数组进行合并
+                $finalArray = array_merge(...$swappedArray);
+                foreach ($track_cate as $k => $v) {
+                    $track_list = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();  // $finalArray[$k]
+
+                    foreach ($track_list as $x => $y) {
+                        $param = '/api/offers/jump?admin_id=' . $admin_id . '&cateid=' . $v['id'] . '&offer_id=' . $value['id'] . '&track_id=' . $y['id'];
+
+                        $track_list[$x]['track_link'] = $delivery_link . $param;
+                        $track_list[$x]['offersDomain'] = $delivery_link;
+
+                        $land_link = LandPage::where('id', $y['land_id'])->value('land_link');
+                        $track_list[$x]['land_link'] = !empty($land_link) ? $land_link : '';
+
+                    }
+                    $finalArray[$v['track_cate']] = $track_list;
+//                    $track_offersDomain = array_merge($track_list,$track_list);
+                }
+
+
+                $filteredDataArrayCopy[$key]['track_list'] = $finalArray;
+                $filteredDataArrayCopy[$key]['offersDomain'] = Delivery::where('status', 1)->get()->toArray();
+                $filteredDataArrayCopy[$key]['creatives'] = Creatives::whereIn('id', $value['creatives_id'])->get()->toArray();
+
+            }
+
+        } else {
+            $filteredDataArrayCopy = [];
+        }
+
         $filteredDataArray = array_values($filteredDataArray);
+        $filteredDataArrayCopy = array_values($filteredDataArrayCopy);
         $data = [
             'offer' => $filteredDataArray,
             'geos_list' => $geos_list,
             'category_list' => $category_list,
-//            'offer1' => $filteredDataArrayCopy,
+            'offer1' => $filteredDataArrayCopy,
         ];
 
 //        print_r("<pre/>");
@@ -310,7 +368,24 @@ class OfferController extends AdminController
                 foreach ($values2 as $value2) {
                     $query->orWhere('cate_id', 'like', "%$value2%");
                 }
-            })->where($where)->whereNull('deleted_at')
+            })->whereRaw('MOD(id, 2) = 1')->where($where)->whereNull('deleted_at')
+            ->orderBy($field, $order)->get()->toArray();//奇数
+
+
+
+
+        $filteredDataArrayCopy = Offer::where(function ($query) use ($geos) {
+            $values = explode(',', $geos);
+            foreach ($values as $value) {
+                $query->orWhere('accepted_area', 'like', "%$value%");
+            }
+        })
+            ->where(function ($query) use ($category) {
+                $values2 = explode(',', $category);
+                foreach ($values2 as $value2) {
+                    $query->orWhere('cate_id', 'like', "%$value2%");
+                }
+            })->whereRaw('MOD(id, 2) = 0')->where($where)->whereNull('deleted_at')
             ->orderBy($field, $order)->get()->toArray();//奇数
 
 
@@ -364,8 +439,59 @@ class OfferController extends AdminController
         }
 
 
+
+        if (!empty($filteredDataArrayCopy)) {
+
+
+            foreach ($filteredDataArrayCopy as $key => $value) {
+                $accepted_area = Geos::whereIn('id', $value['accepted_area'])->select('country')->get()->toArray();
+                $accepted_area_data = '';
+                foreach ($accepted_area as $k => $v) {
+                    $accepted_area_data .= $v['country'] . ',';
+                }
+
+                $filteredDataArrayCopy[$key]['accepted_area'] = trim($accepted_area_data, ',');
+                $track_cate = OfferTracksCates::whereIn('id', $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
+                $delivery_info = Delivery::where('status', 1)->get()->toArray();
+                $delivery_link = !empty($delivery_info[0]['delivery_link']) ? $delivery_info[0]['delivery_link'] : '';
+
+                $fieldToSwap = 'track_cate';
+                $swappedArray = array_map(function ($key1, $item) use ($fieldToSwap) {
+                    return [$item[$fieldToSwap] => array_merge(['key' => $key1], $item)];
+                }, array_keys($track_cate), $track_cate);
+                // 将结果数组进行合并
+                $finalArray = array_merge(...$swappedArray);
+                foreach ($track_cate as $k => $v) {
+                    $track_list = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();  // $finalArray[$k]
+
+                    foreach ($track_list as $x => $y) {
+                        $param = '/api/offers/jump?admin_id=' . $admin_id . '&cateid=' . $v['id'] . '&offer_id=' . $value['id'] . '&track_id=' . $y['id'];
+
+                        $track_list[$x]['track_link'] = $delivery_link . $param;
+                        $track_list[$x]['offersDomain'] = $delivery_link;
+
+                        $land_link = LandPage::where('id', $y['land_id'])->value('land_link');
+                        $track_list[$x]['land_link'] = !empty($land_link) ? $land_link : '';
+
+                    }
+                    $finalArray[$v['track_cate']] = $track_list;
+                }
+
+
+                $filteredDataArrayCopy[$key]['track_list'] = $finalArray;
+                $filteredDataArrayCopy[$key]['offersDomain'] = Delivery::where('status', 1)->get()->toArray();
+                $filteredDataArrayCopy[$key]['creatives'] = Creatives::whereIn('id', $value['creatives_id'])->get()->toArray();
+
+            }
+            $filteredDataArrayCopy = $this->htmlSpliceCopy($filteredDataArrayCopy);
+        } else {
+            $filteredDataArrayCopy = '';
+        }
+
+
         $result = [
             'left_data' => $filteredDataArray,
+            'right_data' => $filteredDataArrayCopy,
         ];
 
         return response()->json($result);
@@ -379,11 +505,7 @@ class OfferController extends AdminController
 
         $result = '';
         foreach ($data as $key => $offer) {
-
-
             if ($offer['offer_status'] == 1) $lable_status = '<span class="label label-success">Live</span>'; else $lable_status = '<span class="label label-warning">Paused</span>';
-
-
             $land = '';
             if(!empty($offer['track_list'])){
                 foreach ($offer['track_list'] as $x=>$y){
@@ -391,88 +513,27 @@ class OfferController extends AdminController
                 }
             }
 
-
-
-
-            $first = '<div class="col-md-6 accord" data-offer_db="KneeBoost Pro"><ul class="nav nav-tabs" role="tablist"><li class="active"><a href="#tab' . $key . 'Offer" role="tab" data-toggle="tab">Summary</a></li><li><a href="#tab' . $key . 'Description" role="tab" data-toggle="tab">Description</a></li><li><a href="#tab' . $key . 'Geos" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="#tab' . $key . 'Top_Geos" class="tab_top_geo" role="tab" data-toggle="tab">Top Geos</a></li><li><a href="#tab' . $key . 'Tracking" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="#tab' . $key . 'ProductsFeed" role="tab" data-toggle="tab">Products Data Feed</a></li><li><a href="#tab' . $key . 'Creative" role="tab" data-toggle="tab">Creatives</a></li><li><a href="##tab' . $key . 'Pixel_Postback" class="offers-tab-pixels" data-offer-id="'.$offer['id'].'" role="tab" data-toggle="tab">Pixels/Postbacks</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab' . $key . 'Offer"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="' . $land . '" target="_blank">' . '<span class="offer-product-img-container" data-original-title="" title=""><img src="' . env('APP_URL') . '/upload/' . $offer['image'] . '"  alt="KneeBoost Pro"></span>Offer Preview<i class="icon ion-ios-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">' . $offer['offer_name'] . '</td><td width="25%">$' . $offer['offer_price'] . ' Per Sale</td><td width="20%">' . $lable_status . '</td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab' . $key . 'Description"><div class="row"><div class="col-md-12"><p></p><p><strong></strong></p><p>"' . $offer['des'] . '"</p><p></p></div></div></div><div class="tab-pane" id="tab' . $key . 'Geos"><div class="row"><div class="col-md-12"><p></p><p>' . $offer['accepted_area'] . '</p></div></div></div><div class="tab-pane top_geos_tab" id="tab' . $key . 'Top_Geos"><div class="row"><div class="col-md-12"><div class="top_geos_graph"><div class="col-xs-12"><div class="row"><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding"><div class="row"><div class="col-xs-12"><select class="list_date select2_list padding_left" data-suffix="geo" style="margin-bottom: 10px;" name="date" id=""><option value="today">Today</option><option value="yester">Yesterday</option><option value="week">Current Week</option><option value="month">Current Month</option><option value="year">Year To Date</option><option value="l_week">Last Week</option><option value="l_month">Last Month</option><option value="calendar">Custom</option></select></div></div></div><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding calendar_padding"><div class="col-xs-4 col-sm-4"><div class="row"><div class="about_color"><p class="about_inputs">Start</p></div></div></div><div class="input-append success col-xs-8 col-sm-8"><div class="row"><input type="text" class="form-control date_start"><span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span></div></div></div><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding calendar_padding"><div class="col-xs-4 col-sm-4"><div class="row"><div class="about_color"><p class="about_inputs">End</p></div></div></div><div class="input-append success col-xs-8 col-sm-8">
-                                                                        <div class="row">
-                                                                            <input type="text" class="form-control date_end">
-                                                                            <span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <table class="table no-more-tables geo_table">
-                                                                    <thead>
-                                                                    <tr>
-                                                                        <th style="width:30%">COUNTRY</th>
-                                                                        <th style="width:20%">Percentage</th>
-                                                                        <th style="width:50%">Distribution</th>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody></tbody>
-                                                                </table>
-                                                                <div style="display:none;" class="geo_date_no_data">
-                                                                    <p>Morpheus: Throughout human history, we have been dependent on machines to survive. Fate, it seems, is not without a sense of irony.</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="wait_loader">
-                                                <img src="images/squares-preloader-gif.svg" alt="">
-                                            </div>
-                                        </div>
-
-
-
-
-
- <div class="tab-pane" id="tab' . $key . 'Tracking">
- <div class="row">
-
- <div class="col-md-12">
-
-
- <p>' . $offer['track_des'] . '</p>
-
-  <div class="btn-group m-b-30">
-  <a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="#">Select your tracking domain<span class="caret"></span></a>
-  <ul class="dropdown-menu domains-menu">';
-
-
+            $first = '<div class="col-md-12 accord" data-offer_db="KneeBoost Pro"><ul class="nav nav-tabs" role="tablist"><li class="active"><a href="#tab' . $key . 'Offer" role="tab" data-toggle="tab">Summary</a></li><li><a href="#tab' . $key . 'Description" role="tab" data-toggle="tab">Description</a></li><li><a href="#tab' . $key . 'Geos" role="tab" data-toggle="tab">Accepted Geos</a></li><li><a href="#tab' . $key . 'Top_Geos" class="tab_top_geo" role="tab" data-toggle="tab">Top Geos</a></li><li><a href="#tab' . $key . 'Tracking" role="tab" data-toggle="tab">Tracking Links</a></li><li><a href="#tab' . $key . 'ProductsFeed" role="tab" data-toggle="tab">Products Data Feed</a></li><li><a href="#tab' . $key . 'Creative" role="tab" data-toggle="tab">Creatives</a></li><li><a href="##tab' . $key . 'Pixel_Postback" class="offers-tab-pixels" data-offer-id="'.$offer['id'].'" role="tab" data-toggle="tab">Pixels/Postbacks</a></li></ul><div class="tools"><a href="javascript:;" class="collapse"></a><a href="#grid-config" data-toggle="modal" class="config"></a><a href="javascript:;" class="reload"></a><a href="javascript:;" class="remove"></a></div><div class="tab-content"><div class="tab-pane active" id="tab' . $key . 'Offer"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="' . $land . '" target="_blank">' . '<span class="offer-product-img-container" data-original-title="" title=""><img src="' . env('APP_URL') . '/upload/' . $offer['image'] . '"  alt="KneeBoost Pro"></span>Offer Preview<i class="icon ion-ios-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">' . $offer['offer_name'] . '</td><td width="25%">$' . $offer['offer_price'] . ' Per Sale</td><td width="20%">' . $lable_status . '</td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab' . $key . 'Description"><div class="row"><div class="col-md-12"><p></p><p><strong></strong></p><p>"' . $offer['des'] . '"</p><p></p></div></div></div><div class="tab-pane" id="tab' . $key . 'Geos"><div class="row"><div class="col-md-12"><p></p><p>' . $offer['accepted_area'] . '</p></div></div></div><div class="tab-pane top_geos_tab" id="tab' . $key . 'Top_Geos"><div class="row"><div class="col-md-12"><div class="top_geos_graph"><div class="col-xs-12"><div class="row"><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding"><div class="row"><div class="col-xs-12"><select class="list_date select2_list padding_left" data-suffix="geo" style="margin-bottom: 10px;" name="date" id=""><option value="today">Today</option><option value="yester">Yesterday</option><option value="week">Current Week</option><option value="month">Current Month</option><option value="year">Year To Date</option><option value="l_week">Last Week</option><option value="l_month">Last Month</option><option value="calendar">Custom</option></select></div></div></div><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding calendar_padding"><div class="col-xs-4 col-sm-4"><div class="row"><div class="about_color"><p class="about_inputs">Start</p></div></div></div><div class="input-append success col-xs-8 col-sm-8"><div class="row"><input type="text" class="form-control date_start"><span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span></div></div></div><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding calendar_padding"><div class="col-xs-4 col-sm-4"><div class="row"><div class="about_color"><p class="about_inputs">End</p></div></div></div><div class="input-append success col-xs-8 col-sm-8"><div class="row"><input type="text" class="form-control date_end"><span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span></div></div></div><table class="table no-more-tables geo_table"><thead><tr><th style="width:30%">COUNTRY</th><th style="width:20%">Percentage</th><th style="width:50%">Distribution</th></tr></thead><tbody></tbody></table><div style="display:none;" class="geo_date_no_data"><p>Morpheus: Throughout human history, we have been dependent on machines to survive. Fate, it seems, is not without a sense of irony.</p></div></div></div></div></div></div><div class="wait_loader"><img src="images/squares-preloader-gif.svg" alt=""></div></div><div class="tab-pane" id="tab' . $key . 'Tracking"><div class="row"><div class="col-md-12"><p>' . $offer['track_des'] . '</p><div class="btn-group m-b-30"><a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="#">Select your tracking domain<span class="caret"></span></a><ul class="dropdown-menu domains-menu">';
 
             $track_offersDomain = '';
             foreach ($offer['offersDomain'] as $m=>$n) {
                 $track_offersDomain .=  '<li><a href="#" class="offersDomain" data-domain="'.$n['delivery_link'].'">'.$n['delivery_link'].'</a></li>';
             }
-
-
-
             $res=' </ul></div><div class="row"><div class="col-md-12"><!-- filter tabs --><div class="tabbable tabs-left tabs-bg"><ul class="nav nav-tabs" role="tablist">';
-
 
             $index = 0;
             //追踪链接的tab
             $track_tab = '';
             foreach ($offer['track_list'] as $key2 => $item2) {
                 if ($index == 0) {
-
                     $track_tab .=  '<li class="active"><a href="#provenorderpages-' . $key2 . $key . '" role="tab" data-toggle="tab">' . $key2 . '</a></li>';
-
                 } else {
-
                     $track_tab .=   '<li><a href="#provenorderpages-' . $key2 . $key . '" role="tab" data-toggle="tab">' . $key2 . '</a></li>';
-
                     }
                 $index++;
             }
 
-
-
-
             $tab_content = '</ul><div class="tab-content">';
-
             $index1 = 0;
 
             //追踪链接的tab 对应内容
@@ -481,7 +542,6 @@ class OfferController extends AdminController
             foreach ($offer['track_list'] as $key3 => $item3) {
                 if ($index1 == 0) {
                     $track1 = '<div class="tab-pane active" id="provenorderpages-' . $key3 . $key . '">';
-
                 } else {
                     $track1 = '<div class="tab-pane" id="provenorderpages-' . $key3 . $key . '">';
                 }

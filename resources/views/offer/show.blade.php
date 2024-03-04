@@ -48,6 +48,19 @@
 <script src="/vendor/laravel-admin/test/main.js"></script>
 <script src="/vendor/laravel-admin/test/select_del.js"></script>
 
+
+
+
+{{--<script src="/vendor/laravel-admin/test/fbevents.js"></script>--}}
+{{--<script src="/vendor/laravel-admin/test/jquery-2.1.4.js"></script>--}}
+{{--<script src="/vendor/laravel-admin/test/bootstrap.js"></script>--}}
+
+{{--<script src="/vendor/laravel-admin/test/bootstrap-popover-custom-class.min.js"></script>--}}
+
+
+
+
+
 <!-- END PLUGIN CSS -->
 <!-- BEGIN CORE CSS FRAMEWORK -->
 {{--<link href="/vendor/laravel-admin/test/icon" rel="stylesheet">--}}
@@ -116,35 +129,7 @@
 
 
             <div class="col-sm-4" style="width: 20%!important;">
-
-
-{{--                <select id="sort" name="usertype" class="selectpicker show-tick form-control" data-max-options="3"--}}
-{{--                        data-live-search="true" data-none-selected-text="Order By">--}}
-
-
-{{--                    <select id="single" class="form-control form-control-chosen" data-placeholder="Order By" multiple>--}}
-
-
-{{--                    <option value="0"--}}
-{{--                            data-content="Release Date (Newest on Top)">--}}
-{{--                        Release Date (Newest on Top)--}}
-{{--                    </option>--}}
-{{--                    <option value="1"--}}
-{{--                            data-content="Release Date (Oldest on Top)">--}}
-{{--                        Release Date (Oldest on Top)--}}
-{{--                    </option>--}}
-{{--                    <option value="2" data-content="Payout (High to Low)">--}}
-{{--                        Payout--}}
-{{--                        (High to Low)--}}
-{{--                    </option>--}}
-{{--                    <option value="3" data-content="Payout (Low to High)">--}}
-{{--                        Payout--}}
-{{--                        (Low to High)--}}
-{{--                    </option>--}}
-
                         <select id="single" class="form-control form-control-chosen sort" data-placeholder="Please select...">
-
-
                                                 <option value="0"
                                                         data-content="Release Date (Newest on Top)">
                                                     Release Date (Newest on Top)
@@ -161,16 +146,7 @@
                                                     Payout
                                                     (Low to High)
                                                 </option>
-
                         </select>
-
-
-
-                </select>
-
-
-
-
             </div>
 
             <div class="row">
@@ -191,7 +167,6 @@
 
                     <div class="col-mlg-12">
                         <div class="row">
-
                             <!--内容开始-->
                             <div class="categories_offer_left">
 
@@ -487,7 +462,6 @@
                                                             </a>
                                                             <button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-ProductsFeed-0">Copy</button>
                                                         </div>
-
                                                     </div>
                                                 </div>
 
@@ -523,12 +497,34 @@
 
 
                             </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-mlg-6">
+                        <div class="row">
+                            <!--内容开始-->
+                            <div class="categories_offer_right">
+
+
+
+
+
+
+
+
+                            </div>
+
+
+
+
 
 
 
 
                         </div>
                     </div>
+
                     <!-- Modal -->
                     <div id="change_tracking" class="modal fade" role="dialog">
                         <div class="modal-dialog">

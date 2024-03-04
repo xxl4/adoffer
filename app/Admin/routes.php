@@ -48,6 +48,7 @@ Route::group([
     $router->post('analytics/query', 'AnalyticsController@query')->name('admin.query');
     $router->get('analytics/echat', "AnalyticsController@echat")->name('admin.analytics');
 
+    $router->resource('fraud_data', 'FraudDataController')->names('admin.FraudData');
 
 //    $router->resource('delivery', 'DeliveryController')->names('admin.Delivery');
 

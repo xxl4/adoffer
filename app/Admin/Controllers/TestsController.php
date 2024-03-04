@@ -41,7 +41,7 @@ class TestsController extends AdminController
     public function index(Content $content)
     {
         return $content
-            ->body(new Box('Bar chart', view('admin.tests.echart')));
+            ->body(new Box('', view('admin.tests.echart')));
     }
 
 
