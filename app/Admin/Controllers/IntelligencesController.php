@@ -24,6 +24,7 @@ use App\Admin\Actions\Post\Replicate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Encore\Admin\Facades\Admin;
 
 class IntelligencesController extends AdminController
 {
@@ -45,6 +46,7 @@ class IntelligencesController extends AdminController
 
     public function echat(Content $content)
     {
+        Admin::disablePjax();
 
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
         $net_id = $currentUser->id; // 输出当前用户名称

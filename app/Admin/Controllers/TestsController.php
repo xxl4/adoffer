@@ -276,7 +276,7 @@ class TestsController extends AdminController
 
 
         return $content
-            ->body(new Box('Bar chart', view('tests.echart', ['data' => $data, 'geos_list' => $geos_list, 'percent' => $percent, 'offer_count' => $offer_count, 'offer_list' => $offer_list])));
+            ->body(new Box('', view('tests.echart', ['data' => $data, 'geos_list' => $geos_list, 'percent' => $percent, 'offer_count' => $offer_count, 'offer_list' => $offer_list])));
 
 
     }
