@@ -22,6 +22,11 @@ Route::group([
     $router->resource('users', UserController::class);
 //    $router->resource('offers', OfferController::class);
     $router->resource('product', ProductController::class);
+
+
+    $router->get('offer/show-v2', "OfferController@showV2")->name('admin.offer.v2');
+    $router->post('offers/offer', "OfferController@offer")->name('admin.offer.offer');
+    $router->post('offers/intelligence', "OfferController@intelligence")->name('admin.offer.intelligence');
     $router->resource('offer', 'OfferController')->names('admin.Offer');
     //$router->resource('product/show', 'ProductController')->names('admin.Product');
 

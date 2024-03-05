@@ -117,6 +117,190 @@ class OfferController extends AdminController
             ->body($this->form());
     }
 
+    /**
+     * 
+     * Offer List
+     * @param $content
+     * @param $request
+     * 
+     * @return view
+     * 
+     */
+    public function showV2(Content $content, Request $request) {
+        $data = [];
+
+
+        $currentUser = auth()->user(); // 获取当前登录用户的模型对象
+        $admin_id = $currentUser->id; // 输出当前用户名称
+
+        $roles = $currentUser->roles; // 获取当前用户的角色集合
+
+
+        $role = '';
+        foreach ($roles as $role) {
+            $role = $role->id ;
+        }
+
+
+        $where = [];
+        $user_id = Admin::user()->id;
+        if(!Admin::user()->isAdministrator()){
+            $where['admin_roles_id'] = $role;
+        }
+
+
+        $geos_list = Geos::get()->toArray();
+        $category_list = Category::get()->toArray();
+
+
+        //数据分为左右处理
+        $filteredDataArray = Offer::where($where)->get()->toArray();//奇数
+
+
+        if (!empty($filteredDataArray)) {
+            foreach ($filteredDataArray as $key => $value) {
+                $accepted_area = Geos::whereIn('id', $value['accepted_area'])->select('country')->get()->toArray();
+                $accepted_area_data = '';
+                foreach ($accepted_area as $k => $v) {
+                    $accepted_area_data .= $v['country'] . ',';
+                }
+
+                $filteredDataArray[$key]['accepted_area'] = trim($accepted_area_data, ',');
+                $track_cate = OfferTracksCates::whereIn('id', $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
+                $delivery_info = Delivery::where('status', 1)->get()->toArray();
+                $delivery_link = !empty($delivery_info[0]['delivery_link']) ? $delivery_info[0]['delivery_link'] : '';
+
+                $fieldToSwap = 'track_cate';
+                $swappedArray = array_map(function ($key1, $item) use ($fieldToSwap) {
+                    return [$item[$fieldToSwap] => array_merge(['key' => $key1], $item)];
+                }, array_keys($track_cate), $track_cate);
+                // 将结果数组进行合并
+                $finalArray = array_merge(...$swappedArray);
+                foreach ($track_cate as $k => $v) {
+                    $track_list = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();  // $finalArray[$k]
+
+                    foreach ($track_list as $x => $y) {
+                        $param = '/api/offers/jump?admin_id=' . $admin_id . '&cateid=' . $v['id'] . '&offer_id=' . $value['id'] . '&track_id=' . $y['id'];
+
+                        $track_list[$x]['track_link'] = $delivery_link . $param;
+                        $track_list[$x]['offersDomain'] = $delivery_link;
+
+                        $land_link = LandPage::where('id', $y['land_id'])->value('land_link');
+                        $track_list[$x]['land_link'] = !empty($land_link) ? $land_link : '';
+
+                    }
+                    $finalArray[$v['track_cate']] = $track_list;
+//                    $track_offersDomain = array_merge($track_list,$track_list);
+                }
+
+
+                $filteredDataArray[$key]['track_list'] = $finalArray;
+                $filteredDataArray[$key]['offersDomain'] = Delivery::where('status', 1)->get()->toArray();
+                $filteredDataArray[$key]['creatives'] = Creatives::whereIn('id', $value['creatives_id'])->get()->toArray();
+
+            }
+
+        } else {
+            $filteredDataArray = [];
+        }
+
+        $filteredDataArray = array_values($filteredDataArray);
+//        $filteredDataArrayCopy = array_values($filteredDataArrayCopy);
+        $data = [
+            'offer' => $filteredDataArray,
+            'geos_list' => $geos_list,
+            'category_list' => $category_list,
+//            'offer1' => $filteredDataArrayCopy,
+        ];
+
+
+        return $content->title("Offers")->view("admin/offers/show-v2",compact('data'));
+    }
+
+    /**
+     * 
+     * 
+     * offer class
+     * 
+     */
+    public function offer(Request $request) {
+
+        $currentUser = auth()->user(); // 获取当前登录用户的模型对象
+        $admin_id = $currentUser->id; // 输出当前用户名称
+
+        $roles = $currentUser->roles; // 获取当前用户的角色集合
+
+
+        $role = '';
+        foreach ($roles as $role) {
+            $role = $role->id ;
+        }
+
+
+        $where = [];
+        $user_id = Admin::user()->id;
+        if(!Admin::user()->isAdministrator()){
+            $where['admin_roles_id'] = $role;
+        }
+
+        $step = $request->input("step");
+
+        if($step=='offers_tab_pixels') {
+
+        }
+
+        if($step=='show_all_offers') {
+            $result = [];
+
+            $result['network'] = "6546";
+            $offer_links = [];
+            $offer_links['AirPhones'] = [];
+            $offer_links['BarXStop'] = [];
+            $offer_links['GX SmartWatch'] = [];
+            $offer_links['NeckMassager'] = [];
+            $offer_links['OxyBreath Pro'] = [];
+            $offer_links['SilentSnore'] = [];
+            $offer_links['TotalShield Max'] = [];
+            $offer_links['WIFI UltraBoost'] = [];
+            $offer_links['XWatch'] = [];
+            $offer_links['Xone Phone'] = [];
+            $result['offer_links'] = $offer_links;
+            $offers = [];
+    
+            $items = Offer::where($where)->get();
+            foreach($items as $key=>$item) {
+                $offer = [];
+                $offer['data'] = [];
+                $offer['htmlProductsDataFeed'] = "";
+                $offer['htmlTrackingLinks'] = "";
+                $offer['id'] = $item->id;
+                $offer['image'] = $item->id;
+                $offer['name'] = $item->id;
+                $offers[] = $offer;
+            }
+    
+    
+    
+            $result['offers'] = $offers;
+            $offer_data = [];
+            $offer_data[6546] = $offer_links;
+            $result['ofers_data'] = $offer_data;
+    
+            return response()->json($result);
+        }
+    }
+
+    /***
+     * 
+     * 
+     * 
+     * 
+     */
+    public function intelligence(Request $request) {
+        $result = [];
+        return response()->json($result);
+    }
+
 
     /**
      * Offer List
