@@ -30,17 +30,30 @@
 <link rel="stylesheet" href="/css/links_img.css">
 <!-- END CORE CSS FRAMEWORK -->
 
+<script src="/vendor/laravel-admin/analytic/bootstrap-select.min.js"></script>
+<script src="/vendor/laravel-admin/analytic/clipboard.min.js"></script>
+<script src="/vendor/laravel-admin/test/chosen.jquery.js"></script>
+
+
 <!-- END CONTENT -->
 <!-- BEGIN CORE JS FRAMEWORK-->
 <script src="/assets/plugins/pace/pace.min.js" type="text/javascript"></script>
 <!-- BEGIN JS DEPENDECENCIES-->
 <script src="/js/jquery-2.1.4.js"></script>
+
+
 <!--	<script src="assets/plugins/bootstrapv3/js/bootstrap.min.js" type="text/javascript"></script>-->
-<script src="/assets/plugins/bootstrapv3/js/bootstrap.js" type="text/javascript"></script>
+
+
+{{--影响下拉--}}
+{{--<script src="/assets/plugins/bootstrapv3/js/bootstrap.js" type="text/javascript"></script>   --}}
 <script src="/js/bootstrap-tooltip-custom-class-master/bootstrap-v3/popover/dist/js/bootstrap-popover-custom-class.min.js" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="/assets/plugins/jquery-block-ui/jqueryblockui.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script>
+
+
+
 <script src="/assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script>
 <script src="/assets/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
@@ -87,7 +100,7 @@
     window.selectedRole = '';
     window.domain = '<?php echo admin_url("/");?>'
 </script>
-<script src="/js/main.js?v=0.5"></script>
+<script src="/js/main.js"></script>
 <script type="text/javascript" src="/js/notifications.js?v=0.4"></script>
 <script type="text/javascript" src="/js/email-broadcast.js?v=0.1"></script>
 
@@ -689,7 +702,8 @@
     <script src="/js/js_offer_top_geos.js?v=0.1"></script>
 	<script src="/js/offer.js?v=0.3"></script>
 
-<script>
+
+            <script>
 	$.fn.select2.amd.require(['select2/selection/search'], function (Search) {
 		var oldRemoveChoice = Search.prototype.searchRemoveChoice;
 
