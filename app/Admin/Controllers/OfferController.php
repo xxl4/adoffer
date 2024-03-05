@@ -437,6 +437,8 @@ class OfferController extends AdminController
     protected function htmlProduct($key, $offer_id)
     {
 
+
+
       $data = '<div class="tab-pane" id="tab'. $key.'ProductsFeed"><div class="row"><div class="col-md-12"><p>Want to Sell on More Channels? Tap into the power of product listing optimization and import our entire product list.</p><p>You can find below the entire catalogue automated Products Data Feed, for easy submit to shopping channels and all the major marketplaces.</p></div><div class="col-md-12"><!-- dropdown domains --><div class="btn-group m-b-30"><a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="#">Select your Products Feed domain<span class="caret"></span></a><ul class="dropdown-menu domains-menu domains-menu-feed"><li><a href="#" class="offersDomain" data-domain="https://urgoodeal.com">https://urgoodeal.com</a></li><li><a href="#" class="offersDomain" data-domain="https://xtechgadget.com">https://xtechgadget.com</a></li><li><a href="#" class="offersDomain" data-domain="https://popularhitech.com">https://popularhitech.com</a></li><li><a href="#" class="offersDomain" data-domain="https://buysmartproduct.com">https://buysmartproduct.com</a></li><li><a href="#" class="offersDomain" data-domain="https://storepx.com">https://storepx.com</a></li><li><a href="#" class="offersDomain" data-domain="https://airportxshop.com">https://airportxshop.com</a></li><li><a href="#" class="offersDomain" data-domain="https://flightxshop.com">https://flightxshop.com</a></li><li><a href="#" class="offersDomain" data-domain="https://blackfridaytechs.com">https://blackfridaytechs.com</a></li><li><a href="#" class="offersDomain" data-domain="https://techchristmasgift.com">https://techchristmasgift.com</a></li><li><a href="#" class="offersDomain" data-domain="https://gadgetronixs.com">https://gadgetronixs.com</a></li><li><a href="#" class="offersDomain" data-domain="https://luxurygadgetx.com">https://luxurygadgetx.com</a></li><li><a href="#" class="offersDomain" data-domain="https://newxventions.com">https://newxventions.com</a></li><li><a href="#" class="offersDomain" data-domain="https://appgogadget.com">https://appgogadget.com</a></li><li><a href="#" class="offersDomain" data-domain="https://todaystech.co">https://todaystech.co</a></li></ul></div><!-- end dropdown domains --></div><div class="col-md-12"><div>Products Feed - All Products</div><input readonly type="text" class="form-control trecking_link clipboard-ProductsFeed-0 dynamicDomainTrackingLink" value="https://popularhitech.com/feed?net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"><a href="https://popularhitech.com/feed?net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}" target="_blank" class="dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-ProductsFeed-0">Copy</button></div></div></div>';
 
 
@@ -446,19 +448,6 @@ class OfferController extends AdminController
 
 
     }
-
-
-
-    protected function htmlTrack($key, $offer_id)
-    {
-        $htmlTrackingLinks = '<div class="tab-pane" id="tab'.$key.'Tracking"><div class="row"><div class="col-md-12"><p>These links are unique to you, use them to generate traffic.</p><p>You can use any of the 3 custom parameters agnostically.</p><p>Replace {AFFID}, {SUBID}, {CLICKID} with your own tracking variables and get them feed-backed in your pixel/postback.</p></div><div class="col-md-12"><br /><p>Traffic sources sometimes block certain URLs and/or companies, we offer different tracking domains to choose from.</p><!-- dropdown domains --><div class="btn-group m-b-30"><a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="#">Select your tracking domain<span class="caret"></span></a><ul class="dropdown-menu domains-menu"><li><a href="#" class="offersDomain" data-domain="https://urgoodeal.com">https://urgoodeal.com</a></li><li><a href="#" class="offersDomain" data-domain="https://xtechgadget.com">https://xtechgadget.com</a></li><li><a href="#" class="offersDomain" data-domain="https://popularhitech.com">https://popularhitech.com</a></li><li><a href="#" class="offersDomain" data-domain="https://buysmartproduct.com">https://buysmartproduct.com</a></li><li><a href="#" class="offersDomain" data-domain="https://storepx.com">https://storepx.com</a></li><li><a href="#" class="offersDomain" data-domain="https://airportxshop.com">https://airportxshop.com</a></li><li><a href="#" class="offersDomain" data-domain="https://flightxshop.com">https://flightxshop.com</a></li><li><a href="#" class="offersDomain" data-domain="https://blackfridaytechs.com">https://blackfridaytechs.com</a></li><li><a href="#" class="offersDomain" data-domain="https://techchristmasgift.com">https://techchristmasgift.com</a></li><li><a href="#" class="offersDomain" data-domain="https://gadgetronixs.com">https://gadgetronixs.com</a></li><li><a href="#" class="offersDomain" data-domain="https://luxurygadgetx.com">https://luxurygadgetx.com</a></li><li><a href="#" class="offersDomain" data-domain="https://newxventions.com">https://newxventions.com</a></li><li><a href="#" class="offersDomain" data-domain="https://appgogadget.com">https://appgogadget.com</a></li><li><a href="#" class="offersDomain" data-domain="https://todaystech.co">https://todaystech.co</a></li></ul></div><!-- end dropdown domains --><div class="row"><div class="col-md-12"><!-- filter tabs --><div class="tabbable tabs-left tabs-bg"><ul class="nav nav-tabs" role="tablist"><li class="active"><a href="#provenorderpages-0" role="tab" data-toggle="tab">Proven Order Pages</a></li><li><a href="#splittestorderpages-0" role="tab" data-toggle="tab">Split-Test Order Pages</a></li><li><a href="#archivedorderpages-0" role="tab" data-toggle="tab">Archived Order Pages</a></li></ul><div class="tab-content"><div class="tab-pane active" id="provenorderpages-0"><div class="row"><div class="col-md-12"><div class="padding-for_links"><div>Order Page 1.0 - The Classic</div><input readonly type="text" class="form-control trecking_link clipboard-0-0-0 dynamicDomainTrackingLink" value="https://popularhitech.com/intl/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"><a href="https://popularhitech.com/intl/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}" target="_blank" class=" dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-0-0">Copy</button></div>trol trecking_link clipboard-0-0-1 dynamicDomainTrackingLink" value="https://popularhitech.com/intl_5/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"><a href="https://popularhitech.com/intl_5/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}" target="_blank" class=" dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-0-1">Copy</button></div><div class="padding-for_links"><div>Order Page 7.0 - The Champ</div><input readonly type="text" class="form-control trecking_link clipboard-0-0-2 dynamicDomainTrackingLink\" value="https://popularhitech.com/intl_7/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"><a href="https://popularhitech.com/intl_7/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}" target="_blank" class=" dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-0-2">Copy</button></div><div class="padding-for_links"><div>Order Page 12.0 - The Wise One</div><input readonly type="text" class="form-control trecking_link clipboard-0-0-3 dynamicDomainTrackingLink" value="https://popularhitech.com/intl_12/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"><a href="https://popularhitech.com/intl_12/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}" target="_blank" class=" dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-0-3">Copy</button></div></div></div></div><div class="tab-pane" id="splittestorderpages-0"><div class="row"><div class="col-md-12"><div class="padding-for_links"><div>Order Page 4.0 - The Challenger</div><input readonly type="text" class="form-control trecking_link clipboard-0-1-0 dynamicDomainTrackingLink" value="https://popularhitech.com/intl_4/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"><a href="https://popularhitech.com/intl_4/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}" target="_blank" class=" dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-1-0">Copy</button></div><div class="padding-for_links"><div>Order Page 6.0 - The Heavyweight</div><input readonly type="text" class="form-control trecking_link clipboard-0-1-1 dynamicDomainTrackingLink" value="https://popularhitech.com/intl_6/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"><a href="https://popularhitech.com/intl_6/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}" target="_blank" class=" dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-1-1">Copy</button></div><div class="padding-for_links"><div>Order Page 8.0 - The New School</div><input readonly type="text" class="form-control trecking_link clipboard-0-1-2 dynamicDomainTrackingLink" value="https://popularhitech.com/intl_8/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"><a href="https://popularhitech.com/intl_8/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}" target="_blank" class=" dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-1-2">Copy</button></div></div></div></div><div class="tab-pane" id="archivedorderpages-0"><div class="row"><div class="col-md-12"><div class="padding-for_links"><div>Order Page 2.0 - The N00b</div><input readonly type="text" class="form-control trecking_link clipboard-0-2-0 dynamicDomainTrackingLink" value="https://popularhitech.com/intl_2/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"><a href="https://popularhitech.com/intl_2/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}" target="_blank" class=" dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-2-0">Copy</button></div><div class="padding-for_links"><div>Order Page 3.0 - The Multi-Step</div><input readonly type="text" class="form-control trecking_link clipboard-0-2-1 dynamicDomainTrackingLink" value="https://popularhitech.com/intl_3/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"><a href="https://popularhitech.com/intl_3/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}" target="_blank" class=" dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-2-1">Copy</button></div><div class="padding-for_links"><div>Order Page 11.0 - The Money Maker</div><input readonly type="text" class="form-control trecking_link clipboard-0-2-2 dynamicDomainTrackingLink" value="https://popularhitech.com/intl_11/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"><a href="https://popularhitech.com/intl_11/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}" target="_blank" class=" dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a><button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-0-2-2">Copy</button></div></div></div></div></div></div><div class="clearfix"></div></div></div></div></div>';
-
-        //return '';
-        return $htmlTrackingLinks;
-
-    }
-
-
 
 
 
@@ -479,7 +468,7 @@ class OfferController extends AdminController
 			</p>
 		</div>
 		<div class="col-md-12">
-			<br />
+			<br/>
 			<p>
 				Traffic sources sometimes block certain URLs and/or companies, we offer
 				different tracking domains to choose from.
@@ -495,71 +484,6 @@ class OfferController extends AdminController
 					<li>
 						<a href="#" class="offersDomain" data-domain="https://urgoodeal.com">
 							https://urgoodeal.com
-						</a>
-					</li>
-					<li>
-						<a href="#" class="offersDomain" data-domain="https://xtechgadget.com">
-							https://xtechgadget.com
-						</a>
-					</li>
-					<li>
-						<a href="#" class="offersDomain" data-domain="https://popularhitech.com">
-							https://popularhitech.com
-						</a>
-					</li>
-					<li>
-						<a href="#" class="offersDomain" data-domain="https://buysmartproduct.com">
-							https://buysmartproduct.com
-						</a>
-					</li>
-					<li>
-						<a href="#" class="offersDomain" data-domain="https://storepx.com">
-							https://storepx.com
-						</a>
-					</li>
-					<li>
-						<a href="#" class="offersDomain" data-domain="https://airportxshop.com">
-							https://airportxshop.com
-						</a>
-					</li>
-					<li>
-						<a href="#" class="offersDomain" data-domain="https://flightxshop.com">
-							https://flightxshop.com
-						</a>
-					</li>
-					<li>
-						<a href="#" class="offersDomain" data-domain="https://blackfridaytechs.com">
-							https://blackfridaytechs.com
-						</a>
-					</li>
-					<li>
-						<a href="#" class="offersDomain" data-domain="https://techchristmasgift.com">
-							https://techchristmasgift.com
-						</a>
-					</li>
-					<li>
-						<a href="#" class="offersDomain" data-domain="https://gadgetronixs.com">
-							https://gadgetronixs.com
-						</a>
-					</li>
-					<li>
-						<a href="#" class="offersDomain" data-domain="https://luxurygadgetx.com">
-							https://luxurygadgetx.com
-						</a>
-					</li>
-					<li>
-						<a href="#" class="offersDomain" data-domain="https://newxventions.com">
-							https://newxventions.com
-						</a>
-					</li>
-					<li>
-						<a href="#" class="offersDomain" data-domain="https://appgogadget.com">
-							https://appgogadget.com
-						</a>
-					</li>
-					<li>
-						<a href="#" class="offersDomain" data-domain="https://todaystech.co">
-							https://todaystech.co
 						</a>
 					</li>
 				</ul>
