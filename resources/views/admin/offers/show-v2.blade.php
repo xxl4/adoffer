@@ -74,7 +74,7 @@
 <!-- TEXT EDITOR -->
 
         <script>var switch_theme = 0;</script>
-    
+
 <!-- for tutorial.php || headerMenuFaq.php || faq.php -->
 <link href="/assets/plugins/lity-2.4.1/dist/lity.css" rel="stylesheet">
 <script src="/assets/plugins/lity-2.4.1/dist/lity.js"></script>
@@ -637,6 +637,9 @@
                         <div class="row">
                             <!--内容开始-->
                             <div class="categories_offer_left">
+
+
+
                             </div>
                         </div>
                     </div>
