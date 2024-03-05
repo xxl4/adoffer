@@ -381,7 +381,7 @@ var user_tracking = {
 
 		$(document).off('click', '.tracking-tab-pixels').on('click', '.tracking-tab-pixels', function(event){
 			event.preventDefault();
-			
+
 			let $loader = $('.tracking-tab-pixels-loader');
 			let $container = $('.tracking-tab-pixels-container');
 
@@ -1008,6 +1008,8 @@ $(function(){
 	theme_switch.init();
 	managerFilter.init();
 	net.init();
+
+    console.log("main managerFilter")
 
 	$('.refresh').on('click', function(){
 		location.reload();
