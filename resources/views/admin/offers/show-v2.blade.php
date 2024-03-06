@@ -115,8 +115,7 @@
 <link href="/css/network.css?v=0.1" rel="stylesheet" type="text/css" />
 	<script type="text/javascript">
 		var current_network ='6546';	</script>
-<div class="page-content">
-    <div class="content">
+
 
         <div class="col-md-12">
             <div class="row">
@@ -946,8 +945,7 @@
         </div>
 
 
-</div>
-</div>
+
 <script type="text/javascript">
     $(function() {
         $('[title="clickable_optgroup"]').addClass('chosen-container-optgroup-clickable');
