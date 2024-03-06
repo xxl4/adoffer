@@ -453,6 +453,7 @@ $(document).ready(function(){
 });
 
 $(function(){
+	console.log("offer js");
 	ofer_functions.init();
 	user_tracking.work_on_tracking('us');
 	ofer_functions.offer_tracking_change();
