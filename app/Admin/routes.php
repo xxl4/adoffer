@@ -43,6 +43,8 @@ Route::group([
     $router->resource('land_page', 'LandPageController')->names('admin.LandPage');
     $router->resource('delivery', 'DeliveryController')->names('admin.Delivery');
     $router->resource('category', 'CategoryController')->names('admin.Category');
+    $router->resource('products_feed', 'ProductFeedController')->names('admin.ProductFeed');
+
 
     $router->get('intelligence/echat', "IntelligenceController@echat")->name('admin.intelligence');
     $router->get('intelligence/offerPie', "IntelligenceController@offerPie")->name('admin.intelligence');

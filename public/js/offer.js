@@ -192,11 +192,17 @@ var ofer_functions = {
 					}
 
 					var creative = '';
+
+
+                    // console.log('12333',curent_offer.data.description)
+
 					if(curent_offer.data && curent_offer.data.creative){
+
 						$.each(curent_offer.data.creative, function(i,e){
 							creative += '<div style="margin-left: 10px;" class="each_creative"> <p>'+e.title+'</p><a href="'+e.this_link+'" target="_blank">'+e.this_link+'</a></div>';
 							var imageTypes = /\.(gif|jpe?g|png)$/;
 						});
+
 					}
 
 					var descript = '';
@@ -312,7 +318,7 @@ var ofer_functions = {
 					creative+
 					'</div></div></div>'+
 					'<div class="tab-pane" id="tab'+key+'Pixel_Postback">'+
-					
+
 					'<div class="wait_loader offers-tab-pixels-loader" data-offer-id="'+curent_offer.id+'"><img src="images/squares-preloader-gif.svg" alt="preloader"></div>'+
 					'<div class="offers-tab-pixels-container" data-offer-id="'+curent_offer.id+'"></div>'+
 

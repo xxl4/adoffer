@@ -79,6 +79,18 @@ class Offer extends Model
 
 
 
+    public function getProductFeedIdAttribute($value)
+    {
+        return explode(',', $value);
+    }
+
+    public function setProductFeedIdAttribute($value)
+    {
+        $this->attributes['product_feed_id'] = implode(',', $value);
+    }
+
+
+
     public function getAdminRolesIdAttribute($value)
     {
         return explode(',', $value);
