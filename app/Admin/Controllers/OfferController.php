@@ -134,6 +134,9 @@ class OfferController extends AdminController
      */
     public function showV2(Content $content, Request $request)
     {
+        Admin::disablePjax();
+
+
         $data = [];
 
 

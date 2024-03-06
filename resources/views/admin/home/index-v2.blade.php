@@ -40,7 +40,7 @@
 
 {{--影响下拉--}}
 {{--<script src="/assets/plugins/bootstrapv3/js/bootstrap.js" type="text/javascript"></script>   --}}
-<script src="/js/bootstrap-tooltip-custom-class-master/bootstrap-v3/popover/dist/js/bootstrap-popover-custom-class.min.js" type="text/javascript"></script>
+{{--<script src="/js/bootstrap-tooltip-custom-class-master/bootstrap-v3/popover/dist/js/bootstrap-popover-custom-class.min.js" type="text/javascript"></script>--}}
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="/assets/plugins/jquery-block-ui/jqueryblockui.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script>
@@ -63,18 +63,18 @@
 <!-- END CORE TEMPLATE JS -->
 
 <!-- TEXT EDITOR -->
-<script>
-    $.fn.modal.Constructor.prototype.enforceFocus = function() {
-        modal_this = this
-        $(document).on('focusin.modal', function (e) {
-            if (modal_this.$element[0] !== e.target && !modal_this.$element.has(e.target).length
-                && !$(e.target.parentNode).hasClass('cke_dialog_ui_input_select')
-                && !$(e.target.parentNode).hasClass('cke_dialog_ui_input_text')) {
-                modal_this.$element.focus()
-        }
-    })
-    };
-</script>
+{{--<script>--}}
+{{--    $.fn.modal.Constructor.prototype.enforceFocus = function() {--}}
+{{--        modal_this = this--}}
+{{--        $(document).on('focusin.modal', function (e) {--}}
+{{--            if (modal_this.$element[0] !== e.target && !modal_this.$element.has(e.target).length--}}
+{{--                && !$(e.target.parentNode).hasClass('cke_dialog_ui_input_select')--}}
+{{--                && !$(e.target.parentNode).hasClass('cke_dialog_ui_input_text')) {--}}
+{{--                modal_this.$element.focus()--}}
+{{--        }--}}
+{{--    })--}}
+{{--    };--}}
+{{--</script>--}}
 <script src="/assets/plugins/ckeditor/ckeditor.js?v=0.1" type="text/javascript"></script>
 <script src="/assets/plugins/ckeditor/config.js?v=0.1" type="text/javascript"></script>
 <!-- TEXT EDITOR -->
@@ -108,7 +108,7 @@
                         <div class="tiles green" id="mapplic_demo">
                         </div>
                         <div class="clearfix"></div>
-                        <div class="wait_loader" style=""><img src="images/squares-preloader-gif.svg" alt=""></div>
+                        <div class="wait_loader" style=""><img src="/assets/plugins/Mapplic/mapplic/images/squares-preloader-gif.svg" alt=""></div>
                     </div>
                     <div class="col-md-4 col-vlg-4 col-sm-4 no-padding wait_data">
                         <div class="tiles black" style="height: 550px;">
@@ -137,7 +137,7 @@
                             </div>
                             <div id="chart" style="height:123px"> </div>
                         </div>
-                        <div class="wait_loader" style=""><img src="images/squares-preloader-gif.svg" alt=""></div>
+                        <div class="wait_loader" style=""><img src="/assets/plugins/Mapplic/mapplic/images/squares-preloader-gif.svg" alt=""></div>
                     </div>
                 </div>
             </div>
@@ -174,10 +174,10 @@
                             </div>
                             <div id="sales-graph"> </div>
                         </div>
-                        <div class="wait_loader" style=""><img src="images/squares-preloader-gif.svg" alt=""></div>
+                        <div class="wait_loader" style=""><img src="/assets/plugins/Mapplic/mapplic/images/squares-preloader-gif.svg" alt=""></div>
                     </div>
                     <!-- END REALTIME SALES GRAPH -->
-                    
+
                 <!--noitificatuiions widget-->
                 <div class="col-md-12 col-vlg-6">
                     <div class="tiles white m-b-10">
@@ -191,7 +191,7 @@
                         <div class="scroll-wrapper dashboard_note scrollbar-dynamic" style="position: relative; height: 363px;"><div class="dashboard_note scrollbar-dynamic scroll-content scroll-scrollx_visible scroll-scrolly_visible" style="margin-bottom: -17px; margin-right: -17px; height: 380px;">
                                                                 <div class="notification-messages read notify-preview-item" data-message_id="3500">
                                 <div class="notification_data">
-                                <div class="user-profile"> <img src="images/users_profile/37200_8.jpg" alt="" data-src="images/users_profile/37200_8.jpg" data-src-retina="images/users_profile/37200_8.jpg" width="35" height="35"> </div>
+                                <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                 <div class="message-wrapper">
                                 <div class="heading"> Easy Wins with Lower CPA Offers: Give It A Shot </div>
                                 <div class="description"> <p style="margin-left:0px; margin-right:0px; text-align:start">Dear M4TRIX Affiliates,</p>
@@ -230,7 +230,7 @@
                                 </div>
                                 </div>									<div class="notification-messages info notify-preview-item" data-message_id="3498">
                                 <div class="notification_data">
-                                <div class="user-profile"> <img src="images/users_profile/37200_8.jpg" alt="" data-src="images/users_profile/37200_8.jpg" data-src-retina="images/users_profile/37200_8.jpg" width="35" height="35"> </div>
+                                <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                 <div class="message-wrapper">
                                 <div class="heading"> Try MaxPhone In This Geo: HINT. It's a Gold Mine </div>
                                 <div class="description"> <p style="margin-left:0px; margin-right:0px; text-align:start">Dear Valued Affiliate Partner,</p>
@@ -265,7 +265,7 @@
                                 </div>
                                 </div>									<div class="notification-messages info notify-preview-item" data-message_id="3494">
                                 <div class="notification_data">
-                                <div class="user-profile"> <img src="images/users_profile/37200_8.jpg" alt="" data-src="images/users_profile/37200_8.jpg" data-src-retina="images/users_profile/37200_8.jpg" width="35" height="35"> </div>
+                                <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                 <div class="message-wrapper">
                                 <div class="heading"> You've Got To Be Using These: Presell Pages </div>
                                 <div class="description"> <p>Hey M4TRIX Affiliate,</p>
@@ -306,7 +306,7 @@
                                 </div>
                                 </div>									<div class="notification-messages info notify-preview-item" data-message_id="3491">
                                 <div class="notification_data">
-                                <div class="user-profile"> <img src="images/users_profile/37200_8.jpg" alt="" data-src="images/users_profile/37200_8.jpg" data-src-retina="images/users_profile/37200_8.jpg" width="35" height="35"> </div>
+                                <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                 <div class="message-wrapper">
                                 <div class="heading"> Getting You Up To Speed: New M4TRIX Affiliates </div>
                                 <div class="description"> <p style="margin-left:0px; margin-right:0px; text-align:start">Dear Affiliate,</p>
@@ -341,7 +341,7 @@
                                 </div>
                                 </div>									<div class="notification-messages info notify-preview-item" data-message_id="3489">
                                 <div class="notification_data">
-                                <div class="user-profile"> <img src="images/users_profile/37200_8.jpg" alt="" data-src="images/users_profile/37200_8.jpg" data-src-retina="images/users_profile/37200_8.jpg" width="35" height="35"> </div>
+                                <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                 <div class="message-wrapper">
                                 <div class="heading"> Plug &amp; Play: New Territory For MaxPhone </div>
                                 <div class="description"> <p style="margin-left:0px; margin-right:0px; text-align:start">Dear Valued Affiliate Partner,</p>
@@ -376,7 +376,7 @@
                                 </div>
                                 </div>									<div class="notification-messages info notify-preview-item" data-message_id="3486">
                                 <div class="notification_data">
-                                <div class="user-profile"> <img src="images/users_profile/37200_8.jpg" alt="" data-src="images/users_profile/37200_8.jpg" data-src-retina="images/users_profile/37200_8.jpg" width="35" height="35"> </div>
+                                <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                 <div class="message-wrapper">
                                 <div class="heading"> The Fitness Craze Continues: KneeBoost Pro! </div>
                                 <div class="description"> <p style="margin-left:0px; margin-right:0px; text-align:start">Dear M4TRIX Marketer,</p>
@@ -421,7 +421,7 @@
                                 </div>
                                 </div>									<div class="notification-messages info notify-preview-item" data-message_id="3481">
                                 <div class="notification_data">
-                                <div class="user-profile"> <img src="images/users_profile/37200_8.jpg" alt="" data-src="images/users_profile/37200_8.jpg" data-src-retina="images/users_profile/37200_8.jpg" width="35" height="35"> </div>
+                                <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                 <div class="message-wrapper">
                                 <div class="heading"> Earn Big with HealthWatch - New Year Fitness Craze! </div>
                                 <div class="description"> <p style="margin-left:0px; margin-right:0px; text-align:start">Dear M4TRIX Network Affiliates,</p>
@@ -480,7 +480,7 @@
                                 </div>
                                 </div>									<div class="notification-messages info notify-preview-item" data-message_id="3479">
                                 <div class="notification_data">
-                                <div class="user-profile"> <img src="images/users_profile/37200_8.jpg" alt="" data-src="images/users_profile/37200_8.jpg" data-src-retina="images/users_profile/37200_8.jpg" width="35" height="35"> </div>
+                                <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                 <div class="message-wrapper">
                                 <div class="heading"> Beat The Control: 7 Steps To The Perfect Advertorial </div>
                                 <div class="description"> <p style="margin-left:0px; margin-right:0px; text-align:start">Dear M4TRIX Network Affiliates,</p>
@@ -535,7 +535,7 @@
                                 </div>
                                 </div>									<div class="notification-messages info notify-preview-item" data-message_id="3475">
                                 <div class="notification_data">
-                                <div class="user-profile"> <img src="images/users_profile/37200_8.jpg" alt="" data-src="images/users_profile/37200_8.jpg" data-src-retina="images/users_profile/37200_8.jpg" width="35" height="35"> </div>
+                                <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                 <div class="message-wrapper">
                                 <div class="heading"> Start 2024 With Some Easy Wins! </div>
                                 <div class="description"> <p>Greetings Affiliate,</p>
@@ -594,7 +594,7 @@
                                 </div>
                                 </div>									<div class="notification-messages info notify-preview-item" data-message_id="3472">
                                 <div class="notification_data">
-                                <div class="user-profile"> <img src="images/users_profile/37200_8.jpg" alt="" data-src="images/users_profile/37200_8.jpg" data-src-retina="images/users_profile/37200_8.jpg" width="35" height="35"> </div>
+                                <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                 <div class="message-wrapper">
                                 <div class="heading"> 2023 Year End Wrap Up! Thank You </div>
                                 <div class="description"> <p>Dear Valued Affiliates,<br>
@@ -627,7 +627,7 @@ Warm regards,<br>
                         <a href="?id=account_notifications">See All</a>
                     </div>
                 </div>
-                <div class="wait_loader" style=""><img src="images/squares-preloader-gif.svg" alt=""></div>
+                <div class="wait_loader" style=""><img src="/assets/plugins/Mapplic/mapplic/images/squares-preloader-gif.svg" alt=""></div>
             </div>
         </div>
     </div>
@@ -671,7 +671,7 @@ Warm regards,<br>
                     </div>
                 </div>
             </div>
-            <div class="wait_loader" style=""><img src="images/squares-preloader-gif.svg" alt=""></div>
+            <div class="wait_loader" style=""><img src="/assets/plugins/Mapplic/mapplic/images/squares-preloader-gif.svg" alt=""></div>
         </div>
     </div>
     <!--geo day widget-->
@@ -704,7 +704,7 @@ Warm regards,<br>
                 <div class="clearfix"></div>
             </div>
         </div>
-        <div class="wait_loader" style=""><img src="images/squares-preloader-gif.svg" alt=""></div>
+        <div class="wait_loader" style=""><img src="/assets/plugins/Mapplic/mapplic/images/squares-preloader-gif.svg" alt=""></div>
     </div>
 </div>
 

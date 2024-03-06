@@ -48,6 +48,8 @@
 {{--影响下拉--}}
 {{--<script src="/assets/plugins/bootstrapv3/js/bootstrap.js" type="text/javascript"></script>   --}}
 <script src="/js/bootstrap-tooltip-custom-class-master/bootstrap-v3/popover/dist/js/bootstrap-popover-custom-class.min.js" type="text/javascript"></script>
+
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="/assets/plugins/jquery-block-ui/jqueryblockui.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script>
@@ -70,18 +72,20 @@
 <!-- END CORE TEMPLATE JS -->
 
 <!-- TEXT EDITOR -->
-<script>
-    $.fn.modal.Constructor.prototype.enforceFocus = function() {
-        modal_this = this
-        $(document).on('focusin.modal', function (e) {
-            if (modal_this.$element[0] !== e.target && !modal_this.$element.has(e.target).length
-                && !$(e.target.parentNode).hasClass('cke_dialog_ui_input_select')
-                && !$(e.target.parentNode).hasClass('cke_dialog_ui_input_text')) {
-                modal_this.$element.focus()
-        }
-    })
-    };
-</script>
+
+{{--<script>--}}
+{{--    $.fn.modal.Constructor.prototype.enforceFocus = function() {--}}
+{{--        modal_this = this--}}
+{{--        $(document).on('focusin.modal', function (e) {--}}
+{{--            if (modal_this.$element[0] !== e.target && !modal_this.$element.has(e.target).length--}}
+{{--                && !$(e.target.parentNode).hasClass('cke_dialog_ui_input_select')--}}
+{{--                && !$(e.target.parentNode).hasClass('cke_dialog_ui_input_text')) {--}}
+{{--                modal_this.$element.focus()--}}
+{{--        }--}}
+{{--    })--}}
+{{--    };--}}
+{{--</script>--}}
+
 <script src="/assets/plugins/ckeditor/ckeditor.js?v=0.1" type="text/javascript"></script>
 <script src="/assets/plugins/ckeditor/config.js?v=0.1" type="text/javascript"></script>
 <!-- TEXT EDITOR -->
@@ -1016,240 +1020,7 @@
     // 	isNotSentFirstMessage = false;
     // });
 
-    typingLoader.style.display = 'none';
-    greetingMsg.style.display = 'none';
 
-    function showLoader() {
-        typingLoader.style.display = 'block';
-        if (userMessages.length) {
-            typingLoader.style.marginTop = userMessages[userMessages.length - 1].offsetHeight + 10 + 'px';
-        }
-        userInput.setAttribute('disabled', 'true');
-        scrollToBottom();
-    }
-
-    function hideLoader() {
-        typingLoader.style.display = 'none';
-        userInput.removeAttribute('disabled');
-    }
-
-    // Function to create a user message in the chat
-    function createUserMessage(text) {
-        const message = document.createElement('div');
-        message.className = 'user-details-wrapper pull-right';
-        message.innerHTML = `
-              <div class="user-details">
-                <div class="bubble sender">
-                  <p>`+text+`</p>
-                </div>
-              </div>
-          `;
-        return message;
-    }
-
-    // Function to create a AI message in the chat
-    function createAIMessage(text) {
-        const message = document.createElement('div');
-        message.className = 'user-details-wrapper answer';
-        message.innerHTML = `
-            <div class="user-profile">
-                <img src="images/morpheus.jpg" alt="" data-src="assets/img/profiles/d.jpg" data-src-retina="assets/img/profiles/d2x.jpg" width="35" height="35">
-            </div>
-            <div class="user-details">
-                <div class="bubble">
-                    <p>`+text+`</p>
-                </div>
-            </div>
-          `;
-        return message;
-    }
-
-    // Function to handle user input and generate AI response
-    async function handleUserInput() {
-        const userText = userInput.value;
-        if (userText.trim() !== '') {
-            const userMessage = createUserMessage(userText);
-            chatContainer.appendChild(userMessage);
-            scrollToBottom();
-            let messageBullet = 0;
-            const data = {
-                apiKey: mpAPIKey,
-                url: mpUrl,
-                email: userEMail,
-                network: netId,
-                message:userText,
-                message_bullet: messageBullet
-            };
-
-            if (!isNotSentFirstMessage) {
-                await saveChatMsg(data);
-            }
-
-            const aiResponse = await getAIResponse(userText);
-
-            if (!isNotSentFirstMessage) {
-                data.message = aiResponse;
-                data.message_bullet = 1;
-                await saveChatMsg(data);
-            }
-
-            const aiMessage = createAIMessage(aiResponse);
-            chatContainer.appendChild(aiMessage);
-
-            scrollToBottom();
-
-            userInput.value = '';
-        }
-    }
-
-    // Function to scroll to the bottom of the chat container
-    function scrollToBottom() {
-        chatElement.scrollTop = chatElement.scrollHeight;
-    }
-
-    // Event listener for the send button click
-    sendButton.addEventListener('click', handleUserInput);
-
-    // Event listener for the Enter key press in the input field
-    userInput.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter' && !userInput.hasAttribute('disabled')) {
-            handleUserInput();
-        }
-    });
-
-    // Get clickable URLS from String
-    function replaceURLs(message) {
-        if(!message) return;
-
-        var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
-        return message.replace(urlRegex, function (url) {
-            var hyperlink = url;
-            if (!hyperlink.match('^https?:\/\/')) {
-                hyperlink = 'http://' + hyperlink;
-            }
-            return '<a href="' + hyperlink + '" target="_blank" rel="noopener noreferrer">' + url + '</a>'
-        });
-    }
-
-    // Function to get AI response using Fetch API
-    async function getAIResponse(userText, isFirstMsg = false, isShowLoader = true) {
-        if (isShowLoader) {
-            showLoader();
-        }
-        try {
-            const response = await fetch(flowiseEndpoint, {
-                headers: {
-                    Authorization: flowiseBearer,
-                    "Content-Type": "application/json"
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    question: userText
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error('AI request failed');
-            }
-
-            const data = await response.json();
-            if(isFirstMsg) {
-                greetingMsg.style.display = 'flex';
-
-                const historyData = {
-                    network: netId,
-                    email: userEMail,
-                    url: mpUrl
-                };
-
-                await getChatHistory(historyData);
-            }
-            hideLoader();
-            return replaceURLs(data);
-        } catch (error) {
-            console.error(error);
-            return 'Oops! Something went wrong.';
-            hideLoader();
-        }
-    }
-
-    async function saveChatMsg(data) {
-        const myHeaders = new Headers();
-        const { network, email, message_bullet, message, url} = data;
-        myHeaders.append("apiKey", "fLXbBFB4UpVTTtRvQd8W7ibe");
-
-        const formData = new FormData();
-        formData.append("network", network);
-        formData.append("email", email);
-        formData.append("message_bullet", message_bullet);
-        formData.append("message", message);
-
-        const requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: formData,
-            // redirect: 'follow'
-        };
-
-        fetch(`${url}/api/v2/chat/`, requestOptions)
-            .catch(error => console.log('error', error));
-    }
-
-    //Chat history
-    async function getChatHistory(data) {
-        const myHeaders = new Headers();
-        const { network, email, url} = data;
-        const { dateFrom, dateTo } = getDates();
-        myHeaders.append("apiKey", "fLXbBFB4UpVTTtRvQd8W7ibe");
-        const requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-        };
-
-        fetch(`${url}/api/v2/chat/?` + new URLSearchParams({
-            'network': network,
-            'email': email,
-            'date_from': dateFrom,
-            'date_to': dateTo,
-        }), requestOptions).then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        }).then(res => {
-            const mesAr = res.data;
-                mesAr.forEach((message) => {
-                    const messageElementWrapper = document.createElement('div');
-                    const messageElementInner = document.createElement('div');
-                    const messageElementBubble = document.createElement('div');
-                    const parser = new DOMParser();
-                    messageElementWrapper.className = message.message_bullet === 1 ? 'user-details-wrapper answer' : 'user-details-wrapper pull-right';
-                    messageElementInner.className = 'user-details';
-                    messageElementBubble.className = message.message_bullet === 1 ? 'bubble' : 'bubble sender';
-                    messageElementBubble.innerHTML = message.message;
-                    if(message.message_bullet === 1) {
-                        messageElementWrapper.innerHTML = `<div class="user-profile">
-                            <img src="images/morpheus.jpg" alt="" data-src="assets/img/profiles/d.jpg" data-src-retina="assets/img/profiles/d2x.jpg" width="35" height="35">
-                        </div>`;
-                    }
-                    chatContainer.appendChild(messageElementWrapper);
-                    messageElementWrapper.appendChild(messageElementInner);
-                    messageElementInner.appendChild(messageElementBubble);
-                });
-            scrollToBottom();
-        })
-            .catch(error => console.log('error', error));
-    }
-    function getDates() {
-        const currentDate = new Date();
-        const year = currentDate.getFullYear();
-        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-        const day = String(currentDate.getDate()).padStart(2, '0');
-        const dateFrom = `${year}-${month}-${day} 00:00:00`;
-        const dateTo = `${year}-${month}-${day} 23:59:59`;
-
-        return {dateFrom, dateTo};
-    }
 </script>
 
 <script>
@@ -1296,23 +1067,7 @@
             }
 
 
-            // 获取<ul>元素下的所有<li>元素
-            // var liElements = ul.querySelectorAll('li');
 
-            // console.log('test123',liElements);
-
-
-            // 循环遍历每个<li>元素
-            // liElements.forEach(function (li) {
-            //     // 检查是否是目标元素（这里以id为"targetItem"的元素为例）
-            //     if (li.id === 'targetItem') {
-            //         // 获取目标<li>元素的文本内容
-            //         var value = li.textContent || li.innerText;
-            //
-            //         // 打印或使用该值
-            //         console.log(value);
-            //     }
-            // });
         });
 
 
@@ -1322,108 +1077,13 @@
 
 
 
-        // $('#myList li').on('click', function() {
-        //     // 获取被点击的 li 的文本内容
-        //     var selectedValue = $(this).text();
-        //
-        //     var originalValue = $("#myInput").val();
-        //
-        //     var hidden_value = $("#hidden_value").val();
-        //
-        //     console.log(hidden_value)
-        //
-        //
-        //
-        //     // 将值赋给 foreach 内部的第一个 input
-        //     $('#myInput1 #myInput').val(selectedValue);
-        //
-        //
-        //
-        //
-        //
-        //     if ($("#myInput").val() === originalValue) {
-        //         console.log("赋值成功！");
-        //     } else {
-        //         console.log("赋值失败！");
-        //     }
-        // });
 
 
     });
 
 
-    // $(document).ready(function () {
-    //     // 初始化 Clipboard.js
-    //     var clipboard = new ClipboardJS('.copy-button');
-    //     // 处理复制成功事件
-    //     clipboard.on('success', function (e) {
-    //         alert('复制成功!');
-    //         e.clearSelection(); // 清除选定文本
-    //     });
-    //     // 处理复制失败事件
-    //     clipboard.on('error', function (e) {
-    //         alert('Copy failed. Please try again.');
-    //     });
-    // });
-    //
-    //
-    // $(document).ready(function () {
-    //     // 初始化 Clipboard.js
-    //     var clipboard = new ClipboardJS('.copy-button2');
-    //     // 处理复制成功事件
-    //     clipboard.on('success', function (e) {
-    //         alert('复制成功1!');
-    //         e.clearSelection(); // 清除选定文本
-    //     });
-    //
-    //     // 处理复制失败事件
-    //     clipboard.on('error', function (e) {
-    //         alert('Copy failed. Please try again.');
-    //     });
-    // });
-
-    $('#searchBtn').click(function (e) {
-
-        e.preventDefault();
-        var formData = $('#form_id').serialize();
-        var keyword = $('#keyword').val();
-        var _token = $('#_token').val();
-        var category = $('.category').val();
-        var geos = $('.geos').val();
-        var sort = $('.sort').val();
-
-        $.ajax({
-            type: 'POST',
-            url: '/admin/offer/query',
-            data: {
-                keyword: keyword,
-                _token: _token,
-                category: category,
-                geos: geos,
-                sort: sort,
-            },
-            success: function (data) {
 
 
-                // $("#keyword1").html("Hello <b>world</b>!");
 
-                // console.log('返回数据',123)
-                //
-                // alert(123)
-                //
-                // $("#test").html()
-
-                $('.categories_offer_left').empty();
-                $('.categories_offer_right').empty();
-
-                $('.categories_offer_left').html(data.left_data);
-                $('.categories_offer_right').html(data.right_data);
-
-                console.info('返回数据', data)
-                // console.info('返回数据1')
-                // do something with the response data
-            }
-        });
-    });
 
 </script>

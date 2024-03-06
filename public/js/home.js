@@ -505,7 +505,7 @@ var home_vidgets = {
 			}
 		}).done(function(response){
 
-           console.log(response)
+           // console.log(response)
 			if(response && response.logout){
 				logout_visual.auto_logout(response.logout);
 			}else{
