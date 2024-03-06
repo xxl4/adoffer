@@ -34,12 +34,10 @@
 <!-- BEGIN JS DEPENDECENCIES-->
 <script src="/js/jquery-2.1.4.js"></script>
 
-
+{{--需要启用，不然会有些地方会报错--}}
 <script src="/assets/plugins/bootstrapv3/js/bootstrap.js" type="text/javascript"></script>
 
 
-{{--影响下拉--}}
-{{--<script src="/assets/plugins/bootstrapv3/js/bootstrap.js" type="text/javascript"></script>   --}}
 <script src="/js/bootstrap-tooltip-custom-class-master/bootstrap-v3/popover/dist/js/bootstrap-popover-custom-class.min.js" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="/assets/plugins/jquery-block-ui/jqueryblockui.min.js" type="text/javascript"></script>
