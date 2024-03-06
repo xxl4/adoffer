@@ -44,6 +44,15 @@ class IntelligencesController extends AdminController
     }
 
 
+    public function indexV2(Content $content, Request $request) {
+
+        Admin::disablePjax();
+
+        $data = [];
+        return $content->title("Inteligences")->view("admin/inteligences/index-v2",compact("data"));
+
+    }
+
     public function echat(Content $content)
     {
         Admin::disablePjax();

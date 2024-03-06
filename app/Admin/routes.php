@@ -73,6 +73,11 @@ Route::group([
     $router->resource('track_lists', 'TrackListsController')->names('admin.TrackLists');
 
 
+
+
+    $router->any('intelligences/index-v2', "IntelligencesController@indexV2")->name('admin.Intelligences.index.v2');
+
+
     $router->any('intelligences/echat', "IntelligencesController@echat")->name('admin.Intelligences');
     $router->get('intelligences/offerPie', "IntelligencesController@offerPie")->name('admin.Intelligences');
     $router->get('intelligences/countryPie', "IntelligencesController@countryPie")->name('admin.Intelligences');
