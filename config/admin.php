@@ -25,7 +25,7 @@ return [
 //    'logo' => '<b>Laravel</b> admin',
 //http://localhost:81/upload/images/logo.png
 
-    'logo' => '<img src="/upload/images/logo.png?v=1" style="width: 170px;height: 25px" alt="Admin logo">',
+    'logo' => '<img src="/upload/images/logo.png?v=2" style="width: 170px;height: 25px" alt="Admin logo">',
 
     /*
     |--------------------------------------------------------------------------
