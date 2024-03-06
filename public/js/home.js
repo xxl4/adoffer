@@ -28,7 +28,7 @@ var home_vidgets = {
 
 		$.ajax({
 			method: 'POST',
-			url: window.domain + '/admin/home/reporting',
+			url: window.domain + '/home/reporting',
 
 
 			dataType: "json",
@@ -167,7 +167,7 @@ var home_vidgets = {
 		$.ajax({
 			method: 'post',
 			//url: 'classes/Class.Dashboard.php',
-			url: window.domain + '/admin/home/search',
+			url: window.domain + '/home/search',
 			dataType: 'json',
 			headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -219,7 +219,7 @@ var home_vidgets = {
 		$.ajax({
 			method: 'post',
 			//url: 'classes/Class.Dashboard.php',
-			url: window.domain + '/admin/home/search',
+			url: window.domain + '/home/search',
 			dataType: 'json',
 			headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -274,7 +274,7 @@ var home_vidgets = {
 		$.ajax({
 			method: 'post',
 			//url: 'classes/Class.Dashboard.php',
-			url: window.domain + '/admin/home/dashboard',
+			url: window.domain + '/home/dashboard',
 			dataType: 'json',
 			headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -442,7 +442,7 @@ var home_vidgets = {
 		$.ajax({
 			method: 'post',
 			//url: 'classes/Class.Dashboard.php',
-			url: window.domain + '/admin/home/search',
+			url: window.domain + '/home/search',
 			dataType: 'json',
 			headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -494,7 +494,7 @@ var home_vidgets = {
 		$.ajax({
 			method:'post',
 			// url:'classes/Class.Dashboard.php',
-			url: window.domain + '/admin/home/search',
+			url: window.domain + '/home/search',
 			dataType:'json',
 			headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
