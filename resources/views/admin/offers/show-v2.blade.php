@@ -964,6 +964,296 @@
     });
 </script>
 
+<script >
+    // Get the necessary elements from the HTML
+    const chatContainer = document.getElementById('chatContainer');
+    const userInput = document.getElementById('userInput');
+    const sendButton = document.getElementById('sendButton');
+    const loader = document.getElementById('loader');
+    const typingLoader = document.getElementById('chat-bubble-load');
+    const greetingMsg = document.getElementById('greeting-msg');
+    const chatElement = document.getElementById('chat-window-element');
+    const userMessages = document.getElementsByClassName('user-details-wrapper pull-right');
+    const netId = "6546";
+    const userEMail = "nzueom@hotmail.com";
+    const userName = "jun";
+    const country = "";
+    const mpAPIKey = "fLXbBFB4UpVTTtRvQd8W7ibe";
+    const mpUrl = "https://novads.co";
+    let isNotSentFirstMessage = true;
+    const firstMsg = `My name is ${userName}, net is ${netId}, email is ${email}, country is ${country} please save this parameters`;
+
+    let flowiseEndpoint = false;
+    let flowiseBearer = false;
+
+
+    var clipboard = new Clipboard('.copp');
+
+    // document.addEventListener("DOMContentLoaded", (event) => {
+    // 	if (isNotSentFirstMessage) {
+    // 		// getAIResponse(firstMsg, true, true);
+    // 	}
+    // 	greetingMsg.style.display = 'flex';
+    //
+    // 	const historyData = {
+    // 		network: netId,
+    // 		email: userEMail,
+    // 		url: mpUrl
+    // 	};
+    //
+    // 	$.ajax({
+    // 		method: 'post',
+    // 		url: 'classes/Class.chatbot.php',
+    // 		dataType: 'json',
+    // 		data: {
+    // 			step: 'get_first_default',
+    // 		}
+    // 	}).done(function (response) {
+    // 		flowiseEndpoint = response[0].data;
+    // 		flowiseBearer = response[0].key;
+    // 	});
+    //
+    // 	getChatHistory(historyData);
+    //
+    // 	isNotSentFirstMessage = false;
+    // });
+
+    typingLoader.style.display = 'none';
+    greetingMsg.style.display = 'none';
+
+    function showLoader() {
+        typingLoader.style.display = 'block';
+        if (userMessages.length) {
+            typingLoader.style.marginTop = userMessages[userMessages.length - 1].offsetHeight + 10 + 'px';
+        }
+        userInput.setAttribute('disabled', 'true');
+        scrollToBottom();
+    }
+
+    function hideLoader() {
+        typingLoader.style.display = 'none';
+        userInput.removeAttribute('disabled');
+    }
+
+    // Function to create a user message in the chat
+    function createUserMessage(text) {
+        const message = document.createElement('div');
+        message.className = 'user-details-wrapper pull-right';
+        message.innerHTML = `
+              <div class="user-details">
+                <div class="bubble sender">
+                  <p>`+text+`</p>
+                </div>
+              </div>
+          `;
+        return message;
+    }
+
+    // Function to create a AI message in the chat
+    function createAIMessage(text) {
+        const message = document.createElement('div');
+        message.className = 'user-details-wrapper answer';
+        message.innerHTML = `
+            <div class="user-profile">
+                <img src="images/morpheus.jpg" alt="" data-src="assets/img/profiles/d.jpg" data-src-retina="assets/img/profiles/d2x.jpg" width="35" height="35">
+            </div>
+            <div class="user-details">
+                <div class="bubble">
+                    <p>`+text+`</p>
+                </div>
+            </div>
+          `;
+        return message;
+    }
+
+    // Function to handle user input and generate AI response
+    async function handleUserInput() {
+        const userText = userInput.value;
+        if (userText.trim() !== '') {
+            const userMessage = createUserMessage(userText);
+            chatContainer.appendChild(userMessage);
+            scrollToBottom();
+            let messageBullet = 0;
+            const data = {
+                apiKey: mpAPIKey,
+                url: mpUrl,
+                email: userEMail,
+                network: netId,
+                message:userText,
+                message_bullet: messageBullet
+            };
+
+            if (!isNotSentFirstMessage) {
+                await saveChatMsg(data);
+            }
+
+            const aiResponse = await getAIResponse(userText);
+
+            if (!isNotSentFirstMessage) {
+                data.message = aiResponse;
+                data.message_bullet = 1;
+                await saveChatMsg(data);
+            }
+
+            const aiMessage = createAIMessage(aiResponse);
+            chatContainer.appendChild(aiMessage);
+
+            scrollToBottom();
+
+            userInput.value = '';
+        }
+    }
+
+    // Function to scroll to the bottom of the chat container
+    function scrollToBottom() {
+        chatElement.scrollTop = chatElement.scrollHeight;
+    }
+
+    // Event listener for the send button click
+    sendButton.addEventListener('click', handleUserInput);
+
+    // Event listener for the Enter key press in the input field
+    userInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter' && !userInput.hasAttribute('disabled')) {
+            handleUserInput();
+        }
+    });
+
+    // Get clickable URLS from String
+    function replaceURLs(message) {
+        if(!message) return;
+
+        var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+        return message.replace(urlRegex, function (url) {
+            var hyperlink = url;
+            if (!hyperlink.match('^https?:\/\/')) {
+                hyperlink = 'http://' + hyperlink;
+            }
+            return '<a href="' + hyperlink + '" target="_blank" rel="noopener noreferrer">' + url + '</a>'
+        });
+    }
+
+    // Function to get AI response using Fetch API
+    async function getAIResponse(userText, isFirstMsg = false, isShowLoader = true) {
+        if (isShowLoader) {
+            showLoader();
+        }
+        try {
+            const response = await fetch(flowiseEndpoint, {
+                headers: {
+                    Authorization: flowiseBearer,
+                    "Content-Type": "application/json"
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    question: userText
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('AI request failed');
+            }
+
+            const data = await response.json();
+            if(isFirstMsg) {
+                greetingMsg.style.display = 'flex';
+
+                const historyData = {
+                    network: netId,
+                    email: userEMail,
+                    url: mpUrl
+                };
+
+                await getChatHistory(historyData);
+            }
+            hideLoader();
+            return replaceURLs(data);
+        } catch (error) {
+            console.error(error);
+            return 'Oops! Something went wrong.';
+            hideLoader();
+        }
+    }
+
+    async function saveChatMsg(data) {
+        const myHeaders = new Headers();
+        const { network, email, message_bullet, message, url} = data;
+        myHeaders.append("apiKey", "fLXbBFB4UpVTTtRvQd8W7ibe");
+
+        const formData = new FormData();
+        formData.append("network", network);
+        formData.append("email", email);
+        formData.append("message_bullet", message_bullet);
+        formData.append("message", message);
+
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formData,
+            // redirect: 'follow'
+        };
+
+        fetch(`${url}/api/v2/chat/`, requestOptions)
+            .catch(error => console.log('error', error));
+    }
+
+    //Chat history
+    async function getChatHistory(data) {
+        const myHeaders = new Headers();
+        const { network, email, url} = data;
+        const { dateFrom, dateTo } = getDates();
+        myHeaders.append("apiKey", "fLXbBFB4UpVTTtRvQd8W7ibe");
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+        };
+
+        fetch(`${url}/api/v2/chat/?` + new URLSearchParams({
+            'network': network,
+            'email': email,
+            'date_from': dateFrom,
+            'date_to': dateTo,
+        }), requestOptions).then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        }).then(res => {
+            const mesAr = res.data;
+                mesAr.forEach((message) => {
+                    const messageElementWrapper = document.createElement('div');
+                    const messageElementInner = document.createElement('div');
+                    const messageElementBubble = document.createElement('div');
+                    const parser = new DOMParser();
+                    messageElementWrapper.className = message.message_bullet === 1 ? 'user-details-wrapper answer' : 'user-details-wrapper pull-right';
+                    messageElementInner.className = 'user-details';
+                    messageElementBubble.className = message.message_bullet === 1 ? 'bubble' : 'bubble sender';
+                    messageElementBubble.innerHTML = message.message;
+                    if(message.message_bullet === 1) {
+                        messageElementWrapper.innerHTML = `<div class="user-profile">
+                            <img src="images/morpheus.jpg" alt="" data-src="assets/img/profiles/d.jpg" data-src-retina="assets/img/profiles/d2x.jpg" width="35" height="35">
+                        </div>`;
+                    }
+                    chatContainer.appendChild(messageElementWrapper);
+                    messageElementWrapper.appendChild(messageElementInner);
+                    messageElementInner.appendChild(messageElementBubble);
+                });
+            scrollToBottom();
+        })
+            .catch(error => console.log('error', error));
+    }
+    function getDates() {
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const dateFrom = `${year}-${month}-${day} 00:00:00`;
+        const dateTo = `${year}-${month}-${day} 23:59:59`;
+
+        return {dateFrom, dateTo};
+    }
+</script>
+
 <script>
 
 
