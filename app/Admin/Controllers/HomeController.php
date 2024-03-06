@@ -338,6 +338,12 @@ class HomeController extends Controller
         return response()->json($data);
     }
 
+    public function indexV2(Content $content, Request $request) {
+
+        $data = [];
+        return $content->title("Index V2")->view("admin/home/index-v2", compact('data'));
+    }
+
     public function reporting(Request $request)
     {
 

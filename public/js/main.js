@@ -1,5 +1,5 @@
 var name = 'name';
-var Company = 'Compnay';
+var сompany = 'сompany';
 var email = 'email';
 var password = 'password';
 var phone = 'phone';
@@ -381,7 +381,7 @@ var user_tracking = {
 
 		$(document).off('click', '.tracking-tab-pixels').on('click', '.tracking-tab-pixels', function(event){
 			event.preventDefault();
-
+			
 			let $loader = $('.tracking-tab-pixels-loader');
 			let $container = $('.tracking-tab-pixels-container');
 
@@ -464,8 +464,8 @@ var user_tracking = {
 	},
 	quotes_fixes_write: function(pixeldata){
 		var fixed_quotes = pixeldata.toString().replace(/\'/g,'-squot;').replace(/\"/g,'-quot;').replace(/\r/g,'-new_r-').replace(/\n/g,'-new_n-');
-		fixed_quotes = fixed_quotes.replace(/â€˜/g,'-squot;').replace(/â€™/g,'-squot;');
-		fixed_quotes = fixed_quotes.replace(/â€/g,'-quot;').replace(/â€œ/g,'-quot;');
+		fixed_quotes = fixed_quotes.replace(/‘/g,'-squot;').replace(/’/g,'-squot;');
+		fixed_quotes = fixed_quotes.replace(/”/g,'-quot;').replace(/“/g,'-quot;');
 		return fixed_quotes;
 	},
 	get_tracking_links : function(form){
@@ -636,7 +636,7 @@ var change_pass = {
 		if(new_pass != confirem_pass){
 			$('#field_new_pass,#confirm_new_pass,#old_pass').val('').removeClass(error_class);
 			$('#change_pass').modal('hide');
-			result = 'Youâ€™re new passwords do not match, Get your shit together!';
+			result = 'You’re new passwords do not match, Get your shit together!';
 			act = 'error';
 			title = 'Error!';
 			ButtonClass = 'btn btn-danger btn-cons';
@@ -1008,8 +1008,6 @@ $(function(){
 	theme_switch.init();
 	managerFilter.init();
 	net.init();
-
-    console.log("main managerFilter")
 
 	$('.refresh').on('click', function(){
 		location.reload();

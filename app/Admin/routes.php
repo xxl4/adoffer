@@ -15,6 +15,9 @@ Route::group([
     $router->post('home/dashboard', 'HomeController@dashboard')->name('home');
     $router->any('home/query', 'HomeController@query')->name('home');
 
+    // home index v2
+    $router->get('/index-v2', 'HomeController@indexV2')->name("home.index.v2");
+
     $router->post('home/search', 'HomeController@search')->name("admin.home.data");
     $router->post('home/reporting', 'HomeController@reporting')->name("admin.home.reporting");
 
@@ -70,6 +73,11 @@ Route::group([
 
 
     $router->resource('track_lists', 'TrackListsController')->names('admin.TrackLists');
+
+
+
+
+    $router->any('intelligences/index-v2', "IntelligencesController@indexV2")->name('admin.Intelligences.index.v2');
 
 
     $router->any('intelligences/echat', "IntelligencesController@echat")->name('admin.Intelligences');
