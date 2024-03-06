@@ -28,7 +28,7 @@ var home_vidgets = {
 
 		$.ajax({
 			method: 'POST',
-			url: '/admin/home/reporting',
+			url: '/home/reporting',
 
 
 			dataType: "json",
@@ -41,6 +41,7 @@ var home_vidgets = {
 			if(response && response.logout){
 				logout_visual.auto_logout(response.logout);
 			}else if(response){
+				console.log("map_plugin");
 				$('#mapplic_demo').mapplic({
 					source: response,
 					height:550,
@@ -166,7 +167,7 @@ var home_vidgets = {
 		$.ajax({
 			method: 'post',
 			//url: 'classes/Class.Dashboard.php',
-			url: '/admin/home/search',
+			url: '/home/search',
 			dataType: 'json',
 			headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -218,7 +219,7 @@ var home_vidgets = {
 		$.ajax({
 			method: 'post',
 			//url: 'classes/Class.Dashboard.php',
-			url:'/admin/home/search',
+			url:'/home/search',
 			dataType: 'json',
 			headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -273,7 +274,7 @@ var home_vidgets = {
 		$.ajax({
 			method: 'post',
 			//url: 'classes/Class.Dashboard.php',
-			url: '/admin/home/dashboard',
+			url: '/home/dashboard',
 			dataType: 'json',
 			headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -441,7 +442,7 @@ var home_vidgets = {
 		$.ajax({
 			method: 'post',
 			//url: 'classes/Class.Dashboard.php',
-			url: '/admin/home/search',
+			url: '/home/search',
 			dataType: 'json',
 			headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -493,7 +494,7 @@ var home_vidgets = {
 		$.ajax({
 			method:'post',
 			// url:'classes/Class.Dashboard.php',
-			url: '/admin/home/search',
+			url: '/home/search',
 			dataType:'json',
 			headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -519,6 +520,7 @@ var home_vidgets = {
 }
 
 $(function(){
+	console.log("start....");
 	home_vidgets.init();
 	home_vidgets.loadServerChart();
 	if($('.last_sales').length){
