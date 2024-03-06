@@ -9,6 +9,7 @@ use App\Models\Delivery;
 use App\Models\Geos;
 use App\Models\LandPage;
 use App\Models\Offer;
+use App\Models\OfferLog;
 use App\Models\OfferTracks;
 use App\Models\OfferTracksCate;
 use App\Models\OfferTracksCates;
@@ -29,6 +30,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Encore\Admin\Facades\Admin;
+
 //use Jxlwqq\WangEditor2\Editor;
 use Encore\Admin\Form\Field\Editor;
 
@@ -282,7 +284,7 @@ class OfferController extends AdminController
             foreach ($items as $key => $item) {
 
 
-                $offer['htmlTrackingLinks'] = $this->track1($key,$item);
+                $offer['htmlTrackingLinks'] = $this->track1($key, $item);
 
                 $offer = [];
                 $offer['data'] = [];
@@ -296,13 +298,13 @@ class OfferController extends AdminController
                 $offer['data']['tracking'] = $this->track($item['id']);
 
 
-                $offer['htmlProductsDataFeed'] =  $this->htmlProduct($key,$item);
+                $offer['htmlProductsDataFeed'] = $this->htmlProduct($key, $item);
                 //$offer['htmlTrackingLinks'] = $this->htmlTrack($key, $item['id']);
-                $offer['htmlTrackingLinks'] = $this->track1($key,$item);
+                $offer['htmlTrackingLinks'] = $this->track1($key, $item);
 
 
                 $offer['id'] = $item['id'];
-                $offer['image'] =env('APP_URL') . '/upload/'. $item['image'];
+                $offer['image'] = env('APP_URL') . '/upload/' . $item['image'];
                 $offer['name'] = $item['offer_name'];
 
 
@@ -316,36 +318,13 @@ class OfferController extends AdminController
                 $offer['show_name'] = $item['offer_name'];
 
 
-
-
-                if($item['offer_status']==1){
+                if ($item['offer_status'] == 1) {
                     $status = 'Live';
-                }else{
+                } else {
                     $status = 'Paused';
                 }
 
                 $offer['status'] = $status;
-
-
-
-
-//                $offer['htmlProductsDataFeed'] = $this->htmlProduct($item->id);
-//                $offer['htmlTrackingLinks'] = $this->htmlTrack($item->id);
-//                $offer['id'] = $item->id;
-//                $offer['image'] = env('APP_URL') . '/upload/'. $item->image;
-//                $offer['name'] = $item->offer_name;
-
-
-
-//                $offer['htmlProductsDataFeed'] = "";
-//                $offer['htmlTrackingLinks'] = "";
-//                $offer['id'] = $item->id;
-//                $offer['image'] = $item->id;
-//                $offer['name'] = $item->id;
-
-
-
-
                 $offers[] = $offer;
             }
 
@@ -360,14 +339,10 @@ class OfferController extends AdminController
     }
 
 
-
-
-
-
     protected function offer_des()
     {
 
-      $data = '<p>
+        $data = '<p>
                 <strong>E-commerce - CozyTime Pro INTL - All Languages - EXCLUSIVE</strong>
                 </p>
 
@@ -382,18 +357,18 @@ class OfferController extends AdminController
      */
     protected function creative($creatives_id)
     {
-        $data = Creatives::whereIn('id',$creatives_id)->get()->toArray();
-        if(!empty($data)){
+        $data = Creatives::whereIn('id', $creatives_id)->get()->toArray();
+        if (!empty($data)) {
             $des = '';
-            foreach ($data as $key=>$value){
-                $des .='<p>'.$value['name'].':</p><p>
-                <a href="'.$value['link'].'" target="_blank">'.$value['link'].'</a>
+            foreach ($data as $key => $value) {
+                $des .= '<p>' . $value['name'] . ':</p><p>
+                <a href="' . $value['link'] . '" target="_blank">' . $value['link'] . '</a>
                 </p>';
             }
             return $des;
         }
 
-        $data = array_column($data,'country');
+        $data = array_column($data, 'country');
         return $data;
 
     }
@@ -404,8 +379,8 @@ class OfferController extends AdminController
      */
     protected function geo($accepted_area)
     {
-        $data = Geos::whereIn('id',$accepted_area)->get('country')->toArray();
-        $data = array_column($data,'country');
+        $data = Geos::whereIn('id', $accepted_area)->get('country')->toArray();
+        $data = array_column($data, 'country');
         return $data;
 
     }
@@ -423,7 +398,7 @@ class OfferController extends AdminController
 
         if (!empty($track_cate)) {
 
-            $track_link = OfferTracks::whereIn('id', $track_cate['track_cate_id'])->select('id','track_name as tracking_title', 'track_link as tracking_link', 'offer_id')->get()->toArray();
+            $track_link = OfferTracks::whereIn('id', $track_cate['track_cate_id'])->select('id', 'track_name as tracking_title', 'track_link as tracking_link', 'offer_id')->get()->toArray();
             if (!empty($track_link)) {
 
                 foreach ($track_link as $x => $y) {
@@ -449,52 +424,49 @@ class OfferController extends AdminController
 
         $offersDomain = Delivery::where('status', 1)->get()->toArray();
 
-                        $data1 = ' <div class="tab-pane" id="tab'. $key.'ProductsFeed">
+        $data1 = ' <div class="tab-pane" id="tab' . $key . 'ProductsFeed">
                                     <div class="row">
                                     <div class="col-md-12">
-                                    '.$offer['product_feed_des'].'
+                                    ' . $offer['product_feed_des'] . '
                                     </div>
                                     <div class="col-md-12"><!-- dropdown domains -->
                                     <div class="btn-group m-b-30">
                                     <a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="#">Select your Products Feed domain<span class="caret"></span></a>
                                     <ul class="dropdown-menu domains-menu domains-menu-feed">';
 
-                                if(!empty($offersDomain)){
-                                    $offersDomainList = '';
-                                    foreach ($offersDomain as $key=>$value){
-                                        $offersDomainList .='<li><a href="#" class="offersDomain" data-domain="'.$value['delivery_link'].'">'.$value['delivery_link'].'</a></li>';
+        if (!empty($offersDomain)) {
+            $offersDomainList = '';
+            foreach ($offersDomain as $key => $value) {
+                $offersDomainList .= '<li><a href="#" class="offersDomain" data-domain="' . $value['delivery_link'] . '">' . $value['delivery_link'] . '</a></li>';
 
-                                    }
-                                }
+            }
+        }
 
-                                $data2 =$offersDomainList;
-                                $data3 ='</ul></div><!-- end dropdown domains --></div>';
-                                $product_feed = ProductsFeed::whereIn('id',$offer['product_feed_id'])->get()->toArray();
+        $data2 = $offersDomainList;
+        $data3 = '</ul></div><!-- end dropdown domains --></div>';
+        $product_feed = ProductsFeed::whereIn('id', $offer['product_feed_id'])->get()->toArray();
 
-                               if(!empty($product_feed)){
-                                   $data4 = '';
-                                   foreach ($product_feed as $k=>$v){
-                                       $data4.='<div class="col-md-12">
-                                    <div>'.$v['title'].'</div>
-                                    <input readonly type="text" class="form-control trecking_link clipboard-ProductsFeed-'.$k.' dynamicDomainTrackingLink" value="'.$v['link'].'">
-                                    <a href="'.$v['link'].'" target="_blank" class="dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a>
-                                    <button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-ProductsFeed-'.$k.'">Copy</button>
+        if (!empty($product_feed)) {
+            $data4 = '';
+            foreach ($product_feed as $k => $v) {
+                $data4 .= '<div class="col-md-12">
+                                    <div>' . $v['title'] . '</div>
+                                    <input readonly type="text" class="form-control trecking_link clipboard-ProductsFeed-' . $offer['id'] . '-'.$v['id'] .' dynamicDomainTrackingLink" value="' . $v['link'] . '">
+                                    <a href="' . $v['link'] . '" target="_blank" class="dynamicDomainTrackingLink"><i class="icon ion-eye pull-right"></i></a>
+                                    <button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy" data-clipboard-target=".clipboard-ProductsFeed-' . $offer['id'] . '-'.$v['id'].'">Copy</button>
                                     </div>';
-                                   }
+            }
 
-                               }else{
-                                   $data4 = '';
-                               }
+        } else {
+            $data4 = '';
+        }
 
-                                $data5= '</div></div>';
-                                $data = $data1.$data2.$data3.$data4.$data5;
+        $data5 = '</div></div>';
+        $data = $data1 . $data2 . $data3 . $data4 . $data5;
 
-                                return $data;
+        return $data;
 
     }
-
-
-
 
 
     /***
@@ -505,8 +477,77 @@ class OfferController extends AdminController
      */
     public function intelligence(Request $request)
     {
-        $result = [];
-        return response()->json($result);
+
+        $currentUser = auth()->user(); // 获取当前登录用户的模型对象
+        $admin_id = $currentUser->id; // 输出当前用户名称
+
+
+        $where = [];
+        $user_id = Admin::user()->id;
+        if (!Admin::user()->isAdministrator()) {
+            $where['log.admin_id'] = $user_id;
+        }
+
+
+        $step = $request->input("step");
+        $options = $request->input("options");
+
+
+        $short_name = $options['filter']['offers'][0];
+        $start = date('Y-m-d 00:00:00', strtotime($options['start']));
+        $end = date('Y-m-d 23:59:59', strtotime($options['end']));
+
+        if ($step == 'intelligence_geos') {
+
+
+            $offer_top = DB::table('offer_logs AS log')
+                ->where('log.status', 2)
+                ->where('log.created_at', '>', $start)
+                ->where('log.created_at', '<=', $end)
+                ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
+                ->where('o.offer_name', $short_name)
+                ->where($where)
+                ->select(DB::raw('count(log.id) as offer_total'), 'log.country_id')
+                ->groupBy('log.country_id')
+                ->orderByDesc('offer_total')
+                ->get()
+                ->toArray();
+
+
+            if (!empty($offer_top)) {
+
+                $offer_sale_list = array_column($offer_top, 'offer_total');
+                $offer_total_sale = array_sum($offer_sale_list);
+
+                $country_count = [];
+                foreach ($offer_top as $key => $value) {
+                    $country_count[$key]['names'] = Geos::where('id', $value->country_id)->value('country');
+                    $country_count[$key]['vals'] = $value->offer_total;
+
+                    if($offer_total_sale==0){
+                        $country_count[$key]['percent'] =0;
+                    }else{
+                        $country_count[$key]['percent'] = round($value->offer_total / $offer_total_sale * 100, 2);
+                    }
+                }
+            } else {
+                $country_count = [];
+            }
+
+
+            $names = array_column($country_count, 'names');
+            $vals = array_column($country_count, 'percent');
+
+
+
+            $data = [];
+            $data['ios'] = ['United Kingdom' => 'GB'];
+            $data['names'] = $names;
+            $data['vals'] = $vals;
+
+        }
+
+        return response()->json($data);
     }
 
 
@@ -901,8 +942,6 @@ class OfferController extends AdminController
                 }
 
 
-
-
                 $data_div = ' </div>';
                 $track .= $track1 . $row . $data1 . $data_div;
             }
@@ -932,9 +971,7 @@ class OfferController extends AdminController
     }
 
 
-
-
-    protected function track1($key,$offer)
+    protected function track1($key, $offer)
     {
 
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
@@ -975,13 +1012,12 @@ class OfferController extends AdminController
         $offer['offersDomain'] = Delivery::where('status', 1)->get()->toArray();
 
 
-
-        $data1 = '<div class="tab-pane" id="tab'.$key.'Tracking">
+        $data1 = '<div class="tab-pane" id="tab' . $key . 'Tracking">
 	<div class="row">
 		<div class="col-md-12">
 			<br />
 			<p>
-				'.$offer['track_des'].'
+				' . $offer['track_des'] . '
 			</p>
 			<!-- dropdown domains -->
 			<div class="btn-group m-b-30">
@@ -992,18 +1028,18 @@ class OfferController extends AdminController
 				</a>
 				<ul class="dropdown-menu domains-menu">';
 
-                if(isset($offer['offersDomain']) && !empty($offer['offersDomain'])){
+        if (isset($offer['offersDomain']) && !empty($offer['offersDomain'])) {
 
-                    $data2 ='';
-                    foreach ($offer['offersDomain'] as $x=>$y){
-                        $data2 .= '<li><a href="#" class="offersDomain" data-domain="'.$y['delivery_link'].'">'.$y['delivery_link'].'</a></li>';
-                    }
-                }else{
-                    $data2 ='';
-                }
+            $data2 = '';
+            foreach ($offer['offersDomain'] as $x => $y) {
+                $data2 .= '<li><a href="#" class="offersDomain" data-domain="' . $y['delivery_link'] . '">' . $y['delivery_link'] . '</a></li>';
+            }
+        } else {
+            $data2 = '';
+        }
 
 
-				$data3='</ul>
+        $data3 = '</ul>
 			</div>
 			<!-- end dropdown domains -->
 			<div class="row">
@@ -1012,28 +1048,28 @@ class OfferController extends AdminController
 					<div class="tabbable tabs-left tabs-bg">
 					<ul class="nav nav-tabs" role="tablist">';
 
-                    if(isset($offer['track_list']) && !empty($offer['track_list'])){
+        if (isset($offer['track_list']) && !empty($offer['track_list'])) {
 
-                        $index = 0;
-                        $data4 ='';
-                        foreach ($offer['track_list'] as $x=>$y){
+            $index = 0;
+            $data4 = '';
+            foreach ($offer['track_list'] as $x => $y) {
 
 //                            $data4 .= '<li class="active"><a href="#provenorderpages-'.$x.'" role="tab" data-toggle="tab">'.$x.'</a></li>';
 
 
-                            if ($index == 0) {
-                                $data4 .= '<li class="active"><a href="#provenorderpages-' . $x . $key . '" role="tab" data-toggle="tab">' . $x . '</a></li>';
-                            } else {
-                                $data4 .= '<li><a href="#provenorderpages-' . $x . $key . '" role="tab" data-toggle="tab">' . $x . '</a></li>';
-                            }
+                if ($index == 0) {
+                    $data4 .= '<li class="active"><a href="#provenorderpages-' . $x . $key . '" role="tab" data-toggle="tab">' . $x . '</a></li>';
+                } else {
+                    $data4 .= '<li><a href="#provenorderpages-' . $x . $key . '" role="tab" data-toggle="tab">' . $x . '</a></li>';
+                }
 
-                            $index++;
-                        }
-                    }else{
-                        $data4 ='';
-                    }
+                $index++;
+            }
+        } else {
+            $data4 = '';
+        }
 
-					$data5	='</ul><div class="tab-content">';
+        $data5 = '</ul><div class="tab-content">';
 
         $track1 = '';
         $track = '';
@@ -1047,13 +1083,12 @@ class OfferController extends AdminController
             }
 
 
-
             $row = '<div class="row"><div class="col-md-12">';
             $data11 = '';
             foreach ($item3 as $key4 => $item4) {
                 $param = '?admin_id=' . $admin_id . '&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id=' . $offer['id'] . '&track_id=' . $item4['id'];
                 $item4['track_link'] = $item4['track_link'] . $param;
-                $data11 .= '<div class="padding-for_links"><div>' . $item4['track_name'] . '</div><input  style="width: calc(100% - 100px)" readonly="" type="text" class="form-control trecking_link clipboard-' . $index . '-' . $index1 . '-' . $key4 . ' dynamicDomainTrackingLink" value="' . $item4['track_link'] . '"><a href="' . $item4['track_link'] . '"  class=" dynamicDomainTrackingLink"><i class="icon ion-ios-eye pull-right" style="font-size: 30px"></i></a><button class="copp pull-right btn btn-success btn-cons copy-button" data-clipboard-action="copy" data-clipboard-target=".clipboard-'.  $index. '-' . $index1 . '-' . $key4 . '">Copy</button></div>';
+                $data11 .= '<div class="padding-for_links"><div>' . $item4['track_name'] . '</div><input  style="width: calc(100% - 100px)" readonly="" type="text" class="form-control trecking_link clipboard-' . $index . '-' . $index1 . '-' . $key4 . ' dynamicDomainTrackingLink" value="' . $item4['track_link'] . '"><a href="' . $item4['track_link'] . '"  class=" dynamicDomainTrackingLink"><i class="icon ion-ios-eye pull-right" style="font-size: 30px"></i></a><button class="copp pull-right btn btn-success btn-cons copy-button" data-clipboard-action="copy" data-clipboard-target=".clipboard-' . $index . '-' . $index1 . '-' . $key4 . '">Copy</button></div>';
 
             }
             $index1++;
@@ -1063,8 +1098,7 @@ class OfferController extends AdminController
         }
 
 
-
-						$data6	='<div class="tab-pane active" id="provenorderpages-0">
+        $data6 = '<div class="tab-pane active" id="provenorderpages-0">
 								<div class="row">
 									<div class="col-md-12">
 
@@ -1239,10 +1273,7 @@ class OfferController extends AdminController
 						</div>';
 
 
-
-
-
-				$data7	='</div>
+        $data7 = '</div>
 				</div>
 				<!-- end filter tabs -->
 				<div class="clearfix"></div>
@@ -1252,15 +1283,13 @@ class OfferController extends AdminController
 </div>
 </div>';
 
-        $data = $data1.$data2.$data3.$data4.$data5.$data66.$data7;
+        $data = $data1 . $data2 . $data3 . $data4 . $data5 . $data66 . $data7;
         return $data;
     }
 
 
-    protected function track12($key,$offer)
+    protected function track12($key, $offer)
     {
-
-
 
 
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
@@ -1305,8 +1334,6 @@ class OfferController extends AdminController
 //        print_r($item);exit;
 
 
-
-
         if ($offer['offer_status'] == 1) $lable_status = '<span class="label label-success">Live</span>'; else $lable_status = '<span class="label label-warning">Paused</span>';
         $land = '';
         if (!empty($offer['track_list'])) {
@@ -1315,15 +1342,15 @@ class OfferController extends AdminController
             }
         }
 
-        $accepted_area = Geos::whereIn('id',$offer['accepted_area'])->select('country')->get()->toArray();
+        $accepted_area = Geos::whereIn('id', $offer['accepted_area'])->select('country')->get()->toArray();
 
 
-        if(!empty($accepted_area)){
+        if (!empty($accepted_area)) {
             $accepted_area_list = '';
-            foreach ($accepted_area as $m=>$n){
-                $accepted_area_list.=$n['country'].',';
+            foreach ($accepted_area as $m => $n) {
+                $accepted_area_list .= $n['country'] . ',';
             }
-            $accepted_area_list = trim($accepted_area_list,',');
+            $accepted_area_list = trim($accepted_area_list, ',');
         }
 
 //        print_r($offer['accepted_area']);exit;
@@ -1375,8 +1402,6 @@ class OfferController extends AdminController
             }
 
 
-
-
             $data_div = ' </div>';
             $track .= $track1 . $row . $data1 . $data_div;
         }
@@ -1385,8 +1410,7 @@ class OfferController extends AdminController
         $third = '</div></div><div class="clearfix"></div></div></div></div></div></div>';
 
 
-
-        $data = $first ;
+        $data = $first;
 
 
 //        $data1 = '<div class="tab-pane" id="tab'.$key.'Tracking">
@@ -1526,8 +1550,6 @@ class OfferController extends AdminController
 //</div>';
 
 //       $data= $data1.$data2.$data3.$data4.$data5.$track.$data6;
-
-
 
 
         return $data;
