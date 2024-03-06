@@ -690,7 +690,46 @@ Warm regards,<br>
                     </div>
                 </div>
                 <div class="tiles-body">
-                    <ul class="progress-list weekly_top_geo_per_offer"><li><div class="details-wrapper"><div class="name">MaxPhone</div><div class="description">Israel, Australia, Canada</div></div><div class="details-status pull-right"> <span class="animate-number" data-value="29.66" data-animation-duration="800">29.66</span>% </div><div class="clearfix"></div><div class="progress progress-small no-radius"><div class="progress-bar animate-progress-bar" style="background-color: rgb(69, 122, 241); width: 30%;" data-percentage="30%"></div></div></li><li><div class="details-wrapper"><div class="name">CoolEdge</div><div class="description">United States, Australia, New Zealand</div></div><div class="details-status pull-right"> <span class="animate-number" data-value="20.34" data-animation-duration="800">20.34</span>% </div><div class="clearfix"></div><div class="progress progress-small no-radius"><div class="progress-bar animate-progress-bar" style="background-color: rgb(253, 208, 28); width: 20%;" data-percentage="20%"></div></div></li><li><div class="details-wrapper"><div class="name">Tactic AIR Drone</div><div class="description">United Kingdom, Australia, Guernsey</div></div><div class="details-status pull-right"> <span class="animate-number" data-value="9.32" data-animation-duration="800">9.32</span>% </div><div class="clearfix"></div><div class="progress progress-small no-radius"><div class="progress-bar animate-progress-bar" style="background-color: rgb(243, 89, 88); width: 9%;" data-percentage="9%"></div></div></li></ul>
+
+                    <ul class="progress-list weekly_top_geo_per_offer">
+
+                    <!--
+                        <li>
+                            <div class="details-wrapper">
+                                <div class="name">MaxPhone</div>
+                                <div class="description">Israel, Australia, Canada</div>
+                            </div>
+
+                            <div class="details-status pull-right">
+                                <span class="animate-number" data-value="29.66" data-animation-duration="800">29.66</span>% </div>
+                            <div class="clearfix"></div>
+                            <div class="progress progress-small no-radius">
+                                <div class="progress-bar animate-progress-bar" style="background-color: rgb(69, 122, 241); width: 30%;" data-percentage="30%"></div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="details-wrapper">
+                                <div class="name">CoolEdge</div>
+                                <div class="description">United States, Australia, New Zealand</div>
+                            </div>
+                            <div class="details-status pull-right">
+                                <span class="animate-number" data-value="20.34" data-animation-duration="800">20.34</span>% </div>
+                            <div class="clearfix"></div>
+                            <div class="progress progress-small no-radius"><div class="progress-bar animate-progress-bar" style="background-color: rgb(253, 208, 28); width: 20%;" data-percentage="20%"></div></div>
+                        </li>
+
+                        <li>
+                            <div class="details-wrapper"><div class="name">Tactic AIR Drone</div><div class="description">United Kingdom, Australia, Guernsey</div>
+                            </div>
+                            <div class="details-status pull-right"> <span class="animate-number" data-value="9.32" data-animation-duration="800">9.32</span>% </div>
+                            <div class="clearfix"></div>
+                            <div class="progress progress-small no-radius"><div class="progress-bar animate-progress-bar" style="background-color: rgb(243, 89, 88); width: 9%;" data-percentage="9%"></div>
+                            </div>
+                        </li>
+
+                        -->
+                    </ul>
                 </div>
             </div>
             <div class="tiles white col-md-8 col-sm-8 no-padding">

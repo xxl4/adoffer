@@ -147,7 +147,7 @@
 
 
 
-        <title>Reporting platform</title>
+
         <link href=" /vendor/laravel-admin/test2/jquery.dataTables.css" rel="stylesheet" type="text/css">
         <link href=" /vendor/laravel-admin/test2/datatables.responsive.css" rel="stylesheet" type="text/css" media="screen">
 

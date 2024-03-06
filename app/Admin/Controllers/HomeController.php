@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Models\Geos;
 use App\Models\Locations;
+use App\Models\Offer;
 use App\Models\OfferLog;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\Dashboard;
@@ -177,20 +178,20 @@ class HomeController extends Controller
         // full_dashboard_data
         if ($step == 'full_dashboard_data') {
 
-        $data = [];
-        $data['all_count'] = OfferLog::where('status', 2)->groupBy('offer_id')->count();
+            $data = [];
+            $data['all_count'] = OfferLog::where('status', 2)->groupBy('offer_id')->count();
 
-            $all_peyout_price= OfferLog::where('status', 2)->sum('revenue');
-            $data['all_peyout_price'] = round($all_peyout_price,2);
+            $all_peyout_price = OfferLog::where('status', 2)->sum('revenue');
+            $data['all_peyout_price'] = round($all_peyout_price, 2);
 
-        $data['day_peyout'] = OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-d 00:00:00'))->where('created_at', '<=', date('Y-m-d 23:59:59'))->groupBy('offer_id')->count();
+            $data['day_peyout'] = OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-d 00:00:00'))->where('created_at', '<=', date('Y-m-d 23:59:59'))->groupBy('offer_id')->count();
 
-        $day_peyout_price = OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-d 00:00:00'))->where('created_at', '<=', date('Y-m-d 23:59:59'))->sum('revenue');
-            $data['day_peyout_price'] =round($day_peyout_price,2);
-        $data['message'] = false;
-        $data['month_peyout_count'] = OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-1 00:00:00'))->where('created_at', '<=', date('Y-m-t 23:59:59'))->groupBy('offer_id')->count();
-        $month_peyout_price =OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-1 00:00:00'))->where('created_at', '<=', date('Y-m-t 23:59:59'))->sum('revenue');
-            $data['month_peyout_price'] =round($month_peyout_price,2);
+            $day_peyout_price = OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-d 00:00:00'))->where('created_at', '<=', date('Y-m-d 23:59:59'))->sum('revenue');
+            $data['day_peyout_price'] = round($day_peyout_price, 2);
+            $data['message'] = false;
+            $data['month_peyout_count'] = OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-1 00:00:00'))->where('created_at', '<=', date('Y-m-t 23:59:59'))->groupBy('offer_id')->count();
+            $month_peyout_price = OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-1 00:00:00'))->where('created_at', '<=', date('Y-m-t 23:59:59'))->sum('revenue');
+            $data['month_peyout_price'] = round($month_peyout_price, 2);
 
         }
         //
@@ -243,14 +244,14 @@ class HomeController extends Controller
             $country_sale_top5 = array_sum($sale_list);
 
             //前五个国家销售总和
-          $total_country_sale = DB::table('offer_logs AS log')->where('log.status', 2)->where('log.created_at', '>', date('2022-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-t 23:59:59'))->sum('revenue');
+            $total_country_sale = DB::table('offer_logs AS log')->where('log.status', 2)->where('log.created_at', '>', date('2022-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-t 23:59:59'))->sum('revenue');
 
             //前五个国家销售占比
-          if($total_country_sale==0){
-              $top5country_percent = 0;
-          }else{
-              $top5country_percent = round($country_sale_top5/$total_country_sale,2);
-          }
+            if ($total_country_sale == 0) {
+                $top5country_percent = 0;
+            } else {
+                $top5country_percent = round($country_sale_top5 / $total_country_sale, 2);
+            }
 
 
             //前五个offer销售
@@ -269,12 +270,11 @@ class HomeController extends Controller
 
 
             //前五个offer销售占比
-            if($offer_sale_top5==0){
+            if ($offer_sale_top5 == 0) {
                 $top5offer_percent = 0;
-            }else{
-                $top5offer_percent = round($offer_sale_top5/$total_country_sale,2);
+            } else {
+                $top5offer_percent = round($offer_sale_top5 / $total_country_sale, 2);
             }
-
 
 
             //前五个offer销售总次数
@@ -292,15 +292,15 @@ class HomeController extends Controller
             $offer_sale_top5count = array_sum($offer_count_list);
 
 
-            $data['top5country_percent']=$top5country_percent;
-            $data['top5country_count']=$country_sale_top5;
-            $data['top5offer_percent']=$top5offer_percent;
-            $data['top5offer_count']=$offer_sale_top5count;
+            $data['top5country_percent'] = $top5country_percent;
+            $data['top5country_count'] = $country_sale_top5;
+            $data['top5offer_percent'] = $top5offer_percent;
+            $data['top5offer_count'] = $offer_sale_top5count;
 
             $data = [
-                'percentage'=>[33.673469387755105, 16.3265306122449, 11.224489795918368, 5.1020408163265305, 5.1020408163265305],
-                'positions'=>[ '0' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '1' => ['latLng' => [30.9, 35.2], 'name' => 'Israel'], '2' => ['latLng' => [60.2, -107.7], 'name' => 'Canada'], '3' => ['latLng' => [50.8, 10.1], 'name' => 'Germany'], '4' => ['latLng' => [54.3, -1.9]]],
-                'values'=>[33, 16, 11, 5, 5]
+                'percentage' => [33.673469387755105, 16.3265306122449, 11.224489795918368, 5.1020408163265305, 5.1020408163265305],
+                'positions' => ['0' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '1' => ['latLng' => [30.9, 35.2], 'name' => 'Israel'], '2' => ['latLng' => [60.2, -107.7], 'name' => 'Canada'], '3' => ['latLng' => [50.8, 10.1], 'name' => 'Germany'], '4' => ['latLng' => [54.3, -1.9]]],
+                'values' => [33, 16, 11, 5, 5]
             ];
         }
 
@@ -317,16 +317,16 @@ class HomeController extends Controller
 
 
             $data = '';
-            foreach ($offer_info as $key=>$value){
+            foreach ($offer_info as $key => $value) {
 
                 $data .= '<hr class="teble_hr" style="width:calc(100% - 20px);">
                         <div class="forst_row_table table_content_top bold text-success" style="width:18%; display: inline-block;">
-                            '.date('d-m-Y',strtotime($value->created_at)).'</div><div class="forst_row_table table_content_top bold text-success" style="width:18%; display: inline-block;">
-                             '.date('H:i:s',strtotime($value->created_at)).'</div>
+                            ' . date('d-m-Y', strtotime($value->created_at)) . '</div><div class="forst_row_table table_content_top bold text-success" style="width:18%; display: inline-block;">
+                             ' . date('H:i:s', strtotime($value->created_at)) . '</div>
                         <div class="second_row_table table_content_top" style="width:44%; display: inline-block;">
-                             '.$value->offer_name.'</div>
+                             ' . $value->offer_name . '</div>
                         <div class="last_row_table table_content_top bold text-success" style="width:8%; display: inline-block; text-align: center;">
-                             $ '.$value->revenue.'</div>';
+                             $ ' . $value->revenue . '</div>';
 
             }
 
@@ -334,11 +334,11 @@ class HomeController extends Controller
         }
 
 
-
         return response()->json($data);
     }
 
-    public function indexV2(Content $content, Request $request) {
+    public function indexV2(Content $content, Request $request)
+    {
 
         $data = [];
         return $content->title("Index V2")->view("admin/home/index-v2", compact('data'));
@@ -407,42 +407,100 @@ class HomeController extends Controller
         $geos = [];
         $offers = [];
 
+        //全部销量
+        $total_count = DB::table('offer_logs as log')->where('log.created_at', '>', date('2022-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-t 23:59:59'))->where('status',2)->count();
 
+
+        $total_country_count = DB::table('offer_logs as log')
+            ->where('log.status', 2)
+            ->where('log.created_at', '>', date('2022-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
+            ->select(DB::raw('count(log.id) as offer_count'), 'log.country_id')
+            ->groupBy('log.country_id')
+            ->orderByDesc('offer_count')
+            ->get()
+            ->toArray();
+
+//        print_r($total_country_count);exit;
+
+
+
+
+
+
+        foreach ($total_country_count as $key=>$value){
+            $total_country_count[$key]->percent = round($value->offer_count/$total_count*100,2);
+        }
+      $country_percent = array_column($total_country_count,'offer_count');
 
         $geos = [
-            'percentage'=>[33.673469387755105, 16.3265306122449, 11.224489795918368, 5.1020408163265305, 5.1020408163265305, 4.081632653061225, 3.061224489795918, 3.061224489795918, 2.0408163265306123, 2.0408163265306123, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061, 1.0204081632653061],
+            'percentage' => $country_percent,
 
-            'positions'=>[ '0' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '1' => ['latLng' => [30.9, 35.2], 'name' => 'Israel'], '2' => ['latLng' => [60.2, -107.7], 'name' => 'Canada'], '3' => ['latLng' => [50.8, 10.1], 'name' => 'Germany'], '4' => ['latLng' => [54.3, -1.9], 'name' => 'United Kingdom'], '5' => ['latLng' => [-26.2, 137.7], 'name' => 'Australia'], '6' => ['latLng' => [46.8, 2.9], 'name' => 'France'], '7' => ['latLng' =>[-38.1, -65.4], 'name' => 'Argentina'], '8' => ['latLng' =>[46.9, 7.9], 'name' => 'Switzerland'], '9' => ['latLng' => [47.2, 19.2], 'name' => 'Hungary'], '10' => ['latLng' =>[-42.2, 172.7], 'name' => 'New Zealand'], '11' => ['latLng' =>[-19.62, 46.68], 'name' => 'Madagascar'], '12' => ['latLng' => [18.4, -66.6], 'name' => 'Puerto Rico'], '13' => ['latLng' =>[9.9, -83.8], 'name' => 'Costa Rica'], '14' => ['latLng' => [4.1, -74.1], 'name' => 'Colombia'], '15' => ['latLng' => [45.4, 16.2], 'name' => 'Croatia'], '16' => ['latLng' => [45.7, 24.5], 'name' => 'Romania'], '17' => ['latLng' => [-21.62, 54.18], 'name' => 'Reunion'], '18' => ['latLng' => [40.2, -4.2], 'name' => 'Spain'], '19' => ['latLng' => [49.85, 5.9], 'name' => 'Luxembourg'], '20' => ['latLng' => [16.4, -61.6], 'name' => 'Antigua and Barbuda'], '21' => ['latLng' => [52.42, 5.58], 'name' => 'Belgium'], '22' => ['latLng' => [14, -61.1], 'name' => 'Martinique']],
-            'values'=>[33, 16, 11, 5, 5, 4, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1]
+            'positions' => ['0' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '1' => ['latLng' => [30.9, 35.2], 'name' => 'Israel'], '2' => ['latLng' => [60.2, -107.7], 'name' => 'Canada'], '3' => ['latLng' => [50.8, 10.1], 'name' => 'Germany'], '4' => ['latLng' => [54.3, -1.9], 'name' => 'United Kingdom'], '5' => ['latLng' => [-26.2, 137.7], 'name' => 'Australia'], '6' => ['latLng' => [46.8, 2.9], 'name' => 'France'], '7' => ['latLng' => [-38.1, -65.4], 'name' => 'Argentina'], '8' => ['latLng' => [46.9, 7.9], 'name' => 'Switzerland'], '9' => ['latLng' => [47.2, 19.2], 'name' => 'Hungary'], '10' => ['latLng' => [-42.2, 172.7], 'name' => 'New Zealand'], '11' => ['latLng' => [-19.62, 46.68], 'name' => 'Madagascar'], '12' => ['latLng' => [18.4, -66.6], 'name' => 'Puerto Rico'], '13' => ['latLng' => [9.9, -83.8], 'name' => 'Costa Rica'], '14' => ['latLng' => [4.1, -74.1], 'name' => 'Colombia'], '15' => ['latLng' => [45.4, 16.2], 'name' => 'Croatia'], '16' => ['latLng' => [45.7, 24.5], 'name' => 'Romania'], '17' => ['latLng' => [-21.62, 54.18], 'name' => 'Reunion'], '18' => ['latLng' => [40.2, -4.2], 'name' => 'Spain'], '19' => ['latLng' => [49.85, 5.9], 'name' => 'Luxembourg'], '20' => ['latLng' => [16.4, -61.6], 'name' => 'Antigua and Barbuda'], '21' => ['latLng' => [52.42, 5.58], 'name' => 'Belgium'], '22' => ['latLng' => [14, -61.1], 'name' => 'Martinique']],
+            'values' => [33, 16, 11, 5, 5, 4, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         ];
 
 
-        $offers['array_counts'] = [33, 15, 14, 4, 3, 3, 3, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+
+
+
+
+        $total_offer_count = DB::table('offer_logs as log')
+            ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
+            ->where('log.status', 2)
+            ->where('log.created_at', '>', date('2022-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
+            ->select(DB::raw('count(log.id) as offer_count'), 'log.offer_id')
+            ->groupBy('log.offer_id')
+            ->orderByDesc('offer_count')
+            ->get()
+            ->toArray();
+
+//        print_r($total_offer_count);exit;
+
+
+        foreach ($total_offer_count as $key=>$value){
+            $total_offer_count[$key]->offer_name = Offer::where('id',$value->offer_id)->value('offer_name');
+            $total_offer_count[$key]->short_name = Offer::where('id',$value->offer_id)->value('short_name');
+            $total_offer_count[$key]->percent = round($value->offer_count/$total_count*100,2);
+
+        }
+
+        $array_counts = array_column($total_offer_count,'offer_count');
+        $short_name = array_column($total_offer_count,'short_name');
+        $offer_name = array_column($total_offer_count,'offer_name');
+        $offer_percent = array_column($total_offer_count,'percent');
+
+//      print_r($array_counts);exit;
+        $offers['array_counts'] = $array_counts;
+
+
+
+
         $offers['array_percent_done'] = [
-            'db_names' => ["TVShareMax", "MaxPhone", "ClearView", "PicoBuds Pro", "WIFI UltraBoost", "RealAction Pro", "VacuumGo Pro", "ScratchUndo Pro", "DroneX Pro", "LiveGuard360", "ZoomShot Pro", "TranslateTrek", "BarXStop", "BloodPressureX", "LuxBra", "GoClean Robot", "GX SmartWatch", "ProperFocus", "CoolEdge", "Tactic AIR Drone", "TwilightMist", "AutoMix", "WinterSecret Pro", "SilentSnore", "XPRO Drone",],
+            'db_names' => $short_name,
 
             'link_preview' => ['https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/', 'https://popularhitech.com/intl/'],
-            'long_names' => ['TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL', 'TVShareMax INTL'],
-            'names' => ['ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView', 'ClearView'],
-            'vals' => [
-                33.673469387755105,15.306122448979592,14.285714285714286,4.081632653061225,3.061224489795918,3.061224489795918,3.061224489795918,3.061224489795918, 2.0408163265306123,2.0408163265306123, 2.0408163265306123,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,
-                1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,1.0204081632653061,
-                1.0204081632653061,4.263256414560601e-14],
+
+
+            'long_names' => $offer_name,
+            'names' => $short_name,
+            'vals' => $offer_percent,
         ];
 
-        $top_3_country_offers = [
-            'ClearView'=>[
-                'names'=>['Canada','Australia','Argentina'],
-                'vals'=>[8,2,2],
-            ],
-            'MaxPhone'=>[
-                'names'=>['Israel','United States','Switzerland'],
-                'vals'=>[7,2,2],
-            ],
 
-            'TVShareMax'=>[
-                'names'=>['United States','New Caledonia','Costa Rica'],
-                'vals'=>[29,1,1],
+
+
+        $top_3_country_offers = [
+            $short_name[0] => [
+                'names' => ["United States", "Australia", "New Zealand"],
+                'vals' => [17, 5, 2],
+            ],
+            $short_name[1] => [
+                'names' => ["Israel", "Australia", "Canada"],
+                'vals' => [26, 3, 1],
+            ],
+            $short_name[2] => [
+                'names' =>["United Kingdom", "Australia", "Guernsey"],
+                'vals' => [29, 10, 1],
             ]
         ];
 

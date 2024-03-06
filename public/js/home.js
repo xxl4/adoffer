@@ -284,6 +284,10 @@ var home_vidgets = {
 				net : network
 			}
 		}).done(function(response){
+
+            console.log(1234,response.geos)
+
+
 			if(response && response.logout){
 				logout_visual.auto_logout(response.logout);
 			}else{
@@ -313,6 +317,7 @@ var home_vidgets = {
 
 				var count_top_offer = 0;
 				var data_offers = '';
+
 				if(offers){
 					$.each(response.offers.array_counts,function(i,e){
 						if(count_top_offer < 3){
@@ -328,6 +333,9 @@ var home_vidgets = {
 							}
 
 							var percentage = Math.round(response.offers.array_percent_done.vals[i] * 100) / 100;
+                            console.log('hello ');
+                            console.log(i)
+                            console.log(percentage);
 							data_offers += '<li>'+
 							'<div class="details-wrapper">'+
 							'<div class="name">'+response.offers.array_percent_done.names[i]+'</div>'+
@@ -344,7 +352,12 @@ var home_vidgets = {
 					});
 				}
 
-				// $('.weekly_top_geo_per_offer').html(data_offers); disable it
+                console.log(data_offers);
+
+                //data_offers = "1111";
+
+				$('.weekly_top_geo_per_offer').html(data_offers);
+
 
 				$('[data-init="animate-progress-bar"], .animate-progress-bar').each(function () {
 					var data = $(this).data();
