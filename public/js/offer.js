@@ -309,7 +309,7 @@ var ofer_functions = {
 					'<div class="row"><div class="col-md-12">'+
 					'<div class="top_geos_graph">'+write_time_selectors+'</div>'+
 					'</div></div>'+
-					'<div class="wait_loader"><img src="images/squares-preloader-gif.svg" alt=""></div>'+
+					'<div class="wait_loader"><img src="/assets/plugins/Mapplic/mapplic/images/squares-preloader-gif.svg" alt=""></div>'+
 					'</div>'+
 					curent_offer.htmlTrackingLinks+
 					curent_offer.htmlProductsDataFeed+
@@ -319,7 +319,7 @@ var ofer_functions = {
 					'</div></div></div>'+
 					'<div class="tab-pane" id="tab'+key+'Pixel_Postback">'+
 
-					'<div class="wait_loader offers-tab-pixels-loader" data-offer-id="'+curent_offer.id+'"><img src="images/squares-preloader-gif.svg" alt="preloader"></div>'+
+					'<div class="wait_loader offers-tab-pixels-loader" data-offer-id="'+curent_offer.id+'"><img src="/assets/plugins/Mapplic/mapplic/images/squares-preloader-gif.svg" alt="preloader"></div>'+
 					'<div class="offers-tab-pixels-container" data-offer-id="'+curent_offer.id+'"></div>'+
 
 					'</div></div></div>';

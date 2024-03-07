@@ -520,7 +520,7 @@ class HomeController extends Controller
                 $top_3_country_offers[$short_name]['names'] = '';
             }
         }
-        
+
         $data['geos'] = $geos;
         $data['offers'] = $offers;
         $data['top_3_country_offers'] = $top_3_country_offers;
