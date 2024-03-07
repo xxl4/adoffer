@@ -494,7 +494,7 @@ class HomeController extends Controller
 
       $short_name_list = array_slice($offer_ids, 0, 3);
 
-        $offer_country = [];
+        $top_3_country_offers = [];
         foreach ($short_name_list as $key=>$value){
 
 //            print_r($value);exit;
@@ -514,30 +514,13 @@ class HomeController extends Controller
 
            $short_name = Offer::where('id',$value)->value('short_name');
 
-//            print_r(implode(', ', array_column($total_country_list, 'country')));exit;
-
-//            var_dump($value);exit;
-
             if(!empty($total_country_list)){
-                $offer_country[$short_name]['names'] =  array_column($total_country_list, 'country');
+                $top_3_country_offers[$short_name]['names'] =  array_column($total_country_list, 'country');
             }else{
-                $offer_country[$short_name]['names'] = '';
-
+                $top_3_country_offers[$short_name]['names'] = '';
             }
-
-
-
-//            print_r($total_country_list);exit;
-
         }
-
-
-//        print_r($offer_country);
-//        exit;
-
-        $top_3_country_offers =$offer_country;
-
-
+        
         $data['geos'] = $geos;
         $data['offers'] = $offers;
         $data['top_3_country_offers'] = $top_3_country_offers;
