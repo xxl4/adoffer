@@ -56,7 +56,7 @@ var intelligence = {
 
 				function formatState (state) {
 					if(state.text != 'Searchingâ€¦'){
-						var country_falg = $('<span style="background-image: url(images/flags/'+state.text.replace(/ /g,'-')+'-Flag.png); margin-right: 5px; display:inline-block; background-size:25px; background-repeat: no-repeat; width:25px;height:25px; vertical-align: middle;"></span><span style="vertical-align: middle; display:inline-block;">'+state.text+'</span>');
+						var country_falg = $('<span style="margin-right: 5px; display:inline-block; background-size:25px; background-repeat: no-repeat; width:25px;height:25px; vertical-align: middle;"></span><span style="vertical-align: middle; display:inline-block;">'+state.text+'</span>');
 						return country_falg;
 					}else{
 						return state.text;
@@ -349,7 +349,7 @@ var intelligence = {
 						$.each(response.vals,function(i,e){
 							if(response.names[i] != 'Rest'){
 								table += '<tr>'+
-								'<td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/'+response.names[i].replace(/ /g,'-')+'-Flag.png">'+response.names[i]+'</span>'+
+								'<td class="v-align-middle"><span class="muted">'+response.names[i]+'</span>'+
 								'</td>'+
 								'<td><span class="muted">'+Math.round( e * 10 ) / 10+' % </span>'+
 								'</td>'+
