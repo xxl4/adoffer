@@ -397,17 +397,30 @@ class OfferController extends AdminController
 
         $currentUser = auth()->user();
         $admin_id = $currentUser->id; // 输出当前用户名称
-        $track_cate = Offer::where('id', $offer_id)->first()->toArray();
+        $track_info = Offer::where('id', $offer_id)->first()->toArray();
 
-        if (!empty($track_cate)) {
+        if (!empty($track_info)) {
 
-            $track_link = OfferTracks::whereIn('id', $track_cate['track_cate_id'])->select('id', 'track_name as tracking_title', 'track_link as tracking_link', 'offer_id')->get()->toArray();
+            $track_link = OfferTracks::whereIn('id', $track_info['track_cate_id'])->select('id', 'track_name as tracking_title', 'track_link as tracking_link', 'offer_id')->get()->toArray();
+
+            $Delivery_list = Delivery::where('status',1)->orderBy('id','asc')->get()->first();
+            if(!empty($Delivery_list)){
+                $delivery_link = $Delivery_list['delivery_link'];
+            }else{
+                $delivery_link = '';
+            }
+
             if (!empty($track_link)) {
 
                 foreach ($track_link as $x => $y) {
                     $param = '/api/offers/jump?admin_id=' . $admin_id . '&offer_id=' . $offer_id . '&track_id=' . $y['id'];
-                    $track_link_list[$x]['show_offer'] = 'true';
-                    $track_link_list[$x]['tracking_link'] = $y['tracking_link'] . $param;
+                    if($track_info['offer_status']==1){
+                        $offer_show = 'true';
+                    }else{
+                        $offer_show = 'false';
+                    }
+                    $track_link_list[$x]['show_offer'] = $offer_show;
+                    $track_link_list[$x]['tracking_link'] = $delivery_link . $param;
                     $track_link_list[$x]['tracking_title'] = $y['tracking_title'];
                 }
 
@@ -1008,11 +1021,15 @@ class OfferController extends AdminController
         }
 
 //        print_r("<pre/>");
-//        print_r($finalArray);exit;
 
 
         $offer['track_list'] = $finalArray;
         $offer['offersDomain'] = Delivery::where('status', 1)->get()->toArray();
+
+
+//        print_r($offer);exit;
+
+
 
 
         $data1 = '<div class="tab-pane" id="tab' . $key . 'Tracking">
@@ -1089,8 +1106,13 @@ class OfferController extends AdminController
             $row = '<div class="row"><div class="col-md-12">';
             $data11 = '';
             foreach ($item3 as $key4 => $item4) {
+
                 $param = '?admin_id=' . $admin_id . '&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id=' . $offer['id'] . '&track_id=' . $item4['id'];
-                $item4['track_link'] = $item4['track_link'] . $param;
+
+
+
+
+//                $item4['track_link'] = $item4['track_link'];
                 $data11 .= '<div class="padding-for_links"><div>' . $item4['track_name'] . '</div><input  style="width: calc(100% - 100px)" readonly="" type="text" class="form-control trecking_link clipboard-' . $offer['id'] . '-' . $index1 . '-' . $key4 . ' dynamicDomainTrackingLink" value="' . $item4['track_link'] . '"><a href="' . $item4['track_link'] . '"  class=" dynamicDomainTrackingLink"><i class="icon ion-ios-eye pull-right" style="font-size: 30px"></i></a><button class="copp pull-right btn btn-success btn-cons copy-button" data-clipboard-action="copy" data-clipboard-target=".clipboard-' . $offer['id'] . '-' . $index1 . '-' . $key4 . '">Copy</button></div>';
 
             }
@@ -1101,179 +1123,7 @@ class OfferController extends AdminController
         }
 
 
-        $data6 = '<div class="tab-pane active" id="provenorderpages-0">
-								<div class="row">
-									<div class="col-md-12">
 
-										<div class="padding-for_links">
-											<div>
-												Order Page 1.0 - The Classic
-											</div>
-											<input readonly type="text" class="form-control trecking_link clipboard-0-0-0 dynamicDomainTrackingLink"
-											value="https://popularhitech.com/intl/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}">
-											<a href="https://popularhitech.com/intl/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"
-											target="_blank" class=" dynamicDomainTrackingLink">
-												<i class="icon ion-eye pull-right"></i>
-											</a>
-											<button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy"
-											data-clipboard-target=".clipboard-0-0-0">
-												Copy
-											</button>
-										</div>
-
-
-										<div class="padding-for_links">
-										<div>
-											Order Page 7.0 - The Champ
-										</div>
-										<input readonly type="text" class="form-control trecking_link clipboard-0-0-1 dynamicDomainTrackingLink" value="https://popularhitech.com/intl_5/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}">
-										<a href="https://popularhitech.com/intl_5/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"
-										target="_blank" class=" dynamicDomainTrackingLink">
-											<i class="icon ion-eye pull-right"></i>
-										</a>
-										<button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy"
-										data-clipboard-target=".clipboard-0-0-1">
-											Copy
-										</button>
-										</div>
-
-									<div class="padding-for_links">
-										<div>
-											Order Page 7.0 - The Champ
-										</div>
-										<input readonly type="text" class="form-control trecking_link clipboard-0-0-2 dynamicDomainTrackingLink\"
-										value="https://popularhitech.com/intl_7/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}">
-										<a href="https://popularhitech.com/intl_7/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"
-										target="_blank" class=" dynamicDomainTrackingLink">
-											<i class="icon ion-eye pull-right"></i>
-										</a>
-										<button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy"
-										data-clipboard-target=".clipboard-0-0-2">
-											Copy
-										</button>
-									</div>
-									<div class="padding-for_links">
-										<div>
-											Order Page 12.0 - The Wise One
-										</div>
-										<input readonly type="text" class="form-control trecking_link clipboard-0-0-3 dynamicDomainTrackingLink"
-										value="https://popularhitech.com/intl_12/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}">
-										<a href="https://popularhitech.com/intl_12/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"
-										target="_blank" class=" dynamicDomainTrackingLink">
-											<i class="icon ion-eye pull-right"></i>
-										</a>
-										<button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy"
-										data-clipboard-target=".clipboard-0-0-3">
-											Copy
-										</button>
-									</div>
-									</div>
-								</div>
-							</div>
-
-
-
-						<div class="tab-pane" id="splittestorderpages-0">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="padding-for_links">
-										<div>
-											Order Page 4.0 - The Challenger
-										</div>
-										<input readonly type="text" class="form-control trecking_link clipboard-0-1-0 dynamicDomainTrackingLink"
-										value="https://popularhitech.com/intl_4/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}">
-										<a href="https://popularhitech.com/intl_4/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"
-										target="_blank" class=" dynamicDomainTrackingLink">
-											<i class="icon ion-eye pull-right"></i>
-										</a>
-										<button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy"
-										data-clipboard-target=".clipboard-0-1-0">
-											Copy
-										</button>
-									</div>
-									<div class="padding-for_links">
-										<div>
-											Order Page 6.0 - The Heavyweight
-										</div>
-										<input readonly type="text" class="form-control trecking_link clipboard-0-1-1 dynamicDomainTrackingLink"
-										value="https://popularhitech.com/intl_6/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}">
-										<a href="https://popularhitech.com/intl_6/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"
-										target="_blank" class=" dynamicDomainTrackingLink">
-											<i class="icon ion-eye pull-right"></i>
-											<button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy"
-											data-clipboard-target=".clipboard-0-1-1">
-												Copy
-											</button>
-									</div>
-									<div class="padding-for_links">
-										<div>
-											Order Page 8.0 - The New School
-										</div>
-										<input readonly type="text" class="form-control trecking_link clipboard-0-1-2 dynamicDomainTrackingLink"
-										value="https://popularhitech.com/intl_8/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}">
-										<a href="https://popularhitech.com/intl_8/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"
-										target="_blank" class=" dynamicDomainTrackingLink">
-											<i class="icon ion-eye pull-right"></i>
-										</a>
-										<button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy"
-										data-clipboard-target=".clipboard-0-1-2">
-											Copy
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane" id="archivedorderpages-0">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="padding-for_links">
-										<div>
-											Order Page 2.0 - The N00b
-										</div>
-										<input readonly type="text" class="form-control trecking_link clipboard-0-2-0 dynamicDomainTrackingLink"
-										value="https://popularhitech.com/intl_2/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}">
-										<a href="https://popularhitech.com/intl_2/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"
-										target="_blank" class=" dynamicDomainTrackingLink">
-											<i class="icon ion-eye pull-right"></i>
-										</a>
-										<button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy"
-										data-clipboard-target=".clipboard-0-2-0">
-											Copy
-										</button>
-									</div>
-									<div class="padding-for_links">
-										<div>
-											Order Page 3.0 - The Multi-Step
-										</div>
-										<input readonly type="text" class="form-control trecking_link clipboard-0-2-1 dynamicDomainTrackingLink"
-										value="https://popularhitech.com/intl_3/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}">
-										<a href="https://popularhitech.com/intl_3/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"
-										target="_blank" class=" dynamicDomainTrackingLink">
-											<i class="icon ion-eye pull-right"></i>
-										</a>
-										<button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy"
-										data-clipboard-target=".clipboard-0-2-1">
-											Copy
-										</button>
-									</div>
-									<div class="padding-for_links">
-										<div>
-											Order Page 11.0 - The Money Maker
-										</div>
-										<input readonly type="text" class="form-control trecking_link clipboard-0-2-2 dynamicDomainTrackingLink"
-										value="https://popularhitech.com/intl_11/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}">
-										<a href="https://popularhitech.com/intl_11/?prod=kneeboostpro&net=6546&aff={AFFID}&sid={SUBID}&cid={CLICKID}"
-										target="_blank" class=" dynamicDomainTrackingLink">
-											<i class="icon ion-eye pull-right"></i>
-										</a>
-										<button class="copp pull-right btn btn-success btn-cons" data-clipboard-action="copy"
-										data-clipboard-target=".clipboard-0-2-2">
-											Copy
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>';
 
 
         $data7 = '</div>
@@ -1290,273 +1140,6 @@ class OfferController extends AdminController
         return $data;
     }
 
-
-    protected function track12($key, $offer)
-    {
-
-
-        $currentUser = auth()->user(); // 获取当前登录用户的模型对象
-        $admin_id = $currentUser->id; // 输出当前用户名称
-
-        $track_cate = OfferTracksCates::whereIn('id', $offer['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
-        $delivery_info = Delivery::where('status', 1)->get()->toArray();
-        $delivery_link = !empty($delivery_info[0]['delivery_link']) ? $delivery_info[0]['delivery_link'] : '';
-
-        $fieldToSwap = 'track_cate';
-        $swappedArray = array_map(function ($key1, $offer) use ($fieldToSwap) {
-            return [$offer[$fieldToSwap] => array_merge(['key' => $key1], $offer)];
-        }, array_keys($track_cate), $track_cate);
-        // 将结果数组进行合并
-        $finalArray = array_merge(...$swappedArray);
-        foreach ($track_cate as $k => $v) {
-            $track_list = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();  // $finalArray[$k]
-
-            foreach ($track_list as $x => $y) {
-                $param = '/api/offers/jump?admin_id=' . $admin_id . '&cateid=' . $v['id'] . '&offer_id=' . $offer['id'] . '&track_id=' . $y['id'];
-
-                $track_list[$x]['track_link'] = $delivery_link . $param;
-                $track_list[$x]['offersDomain'] = $delivery_link;
-
-                $land_link = LandPage::where('id', $y['land_id'])->value('land_link');
-                $track_list[$x]['land_link'] = !empty($land_link) ? $land_link : '';
-
-            }
-            $finalArray[$v['track_cate']] = $track_list;
-//                    $track_offersDomain = array_merge($track_list,$track_list);
-        }
-
-//        print_r("<pre/>");
-//        print_r($finalArray);exit;
-
-
-        $offer['track_list'] = $finalArray;
-        $offer['offersDomain'] = Delivery::where('status', 1)->get()->toArray();
-
-
-//        print_r("<pre/>");
-//        print_r($item);exit;
-
-
-        if ($offer['offer_status'] == 1) $lable_status = '<span class="label label-success">Live</span>'; else $lable_status = '<span class="label label-warning">Paused</span>';
-        $land = '';
-        if (!empty($offer['track_list'])) {
-            foreach ($offer['track_list'] as $x => $y) {
-                $land = isset($offer['track_list'][$x][0]['land_link']) ? $offer['track_list'][$x][0]['land_link'] : '';
-            }
-        }
-
-        $accepted_area = Geos::whereIn('id', $offer['accepted_area'])->select('country')->get()->toArray();
-
-
-        if (!empty($accepted_area)) {
-            $accepted_area_list = '';
-            foreach ($accepted_area as $m => $n) {
-                $accepted_area_list .= $n['country'] . ',';
-            }
-            $accepted_area_list = trim($accepted_area_list, ',');
-        }
-
-//        print_r($offer['accepted_area']);exit;
-
-        $first = '<div class="tab-content"><div class="tab-pane active" id="tab' . $key . 'Offer"><div class="row column-seperation"><div class="col-md-12"><table class="table table-striped table-flip-scroll cf"><thead class="cf"><tr><th><a href="' . $land . '" target="_blank">' . '<span class="offer-product-img-container" data-original-title="" title=""><img src="' . env('APP_URL') . '/upload/' . $offer['image'] . '"  alt="KneeBoost Pro"></span>Offer Preview<i class="icon ion-ios-eye"></i></a></th><th>Payout</th><th>Status</th></tr></thead><tbody><tr><td width="55%">' . $offer['offer_name'] . '</td><td width="25%">$' . $offer['offer_price'] . ' Per Sale</td><td width="20%">' . $lable_status . '</td></tr></tbody></table></div></div></div><div class="tab-pane" id="tab' . $key . 'Description"><div class="row"><div class="col-md-12"><p></p><p><strong></strong></p><p>"' . $offer['des'] . '"</p><p></p></div></div></div><div class="tab-pane" id="tab' . $key . 'Geos"><div class="row"><div class="col-md-12"><p></p><p>' . $accepted_area_list . '</p></div></div></div><div class="tab-pane top_geos_tab" id="tab' . $key . 'Top_Geos"><div class="row"><div class="col-md-12"><div class="top_geos_graph"><div class="col-xs-12"><div class="row"><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding"><div class="row"><div class="col-xs-12"><select class="list_date select2_list padding_left" data-suffix="geo" style="margin-bottom: 10px;" name="date" id=""><option value="today">Today</option><option value="yester">Yesterday</option><option value="week">Current Week</option><option value="month">Current Month</option><option value="year">Year To Date</option><option value="l_week">Last Week</option><option value="l_month">Last Month</option><option value="calendar">Custom</option></select></div></div></div><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding calendar_padding"><div class="col-xs-4 col-sm-4"><div class="row"><div class="about_color"><p class="about_inputs">Start</p></div></div></div><div class="input-append success col-xs-8 col-sm-8"><div class="row"><input type="text" class="form-control date_start"><span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span></div></div></div><div class="col-xs-12 col-md-6 col-lg-4 use_small_padding calendar_padding"><div class="col-xs-4 col-sm-4"><div class="row"><div class="about_color"><p class="about_inputs">End</p></div></div></div><div class="input-append success col-xs-8 col-sm-8"><div class="row"><input type="text" class="form-control date_end"><span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span></div></div></div><table class="table no-more-tables geo_table"><thead><tr><th style="width:30%">COUNTRY</th><th style="width:20%">Percentage</th><th style="width:50%">Distribution</th></tr></thead><tbody></tbody></table><div style="display:none;" class="geo_date_no_data"><p>Morpheus: Throughout human history, we have been dependent on machines to survive. Fate, it seems, is not without a sense of irony.</p></div></div></div></div></div></div><div class="wait_loader"><img src="images/squares-preloader-gif.svg" alt=""></div></div><div class="tab-pane" id="tab' . $key . 'Tracking"><div class="row"><div class="col-md-12"><p>' . $offer['track_des'] . '</p><div class="btn-group m-b-30"><a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="#">Select your tracking domain<span class="caret"></span></a><ul class="dropdown-menu domains-menu">';
-
-        $track_offersDomain = '';
-        foreach ($offer['offersDomain'] as $m => $n) {
-            $track_offersDomain .= '<li><a href="#" class="offersDomain" data-domain="' . $n['delivery_link'] . '">' . $n['delivery_link'] . '</a></li>';
-        }
-        $res = ' </ul></div><div class="row"><div class="col-md-12"><!-- filter tabs --><div class="tabbable tabs-left tabs-bg"><ul class="nav nav-tabs" role="tablist">';
-
-        $index = 0;
-        //追踪链接的tab
-        $track_tab = '';
-        foreach ($offer['track_list'] as $key2 => $item2) {
-            if ($index == 0) {
-                $track_tab .= '<li class="active"><a href="#provenorderpages-' . $key2 . $key . '" role="tab" data-toggle="tab">' . $key2 . '</a></li>';
-            } else {
-                $track_tab .= '<li><a href="#provenorderpages-' . $key2 . $key . '" role="tab" data-toggle="tab">' . $key2 . '</a></li>';
-            }
-            $index++;
-        }
-
-        $tab_content = '</ul><div class="tab-content">';
-        $index1 = 0;
-
-        //追踪链接的tab 对应内容
-        $track1 = '';
-        $track = '';
-        foreach ($offer['track_list'] as $key3 => $item3) {
-            if ($index1 == 0) {
-                $track1 = '<div class="tab-pane active" id="provenorderpages-' . $key3 . $key . '">';
-            } else {
-                $track1 = '<div class="tab-pane" id="provenorderpages-' . $key3 . $key . '">';
-            }
-
-            $index1++;
-
-            $row = '<div class="row"><div class="col-md-12">';
-            $data1 = '';
-            foreach ($item3 as $key4 => $item4) {
-                $param = '?admin_id=' . $admin_id . '&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id=' . $offer['id'] . '&track_id=' . $item4['id'];
-                $item4['track_link'] = $item4['track_link'] . $param;
-
-
-                $data1 .= '<div class="padding-for_links"><div>' . $item4['track_name'] . '</div><input  style="width: calc(100% - 100px)" readonly="" type="text" class="form-control trecking_link clipboard-0-0-0 dynamicDomainTrackingLink clipboard-1-0-0-1' . $key2 . '-' . $key3 . '-' . $key4 . '" value="' . $item4['track_link'] . '"><a href="' . $item4['track_link'] . '"  class=" dynamicDomainTrackingLink"><i class="icon ion-ios-eye pull-right" style="font-size: 30px"></i></a><a class="copp pull-right btn btn-success btn-cons copy-button" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-1' . $key2 . '-' . $key3 . '-' . $key4 . '">Copy</a></div></div>';
-
-            }
-
-
-            $data_div = ' </div>';
-            $track .= $track1 . $row . $data1 . $data_div;
-        }
-
-
-        $third = '</div></div><div class="clearfix"></div></div></div></div></div></div>';
-
-
-        $data = $first;
-
-
-//        $data1 = '<div class="tab-pane" id="tab'.$key.'Tracking">
-//	<div class="row">
-//		<div class="col-md-12">
-//		<!--	<p>
-//				These links are unique to you, use them to generate traffic.
-//			</p>
-//			<p>
-//				You can use any of the 3 custom parameters agnostically.
-//			</p>
-//			<p>
-//				Replace {AFFID}, {SUBID}, {CLICKID} with your own tracking variables and
-//				get them feed-backed in your pixel/postback.
-//			</p>-->
-//		</div>
-//
-//
-//		<div class="col-md-12">
-//			<br/>
-//			<p>
-//				<!--Traffic sources sometimes block certain URLs and/or companies, we offer
-//				different tracking domains to choose from.-->
-//
-//				'.$item['track_des'].'
-//			</p>
-//			<!-- dropdown domains -->
-//			<div class="btn-group m-b-30">
-//				<a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown"
-//				href="#">
-//					Select your tracking domain
-//					<span class="caret"></span>
-//				</a>
-//				<ul class="dropdown-menu domains-menu">
-//				';
-//
-//
-//
-//
-//
-//                if(isset($item['offersDomain']) && !empty($item['offersDomain'])){
-//
-//                    $data2 ='';
-//                    foreach ($item['offersDomain'] as $x=>$y){
-//                        $data1 .= '<li>
-//						<a href="#" class="offersDomain" data-domain="'.$y['delivery_link'].'">
-//							'.$y['delivery_link'].'
-//						</a>
-//					</li>';
-//                    }
-//                }else{
-//                    $data2 ='';
-//                }
-//
-//
-//            $data3 = '</ul>
-//			</div>
-//			<!-- end dropdown domains -->
-//			<div class="row">
-//				<div class="col-md-12">
-//					<!-- filter tabs -->
-//					<div class="tabbable tabs-left tabs-bg">
-//						<ul class="nav nav-tabs" role="tablist">';
-//
-//
-//
-//
-//
-//        $index = 0;
-//        //追踪链接的tab
-//        if(isset($item['track_list']) && !empty($item['track_list'])){
-//            $data4 ='';
-//            foreach ($item['track_list'] as $key2=>$item2){
-//
-//                if ($index == 0) {
-//                    $data4 .= '<li class="active"><a href="#provenorderpages-' . $key2 . $key . '" role="tab" data-toggle="tab">' . $key2 . '</a></li>';
-//                } else {
-//                    $data4 .= '<li><a href="#provenorderpages-' . $key2 . $key . '" role="tab" data-toggle="tab">' . $key2 . '</a></li>';
-//                }
-//                $index++;
-//
-//            }
-//        }else{
-//            $data4 ='';
-//        }
-//
-//
-//        $index1 = 0;
-//        $data5 = '</ul><div class="tab-content">';
-//
-//
-//
-//
-//
-//
-//        $track1 = '';
-//        $track = '';
-//        foreach ($item['track_list'] as $key3 => $item3) {
-//            if ($index1 == 0) {
-//                $track1 = '<div class="tab-pane active" id="provenorderpages-' . $key3 . $key . '">';
-//            } else {
-//                $track1 = '<div class="tab-pane" id="provenorderpages-' . $key3 . $key . '">';
-//            }
-//
-//            $index1++;
-//
-//            $row = '<div class="row"><div class="col-md-12">';
-//            $data1 = '';
-//            foreach ($item3 as $key4 => $item4) {
-//                $param = '?admin_id=' . $admin_id . '&aff={AFFID}&sid={SUBID}&cid={CLICKID}&offer_id=' . $item['id'] . '&track_id=' . $item4['id'];
-//                $item4['track_link'] = $item4['track_link'] . $param;
-//
-//                $data1 .= '
-//
-//<div class="padding-for_links"><div>' . $item4['track_name'] . '</div><input  style="width: calc(100% - 100px)" readonly="" type="text" class="form-control trecking_link clipboard-0-0-0 dynamicDomainTrackingLink clipboard-1-0-0-1' . $key2 . '-' . $key3 . '-' . $key4 . '" value="' . $item4['track_link'] . '"><a href="' . $item4['track_link'] . '"  class=" dynamicDomainTrackingLink"><i class="icon ion-eye pull-right""></i></a><button class="copp pull-right btn btn-success btn-cons copy-button" data-clipboard-action="copy" data-clipboard-target=".clipboard-1-0-0-1' . $key2 . '-' . $key3 . '-' . $key4 . '">Copy</button></div></div>';
-//
-//            }
-//
-//
-//
-//
-//            $data_div = ' </div>';
-//            $track .= $track1 . $row . $data1 . $data_div;
-//
-//
-//        }
-//
-//
-//
-//			$data6	='</div>
-//				<!-- end filter tabs -->
-//				<div class="clearfix"></div>
-//			</div>
-//		</div>
-//	</div>
-//</div>
-//</div>';
-
-//       $data= $data1.$data2.$data3.$data4.$data5.$track.$data6;
-
-
-        return $data;
-    }
 
     /**
      * Make a form builder.
