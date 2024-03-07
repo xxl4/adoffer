@@ -48,7 +48,121 @@ class IntelligencesController extends AdminController
 
         Admin::disablePjax();
 
-        $data = [];
+        $currentUser = auth()->user(); // 获取当前登录用户的模型对象
+        $net_id = $currentUser->id; // 输出当前用户名称
+        $where = [];
+        if($net_id!==1 && $net_id!==2){
+            $where[]=['admin_id','=',$net_id];
+        }
+
+        $offer_list = Offer::where('offer_status', 1)
+            ->select('offer_name','created_at as release_date','offer_price as payout','short_name as name')
+            ->orderBy('created_at', 'desc')
+            ->where($where)->limit(3)
+            ->get()->toArray();
+
+        $result = [];
+
+        foreach ($offer_list as $key=>$value){
+
+            $result[$value['release_date']]['offer_name'] = $value['offer_name'];
+            $result[$value['release_date']]['release_date'] = $value['release_date'];
+            $result[$value['release_date']]['payout'] = '$'.$value['payout'];
+            $result[$value['release_date']]['link_preview'] = '';
+            $result[$value['release_date']]['name'] = $value['name'];
+
+
+        }
+
+//        print_r("<pre/>");
+//        print_r($data);exit;
+
+        //柱状图数据
+      $res = OfferLog::select([
+            DB::raw('sum(revenue) as orders'),
+            DB::raw('DATE_FORMAT(created_at,"%Y-%m") as month'),
+        ])->groupBy('month')->where('status',2)->get()->toArray();
+
+
+
+        if(!empty($res)){
+
+
+            foreach ($res as $key=>$value){
+
+
+//                print_r( $value['month'].'-01 00:00:00');exit;
+
+//                $res[$key]['offer_top']
+
+                    $offer_top= DB::table('offer_logs AS log')
+                    ->where('log.status', 2)
+                    ->where('log.created_at', '>', $value['month'].'-01 00:00:00')
+                    ->where('log.created_at', '<=', $value['month'].'-31 23:59:59')
+                    ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
+//                ->where('o.offer_name', $short_name)
+                    ->where($where)
+                    ->select(DB::raw('sum(log.revenue) as offer_total'), 'o.short_name')
+                    ->groupBy('o.short_name')
+                    ->orderByDesc('offer_total')
+                    ->limit(3)
+                    ->get()
+                    ->toArray();
+
+
+                $offer_info = [];
+                foreach ($offer_top as $k=>$v){
+                    $offer_top[$k]->percent = round($v->offer_total/$value['orders']*100,2);
+                    $offer_info[$v->short_name]=$v->percent;
+                }
+
+
+                $res[$value['month'].'-01'] = $offer_info;
+
+//                print_r("<pre/>");
+//                print_r($offer_info);exit;
+                unset($res[$key]['orders']);
+                unset($res[$key]['month']);
+                unset($res[$key]);
+
+            }
+
+        }
+
+
+//        print_r("<pre/>");
+//        print_r($res);exit;
+
+            $main_data = $res;
+            $start_date = "2023-12-15";
+            $end_data = "2024-03-15";
+
+            $bar=[];
+            $bar['main_data'] = $main_data;
+            $bar['start_date'] = $start_date;
+            $bar['end_date'] = $end_data;
+
+
+
+            $data = [];
+            $data['result']=$result;
+            $data['bar']=$bar;
+
+
+//                    $currentYear = date('Y');
+//                    $currentMonth = date('n'); // 获取当前月份，不带前导零
+//
+//                    $monthsArray = [];
+//
+//                    for ($month = 1; $month <= $currentMonth; $month++) {
+//                        $monthsArray[] = $currentYear . '-' . str_pad($month, 2, '0', STR_PAD_LEFT); // 将月份补零并拼接年份
+//                    }
+
+
+
+
+
+//        $data = [];
         return $content->title("Inteligences")->view("admin/inteligences/index-v2",compact("data"));
 
     }
@@ -68,6 +182,8 @@ class IntelligencesController extends AdminController
         $firstDayOfWeek = date('Y-m-d', strtotime("this week Monday"));
         $startDate = $firstDayOfWeek.' 00:00:00';
         $endDate = date('Y-m-d H:i:s');
+
+
         //查询当前月的销售金额记录并按数量降序排列
         $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)->where('status',2)
             ->select(DB::raw('SUM(revenue) as total_sales'), 'offer_id')
@@ -202,6 +318,144 @@ class IntelligencesController extends AdminController
 //            ->header('Chartjs')
             ->body(new Box('', view('intelligences.echat', ['data' => $data, 'category_lis' => $geos_list, 'offer_count' => $offer_count,'all_offer'=>$all_offer, 'country_count' => $country_count, 'offer_list' => $offer_list])));
 
+
+    }
+
+
+
+
+    public function intelligence(Request$request)
+    {
+
+        $currentUser = auth()->user(); // 获取当前登录用户的模型对象
+        $admin_id = $currentUser->id; // 输出当前用户名称
+
+
+//        echo 123;exit;
+        $where = [];
+        $user_id = Admin::user()->id;
+        if (!Admin::user()->isAdministrator()) {
+            $where['log.admin_id'] = $user_id;
+        }
+        $step = $request->input("step");
+
+        $options = $request->input("options");
+
+        $start = date('Y-m-d 00:00:00', strtotime($options['start']));
+        $end = date('Y-m-d 23:59:59', strtotime($options['end']));
+
+        if($step=='intelligence_offers'){
+
+
+            $geos = $options['filter']['geo'];
+
+//            if(!empty($geos)){
+
+//                $where['log.country_id'] = $geos;
+
+//            }
+
+
+            $geos_list = Geos::get()->toArray();//国家列表
+            $startDate = $start;
+            $endDate = $end;
+
+
+            //查询当前月的销售金额记录并按数量降序排列
+            $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)->where('status',2)
+                ->select(DB::raw('SUM(revenue) as total_sales'), 'offer_id')
+                ->groupBy('offer_id')
+                ->orderByDesc('total_sales')
+                ->take(3)
+                ->get()
+                ->toArray();
+
+
+            $offer_log_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)->where($where)->sum('revenue');
+            foreach ($offer_sale as $key => $value) {
+
+                if($offer_log_count==0){
+                    $offer_sale[$key]['sales_percent'] = 0 ;
+                }else{
+                    $offer_sale[$key]['sales_percent'] = round($value['total_sales'] / $offer_log_count, 2);
+
+                }
+
+                $offer_sale[$key]['offer_name'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+                //  $offer_sale[$key]['sales_copy'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+                unset($offer_sale[$key]['total_sales']);
+                unset($offer_sale[$key]['offer_id']);
+
+            }
+
+
+            $offer_id = array_column($offer_sale, 'offer_name');
+            $total_sales = array_column($offer_sale, 'total_sales');
+            //使用 array_map 和 array_values 删除键，只保留键值
+            $sale_data = array_map('array_values', $offer_sale);
+            $month = date('M');
+
+
+
+            //排名前三的offer
+            $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)->where('status',2)
+                ->select(DB::raw('count(id) as total_quantity'), 'offer_id')
+                ->groupBy('offer_id')
+                ->orderByDesc('total_quantity')
+                ->take(3)
+                ->get()
+                ->toArray();
+
+
+            $total_count = OfferLog::where('status',2)->count();
+
+            foreach ($offer_count as $key => $value) {
+                $offer_count[$key]['short_name'] = Offer::where('id', $value['offer_id'])->value('short_name');
+
+
+                $offer_count[$key]['offer_name'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+
+
+                if($total_count==0){
+                    $offer_count[$key]['offer_percent'] = "0%";
+                }else{
+                    $offer_count[$key]['offer_percent'] = round($value['total_quantity'] / $total_count * 100);
+
+                }
+            }
+
+
+            $short_name = array_column($offer_count, 'short_name');
+            $offer_name = array_column($offer_count, 'offer_name');
+
+            $total_quantity = array_column($offer_count, 'total_quantity');
+            $offer_percent = array_column($offer_count, 'offer_percent');
+
+            $data = [];
+            $data['db_names'] = $short_name;
+
+            $data['link_preview'] = $short_name;
+            $data['long_names'] = $offer_name;
+
+
+            $data['names'] = $short_name;
+            $data['vals'] = $offer_percent;
+
+
+        }
+
+
+
+        if($step=='intelligence_geos'){
+
+
+            $geos = $options['filter']['offers'];
+
+
+            echo 123;exit;
+        }
+
+        return response()->json($data);
 
     }
 

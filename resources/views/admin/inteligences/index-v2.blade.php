@@ -24,6 +24,8 @@
 <!-- END CORE CSS FRAMEWORK -->
 
 <script src="/vendor/laravel-admin/analytic/bootstrap-select.min.js"></script>
+
+
 <script src="/vendor/laravel-admin/analytic/clipboard.min.js"></script>
 <script src="/vendor/laravel-admin/test/chosen.jquery.js"></script>
 
@@ -35,10 +37,10 @@
 <script src="/js/jquery-2.1.4.js"></script>
 
 {{--需要启用，不然会有些地方会报错--}}
-<script src="/assets/plugins/bootstrapv3/js/bootstrap.js" type="text/javascript"></script>
+{{--<script src="/assets/plugins/bootstrapv3/js/bootstrap.js" type="text/javascript"></script>--}}
 
 
-<script src="/js/bootstrap-tooltip-custom-class-master/bootstrap-v3/popover/dist/js/bootstrap-popover-custom-class.min.js" type="text/javascript"></script>
+{{--<script src="/js/bootstrap-tooltip-custom-class-master/bootstrap-v3/popover/dist/js/bootstrap-popover-custom-class.min.js" type="text/javascript"></script>--}}
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="/assets/plugins/jquery-block-ui/jqueryblockui.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script>
@@ -48,11 +50,15 @@
 <script src="/assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script>
 <script src="/assets/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+
 <script src="/assets/plugins/bootstrap-select2/select2.js" type="text/javascript"></script>
+
+
+
 <script src="/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
 <script src="/assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
 <script src="/assets/js/form_elements.js" type="text/javascript"></script>
-<script src="/assets/plugins/sweet-alert/sweet-alert.min.js"></script>
+{{--<script src="/assets/plugins/sweet-alert/sweet-alert.min.js"></script>--}}
 <script src="/assets/plugins/clipboard.js"></script>
 <script src="/assets/plugins/jquery-notifications/js/messenger.min.js" type="text/javascript"></script>
 <!-- END CORE JS DEPENDECENCIES-->
@@ -67,16 +73,16 @@
     //
     // Include this file AFTER both jQuery and bootstrap are loaded.
 
-    $.fn.modal.Constructor.prototype.enforceFocus = function() {
-        modal_this = this
-        $(document).on('focusin.modal', function (e) {
-            if (modal_this.$element[0] !== e.target && !modal_this.$element.has(e.target).length
-                && !$(e.target.parentNode).hasClass('cke_dialog_ui_input_select')
-                && !$(e.target.parentNode).hasClass('cke_dialog_ui_input_text')) {
-                modal_this.$element.focus()
-        }
-    })
-    };
+    // $.fn.modal.Constructor.prototype.enforceFocus = function() {
+    //     modal_this = this
+    //     $(document).on('focusin.modal', function (e) {
+    //         if (modal_this.$element[0] !== e.target && !modal_this.$element.has(e.target).length
+    //             && !$(e.target.parentNode).hasClass('cke_dialog_ui_input_select')
+    //             && !$(e.target.parentNode).hasClass('cke_dialog_ui_input_text')) {
+    //             modal_this.$element.focus()
+    //     }
+    // })
+    // };
 </script>
 <script src="/assets/plugins/ckeditor/ckeditor.js?v=0.1" type="text/javascript"></script>
 <script src="/assets/plugins/ckeditor/config.js?v=0.1" type="text/javascript"></script>
@@ -772,6 +778,8 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="col-md-8">
+
+
                             <table class="table no-more-tables geo_table" style="display: block;">
                                 <thead>
                                     <tr>
@@ -780,8 +788,16 @@
                                         <th style="width:10%">Distribution</th>
                                     </tr>
                                 </thead>
-                                <tbody><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Israel-Flag.png">Israel</span></td><td><span class="muted">30.5 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="30.5%" class="progress-bar animate-progress-bar" style="width: 30.508474576271187%; background-color:#0aa699"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/United-States-Flag.png">United States</span></td><td><span class="muted">20.3 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="20.3%" class="progress-bar animate-progress-bar" style="width: 20.338983050847457%; background-color:#0090d9"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Australia-Flag.png">Australia</span></td><td><span class="muted">13.6 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="13.6%" class="progress-bar animate-progress-bar" style="width: 13.559322033898304%; background-color:#fdd01c"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/United-Kingdom-Flag.png">United Kingdom</span></td><td><span class="muted">9.3 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="9.3%" class="progress-bar animate-progress-bar" style="width: 9.322033898305085%; background-color:#f35958"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Italy-Flag.png">Italy</span></td><td><span class="muted">5.1 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="5.1%" class="progress-bar animate-progress-bar" style="width: 5.084745762711864%; background-color:#75CB64"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/New-Zealand-Flag.png">New Zealand</span></td><td><span class="muted">4.2 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="4.2%" class="progress-bar animate-progress-bar" style="width: 4.237288135593221%; background-color:#FFE47E"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Canada-Flag.png">Canada</span></td><td><span class="muted">2.5 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="2.5%" class="progress-bar animate-progress-bar" style="width: 2.542372881355932%; background-color:#6F22B8"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Spain-Flag.png">Spain</span></td><td><span class="muted">1.7 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="1.7%" class="progress-bar animate-progress-bar" style="width: 1.694915254237288%; background-color:#B06094"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Belgium-Flag.png">Belgium</span></td><td><span class="muted">1.7 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="1.7%" class="progress-bar animate-progress-bar" style="width: 1.694915254237288%; background-color:#304E37"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Colombia-Flag.png">Colombia</span></td><td><span class="muted">0.8 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="0.8%" class="progress-bar animate-progress-bar" style="width: 0.847457627118644%; background-color:#EA74C9"></div></div></td></tr></tbody>
+                                <tbody>
+
+                                <tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Israel-Flag.png">Israel</span></td><td><span class="muted">30.5 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="30.5%" class="progress-bar animate-progress-bar" style="width: 30.508474576271187%; background-color:#0aa699"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/United-States-Flag.png">United States</span></td><td><span class="muted">20.3 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="20.3%" class="progress-bar animate-progress-bar" style="width: 20.338983050847457%; background-color:#0090d9"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Australia-Flag.png">Australia</span></td><td><span class="muted">13.6 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="13.6%" class="progress-bar animate-progress-bar" style="width: 13.559322033898304%; background-color:#fdd01c"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/United-Kingdom-Flag.png">United Kingdom</span></td><td><span class="muted">9.3 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="9.3%" class="progress-bar animate-progress-bar" style="width: 9.322033898305085%; background-color:#f35958"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Italy-Flag.png">Italy</span></td><td><span class="muted">5.1 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="5.1%" class="progress-bar animate-progress-bar" style="width: 5.084745762711864%; background-color:#75CB64"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/New-Zealand-Flag.png">New Zealand</span></td><td><span class="muted">4.2 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="4.2%" class="progress-bar animate-progress-bar" style="width: 4.237288135593221%; background-color:#FFE47E"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Canada-Flag.png">Canada</span></td><td><span class="muted">2.5 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="2.5%" class="progress-bar animate-progress-bar" style="width: 2.542372881355932%; background-color:#6F22B8"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Spain-Flag.png">Spain</span></td><td><span class="muted">1.7 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="1.7%" class="progress-bar animate-progress-bar" style="width: 1.694915254237288%; background-color:#B06094"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Belgium-Flag.png">Belgium</span></td><td><span class="muted">1.7 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="1.7%" class="progress-bar animate-progress-bar" style="width: 1.694915254237288%; background-color:#304E37"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Colombia-Flag.png">Colombia</span></td><td><span class="muted">0.8 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="0.8%" class="progress-bar animate-progress-bar" style="width: 0.847457627118644%; background-color:#EA74C9"></div></div></td></tr>
+
+                                </tbody>
+
+
                             </table>
+
+
                         </div>
                     </div>
                     <div class="row">
@@ -1020,8 +1036,41 @@
 <script src="/js/intelligence.js?v=0.2"></script>
 
 <script type="text/javascript">
-	var top_3_intl = {"main_data":{"2024-01-01":{"ClearView":19.9017199017199,"MaxPhone":17.444717444717444,"WIFI UltraBoost":5.405405405405405},"2024-02-01":{"TVShareMax":26.99724517906336,"MaxPhone":19.28374655647383,"ClearView":13.49862258953168},"2024-03-01":{"CoolEdge":25,"MaxPhone":25,"Tactic AIR Drone":10.576923076923077}},"start_date":"2023-12-15","end_date":"2024-03-15"};
-	var new_offers = {"2024-03-05 18:02:50":{"offer_name":"E-commerce - PostureRemind Pro INTL - All Languages - EXCLUSIVE","release_date":"2024-03-05 18:02:50","payout":"$65","link_preview":"https:\/\/popularhitech.com\/intl\/?prod=postureremindpro&net={NETWORK}&aff={AFFID}&sid={SUBID}&cid={CLICKID}","name":"PostureRemind Pro"},"2024-01-23 16:02:35":{"offer_name":"E-commerce - KneeBoost Pro INTL - All Languages - EXCLUSIVE","release_date":"2024-01-23 16:02:35","payout":"$28","link_preview":"https:\/\/popularhitech.com\/intl\/?prod=kneeboostpro&net={NETWORK}&aff={AFFID}&sid={SUBID}&cid={CLICKID}","name":"KneeBoost Pro"},"2023-11-15 14:46:02":{"offer_name":"E-commerce - CozyTime Pro INTL - All Languages - EXCLUSIVE","release_date":"2023-11-15 14:46:02","payout":"$40","link_preview":"https:\/\/popularhitech.com\/intl\/?prod=cozytimepro&net={NETWORK}&aff={AFFID}&sid={SUBID}&cid={CLICKID}","name":"CozyTime Pro"}};
+
+    var frontendData = @json($data);
+
+    console.log(123)
+    console.info(frontendData.bar)
+/*
+    var top_3_intl = {
+
+        "main_data":{
+            "2024-01-01":{"ClearView":19.9017199017199,"MaxPhone":17.444717444717444,"WIFI UltraBoost":5.405405405405405},
+            "2024-02-01":{"TVShareMax":26.99724517906336,"MaxPhone":19.28374655647383,"ClearView":13.49862258953168},
+            "2024-03-01":{"CoolEdge":25,"MaxPhone":25,"Tactic AIR Drone":10.576923076923077}
+        },
+
+
+        "start_date":"2023-12-15","end_date":"2024-03-15"
+
+
+    };
+*/
+
+    console.log(top_3_intl)
+
+
+    var top_3_intl = frontendData.bar;
+
+/*
+	var new_offers =
+        {
+            "2024-03-05 18:02:50":{"offer_name":"E-commerce - PostureRemind Pro INTL - All Languages - EXCLUSIVE","release_date":"2024-03-05 18:02:50","payout":"$65","link_preview":"https:\/\/popularhitech.com\/intl\/?prod=postureremindpro&net={NETWORK}&aff={AFFID}&sid={SUBID}&cid={CLICKID}","name":"PostureRemind Pro"},
+            "2024-01-23 16:02:35":{"offer_name":"E-commerce - KneeBoost Pro INTL - All Languages - EXCLUSIVE","release_date":"2024-01-23 16:02:35","payout":"$28","link_preview":"https:\/\/popularhitech.com\/intl\/?prod=kneeboostpro&net={NETWORK}&aff={AFFID}&sid={SUBID}&cid={CLICKID}","name":"KneeBoost Pro"},
+            "2023-11-15 14:46:02":{"offer_name":"E-commerce - CozyTime Pro INTL - All Languages - EXCLUSIVE","release_date":"2023-11-15 14:46:02","payout":"$40","link_preview":"https:\/\/popularhitech.com\/intl\/?prod=cozytimepro&net={NETWORK}&aff={AFFID}&sid={SUBID}&cid={CLICKID}","name":"CozyTime Pro"}};
+*/
+
+    var new_offers = frontendData.result;
 
 	intelligence.intelligence_top_3_offers(top_3_intl);
 	intelligence.intelligence_new_offers(new_offers);

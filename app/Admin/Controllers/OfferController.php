@@ -308,7 +308,7 @@ class OfferController extends AdminController
 
                 $offer['id'] = $item['id'];
                 $offer['image'] = env('APP_URL') . '/upload/' . $item['image'];
-                $offer['name'] = $item['offer_name'];
+                $offer['name'] = $item['short_name'];
 
 
                 $offer['offers_categories_ids'] = $item['cate_id'];
@@ -494,6 +494,7 @@ class OfferController extends AdminController
     public function intelligence(Request $request)
     {
 
+
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
         $admin_id = $currentUser->id; // 输出当前用户名称
 
@@ -508,12 +509,136 @@ class OfferController extends AdminController
         $step = $request->input("step");
         $options = $request->input("options");
 
+//        print_r($options);exit;
 
-        $short_name = $options['filter']['offers'][0];
-        $start = date('Y-m-d 00:00:00', strtotime($options['start']));
-        $end = date('Y-m-d 23:59:59', strtotime($options['end']));
+
+
+        if($step=='intelligence_offers'){
+            $start = date('Y-m-d 00:00:00', strtotime($options['start']));
+            $end = date('Y-m-d 23:59:59', strtotime($options['end']));
+
+            $geos = $options['filter']['geo'];
+
+//            if(!empty($geos)){
+
+//                $where['log.country_id'] = $geos;
+
+//            }
+
+/*
+            $where['o.short_name'] = $geos;
+            $where[] = [function ($query) use ($short_name) {
+                $query->whereIn('short_name', $short_name);
+            }];
+            */
+
+
+            $geos_list = Geos::get()->toArray();//国家列表
+            $startDate = $start;
+            $endDate = $end;
+
+
+            //查询当前月的销售金额记录并按数量降序排列
+            $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)->where('status',2)
+                ->select(DB::raw('SUM(revenue) as total_sales'), 'offer_id')
+                ->groupBy('offer_id')
+                ->orderByDesc('total_sales')
+                ->take(3)
+                ->get()
+                ->toArray();
+
+
+            $offer_log_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)->where($where)->sum('revenue');
+            foreach ($offer_sale as $key => $value) {
+
+                if($offer_log_count==0){
+                    $offer_sale[$key]['sales_percent'] = 0 ;
+                }else{
+                    $offer_sale[$key]['sales_percent'] = round($value['total_sales'] / $offer_log_count, 2);
+
+                }
+
+                $offer_sale[$key]['offer_name'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+                //  $offer_sale[$key]['sales_copy'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+                unset($offer_sale[$key]['total_sales']);
+                unset($offer_sale[$key]['offer_id']);
+
+            }
+
+
+            $offer_id = array_column($offer_sale, 'offer_name');
+            $total_sales = array_column($offer_sale, 'total_sales');
+            //使用 array_map 和 array_values 删除键，只保留键值
+            $sale_data = array_map('array_values', $offer_sale);
+            $month = date('M');
+
+
+
+            //排名前三的offer
+            $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)->where('status',2)
+                ->select(DB::raw('count(id) as total_quantity'), 'offer_id')
+                ->groupBy('offer_id')
+                ->orderByDesc('total_quantity')
+                ->take(3)
+                ->get()
+                ->toArray();
+
+
+            $total_count = OfferLog::where('status',2)->count();
+
+            foreach ($offer_count as $key => $value) {
+                $offer_count[$key]['short_name'] = Offer::where('id', $value['offer_id'])->value('short_name');
+
+
+                $offer_count[$key]['offer_name'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+
+
+                if($total_count==0){
+                    $offer_count[$key]['offer_percent'] = "0%";
+                }else{
+                    $offer_count[$key]['offer_percent'] = round($value['total_quantity'] / $total_count * 100);
+
+                }
+            }
+
+
+            $short_name = array_column($offer_count, 'short_name');
+            $offer_name = array_column($offer_count, 'offer_name');
+
+            $total_quantity = array_column($offer_count, 'total_quantity');
+            $offer_percent = array_column($offer_count, 'offer_percent');
+
+            $data = [];
+            $data['db_names'] = $short_name;
+
+            $data['link_preview'] = $short_name;
+            $data['long_names'] = $offer_name;
+
+
+            $data['names'] = $short_name;
+            $data['vals'] = $offer_percent;
+
+
+        }
+
+
 
         if ($step == 'intelligence_geos') {
+
+            $start = date('Y-m-d 00:00:00', strtotime($options['start']));
+            $end = date('Y-m-d 23:59:59', strtotime($options['end']));
+            $short_name = $options['filter']['offers'];
+            if(!empty($short_name)){
+
+                $where['o.short_name'] = $short_name;
+                $where[] = [function ($query) use ($short_name) {
+                    $query->whereIn('short_name', $short_name);
+                }];
+
+            }
+
+//            print_r($short_name);exit;
+
 
 
             $offer_top = DB::table('offer_logs AS log')
@@ -521,7 +646,7 @@ class OfferController extends AdminController
                 ->where('log.created_at', '>', $start)
                 ->where('log.created_at', '<=', $end)
                 ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
-                ->where('o.offer_name', $short_name)
+//                ->where('o.offer_name', $short_name)
                 ->where($where)
                 ->select(DB::raw('count(log.id) as offer_total'), 'log.country_id')
                 ->groupBy('log.country_id')
@@ -557,10 +682,54 @@ class OfferController extends AdminController
 
 
             $data = [];
-            $data['ios'] = ['United Kingdom' => 'GB'];
+
+//            $data['iso'] = ['Australia' => "AU",'Austria'=>"AT"];
+//            $data['names'] = [0=>"Israel",1=>"United States"];
+//            $data['vals'] = [31,19];
+
+            $data['iso'] = ['荷兰' => "GB",'null'=>"123"];
             $data['names'] = $names;
             $data['vals'] = $vals;
 
+        }
+
+
+//        var_dump($step);exit;
+        if($step=='intelligence_opportunity'){
+
+            $total_count = DB::table('offer_logs as log')->where('log.created_at', '>', date('2022-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-t 23:59:59'))->where('status', 2)->count();
+
+
+            $offer_top = DB::table('offer_logs AS log')
+                ->where('log.status', 2)
+//                ->where('log.created_at', '>', $start)
+//                ->where('log.created_at', '<=', $end)
+                ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
+//                ->where('o.offer_name', $short_name)
+                ->where($where)
+                ->select(DB::raw('count(log.id) as offer_total'), 'o.short_name')
+                ->groupBy('o.short_name')
+                ->orderByDesc('offer_total')
+                ->limit(1)
+                ->get()
+                ->first();
+
+//            print_r($offer_top);exit;
+
+            if(!empty($offer_top)){
+                $offer_name = $offer_top->short_name;
+                $percent =round($offer_top->offer_total /$total_count,2);
+            }else{
+                $percent = 0;
+            }
+
+//            $percent = round(/$total_count)
+
+            $data = [];
+            $data['link_preview'] = "https://popularhitech.com/intl/?prod=cooledge&net={NETWORK}&aff={AFFID}&sid={SUBID}&cid={CLICKID}";
+            $data['offer'] = $offer_name;
+            $data['percent'] = $percent;
+            $data['result'] = "graph";
         }
 
         return response()->json($data);

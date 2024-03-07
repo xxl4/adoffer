@@ -204,7 +204,7 @@ var intelligence = {
 		remove : function(network){
 			$.ajax({
 				//url: 'classes/Class.intelligence.php',
-				url: window.domain + '/offers/intelligence',
+				url: window.domain + '/intelligences/intelligence',
 				dataType: "json",
 				type: 'POST',
 				data: {
@@ -278,6 +278,9 @@ var intelligence = {
 							prod_table +='<tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid '+e+';overflow:hidden"></div></div></td><td class="legendLabel">'+i+'</td></tr>'
 						});
 						prod_table += '</tbody></table>';
+
+
+
 
 						$('#offers_date-pie').append(prod_table);
 
