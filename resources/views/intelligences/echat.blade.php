@@ -33,34 +33,41 @@
 
 <!-- END CONTENT -->
 <!-- BEGIN CORE JS FRAMEWORK-->
-{{--<script src=" /vendor/laravel-admin/test2/1927844693922741" async=""></script>--}}
-{{--<script async="" src=" /vendor/laravel-admin/test2/fbevents.js"></script>--}}
-<script async="" src=" /vendor/laravel-admin/test2/roundtrip.js"></script><script src=" /vendor/laravel-admin/test2/pace.min.js" type="text/javascript"></script>
+<script src=" /vendor/laravel-admin/test2/1927844693922741" async=""></script>
+<script async="" src=" /vendor/laravel-admin/test2/fbevents.js"></script>
+<script async="" src=" /vendor/laravel-admin/test2/roundtrip.js"></script>
+<script src=" /vendor/laravel-admin/test2/pace.min.js" type="text/javascript"></script>
 <!-- BEGIN JS DEPENDECENCIES-->
 <script src=" /vendor/laravel-admin/test2/jquery-2.1.4.js"></script>
 <!--	<script src="assets/plugins/bootstrapv3/js/bootstrap.min.js" type="text/javascript"></script>-->
-<script src=" /vendor/laravel-admin/test2/bootstrap.js " type="text/javascript"></script>
+
+
+{{--<script src=" /vendor/laravel-admin/test2/bootstrap.js " type="text/javascript"></script>--}}
+
+
 <script src=" /vendor/laravel-admin/test2/bootstrap-popover-custom-class.min.js " type="text/javascript"></script>
 
 {{--<script src=" /vendor/laravel-admin/test2/raphael-min.js "></script>--}}
-<script src=" /vendor/laravel-admin/test2/jqueryblockui.min.js " type="text/javascript"></script>
-<script src=" /vendor/laravel-admin/test2/jquery.unveil.min.js " type="text/javascript"></script>
-<script src=" /vendor/laravel-admin/test2/jquery.scrollbar.min.js " type="text/javascript"></script>
-<script src=" /vendor/laravel-admin/test2/jquery.animateNumbers.js " type="text/javascript"></script>
-<script src=" /vendor/laravel-admin/test2/jquery.validate.min.js " type="text/javascript"></script>
-<script src=" /vendor/laravel-admin/test2/select2.js " type="text/javascript"></script>
-<script src=" /vendor/laravel-admin/test2/bootstrap-datepicker.js " type="text/javascript"></script>
+{{--<script src=" /vendor/laravel-admin/test2/jqueryblockui.min.js " type="text/javascript"></script>--}}
+{{--<script src=" /vendor/laravel-admin/test2/jquery.unveil.min.js " type="text/javascript"></script>--}}
+{{--<script src=" /vendor/laravel-admin/test2/jquery.scrollbar.min.js " type="text/javascript"></script>--}}
+{{--<script src=" /vendor/laravel-admin/test2/jquery.animateNumbers.js " type="text/javascript"></script>--}}
+{{--<script src=" /vendor/laravel-admin/test2/jquery.validate.min.js " type="text/javascript"></script>--}}
+
+{{--<script src=" /vendor/laravel-admin/test2/select2.js " type="text/javascript"></script>--}}
+
+{{--<script src=" /vendor/laravel-admin/test2/bootstrap-datepicker.js " type="text/javascript"></script>--}}
 
 
-<script src=" /vendor/laravel-admin/test2/bootstrap-timepicker.min.js " type="text/javascript"></script>
-<script src=" /vendor/laravel-admin/test2/form_elements.js " type="text/javascript"></script>
-<script src=" /vendor/laravel-admin/test2/sweet-alert.min.js "></script>
-<script src=" /vendor/laravel-admin/test2/clipboard.js "></script>
-<script src=" /vendor/laravel-admin/test2/messenger.min.js " type="text/javascript"></script>
+{{--<script src=" /vendor/laravel-admin/test2/bootstrap-timepicker.min.js " type="text/javascript"></script>--}}
+{{--<script src=" /vendor/laravel-admin/test2/form_elements.js " type="text/javascript"></script>--}}
+{{--<script src=" /vendor/laravel-admin/test2/sweet-alert.min.js "></script>--}}
+{{--<script src=" /vendor/laravel-admin/test2/clipboard.js "></script>--}}
+{{--<script src=" /vendor/laravel-admin/test2/messenger.min.js " type="text/javascript"></script>--}}
 <!-- END CORE JS DEPENDECENCIES-->
 <!-- BEGIN CORE TEMPLATE JS -->
-<script src=" /vendor/laravel-admin/test2/webarch.js " type="text/javascript"></script>
-<script src=" /vendor/laravel-admin/test2/chat.js " type="text/javascript"></script>
+{{--<script src=" /vendor/laravel-admin/test2/webarch.js " type="text/javascript"></script>--}}
+{{--<script src=" /vendor/laravel-admin/test2/chat.js " type="text/javascript"></script>--}}
 <!-- END CORE TEMPLATE JS -->
 
 <!-- TEXT EDITOR -->
@@ -707,7 +714,39 @@
 
 
 
-<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"><div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div></div><div id="tooltip" style="position: absolute; display: none; border: 1px solid rgb(240, 240, 240); padding: 2px; background-color: rgb(255, 255, 255); z-index: 99999; opacity: 0.8;"></div><div><div class="sweet-overlay" tabindex="-1"></div><div class="sweet-alert" tabindex="-1"><div class="icon error"><span class="x-mark"><span class="line left"></span><span class="line right"></span></span></div><div class="icon warning"> <span class="body"></span> <span class="dot"></span> </div> <div class="icon info"></div> <div class="icon success"> <span class="line tip"></span> <span class="line long"></span> <div class="placeholder"></div> <div class="fix"></div> </div> <div class="icon custom"></div> <h2>Title</h2><p class="lead text-muted">Text</p><p><button class="cancel btn btn-lg" tabindex="2">Cancel</button> <button class="confirm btn btn-lg" tabindex="1">OK</button></p></div></div>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+    <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+
+    </div>
+</div>
+<div id="tooltip" style="position: absolute; display: none; border: 1px solid rgb(240, 240, 240); padding: 2px; background-color: rgb(255, 255, 255); z-index: 99999; opacity: 0.8;">
+</div>
+<div>
+
+{{--    <div class="sweet-overlay" tabindex="-1"></div>--}}
+{{--    <div class="sweet-alert" tabindex="-1">--}}
+{{--        <div class="icon error">--}}
+{{--            <span class="x-mark">--}}
+{{--                <span class="line left"></span>--}}
+{{--                <span class="line right"></span>--}}
+{{--            </span>--}}
+{{--        </div>--}}
+{{--        <div class="icon warning">--}}
+{{--            <span class="body"></span>--}}
+{{--            <span class="dot"></span> --}}
+{{--        </div>--}}
+{{--        <div class="icon info"></div>--}}
+{{--        <div class="icon success"> --}}
+{{--            <span class="line tip"></span>--}}
+{{--            <span class="line long"></span>--}}
+{{--            <div class="placeholder"></div>--}}
+{{--            <div class="fix"></div> </div>--}}
+{{--        <div class="icon custom"></div>--}}
+{{--        <h2>Title</h2>--}}
+{{--        <p class="lead text-muted">Text</p>--}}
+{{--        <p><button class="cancel btn btn-lg" tabindex="2">Cancel</button> <button class="confirm btn btn-lg" tabindex="1">OK</button></p>--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 <div class="cke_screen_reader_only cke_copyformatting_notification">
     <div aria-live="polite"></div></div>

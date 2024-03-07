@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="/css/links_img.css">
 <!-- END CORE CSS FRAMEWORK -->
 
-<script src="/vendor/laravel-admin/analytic/bootstrap-select.min.js"></script>
+{{--<script src="/vendor/laravel-admin/analytic/bootstrap-select.min.js"></script>--}}
 <script src="/vendor/laravel-admin/analytic/clipboard.min.js"></script>
 <script src="/vendor/laravel-admin/test/chosen.jquery.js"></script>
 
@@ -50,11 +50,17 @@
 <script src="/assets/plugins/jquery-scrollbar/jquery.scrollbar.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script>
 <script src="/assets/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/bootstrap-select2/select2.js" type="text/javascript"></script>
+
+{{--<script src="/assets/plugins/bootstrap-select2/select2.js" type="text/javascript"></script>--}}
+
 <script src="/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
 <script src="/assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
 <script src="/assets/js/form_elements.js" type="text/javascript"></script>
-<script src="/assets/plugins/sweet-alert/sweet-alert.min.js"></script>
+
+
+{{--<script src="/assets/plugins/sweet-alert/sweet-alert.min.js"></script>--}}
+
+
 <script src="/assets/plugins/clipboard.js"></script>
 <script src="/assets/plugins/jquery-notifications/js/messenger.min.js" type="text/javascript"></script>
 <!-- END CORE JS DEPENDECENCIES-->
