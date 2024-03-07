@@ -24,6 +24,8 @@ class HomeController extends Controller
     public function index(Content $content)
     {
 
+
+
         Admin::disablePjax();
 
         $data = [];
@@ -148,9 +150,12 @@ class HomeController extends Controller
 //        print_r($offer_last_week);exit;
 
         return $content
-//            ->title('Dashboard')
+            ->title('Dashboard')
 //            ->description('Description...')
-            ->body(new Box('', view('admin.home.dashboard', ['data' => $data])));
+            ->body(view('admin.home.dashboard', ['data' => $data]));
+
+
+//        return $content->title("Index V2")->view("admin/home/index-v2", compact('data'));
 
 
     }
