@@ -56,11 +56,7 @@
 <script src="/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
 <script src="/assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
 <script src="/assets/js/form_elements.js" type="text/javascript"></script>
-
-
-{{--<script src="/assets/plugins/sweet-alert/sweet-alert.min.js"></script>--}}
-
-
+<script src="/assets/plugins/sweet-alert/sweet-alert.min.js"></script>
 <script src="/assets/plugins/clipboard.js"></script>
 <script src="/assets/plugins/jquery-notifications/js/messenger.min.js" type="text/javascript"></script>
 <!-- END CORE JS DEPENDECENCIES-->

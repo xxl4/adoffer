@@ -15,8 +15,14 @@
 }
 
 .page-content{
-	background-image: url(./images/notify_bg.png);
+	/*background-image: url(./images/notify_bg.png);*/
 }
+
+    /*背景图设置更改*/
+.content-wrapper{
+    background-image: url(./images/notify_bg.png);
+}
+
 .full_width{
 	width: -moz-max-content;
 	width: -webkit-max-content;
