@@ -1163,8 +1163,8 @@ class OfferController extends AdminController
 //        $form->textarea('creative', __('Creative Des'));
         $form->multipleSelect('creatives_id', __('Creatives'))->options(Creatives::all()->pluck('name', 'id'))->required();
 
-        $form->textarea('product_feed_des', __('ProductFeed Des'));
-        $form->multipleSelect('product_feed_id', __('ProductFeed'))->options(ProductsFeed::all()->pluck('title', 'id'))->required();
+//        $form->textarea('product_feed_des', __('ProductFeed Des'));
+//        $form->multipleSelect('product_feed_id', __('ProductFeed'))->options(ProductsFeed::all()->pluck('title', 'id'));
 
         $form->multipleSelect('admin_roles_id', __('Roles'))->options(Role::all()->pluck('name', 'id'))->required();
 //        $form->editor('admin_roles_id');
