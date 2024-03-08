@@ -189,6 +189,9 @@ class HomeController extends Controller
             $role = $role->id;
         }
 
+
+
+
         $step = $request->input("step");
 
         $total_offer_revenue = OfferLog::where('status', 2)
@@ -513,7 +516,8 @@ class HomeController extends Controller
             ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
 
             ->where('log.status', 2)
-            ->where('log.created_at', '>', date('2022-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
+            ->where('log.created_at', '>', date('2022-01-01 00:00:00'))
+            ->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
             ->select(DB::raw('count(log.id) as offer_count'), 'log.country_id')
             ->groupBy('log.country_id')
             ->orderByDesc('offer_count')
@@ -569,7 +573,8 @@ class HomeController extends Controller
             ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
             ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
             ->where('log.status', 2)
-            ->where('log.created_at', '>', date('2022-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
+            ->where('log.created_at', '>', date('2022-01-01 00:00:00'))
+            ->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
             ->select(DB::raw('count(log.id) as offer_count'), 'log.offer_id','o.offer_name','o.short_name')
             ->groupBy('log.offer_id')
             ->orderByDesc('offer_count')
@@ -638,8 +643,8 @@ class HomeController extends Controller
                 ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->where('log.offer_id', $value)
                 ->where('log.status', 2)
-                ->where('log.created_at', '>', date('Y-m-d 00:00:00',strtotime('-1 week')))
-                ->where('log.created_at', '<=', date('Y-m-d 23:59:59',strtotime('last Saturday')))
+                ->where('log.created_at', '>', date('2022-01-01 00:00:00'))
+                ->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
                 ->select(DB::raw('count(log.id) as offer_count'), 'g.country')
                 ->groupBy('g.country')
                 ->orderByDesc('offer_count')
