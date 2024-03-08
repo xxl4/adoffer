@@ -235,9 +235,6 @@ var home_vidgets = {
 			}else{
 
 
-                console.log(444,percentage_5_top)
-
-
                 if(response.array_percent_done && response.array_percent_done.vals){
 					var percentage_5_top = 100 - response.array_percent_done.vals[response.array_percent_done.vals.length-1];
 				}else{
@@ -293,9 +290,6 @@ var home_vidgets = {
 				net : network
 			}
 		}).done(function(response){
-
-            console.log(1234,response.geos)
-
 
 			if(response && response.logout){
 				logout_visual.auto_logout(response.logout);
@@ -361,7 +355,7 @@ var home_vidgets = {
 					});
 				}
 
-                console.log(data_offers);
+                // console.log(data_offers);
 
                 //data_offers = "1111";
 

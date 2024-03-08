@@ -267,6 +267,11 @@ var intelligence = {
 						options: options,
 					}
 				}).done(function(response){
+
+                    console.info(response && response.vals)
+
+                    console.log(444)
+
 					if(response && response.vals){
 						$('.offer_table, #offers_date-pie').css('display', 'block');
 						$('.offers_date_no_data').css('display', 'none');
@@ -278,9 +283,6 @@ var intelligence = {
 							prod_table +='<tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid '+e+';overflow:hidden"></div></div></td><td class="legendLabel">'+i+'</td></tr>'
 						});
 						prod_table += '</tbody></table>';
-
-
-
 
 						$('#offers_date-pie').append(prod_table);
 

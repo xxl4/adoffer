@@ -625,15 +625,17 @@ class OfferController extends AdminController
             $total_quantity = array_column($offer_count, 'total_quantity');
             $offer_percent = array_column($offer_count, 'offer_percent');
 
+
             $data = [];
             $data['db_names'] = $short_name;
-
             $data['link_preview'] = $short_name;
             $data['long_names'] = $offer_name;
-
-
             $data['names'] = $short_name;
-            $data['vals'] = $offer_percent;
+
+            if(!empty($offer_percent)){
+                $data['vals'] = $offer_percent;
+            }
+
 
 
         }
@@ -705,7 +707,11 @@ class OfferController extends AdminController
 
             $data['iso'] = ['荷兰' => "GB",'null'=>"123"];
             $data['names'] = $names;
-            $data['vals'] = $vals;
+
+            if(!empty($vals)){
+                $data['vals'] = $vals;
+
+            }
 
         }
 
