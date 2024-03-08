@@ -838,7 +838,7 @@ class OfferController extends AdminController
 //        print_r("<pre/>");
 //        print_r($data);exit;
 
-        return $content->view('offer.show', compact('data'));
+        return $content->title('Offers')->view('offer.show', compact('data'));
     }
 
 
