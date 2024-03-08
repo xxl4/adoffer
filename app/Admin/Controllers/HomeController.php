@@ -331,7 +331,7 @@ class HomeController extends Controller
                         <div class="second_row_table table_content_top" style="width:44%; display: inline-block;">
                              ' . $value->offer_name . '</div>
                         <div class="last_row_table table_content_top bold text-success" style="width:8%; display: inline-block; text-align: center;">
-                             $ ' . $value->revenue . '</div>';
+                             $ ' . round($value->revenue,2) . '</div>';
 
             }
 
