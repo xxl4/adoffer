@@ -627,49 +627,53 @@ class HomeController extends Controller
         ];
 
 
-        $short_name_list = array_slice($offer_ids, 0, 3);
-
-//        print_r($short_name_list);exit;
+        if(!empty($offer_ids)) {
 
 
-        $top_3_country_offers = [];
-        foreach ($short_name_list as $key => $value) {
+            $short_name_list = array_slice($offer_ids, 0, 3);
+            $top_3_country_offers = [];
+            foreach ($short_name_list as $key => $value) {
 
 //            print_r($value);exit;
 
-            $total_country_list = DB::table('offer_logs as log')
-                ->leftJoin('geos AS g', 'log.country_id', '=', 'g.id')
-                ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
-                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
-                ->where('log.offer_id', $value)
-                ->where('log.status', 2)
-                ->where('log.created_at', '>', date('2022-01-01 00:00:00'))
-                ->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
-                ->select(DB::raw('count(log.id) as offer_count'), 'g.country')
-                ->groupBy('g.country')
-                ->orderByDesc('offer_count')
-                ->limit(3)
-                ->get()
-                ->toArray();
+                $total_country_list = DB::table('offer_logs as log')
+                    ->leftJoin('geos AS g', 'log.country_id', '=', 'g.id')
+                    ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
+                    ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                    ->where('log.offer_id', $value)
+                    ->where('log.status', 2)
+                    ->where('log.created_at', '>', date('2022-01-01 00:00:00'))
+                    ->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
+                    ->select(DB::raw('count(log.id) as offer_count'), 'g.country')
+                    ->groupBy('g.country')
+                    ->orderByDesc('offer_count')
+                    ->limit(3)
+                    ->get()
+                    ->toArray();
 
 
-            $offer_info =   DB::table('offers')->where('id',$value)->get();
+                $offer_info = DB::table('offers')->where('id', $value)->get();
 
-            if(!empty($offer_info)){
-                $offer_info = $offer_info->first();
-                $short_name =$offer_info->short_name;
-            }else{
-                $short_name = '';
+                if (!empty($offer_info)) {
+                    $offer_info = $offer_info->first();
+                    $short_name = $offer_info->short_name;
+                } else {
+                    $short_name = '';
+                }
+
+
+                if (!empty($total_country_list)) {
+                    $top_3_country_offers[$short_name]['names'] = array_column($total_country_list, 'country');
+                } else {
+                    $top_3_country_offers[$short_name]['names'] = '';
+                }
+
             }
+        }else{
 
-
-            if (!empty($total_country_list)) {
-                $top_3_country_offers[$short_name]['names'] = array_column($total_country_list, 'country');
-            } else {
-                $top_3_country_offers[$short_name]['names'] = '';
-            }
-
+            $top_3_country_offers = [];
         }
+
 
 //        print_r($top_3_country_offers);exit;
 
