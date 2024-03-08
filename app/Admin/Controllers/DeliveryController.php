@@ -72,8 +72,8 @@ class DeliveryController extends AdminController
         $form = new Form(new Delivery());
 
         $form->text('delivery_name', __('Delivery name'))->required();
-        $form->url('delivery_link', __('Delivery Link'))->required();
-        $form->datetime('created_at', __('Create at'))->default(date('Y-m-d H:i:s'));
+        $form->url('delivery_link', __('Delivery Link'))->required()->help("在填写域名的时候，请不要在尾部加'\'");
+        //$form->datetime('created_at', __('Create at'))->default(date('Y-m-d H:i:s'));
 //        $form->datetime('update_at', __('Update at'))->default(date('Y-m-d H:i:s'));
 
         return $form;
