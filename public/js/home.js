@@ -81,10 +81,6 @@ var home_vidgets = {
 						}
 					});
 
-
-
-
-
 				}
 			});
 		}
@@ -230,15 +226,28 @@ var home_vidgets = {
 				net : network,
 			}
 		}).done(function(response){
+
+
+
+
 			if(response && response.logout){
 				logout_visual.auto_logout(response.logout);
 			}else{
-				if(response.array_percent_done && response.array_percent_done.vals){
+
+
+                console.log(444,percentage_5_top)
+
+
+                if(response.array_percent_done && response.array_percent_done.vals){
 					var percentage_5_top = 100 - response.array_percent_done.vals[response.array_percent_done.vals.length-1];
 				}else{
 					var percentage_5_top = 0;
 				}
-				var total_sales_offers = 0;
+
+
+
+
+                var total_sales_offers = 0;
 				var each_offer_display = '';
 
 				$('.top5offer_percent').html(Math.round(percentage_5_top * 100) / 100+"%");

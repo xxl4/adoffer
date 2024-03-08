@@ -538,14 +538,14 @@ class OfferController extends AdminController
 //            echo $geos;exit;
 
             //查询当前月的销售金额记录并按数量降序排列
-            $offer_sale = OfferLog::whereBetween('Offer_logs.created_at', [$startDate, $endDate])
-                ->leftJoin('geos AS g', 'Offer_logs.country_id', '=', 'g.id')
-                ->leftJoin('offers as o','Offer_logs.offer_id','=','o.id')
+            $offer_sale = OfferLog::whereBetween('offer_logs.created_at', [$startDate, $endDate])
+                ->leftJoin('geos AS g', 'offer_logs.country_id', '=', 'g.id')
+                ->leftJoin('offers as o','offer_logs.offer_id','=','o.id')
                 ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->where($where)
-                ->where('Offer_logs.status',2)
-                ->select(DB::raw('SUM(Offer_logs.revenue) as total_sales'), 'Offer_logs.offer_id')
-                ->groupBy('Offer_logs.offer_id')
+                ->where('offer_logs.status',2)
+                ->select(DB::raw('SUM(offer_logs.revenue) as total_sales'), 'offer_logs.offer_id')
+                ->groupBy('offer_logs.offer_id')
                 ->orderByDesc('total_sales')
                 ->take(3)
                 ->get()
@@ -554,12 +554,12 @@ class OfferController extends AdminController
 //            print_r($offer_sale);exit;
 
 
-            $offer_log_count = OfferLog::whereBetween('Offer_logs.created_at', [$startDate, $endDate])
-                ->leftJoin('offers as o','Offer_logs.offer_id','=','o.id')
+            $offer_log_count = OfferLog::whereBetween('offer_logs.created_at', [$startDate, $endDate])
+                ->leftJoin('offers as o','offer_logs.offer_id','=','o.id')
                 ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
-                ->where('Offer_logs.status',2)
+                ->where('offer_logs.status',2)
                 ->where($where)
-                ->sum('Offer_logs.revenue');
+                ->sum('offer_logs.revenue');
 
 //            var_dump($offer_log_count);exit;
 
@@ -588,12 +588,12 @@ class OfferController extends AdminController
 
 
             //排名前三的offer
-            $offer_count = OfferLog::whereBetween('Offer_logs.created_at', [$startDate, $endDate])
-                ->leftJoin('offers as o','Offer_logs.offer_id','=','o.id')
-                ->where($where)->where('Offer_logs.status',2)
-                ->select(DB::raw('count(Offer_logs.id) as total_quantity'), 'Offer_logs.offer_id')
+            $offer_count = OfferLog::whereBetween('offer_logs.created_at', [$startDate, $endDate])
+                ->leftJoin('offers as o','offer_logs.offer_id','=','o.id')
+                ->where($where)->where('offer_logs.status',2)
+                ->select(DB::raw('count(offer_logs.id) as total_quantity'), 'offer_logs.offer_id')
                 ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
-                ->groupBy('Offer_logs.offer_id')
+                ->groupBy('offer_logs.offer_id')
                 ->orderByDesc('total_quantity')
                 ->take(3)
                 ->get()
