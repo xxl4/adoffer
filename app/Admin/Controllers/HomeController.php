@@ -205,32 +205,30 @@ class HomeController extends Controller
 
             $data = [];
             $data['all_count'] = OfferLog::where('offer_logs.status', 2)
-
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
-//                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
-
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->groupBy('offer_logs.offer_id')
                 ->count();
 
             $all_peyout_price = OfferLog::where('offer_logs.status', 2)
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
-//                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->sum('offer_logs.revenue');
-
             $data['all_peyout_price'] = round($all_peyout_price, 2);
+
 
             $data['day_peyout'] = OfferLog::where('offer_logs.status', 2)
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
-//                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
-//                ->where('offer_logs.created_at', '>', date('Y-m-d 00:00:00'))
-//                ->where('offer_logs.created_at', '<=', date('Y-m-d 23:59:59'))
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->where('offer_logs.created_at', '>', date('Y-m-d 00:00:00'))
+                ->where('offer_logs.created_at', '<=', date('Y-m-d 23:59:59'))
                 ->groupBy('offer_logs.offer_id')->count();
 
             $day_peyout_price = OfferLog::where('offer_logs.status', 2)
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
-//                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
-//                ->where('offer_logs.created_at', '>', date('Y-m-d 00:00:00'))
-//                ->where('offer_logs.created_at', '<=', date('Y-m-d 23:59:59'))
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->where('offer_logs.created_at', '>', date('Y-m-d 00:00:00'))
+                ->where('offer_logs.created_at', '<=', date('Y-m-d 23:59:59'))
                 ->sum('offer_logs.revenue');
 
 
@@ -238,18 +236,21 @@ class HomeController extends Controller
             $data['message'] = false;
             $data['month_peyout_count'] = OfferLog::where('offer_logs.status', 2)
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
-//                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->where('offer_logs.created_at', '>', date('Y-m-1 00:00:00'))
                 ->where('offer_logs.created_at', '<=', date('Y-m-t 23:59:59'))
                 ->groupBy('offer_logs.offer_id')->count();
 
             $month_peyout_price = OfferLog::where('offer_logs.status', 2)
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
-//                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->where('offer_logs.created_at', '>', date('Y-m-1 00:00:00'))
                 ->where('offer_logs.created_at', '<=', date('Y-m-t 23:59:59'))
                 ->sum('offer_logs.revenue');
             $data['month_peyout_price'] = round($month_peyout_price, 2);
+
+
+
 
         }
         //
