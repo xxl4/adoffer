@@ -38,8 +38,12 @@ class IntelligencesController extends AdminController
 
     public function index(Content $content)
     {
+
         return $content
 //            ->header('Chartjs')
+
+
+
             ->body(new Box('', view('admin.intelligences.echart')));
     }
 
@@ -49,11 +53,15 @@ class IntelligencesController extends AdminController
         Admin::disablePjax();
 
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
-        $net_id = $currentUser->id; // 输出当前用户名称
         $where = [];
-        if($net_id!==1 && $net_id!==2){
-            $where[]=['admin_id','=',$net_id];
+
+        $roles = $currentUser->roles; // 获取当前用户的角色集合
+        $role = '';
+        foreach ($roles as $role) {
+            $role = $role->id;
         }
+
+
 
         $offer_list = Offer::where('offer_status', 1)
             ->select('offer_name','created_at as release_date','offer_price as payout','short_name as name')
@@ -129,9 +137,12 @@ class IntelligencesController extends AdminController
 
         }
 
+        $geo_list = Geos::all()->toArray();
+        $offer_select = Offer::whereRaw("FIND_IN_SET($role, admin_roles_id)")->get()->toArray();
+
 
 //        print_r("<pre/>");
-//        print_r($res);exit;
+//        print_r($offer_select);exit;
 
             $main_data = $res;
             $start_date = "2023-12-15";
@@ -147,6 +158,8 @@ class IntelligencesController extends AdminController
             $data = [];
             $data['result']=$result;
             $data['bar']=$bar;
+            $data['geos_list']=$geo_list;
+            $data['offers_geo']=$offer_select;
 
 
 //                    $currentYear = date('Y');
@@ -159,6 +172,9 @@ class IntelligencesController extends AdminController
 //                    }
 
 
+
+
+//        print_r($geo);exit;
 
 
 

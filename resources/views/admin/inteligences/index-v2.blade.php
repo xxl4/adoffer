@@ -178,478 +178,19 @@
                                 <div class="row">
                                     <div class="col-xs-12 use_small_padding">
                                         <select class="select2_geos select2-hidden-accessible" name="geos" id="geos_offers" data-suffix="offers" multiple="" tabindex="-1" aria-hidden="true">
-                                            <option value="Albania">Albania</option><option value="Algeria">Algeria</option>
+
+
+{{--                                            <option value="Albania">Albania</option><option value="Algeria">Algeria</option>--}}
+
+
+
+                                            @foreach ($data['geos_list'] as $key=>$item)
+                                                <option value="{{$item['country']}}">{{$item['country']}}</option>
+                                            @endforeach
+
+
                                         </select>
-{{--                                        <style>--}}
-{{--                                            .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {--}}
-{{--                                                margin-right: 30px;--}}
-{{--                                            }--}}
-{{--                                            .select2-selection__choice[title="Albania"] {background-image:url(images/flags/Albania-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Algeria"] {background-image:url(images/flags/Algeria-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Andorra"] {background-image:url(images/flags/Andorra-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Angola"] {background-image:url(images/flags/Angola-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Anguilla"] {background-image:url(images/flags/Anguilla-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Antigua and Barbuda"] {background-image:url(images/flags/Antigua-and-Barbuda-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Argentina"] {background-image:url(images/flags/Argentina-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Armenia"] {background-image:url(images/flags/Armenia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Aruba"] {background-image:url(images/flags/Aruba-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Australia"] {background-image:url(images/flags/Australia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Austria"] {background-image:url(images/flags/Austria-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Azerbaijan"] {background-image:url(images/flags/Azerbaijan-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Bahrain"] {background-image:url(images/flags/Bahrain-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Bangladesh"] {background-image:url(images/flags/Bangladesh-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Barbados"] {background-image:url(images/flags/Barbados-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Belgium"] {background-image:url(images/flags/Belgium-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Benin"] {background-image:url(images/flags/Benin-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Bermuda"] {background-image:url(images/flags/Bermuda-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Bhutan"] {background-image:url(images/flags/Bhutan-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Brazil"] {background-image:url(images/flags/Brazil-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="British"] {background-image:url(images/flags/British-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Bulgaria"] {background-image:url(images/flags/Bulgaria-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Burkina Faso"] {background-image:url(images/flags/Burkina-Faso-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Cameroon"] {background-image:url(images/flags/Cameroon-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Canada"] {background-image:url(images/flags/Canada-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Cayman Islands"] {background-image:url(images/flags/Cayman-Islands-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Chad"] {background-image:url(images/flags/Chad-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Chile"] {background-image:url(images/flags/Chile-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="China"] {background-image:url(images/flags/China-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Christmas Island"] {background-image:url(images/flags/Christmas-Island-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Colombia"] {background-image:url(images/flags/Colombia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Comoros"] {background-image:url(images/flags/Comoros-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Costa Rica"] {background-image:url(images/flags/Costa-Rica-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Croatia"] {background-image:url(images/flags/Croatia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Cyprus"] {background-image:url(images/flags/Cyprus-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Czech Republic"] {background-image:url(images/flags/Czech-Republic-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Denmark"] {background-image:url(images/flags/Denmark-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Djibouti"] {background-image:url(images/flags/Djibouti-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Dominica"] {background-image:url(images/flags/Dominica-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Egypt"] {background-image:url(images/flags/Egypt-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="El Salvador"] {background-image:url(images/flags/El-Salvador-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Equatorial Guinea"] {background-image:url(images/flags/Equatorial-Guinea-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Estonia"] {background-image:url(images/flags/Estonia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Ethiopia"] {background-image:url(images/flags/Ethiopia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Falkland Islands"] {background-image:url(images/flags/Falkland-Islands-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Faroe Islands"] {background-image:url(images/flags/Faroe-Islands-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Finland"] {background-image:url(images/flags/Finland-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="France"] {background-image:url(images/flags/France-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="French Guiana"] {background-image:url(images/flags/French-Guiana-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Gabon"] {background-image:url(images/flags/Gabon-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Gambia"] {background-image:url(images/flags/Gambia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Georgia"] {background-image:url(images/flags/Georgia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Germany"] {background-image:url(images/flags/Germany-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Ghana"] {background-image:url(images/flags/Ghana-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Gibraltar"] {background-image:url(images/flags/Gibraltar-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Greece"] {background-image:url(images/flags/Greece-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Greenland"] {background-image:url(images/flags/Greenland-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Grenada"] {background-image:url(images/flags/Grenada-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Guadeloupe"] {background-image:url(images/flags/Guadeloupe-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Guam"] {background-image:url(images/flags/Guam-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Guatemala"] {background-image:url(images/flags/Guatemala-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Guernsey"] {background-image:url(images/flags/Guernsey-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Guinea"] {background-image:url(images/flags/Guinea-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Guyana"] {background-image:url(images/flags/Guyana-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Haiti"] {background-image:url(images/flags/Haiti-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Hong Kong"] {background-image:url(images/flags/Hong-Kong-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Hungary"] {background-image:url(images/flags/Hungary-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Iceland"] {background-image:url(images/flags/Iceland-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="India"] {background-image:url(images/flags/India-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Indonesia"] {background-image:url(images/flags/Indonesia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Ireland"] {background-image:url(images/flags/Ireland-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Israel"] {background-image:url(images/flags/Israel-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Italy"] {background-image:url(images/flags/Italy-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Jamaica"] {background-image:url(images/flags/Jamaica-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Japan"] {background-image:url(images/flags/Japan-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Jersey"] {background-image:url(images/flags/Jersey-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Jordan"] {background-image:url(images/flags/Jordan-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Kazakhstan"] {background-image:url(images/flags/Kazakhstan-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Kyrgyzstan"] {background-image:url(images/flags/Kyrgyzstan-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Laos"] {background-image:url(images/flags/Laos-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Latvia"] {background-image:url(images/flags/Latvia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Lebanon"] {background-image:url(images/flags/Lebanon-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Lesotho"] {background-image:url(images/flags/Lesotho-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Liechtenstein"] {background-image:url(images/flags/Liechtenstein-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Lithuania"] {background-image:url(images/flags/Lithuania-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Luxembourg"] {background-image:url(images/flags/Luxembourg-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Macau"] {background-image:url(images/flags/Macau-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Macedonia"] {background-image:url(images/flags/Macedonia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Madagascar"] {background-image:url(images/flags/Madagascar-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Malawi"] {background-image:url(images/flags/Malawi-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Malaysia"] {background-image:url(images/flags/Malaysia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Maldives"] {background-image:url(images/flags/Maldives-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Malta"] {background-image:url(images/flags/Malta-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Marshall Islands"] {background-image:url(images/flags/Marshall-Islands-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Martinique"] {background-image:url(images/flags/Martinique-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Mayotte"] {background-image:url(images/flags/Mayotte-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Mexico"] {background-image:url(images/flags/Mexico-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Monaco"] {background-image:url(images/flags/Monaco-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Montserrat"] {background-image:url(images/flags/Montserrat-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Mozambique"] {background-image:url(images/flags/Mozambique-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Namibia"] {background-image:url(images/flags/Namibia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Nepal"] {background-image:url(images/flags/Nepal-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Netherlands"] {background-image:url(images/flags/Netherlands-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="New Caledonia"] {background-image:url(images/flags/New-Caledonia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="New Zealand"] {background-image:url(images/flags/New-Zealand-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Nicaragua"] {background-image:url(images/flags/Nicaragua-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Niger"] {background-image:url(images/flags/Niger-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Nigeria"] {background-image:url(images/flags/Nigeria-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Norway"] {background-image:url(images/flags/Norway-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Oman"] {background-image:url(images/flags/Oman-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Pakistan"] {background-image:url(images/flags/Pakistan-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Palau"] {background-image:url(images/flags/Palau-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Palestine"] {background-image:url(images/flags/Palestine-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Paraguay"] {background-image:url(images/flags/Paraguay-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Peru"] {background-image:url(images/flags/Peru-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Philippines"] {background-image:url(images/flags/Philippines-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Poland"] {background-image:url(images/flags/Poland-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Portugal"] {background-image:url(images/flags/Portugal-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Puerto Rico"] {background-image:url(images/flags/Puerto-Rico-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Qatar"] {background-image:url(images/flags/Qatar-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Reunion"] {background-image:url(images/flags/Reunion-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Romania"] {background-image:url(images/flags/Romania-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Rwanda"] {background-image:url(images/flags/Rwanda-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="San Marino"] {background-image:url(images/flags/San-Marino-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Saudi Arabia"] {background-image:url(images/flags/Saudi-Arabia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Senegal"] {background-image:url(images/flags/Senegal-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Singapore"] {background-image:url(images/flags/Singapore-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Sint Maarten"] {background-image:url(images/flags/Sint-Maarten-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Slovakia"] {background-image:url(images/flags/Slovakia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Slovenia"] {background-image:url(images/flags/Slovenia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="South Africa"] {background-image:url(images/flags/South-Africa-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="South Korea"] {background-image:url(images/flags/South-Korea-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Spain"] {background-image:url(images/flags/Spain-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="St. Pierre and Miquelon"] {background-image:url(images/flags/St.-Pierre-and-Miquelon-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="St. Vincent and Grenadines"] {background-image:url(images/flags/St.-Vincent-and-Grenadines-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Suriname"] {background-image:url(images/flags/Suriname-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Sweden"] {background-image:url(images/flags/Sweden-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Switzerland"] {background-image:url(images/flags/Switzerland-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Taiwan"] {background-image:url(images/flags/Taiwan-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Tajikistan"] {background-image:url(images/flags/Tajikistan-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Tanzania"] {background-image:url(images/flags/Tanzania-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Thailand"] {background-image:url(images/flags/Thailand-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Togo"] {background-image:url(images/flags/Togo-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Turkey"] {background-image:url(images/flags/Turkey-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Turks And Caicos Islands"] {background-image:url(images/flags/Turks-And-Caicos-Islands-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Uganda"] {background-image:url(images/flags/Uganda-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="United Arab Emirates"] {background-image:url(images/flags/United-Arab-Emirates-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="United Kingdom"] {background-image:url(images/flags/United-Kingdom-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="United States"] {background-image:url(images/flags/United-States-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Uruguay"] {background-image:url(images/flags/Uruguay-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Uzbekistan"] {background-image:url(images/flags/Uzbekistan-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Vatican"] {background-image:url(images/flags/Vatican-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Vietnam"] {background-image:url(images/flags/Vietnam-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Western Samoa"] {background-image:url(images/flags/Western-Samoa-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}.select2-selection__choice[title="Zambia"] {background-image:url(images/flags/Zambia-Flag.png);--}}
-{{--                                                background-size: 25px;--}}
-{{--                                                background-repeat: no-repeat;--}}
-{{--                                                background-position: 20px 0px;}											</style>--}}
+
                                     </div>
                                 </div>
                             </div>
@@ -658,7 +199,20 @@
                     <br>
                     <div class="row">
                         <div class="col-md-4">
-                            <div id="offers_date-pie" class="col-md-12" style="display: block;"><canvas width="670" height="335" style="display: inline-block; width: 670px; height: 335px; vertical-align: top;"></canvas><table style="position:absolute;top:9px;right:9px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #0aa699;overflow:hidden"></div></div></td><td class="legendLabel">MaxPhone</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #0090d9;overflow:hidden"></div></div></td><td class="legendLabel">CoolEdge</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #fdd01c;overflow:hidden"></div></div></td><td class="legendLabel">Tactic AIR Drone</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #f35958;overflow:hidden"></div></div></td><td class="legendLabel">Rest</td></tr></tbody></table></div>
+                            <div id="offers_date-pie" class="col-md-12" style="display: block;">
+
+                                <canvas width="670" height="335" style="display: inline-block; width: 670px; height: 335px; vertical-align: top;"></canvas>
+
+                                <table style="position:absolute;top:9px;right:9px;;font-size:smaller;color:#545454">
+                                    <tbody>
+
+{{--                                    <tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #0aa699;overflow:hidden"></div></div></td><td class="legendLabel">MaxPhone</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #0090d9;overflow:hidden"></div></div></td><td class="legendLabel">CoolEdge</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #fdd01c;overflow:hidden"></div></div></td><td class="legendLabel">Tactic AIR Drone</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #f35958;overflow:hidden"></div></div></td><td class="legendLabel">Rest</td></tr>--}}
+
+
+                                    </tbody>
+                                </table>
+
+                            </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="col-md-8">
@@ -670,7 +224,12 @@
                                         <th style="width:10%">Distribution</th>
                                     </tr>
                                 </thead>
-                                <tbody><tr><td class="v-align-middle"><span class="muted">Ecommerce - MaxPhone INTL - All Languages - EXCLUSIVE</span></td><td><span class="muted">29.7 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="29.7%" class="progress-bar animate-progress-bar" style="width: 29.661016949152543%; background-color:#0aa699"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted">Ecommerce - CoolEdge INTL - All Languages - EXCLUSIVE</span></td><td><span class="muted">20.3 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="20.3%" class="progress-bar animate-progress-bar" style="width: 20.338983050847457%; background-color:#0090d9"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted">Ecommerce - Tactic AIR Drone - All Languages - EXCLUSIVE</span></td><td><span class="muted">9.3 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="9.3%" class="progress-bar animate-progress-bar" style="width: 9.322033898305085%; background-color:#fdd01c"></div></div></td></tr></tbody>
+                                <tbody>
+
+{{--                                <tr><td class="v-align-middle"><span class="muted">Ecommerce - MaxPhone INTL - All Languages - EXCLUSIVE</span></td><td><span class="muted">29.7 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="29.7%" class="progress-bar animate-progress-bar" style="width: 29.661016949152543%; background-color:#0aa699"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted">Ecommerce - CoolEdge INTL - All Languages - EXCLUSIVE</span></td><td><span class="muted">20.3 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="20.3%" class="progress-bar animate-progress-bar" style="width: 20.338983050847457%; background-color:#0090d9"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted">Ecommerce - Tactic AIR Drone - All Languages - EXCLUSIVE</span></td><td><span class="muted">9.3 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="9.3%" class="progress-bar animate-progress-bar" style="width: 9.322033898305085%; background-color:#fdd01c"></div></div></td></tr>--}}
+
+
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -766,7 +325,10 @@
                                 <div class="row">
                                     <div class="col-xs-12 use_small_padding">
                                         <select class="select2_offers select2-hidden-accessible" name="offers" data-suffix="geo" id="offers_geo" multiple="" tabindex="-1" aria-hidden="true">
-                                            <option value="DroneX">Ecommerce - DroneX INTL - All Languages - EXCLUSIVE</option>
+                                            @foreach ($data['offers_geo'] as $key1=>$item1)
+                                                <option
+                                                    value="{{$item1['short_name']}}">{{$item1['short_name']}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -776,7 +338,17 @@
                     <br>
                     <div class="row">
                         <div class="col-md-4">
-                            <div id="geo_date-pie" class="col-md-12" style="display: block;"><canvas width="670" height="335" style="display: inline-block; width: 670px; height: 335px; vertical-align: top;"></canvas><table style="position:absolute;top:9px;right:9px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #0aa699;overflow:hidden"></div></div></td><td class="legendLabel">Israel</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #0090d9;overflow:hidden"></div></div></td><td class="legendLabel">United States</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #fdd01c;overflow:hidden"></div></div></td><td class="legendLabel">Australia</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #f35958;overflow:hidden"></div></div></td><td class="legendLabel">United Kingdom</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #75CB64;overflow:hidden"></div></div></td><td class="legendLabel">Italy</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #FFE47E;overflow:hidden"></div></div></td><td class="legendLabel">New Zealand</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #6F22B8;overflow:hidden"></div></div></td><td class="legendLabel">Canada</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #B06094;overflow:hidden"></div></div></td><td class="legendLabel">Spain</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #304E37;overflow:hidden"></div></div></td><td class="legendLabel">Belgium</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #EA74C9;overflow:hidden"></div></div></td><td class="legendLabel">Colombia</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #7FE9C6;overflow:hidden"></div></div></td><td class="legendLabel">Rest</td></tr></tbody></table></div>
+                            <div id="geo_date-pie" class="col-md-12" style="display: block;">
+
+                                <canvas width="670" height="335" style="display: inline-block; width: 670px; height: 335px; vertical-align: top;"></canvas>
+
+                                <table style="position:absolute;top:9px;right:9px;;font-size:smaller;color:#545454">
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="col-md-8">
@@ -792,10 +364,7 @@
                                 </thead>
                                 <tbody>
 
-                                <tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Israel-Flag.png">Israel</span></td><td><span class="muted">30.5 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="30.5%" class="progress-bar animate-progress-bar" style="width: 30.508474576271187%; background-color:#0aa699"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/United-States-Flag.png">United States</span></td><td><span class="muted">20.3 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="20.3%" class="progress-bar animate-progress-bar" style="width: 20.338983050847457%; background-color:#0090d9"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Australia-Flag.png">Australia</span></td><td><span class="muted">13.6 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="13.6%" class="progress-bar animate-progress-bar" style="width: 13.559322033898304%; background-color:#fdd01c"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/United-Kingdom-Flag.png">United Kingdom</span></td><td><span class="muted">9.3 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="9.3%" class="progress-bar animate-progress-bar" style="width: 9.322033898305085%; background-color:#f35958"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Italy-Flag.png">Italy</span></td><td><span class="muted">5.1 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="5.1%" class="progress-bar animate-progress-bar" style="width: 5.084745762711864%; background-color:#75CB64"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/New-Zealand-Flag.png">New Zealand</span></td><td><span class="muted">4.2 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="4.2%" class="progress-bar animate-progress-bar" style="width: 4.237288135593221%; background-color:#FFE47E"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Canada-Flag.png">Canada</span></td><td><span class="muted">2.5 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="2.5%" class="progress-bar animate-progress-bar" style="width: 2.542372881355932%; background-color:#6F22B8"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Spain-Flag.png">Spain</span></td><td><span class="muted">1.7 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="1.7%" class="progress-bar animate-progress-bar" style="width: 1.694915254237288%; background-color:#B06094"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Belgium-Flag.png">Belgium</span></td><td><span class="muted">1.7 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="1.7%" class="progress-bar animate-progress-bar" style="width: 1.694915254237288%; background-color:#304E37"></div></div></td></tr><tr><td class="v-align-middle"><span class="muted"><img style="width:25px; margin-right:5px;" src="images/flags/Colombia-Flag.png">Colombia</span></td><td><span class="muted">0.8 % </span></td><td class="v-align-middle"><div class="progress"><div data-percentage="0.8%" class="progress-bar animate-progress-bar" style="width: 0.847457627118644%; background-color:#EA74C9"></div></div></td></tr>
-
                                 </tbody>
-
 
                             </table>
 
@@ -875,7 +444,10 @@
                                         <th>Payout</th>
                                     </tr>
                                 </thead>
-                                <tbody class="new_offers"><tr><td>E-commerce - PostureRemind Pro INTL - All Languages - EXCLUSIVE</td><td>2024-03-05 18:02:50</td><td>$65</td></tr><tr><td>E-commerce - KneeBoost Pro INTL - All Languages - EXCLUSIVE</td><td>2024-01-23 16:02:35</td><td>$28</td></tr><tr><td>E-commerce - CozyTime Pro INTL - All Languages - EXCLUSIVE</td><td>2023-11-15 14:46:02</td><td>$40</td></tr></tbody>
+                                <tbody class="new_offers">
+
+
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -916,7 +488,60 @@
                     </style>
                     <div class="row">
                         <div class="col-xs-12">
-                            <div id="placeholder-bar-chart" style="min-height: 250px; padding: 0px; position: relative;"><canvas class="base" width="2159" height="250"></canvas><canvas class="overlay" width="2159" height="250" style="position: absolute; left: 0px; top: 0px;"></canvas><div class="tickLabels" style="font-size:smaller"><div class="xAxis x1Axis" style="color:#545454"><div class="tickLabel" style="position:absolute;text-align:center;left:204px;top:234px;width:431px">Jan</div><div class="tickLabel" style="position:absolute;text-align:center;left:931px;top:234px;width:431px">Feb</div><div class="tickLabel" style="position:absolute;text-align:center;left:1611px;top:234px;width:431px">Mar</div></div><div class="yAxis y1Axis" style="color:#545454"><div class="tickLabel" style="position:absolute;text-align:right;top:217px;right:2147px;width:12px">0%</div><div class="tickLabel" style="position:absolute;text-align:right;top:180px;right:2147px;width:12px">5%</div><div class="tickLabel" style="position:absolute;text-align:right;top:143px;right:2147px;width:12px">10%</div><div class="tickLabel" style="position:absolute;text-align:right;top:107px;right:2147px;width:12px">15%</div><div class="tickLabel" style="position:absolute;text-align:right;top:70px;right:2147px;width:12px">20%</div><div class="tickLabel" style="position:absolute;text-align:right;top:33px;right:2147px;width:12px">25%</div><div class="tickLabel" style="position:absolute;text-align:right;top:-4px;right:2147px;width:12px">30%</div></div></div><div class="legend"><div style="position: absolute; width: 2159px; height: 20px; top: 9px; right: 9px; background-color: rgb(255, 255, 255); opacity: 0.85;"> </div><table style="position:absolute;top:9px;right:9px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #0aa699;overflow:hidden"></div></div></td><td class="legendLabel">ClearView</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #0090d9;overflow:hidden"></div></div></td><td class="legendLabel">MaxPhone</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #fdd01c;overflow:hidden"></div></div></td><td class="legendLabel">WIFI UltraBoost</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #f35958;overflow:hidden"></div></div></td><td class="legendLabel">TVShareMax</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #75CB64;overflow:hidden"></div></div></td><td class="legendLabel">CoolEdge</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #FFE47E;overflow:hidden"></div></div></td><td class="legendLabel">Tactic AIR Drone</td></tr></tbody></table></div></div>
+                            <div id="placeholder-bar-chart" style="min-height: 250px; padding: 0px; position: relative;">
+
+                                <canvas class="base" width="2159" height="250"></canvas>
+                                <canvas class="overlay" width="2159" height="250" style="position: absolute; left: 0px; top: 0px;"></canvas>
+
+                                <div class="tickLabels" style="font-size:smaller">
+                                    <div class="xAxis x1Axis" style="color:#545454">
+                                        <div class="tickLabel" style="position:absolute;text-align:center;left:204px;top:234px;width:431px">Jan</div>
+                                        <div class="tickLabel" style="position:absolute;text-align:center;left:931px;top:234px;width:431px">Feb</div>
+                                        <div class="tickLabel" style="position:absolute;text-align:center;left:1611px;top:234px;width:431px">Mar</div>
+                                    </div>
+                                    <div class="yAxis y1Axis" style="color:#545454">
+                                        <div class="tickLabel" style="position:absolute;text-align:right;top:217px;right:2147px;width:12px">0%</div>
+                                        <div class="tickLabel" style="position:absolute;text-align:right;top:180px;right:2147px;width:12px">5%</div>
+                                        <div class="tickLabel" style="position:absolute;text-align:right;top:143px;right:2147px;width:12px">10%</div>
+                                        <div class="tickLabel" style="position:absolute;text-align:right;top:107px;right:2147px;width:12px">15%</div>
+                                        <div class="tickLabel" style="position:absolute;text-align:right;top:70px;right:2147px;width:12px">20%</div>
+                                        <div class="tickLabel" style="position:absolute;text-align:right;top:33px;right:2147px;width:12px">25%</div>
+                                        <div class="tickLabel" style="position:absolute;text-align:right;top:-4px;right:2147px;width:12px">30%</div>
+                                    </div>
+                                </div>
+
+                                <div class="legend">
+                                    <div style="position: absolute; width: 2159px; height: 20px; top: 9px; right: 9px; background-color: rgb(255, 255, 255); opacity: 0.85;"> </div>
+                                    <table style="position:absolute;top:9px;right:9px;;font-size:smaller;color:#545454">
+                                        <tbody>
+                                        <tr>
+                                            <td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #0aa699;overflow:hidden"></div></div></td>
+                                            <td class="legendLabel">ClearView</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #0090d9;overflow:hidden"></div></div></td>
+                                            <td class="legendLabel">MaxPhone</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #fdd01c;overflow:hidden"></div></div></td>
+                                            <td class="legendLabel">WIFI UltraBoost</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #f35958;overflow:hidden"></div></div></td>
+                                            <td class="legendLabel">TVShareMax</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #75CB64;overflow:hidden"></div></div></td>
+                                            <td class="legendLabel">CoolEdge</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #FFE47E;overflow:hidden"></div></div></td>
+                                            <td class="legendLabel">Tactic AIR Drone</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -1051,16 +676,9 @@
             "2024-02-01":{"TVShareMax":26.99724517906336,"MaxPhone":19.28374655647383,"ClearView":13.49862258953168},
             "2024-03-01":{"CoolEdge":25,"MaxPhone":25,"Tactic AIR Drone":10.576923076923077}
         },
-
-
         "start_date":"2023-12-15","end_date":"2024-03-15"
-
-
     };
 */
-
-    console.log(top_3_intl)
-
 
     var top_3_intl = frontendData.bar;
 
