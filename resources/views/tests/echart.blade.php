@@ -33,7 +33,7 @@
 <!-- BEGIN JS DEPENDECENCIES-->
 {{--<script src=" /vendor/laravel-admin/plam/jquery-2.1.4.js "></script>--}}
 <!--	<script src="assets/plugins/bootstrapv3/js/bootstrap.min.js" type="text/javascript"></script>-->
-<script src=" /vendor/laravel-admin/plam/bootstrap.js " type="text/javascript"></script>
+{{--<script src=" /vendor/laravel-admin/plam/bootstrap.js " type="text/javascript"></script>--}}
 <script src=" /vendor/laravel-admin/plam/bootstrap-popover-custom-class.min.js " type="text/javascript"></script>
 <script src=" /vendor/laravel-admin/plam/raphael-min.js "></script>
 <script src=" /vendor/laravel-admin/plam/jqueryblockui.min.js " type="text/javascript"></script>
@@ -45,7 +45,7 @@
 <script src=" /vendor/laravel-admin/plam/bootstrap-datepicker.js " type="text/javascript"></script>
 <script src=" /vendor/laravel-admin/plam/bootstrap-timepicker.min.js " type="text/javascript"></script>
 <script src=" /vendor/laravel-admin/plam/form_elements.js " type="text/javascript"></script>
-<script src=" /vendor/laravel-admin/plam/sweet-alert.min.js "></script>
+{{--<script src=" /vendor/laravel-admin/plam/sweet-alert.min.js "></script>--}}
 <script src=" /vendor/laravel-admin/plam/clipboard.js "></script>
 <script src=" /vendor/laravel-admin/plam/messenger.min.js " type="text/javascript"></script>
 <!-- END CORE JS DEPENDECENCIES-->
