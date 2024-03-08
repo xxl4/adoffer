@@ -22,7 +22,7 @@ svg a {
 .mapplic-element {
 	background-color: #f8f8f8;
 	font-size: 0;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
 /* Fullscreen */
@@ -524,8 +524,9 @@ svg a {
 		width: 100%;
 	}
 
-	.mapplic-container {
-		height: 400px;
+    /* 首頁原尺寸400px */
+    .mapplic-container {
+		height: 550px;
 	}
 
 	.mapplic-tooltip {
