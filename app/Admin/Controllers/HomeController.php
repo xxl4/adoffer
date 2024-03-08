@@ -207,30 +207,30 @@ class HomeController extends Controller
             $data['all_count'] = OfferLog::where('offer_logs.status', 2)
 
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
-                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+//                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
 
                 ->groupBy('offer_logs.offer_id')
                 ->count();
 
             $all_peyout_price = OfferLog::where('offer_logs.status', 2)
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
-                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+//                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->sum('offer_logs.revenue');
 
             $data['all_peyout_price'] = round($all_peyout_price, 2);
 
             $data['day_peyout'] = OfferLog::where('offer_logs.status', 2)
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
-                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
-                ->where('offer_logs.created_at', '>', date('Y-m-d 00:00:00'))
-                ->where('offer_logs.created_at', '<=', date('Y-m-d 23:59:59'))
+//                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+//                ->where('offer_logs.created_at', '>', date('Y-m-d 00:00:00'))
+//                ->where('offer_logs.created_at', '<=', date('Y-m-d 23:59:59'))
                 ->groupBy('offer_logs.offer_id')->count();
 
             $day_peyout_price = OfferLog::where('offer_logs.status', 2)
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
-                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
-                ->where('offer_logs.created_at', '>', date('Y-m-d 00:00:00'))
-                ->where('offer_logs.created_at', '<=', date('Y-m-d 23:59:59'))
+//                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+//                ->where('offer_logs.created_at', '>', date('Y-m-d 00:00:00'))
+//                ->where('offer_logs.created_at', '<=', date('Y-m-d 23:59:59'))
                 ->sum('offer_logs.revenue');
 
 
@@ -238,14 +238,14 @@ class HomeController extends Controller
             $data['message'] = false;
             $data['month_peyout_count'] = OfferLog::where('offer_logs.status', 2)
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
-                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+//                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->where('offer_logs.created_at', '>', date('Y-m-1 00:00:00'))
                 ->where('offer_logs.created_at', '<=', date('Y-m-t 23:59:59'))
                 ->groupBy('offer_logs.offer_id')->count();
 
             $month_peyout_price = OfferLog::where('offer_logs.status', 2)
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
-                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+//                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->where('offer_logs.created_at', '>', date('Y-m-1 00:00:00'))
                 ->where('offer_logs.created_at', '<=', date('Y-m-t 23:59:59'))
                 ->sum('offer_logs.revenue');
@@ -298,7 +298,7 @@ class HomeController extends Controller
                 ->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
                 ->leftJoin('geos AS g', 'log.country_id', '=', 'g.id')
                 ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
-                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+//                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->select(DB::raw('sum(log.revenue) as country_sale'), 'log.country_id', 'g.country')
                 ->groupBy('country_id')
                 ->orderByDesc('country_sale')
@@ -504,7 +504,7 @@ class HomeController extends Controller
         $total_count = DB::table('offer_logs as log')
 
             ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
-            ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+//            ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
 
             ->where('log.created_at', '>', date('2022-01-01 00:00:00'))
             ->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
@@ -513,7 +513,7 @@ class HomeController extends Controller
 
         $total_country_count = DB::table('offer_logs as log')
             ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
-            ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+//            ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
 
             ->where('log.status', 2)
             ->where('log.created_at', '>', date('2022-01-01 00:00:00'))
@@ -571,7 +571,7 @@ class HomeController extends Controller
 
         $total_offer_count = DB::table('offer_logs as log')
             ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
-            ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+//            ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
             ->where('log.status', 2)
             ->where('log.created_at', '>', date('2022-01-01 00:00:00'))
             ->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
@@ -639,7 +639,7 @@ class HomeController extends Controller
                 $total_country_list = DB::table('offer_logs as log')
                     ->leftJoin('geos AS g', 'log.country_id', '=', 'g.id')
                     ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
-                    ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+//                    ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                     ->where('log.offer_id', $value)
                     ->where('log.status', 2)
                     ->where('log.created_at', '>', date('2022-01-01 00:00:00'))
