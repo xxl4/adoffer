@@ -283,7 +283,7 @@ var ofer_functions = {
 					'<li><a href="#tab'+key+'Geos" role="tab" data-toggle="tab">Accepted Geos</a></li>'+
 					'<li><a href="#tab'+key+'Top_Geos" class="tab_top_geo" role="tab" data-toggle="tab">Top Geos</a></li>'+
 					'<li><a href="#tab'+key+'Tracking" role="tab" data-toggle="tab">Tracking Links</a></li>'+
-					'<li><a href="#tab'+key+'ProductsFeed" role="tab" data-toggle="tab">Products Data Feed</a></li>'+
+					// '<li><a href="#tab'+key+'ProductsFeed" role="tab" data-toggle="tab">Products Data Feed</a></li>'+
 					'<li><a href="#tab'+key+'Creative" role="tab" data-toggle="tab">Creatives</a></li>'+
 					button_for_pixels +
 					'</ul><div class="tools"><a href="javascript:;" class="collapse"></a>'+

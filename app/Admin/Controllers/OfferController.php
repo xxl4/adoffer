@@ -257,6 +257,7 @@ class OfferController extends AdminController
 
         if ($step == 'offers_tab_pixels') {
 
+            return 123;
         }
 
         if ($step == 'show_all_offers') {
