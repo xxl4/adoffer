@@ -1324,7 +1324,10 @@ class OfferController extends AdminController
         $form->currency('offer_price', __('Payout'))->required();
         $form->switch('offer_status', __('Offer status'))->default(1);
         $form->textarea('des', __('Offer Des'));
-        $form->multipleSelect('accepted_area', __('Accepted Area'))->options(Geos::all()->pluck('country', 'id'))->required();
+
+        $form->listbox('accepted_area', __('Accepted Area'))->options(Geos::all()->pluck('country', 'id'))->required();
+//        $form->listbox('accepted_area', 'Accepted Area')->height(200);
+
         $form->multipleSelect('cate_id', __('Offer Category'))->options(Category::all()->pluck('category_name', 'id'));
         $form->textarea('track_des', __('Track Des'));
         $form->multipleSelect('track_cate_id', __('Track Cate'))->options(OfferTracksCates::all()->pluck('track_cate', 'id'))->required();
@@ -1336,6 +1339,10 @@ class OfferController extends AdminController
 //        $form->multipleSelect('product_feed_id', __('ProductFeed'))->options(ProductsFeed::all()->pluck('title', 'id'));
 
         $form->multipleSelect('admin_roles_id', __('Roles'))->options(Role::all()->pluck('name', 'id'))->required();
+
+//
+
+
 //        $form->editor('admin_roles_id');
 //        $form->multipleSelect('admin', __('Track Cate'))->options(OfferTracksCates::all()->pluck('track_cate', 'id'))->required();
 
