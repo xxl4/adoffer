@@ -201,18 +201,51 @@ class HomeController extends Controller
         if ($step == 'full_dashboard_data') {
 
             $data = [];
-            $data['all_count'] = OfferLog::where('status', 2)->groupBy('offer_id')->count();
+            $data['all_count'] = OfferLog::where('offer_logs.status', 2)
 
-            $all_peyout_price = OfferLog::where('status', 2)->sum('revenue');
+                ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+
+                ->groupBy('offer_logs.offer_id')
+                ->count();
+
+            $all_peyout_price = OfferLog::where('offer_logs.status', 2)
+                ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->sum('offer_logs.revenue');
+
             $data['all_peyout_price'] = round($all_peyout_price, 2);
 
-            $data['day_peyout'] = OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-d 00:00:00'))->where('created_at', '<=', date('Y-m-d 23:59:59'))->groupBy('offer_id')->count();
+            $data['day_peyout'] = OfferLog::where('offer_logs.status', 2)
+                ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->where('offer_logs.created_at', '>', date('Y-m-d 00:00:00'))
+                ->where('offer_logs.created_at', '<=', date('Y-m-d 23:59:59'))
+                ->groupBy('offer_logs.offer_id')->count();
 
-            $day_peyout_price = OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-d 00:00:00'))->where('created_at', '<=', date('Y-m-d 23:59:59'))->sum('revenue');
+            $day_peyout_price = OfferLog::where('offer_logs.status', 2)
+                ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->where('offer_logs.created_at', '>', date('Y-m-d 00:00:00'))
+                ->where('offer_logs.created_at', '<=', date('Y-m-d 23:59:59'))
+                ->sum('offer_logs.revenue');
+
+
             $data['day_peyout_price'] = round($day_peyout_price, 2);
             $data['message'] = false;
-            $data['month_peyout_count'] = OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-1 00:00:00'))->where('created_at', '<=', date('Y-m-t 23:59:59'))->groupBy('offer_id')->count();
-            $month_peyout_price = OfferLog::where('status', 2)->where('created_at', '>', date('Y-m-1 00:00:00'))->where('created_at', '<=', date('Y-m-t 23:59:59'))->sum('revenue');
+            $data['month_peyout_count'] = OfferLog::where('offer_logs.status', 2)
+                ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->where('offer_logs.created_at', '>', date('Y-m-1 00:00:00'))
+                ->where('offer_logs.created_at', '<=', date('Y-m-t 23:59:59'))
+                ->groupBy('offer_logs.offer_id')->count();
+
+            $month_peyout_price = OfferLog::where('offer_logs.status', 2)
+                ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->where('offer_logs.created_at', '>', date('Y-m-1 00:00:00'))
+                ->where('offer_logs.created_at', '<=', date('Y-m-t 23:59:59'))
+                ->sum('offer_logs.revenue');
             $data['month_peyout_price'] = round($month_peyout_price, 2);
 
         }
@@ -255,11 +288,15 @@ class HomeController extends Controller
 
             //前五个国家销售
             $country_sale = DB::table('offer_logs AS log')
+
+
                 ->where('log.status', 2)
                 ->where('log.created_at', '>', date('2022-01-01 00:00:00'))
                 ->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
                 ->leftJoin('geos AS g', 'log.country_id', '=', 'g.id')
-                ->select(DB::raw('sum(log.revenue) as country_sale'), 'log.country_id', 'country')
+                ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->select(DB::raw('sum(log.revenue) as country_sale'), 'log.country_id', 'g.country')
                 ->groupBy('country_id')
                 ->orderByDesc('country_sale')
                 ->limit(5)
@@ -310,6 +347,7 @@ class HomeController extends Controller
                 ->where('log.created_at', '>', date('2022-01-01 00:00:00'))
                 ->where('log.created_at', '<=', date('Y-m-d 23:59:59'))
                 ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->select(DB::raw('sum(log.revenue) as offer_sale'), 'log.offer_id', 'o.short_name as offer_name')
                 ->groupBy('log.offer_id')
                 ->orderByDesc('offer_sale')
@@ -355,6 +393,7 @@ class HomeController extends Controller
             //最近五个销售offer
             $offer_info = DB::table('offer_logs AS log')->where('log.status', 2)
                 ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->select('log.created_at', 'o.offer_name', 'log.revenue')
                 ->orderByDesc('created_at')
                 ->limit(5)
@@ -447,11 +486,32 @@ class HomeController extends Controller
         $geos = [];
         $offers = [];
 
+
+        $currentUser = auth()->user(); // 获取当前登录用户的模型对象
+        $admin_id = $currentUser->id; // 输出当前用户名称
+        $roles = $currentUser->roles; // 获取当前用户的角色集合
+
+
+        $role = '';
+        foreach ($roles as $role) {
+            $role = $role->id;
+        }
+
         //全部销量
-        $total_count = DB::table('offer_logs as log')->where('log.created_at', '>', date('2022-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-t 23:59:59'))->where('status', 2)->count();
+        $total_count = DB::table('offer_logs as log')
+
+            ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
+            ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+
+            ->where('log.created_at', '>', date('2022-01-01 00:00:00'))
+            ->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
+            ->where('status', 2)->count();
 
 
         $total_country_count = DB::table('offer_logs as log')
+            ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
+            ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+
             ->where('log.status', 2)
             ->where('log.created_at', '>', date('2022-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
             ->select(DB::raw('count(log.id) as offer_count'), 'log.country_id')
@@ -507,6 +567,7 @@ class HomeController extends Controller
 
         $total_offer_count = DB::table('offer_logs as log')
             ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
+            ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
             ->where('log.status', 2)
             ->where('log.created_at', '>', date('2022-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
             ->select(DB::raw('count(log.id) as offer_count'), 'log.offer_id','o.offer_name','o.short_name')
@@ -573,9 +634,12 @@ class HomeController extends Controller
 
             $total_country_list = DB::table('offer_logs as log')
                 ->leftJoin('geos AS g', 'log.country_id', '=', 'g.id')
+                ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->where('log.offer_id', $value)
                 ->where('log.status', 2)
-                ->where('log.created_at', '>', date('2022-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
+                ->where('log.created_at', '>', date('Y-m-d 00:00:00',strtotime('-1 week')))
+                ->where('log.created_at', '<=', date('Y-m-d 23:59:59',strtotime('last Saturday')))
                 ->select(DB::raw('count(log.id) as offer_count'), 'g.country')
                 ->groupBy('g.country')
                 ->orderByDesc('offer_count')
