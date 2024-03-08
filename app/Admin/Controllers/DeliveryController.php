@@ -9,6 +9,7 @@ use App\Models\Offer;
 use App\Models\OfferTracks;
 use App\Models\OfferTracksCates;
 use App\Models\Product;
+use Encore\Admin\Auth\Database\Role;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -73,6 +74,8 @@ class DeliveryController extends AdminController
 
         $form->text('delivery_name', __('Delivery name'))->required();
         $form->url('delivery_link', __('Delivery Link'))->required()->help("在填写域名的时候，请不要在尾部加'\'");
+        $form->multipleSelect('admin_roles_id', __('Roles'))->options(Role::all()->pluck('name', 'id'))->required();
+
         //$form->datetime('created_at', __('Create at'))->default(date('Y-m-d H:i:s'));
 //        $form->datetime('update_at', __('Update at'))->default(date('Y-m-d H:i:s'));
 

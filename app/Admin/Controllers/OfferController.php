@@ -238,7 +238,6 @@ class OfferController extends AdminController
 
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
         $admin_id = $currentUser->id; // 输出当前用户名称
-
         $roles = $currentUser->roles; // 获取当前用户的角色集合
 
 
@@ -250,9 +249,9 @@ class OfferController extends AdminController
 
         $where = [];
         $user_id = Admin::user()->id;
-        if (!Admin::user()->isAdministrator()) {
-            $where['admin_roles_id'] = $role;
-        }
+//        if (!Admin::user()->isAdministrator()) {
+//            $where['admin_roles_id'] = $role;
+//        }
 
         $step = $request->input("step");
 
@@ -278,7 +277,9 @@ class OfferController extends AdminController
             $result['offer_links'] = $offer_links;
             $offers = [];
 
-            $items = Offer::where($where)->get()->toArray();
+            $items = Offer::where($where)
+                ->whereRaw("FIND_IN_SET($role, admin_roles_id)")
+                ->get()->toArray();
 
 
 //            print_r("<pre/>");
@@ -401,7 +402,10 @@ class OfferController extends AdminController
 
         if (!empty($track_info)) {
 
-            $track_link = OfferTracks::whereIn('id', $track_info['track_cate_id'])->select('id', 'track_name as tracking_title', 'track_link as tracking_link', 'offer_id')->get()->toArray();
+            $track_link = OfferTracks::whereIn('id', $track_info['track_cate_id'])
+                ->select('id', 'track_name as tracking_title', 'track_link as tracking_link', 'offer_id')
+                ->get()
+                ->toArray();
 
             $Delivery_list = Delivery::where('status',1)->orderBy('id','asc')->get()->first();
             if(!empty($Delivery_list)){
@@ -450,12 +454,15 @@ class OfferController extends AdminController
                                     <a class="btn btn-success dropdown-toggle m-b-5" data-toggle="dropdown" href="#">Select your Products Feed domain<span class="caret"></span></a>
                                     <ul class="dropdown-menu domains-menu domains-menu-feed">';
 
+//        var_dump($offersDomain);exit;
+
         if (!empty($offersDomain)) {
             $offersDomainList = '';
             foreach ($offersDomain as $key => $value) {
                 $offersDomainList .= '<li><a href="#" class="offersDomain" data-domain="' . $value['delivery_link'] . '">' . $value['delivery_link'] . '</a></li>';
-
             }
+        }else{
+            $offersDomainList = '';
         }
 
         $data2 = $offersDomainList;
@@ -498,14 +505,13 @@ class OfferController extends AdminController
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
         $admin_id = $currentUser->id; // 输出当前用户名称
 
-
-        $where = [];
-        $user_id = Admin::user()->id;
-        if (!Admin::user()->isAdministrator()) {
-            $where['log.admin_id'] = $user_id;
+        $roles = $currentUser->roles; // 获取当前用户的角色集合
+        $role = '';
+        foreach ($roles as $role) {
+            $role = $role->id;
         }
 
-
+        $where = [];
         $step = $request->input("step");
         $options = $request->input("options");
 
@@ -516,46 +522,53 @@ class OfferController extends AdminController
         if($step=='intelligence_offers'){
             $start = date('Y-m-d 00:00:00', strtotime($options['start']));
             $end = date('Y-m-d 23:59:59', strtotime($options['end']));
-
-            $geos = $options['filter']['geo'];
-
-//            if(!empty($geos)){
-
-//                $where['log.country_id'] = $geos;
-
-//            }
-
-/*
-            $where['o.short_name'] = $geos;
-            $where[] = [function ($query) use ($short_name) {
-                $query->whereIn('short_name', $short_name);
-            }];
-            */
-
-
-            $geos_list = Geos::get()->toArray();//国家列表
             $startDate = $start;
             $endDate = $end;
+            $geos = $options['filter']['geo'];
 
+//            var_dump($geos);exit;
+
+            if(!empty($geos)){
+                $where[] = [function ($query) use ($geos) {
+                    $query->whereIn('g.country', $geos);
+                }];
+            }
+
+
+//            echo $geos;exit;
 
             //查询当前月的销售金额记录并按数量降序排列
-            $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)->where('status',2)
-                ->select(DB::raw('SUM(revenue) as total_sales'), 'offer_id')
-                ->groupBy('offer_id')
+            $offer_sale = OfferLog::whereBetween('Offer_logs.created_at', [$startDate, $endDate])
+                ->leftJoin('geos AS g', 'Offer_logs.country_id', '=', 'g.id')
+                ->leftJoin('offers as o','Offer_logs.offer_id','=','o.id')
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->where($where)
+                ->where('Offer_logs.status',2)
+                ->select(DB::raw('SUM(Offer_logs.revenue) as total_sales'), 'Offer_logs.offer_id')
+                ->groupBy('Offer_logs.offer_id')
                 ->orderByDesc('total_sales')
                 ->take(3)
                 ->get()
                 ->toArray();
 
+//            print_r($offer_sale);exit;
 
-            $offer_log_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)->where($where)->sum('revenue');
+
+            $offer_log_count = OfferLog::whereBetween('Offer_logs.created_at', [$startDate, $endDate])
+                ->leftJoin('offers as o','Offer_logs.offer_id','=','o.id')
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->where('Offer_logs.status',2)
+                ->where($where)
+                ->sum('Offer_logs.revenue');
+
+//            var_dump($offer_log_count);exit;
+
             foreach ($offer_sale as $key => $value) {
 
                 if($offer_log_count==0){
                     $offer_sale[$key]['sales_percent'] = 0 ;
                 }else{
                     $offer_sale[$key]['sales_percent'] = round($value['total_sales'] / $offer_log_count, 2);
-
                 }
 
                 $offer_sale[$key]['offer_name'] = Offer::where('id', $value['offer_id'])->value('offer_name');
@@ -575,9 +588,12 @@ class OfferController extends AdminController
 
 
             //排名前三的offer
-            $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where($where)->where('status',2)
-                ->select(DB::raw('count(id) as total_quantity'), 'offer_id')
-                ->groupBy('offer_id')
+            $offer_count = OfferLog::whereBetween('Offer_logs.created_at', [$startDate, $endDate])
+                ->leftJoin('offers as o','Offer_logs.offer_id','=','o.id')
+                ->where($where)->where('Offer_logs.status',2)
+                ->select(DB::raw('count(Offer_logs.id) as total_quantity'), 'Offer_logs.offer_id')
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->groupBy('Offer_logs.offer_id')
                 ->orderByDesc('total_quantity')
                 ->take(3)
                 ->get()
@@ -629,16 +645,13 @@ class OfferController extends AdminController
             $end = date('Y-m-d 23:59:59', strtotime($options['end']));
             $short_name = $options['filter']['offers'];
             if(!empty($short_name)){
-
-                $where['o.short_name'] = $short_name;
+//                $where['o.short_name'] = $short_name;
                 $where[] = [function ($query) use ($short_name) {
                     $query->whereIn('short_name', $short_name);
                 }];
-
             }
 
-//            print_r($short_name);exit;
-
+//            Db::enableQueryLog();
 
 
             $offer_top = DB::table('offer_logs AS log')
@@ -646,7 +659,7 @@ class OfferController extends AdminController
                 ->where('log.created_at', '>', $start)
                 ->where('log.created_at', '<=', $end)
                 ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
-//                ->where('o.offer_name', $short_name)
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->where($where)
                 ->select(DB::raw('count(log.id) as offer_total'), 'log.country_id')
                 ->groupBy('log.country_id')
@@ -654,6 +667,10 @@ class OfferController extends AdminController
                 ->get()
                 ->toArray();
 
+//          $log = DB::getQueryLog();
+
+
+//          print_r($log);exit;
 
             if (!empty($offer_top)) {
 
@@ -679,8 +696,6 @@ class OfferController extends AdminController
             $names = array_column($country_count, 'names');
             $vals = array_column($country_count, 'percent');
 
-
-
             $data = [];
 
 //            $data['iso'] = ['Australia' => "AU",'Austria'=>"AT"];
@@ -697,16 +712,25 @@ class OfferController extends AdminController
 //        var_dump($step);exit;
         if($step=='intelligence_opportunity'){
 
-            $total_count = DB::table('offer_logs as log')->where('log.created_at', '>', date('2022-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-t 23:59:59'))->where('status', 2)->count();
+
+//            print_r( date('Y-m-d 23:59:59'));exit;
+
+            $total_count = DB::table('offer_logs as log')
+                ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
+                ->where('log.created_at', '>', date('Y-m-d 00:00:00',strtotime('-7 days')))
+                ->where('log.created_at', '<=', date('Y-m-d 23:59:59'))
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->where('status', 2)
+                ->count();
+
 
 
             $offer_top = DB::table('offer_logs AS log')
                 ->where('log.status', 2)
-//                ->where('log.created_at', '>', $start)
-//                ->where('log.created_at', '<=', $end)
+                ->where('log.created_at', '>', date('Y-m-d 00:00:00',strtotime('-7 days')))
+                ->where('log.created_at', '<=', date('Y-m-d 23:59:59'))
                 ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
-//                ->where('o.offer_name', $short_name)
-                ->where($where)
+                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->select(DB::raw('count(log.id) as offer_total'), 'o.short_name')
                 ->groupBy('o.short_name')
                 ->orderByDesc('offer_total')
@@ -757,19 +781,14 @@ class OfferController extends AdminController
         }
 
 
-        $where = [];
-        $user_id = Admin::user()->id;
-        if (!Admin::user()->isAdministrator()) {
-            $where['admin_roles_id'] = $role;
-        }
-
-
         $geos_list = Geos::get()->toArray();
         $category_list = Category::get()->toArray();
 
 
         //数据分为左右处理
-        $filteredDataArray = Offer::where($where)->whereNull('deleted_at')->get()->toArray();//奇数
+        $filteredDataArray = Offer::whereNull('deleted_at')
+            ->whereRaw("FIND_IN_SET($role, admin_roles_id)")
+            ->get()->toArray();//奇数
 
 
 //        $filteredDataArray = Offer::whereNull('deleted_at')->whereRaw('MOD(id, 2) = 1')->get()->toArray();//奇数
@@ -786,7 +805,9 @@ class OfferController extends AdminController
 
                 $filteredDataArray[$key]['accepted_area'] = trim($accepted_area_data, ',');
                 $track_cate = OfferTracksCates::whereIn('id', $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
-                $delivery_info = Delivery::where('status', 1)->get()->toArray();
+                $delivery_info = Delivery::where('status', 1)
+                    ->whereRaw("FIND_IN_SET($role, admin_roles_id)")
+                    ->get()->toArray();
                 $delivery_link = !empty($delivery_info[0]['delivery_link']) ? $delivery_info[0]['delivery_link'] : '';
 
                 $fieldToSwap = 'track_cate';
@@ -814,7 +835,9 @@ class OfferController extends AdminController
 
 
                 $filteredDataArray[$key]['track_list'] = $finalArray;
-                $filteredDataArray[$key]['offersDomain'] = Delivery::where('status', 1)->get()->toArray();
+                $filteredDataArray[$key]['offersDomain'] = Delivery::where('status', 1)
+                    ->whereRaw("FIND_IN_SET($role, admin_roles_id)")
+                    ->get()->toArray();
                 $filteredDataArray[$key]['creatives'] = Creatives::whereIn('id', $value['creatives_id'])->get()->toArray();
 
             }
@@ -980,13 +1003,10 @@ class OfferController extends AdminController
 
                     foreach ($track_list as $x => $y) {
                         $param = '/api/offers/jump?admin_id=' . $admin_id . '&cateid=' . $v['id'] . '&offer_id=' . $value['id'] . '&track_id=' . $y['id'];
-
                         $track_list[$x]['track_link'] = $delivery_link . $param;
                         $track_list[$x]['offersDomain'] = $delivery_link;
-
                         $land_link = LandPage::where('id', $y['land_id'])->value('land_link');
                         $track_list[$x]['land_link'] = !empty($land_link) ? $land_link : '';
-
                     }
                     $finalArray[$v['track_cate']] = $track_list;
                 }
@@ -1002,60 +1022,8 @@ class OfferController extends AdminController
             $filteredDataArray = '';
         }
 
-
-//
-//        if (!empty($filteredDataArrayCopy)) {
-//
-//
-//            foreach ($filteredDataArrayCopy as $key => $value) {
-//                $accepted_area = Geos::whereIn('id', $value['accepted_area'])->select('country')->get()->toArray();
-//                $accepted_area_data = '';
-//                foreach ($accepted_area as $k => $v) {
-//                    $accepted_area_data .= $v['country'] . ',';
-//                }
-//
-//                $filteredDataArrayCopy[$key]['accepted_area'] = trim($accepted_area_data, ',');
-//                $track_cate = OfferTracksCates::whereIn('id', $value['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
-//                $delivery_info = Delivery::where('status', 1)->get()->toArray();
-//                $delivery_link = !empty($delivery_info[0]['delivery_link']) ? $delivery_info[0]['delivery_link'] : '';
-//
-//                $fieldToSwap = 'track_cate';
-//                $swappedArray = array_map(function ($key1, $item) use ($fieldToSwap) {
-//                    return [$item[$fieldToSwap] => array_merge(['key' => $key1], $item)];
-//                }, array_keys($track_cate), $track_cate);
-//                // 将结果数组进行合并
-//                $finalArray = array_merge(...$swappedArray);
-//                foreach ($track_cate as $k => $v) {
-//                    $track_list = OfferTracks::where('track_type_id', $v['id'])->get()->toArray();  // $finalArray[$k]
-//
-//                    foreach ($track_list as $x => $y) {
-//                        $param = '/api/offers/jump?admin_id=' . $admin_id . '&cateid=' . $v['id'] . '&offer_id=' . $value['id'] . '&track_id=' . $y['id'];
-//
-//                        $track_list[$x]['track_link'] = $delivery_link . $param;
-//                        $track_list[$x]['offersDomain'] = $delivery_link;
-//
-//                        $land_link = LandPage::where('id', $y['land_id'])->value('land_link');
-//                        $track_list[$x]['land_link'] = !empty($land_link) ? $land_link : '';
-//
-//                    }
-//                    $finalArray[$v['track_cate']] = $track_list;
-//                }
-//
-//
-//                $filteredDataArrayCopy[$key]['track_list'] = $finalArray;
-//                $filteredDataArrayCopy[$key]['offersDomain'] = Delivery::where('status', 1)->get()->toArray();
-//                $filteredDataArrayCopy[$key]['creatives'] = Creatives::whereIn('id', $value['creatives_id'])->get()->toArray();
-//
-//            }
-//            $filteredDataArrayCopy = $this->htmlSpliceCopy($filteredDataArrayCopy);
-//        } else {
-//            $filteredDataArrayCopy = '';
-//        }
-
-
         $result = [
             'left_data' => $filteredDataArray,
-//            'right_data' => $filteredDataArrayCopy,
         ];
 
         return response()->json($result);
@@ -1162,8 +1130,19 @@ class OfferController extends AdminController
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
         $admin_id = $currentUser->id; // 输出当前用户名称
 
+        $roles = $currentUser->roles; // 获取当前用户的角色集合
+        $role = '';
+        foreach ($roles as $role) {
+            $role = $role->id;
+        }
+
         $track_cate = OfferTracksCates::whereIn('id', $offer['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
-        $delivery_info = Delivery::where('status', 1)->get()->toArray();
+        $delivery_info = Delivery::where('status', 1)
+            ->whereRaw("FIND_IN_SET($role, admin_roles_id)")
+            ->get()->toArray();
+
+//        var_dump($delivery_info);exit;
+
         $delivery_link = !empty($delivery_info[0]['delivery_link']) ? $delivery_info[0]['delivery_link'] : '';
 
         $fieldToSwap = 'track_cate';
@@ -1193,10 +1172,9 @@ class OfferController extends AdminController
 
 
         $offer['track_list'] = $finalArray;
-        $offer['offersDomain'] = Delivery::where('status', 1)->get()->toArray();
-
-
-//        print_r($offer);exit;
+        $offer['offersDomain'] = Delivery::where('status', 1)
+            ->whereRaw("FIND_IN_SET($role, admin_roles_id)")
+            ->get()->toArray();
 
 
 
@@ -1324,10 +1302,7 @@ class OfferController extends AdminController
         $form->currency('offer_price', __('Payout'))->required();
         $form->switch('offer_status', __('Offer status'))->default(1);
         $form->textarea('des', __('Offer Des'));
-
         $form->listbox('accepted_area', __('Accepted Area'))->options(Geos::all()->pluck('country', 'id'))->required();
-//        $form->listbox('accepted_area', 'Accepted Area')->height(200);
-
         $form->multipleSelect('cate_id', __('Offer Category'))->options(Category::all()->pluck('category_name', 'id'));
         $form->textarea('track_des', __('Track Des'));
         $form->multipleSelect('track_cate_id', __('Track Cate'))->options(OfferTracksCates::all()->pluck('track_cate', 'id'))->required();
@@ -1340,22 +1315,7 @@ class OfferController extends AdminController
 
         $form->multipleSelect('admin_roles_id', __('Roles'))->options(Role::all()->pluck('name', 'id'))->required();
 
-//
 
-
-//        $form->editor('admin_roles_id');
-//        $form->multipleSelect('admin', __('Track Cate'))->options(OfferTracksCates::all()->pluck('track_cate', 'id'))->required();
-
-//        $form->saving(function (Form $form) {
-//
-//
-//
-//            OfferTracks::where('id',$form->track_cate_id)
-//
-//
-//
-//            print_r($form->track_cate_id);exit;
-//        });
 
 
         return $form;

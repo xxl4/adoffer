@@ -178,6 +178,17 @@ class HomeController extends Controller
     // search data
     public function search(Request $request)
     {
+
+        $currentUser = auth()->user(); // 获取当前登录用户的模型对象
+        $admin_id = $currentUser->id; // 输出当前用户名称
+        $roles = $currentUser->roles; // 获取当前用户的角色集合
+
+
+        $role = '';
+        foreach ($roles as $role) {
+            $role = $role->id;
+        }
+
         $step = $request->input("step");
 
         $total_offer_revenue = OfferLog::where('status', 2)
@@ -573,22 +584,15 @@ class HomeController extends Controller
                 ->toArray();
 
 
-//            $short_name = Offer::find($value)->toArray();
-
             $offer_info =   DB::table('offers')->where('id',$value)->get();
 
             if(!empty($offer_info)){
                 $offer_info = $offer_info->first();
-//                print_r($offer_info);exit;
-
                 $short_name =$offer_info->short_name;
             }else{
-                $offer_info = [];
                 $short_name = '';
             }
 
-//            print_r("<pre/>");
-//            print_r($offer_info);exit;
 
             if (!empty($total_country_list)) {
                 $top_3_country_offers[$short_name]['names'] = array_column($total_country_list, 'country');
