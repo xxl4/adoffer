@@ -25,7 +25,6 @@ class HomeController extends Controller
     {
 
 
-
         Admin::disablePjax();
 
         $data = [];
@@ -148,6 +147,7 @@ class HomeController extends Controller
 
 //        print_r("<pre/>");
 //        print_r($offer_last_week);exit;
+//        echo 123;exit;
 
         return $content
             ->title('Dashboard')
@@ -179,6 +179,12 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $step = $request->input("step");
+
+        $total_offer_revenue = OfferLog::where('status', 2)
+            ->where('created_at', '>', date('2022-01-01 00:00:00'))
+            ->where('created_at', '<=', date('Y-m-t 23:59:59'))
+            ->sum('revenue');
+
         $data = [];
         // full_dashboard_data
         if ($step == 'full_dashboard_data') {
@@ -235,8 +241,12 @@ class HomeController extends Controller
         // dashboard_geos
         if ($step == 'dashboard_geos') {
 
+
             //前五个国家销售
-            $country_sale = DB::table('offer_logs AS log')->where('log.status', 2)->where('log.created_at', '>', date('2022-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
+            $country_sale = DB::table('offer_logs AS log')
+                ->where('log.status', 2)
+                ->where('log.created_at', '>', date('2022-01-01 00:00:00'))
+                ->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
                 ->leftJoin('geos AS g', 'log.country_id', '=', 'g.id')
                 ->select(DB::raw('sum(log.revenue) as country_sale'), 'log.country_id', 'country')
                 ->groupBy('country_id')
@@ -245,24 +255,51 @@ class HomeController extends Controller
                 ->get()
                 ->toArray();
 
-            $sale_list = array_column($country_sale, 'country_sale');
-            $country_sale_top5 = array_sum($sale_list);
 
-            //前五个国家销售总和
-            $total_country_sale = DB::table('offer_logs AS log')->where('log.status', 2)->where('log.created_at', '>', date('2022-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-t 23:59:59'))->sum('revenue');
+            if (!empty($country_sale)) {
+                $country_info = [];
+                foreach ($country_sale as $key => $value) {
+                    $country_info[$key]['country'] = $value->country;
+                    $country_info[$key]['country_sale'] = round($value->country_sale);
+                    if ($value->country_sale !== 0) {
+                        $country_info[$key]['country_pencent'] = round($value->country_sale / $total_offer_revenue * 100, 2);
+                    } else {
+                        $country_info[$key]['country_pencent'] = 0;
+                    }
+                }
 
-            //前五个国家销售占比
-            if ($total_country_sale == 0) {
-                $top5country_percent = 0;
             } else {
-                $top5country_percent = round($country_sale_top5 / $total_country_sale, 2);
+                $country_info = [];
             }
+
+            $top5country_percent = array_column($country_info, 'country_pencent');
+            $top5country_sale = array_column($country_info, 'country_sale');
+
+            $data = [
+                'percentage' => $top5country_percent,
+                'positions' => [
+                    '0' => ['latLng' => [40.2, -107.7], 'name' => 'United States'],
+                    '1' => ['latLng' => [30.9, 35.2], 'name' => 'Israel'],
+                    '2' => ['latLng' => [60.2, -107.7], 'name' => 'Canada'],
+                    '3' => ['latLng' => [50.8, 10.1], 'name' => 'Germany'],
+                    '4' => ['latLng' => [54.3, -1.9], 'name' => '1Germany']
+                ],
+                'values' => $top5country_sale
+            ];
+
+        }
+
+
+        if ($step == 'dashboard_offers') {
 
 
             //前五个offer销售
-            $offer_sale = DB::table('offer_logs AS log')->where('log.status', 2)->where('log.created_at', '>', date('2022-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-d 23:59:59'))
+            $offer_sale = DB::table('offer_logs AS log')
+                ->where('log.status', 2)
+                ->where('log.created_at', '>', date('2022-01-01 00:00:00'))
+                ->where('log.created_at', '<=', date('Y-m-d 23:59:59'))
                 ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
-                ->select(DB::raw('sum(log.revenue) as offer_sale'), 'log.offer_id', 'o.offer_name')
+                ->select(DB::raw('sum(log.revenue) as offer_sale'), 'log.offer_id', 'o.short_name as offer_name')
                 ->groupBy('log.offer_id')
                 ->orderByDesc('offer_sale')
                 ->limit(5)
@@ -270,44 +307,36 @@ class HomeController extends Controller
                 ->toArray();
 
 
-            $offer_sale_list = array_column($offer_sale, 'offer_sale');
-            $offer_sale_top5 = array_sum($offer_sale_list);
+            if (!empty($offer_sale)) {
+                $offer_info = [];
+                foreach ($offer_sale as $key => $value) {
+                    $offer_info[$key]['offer_name'] = $value->offer_name;
+                    $offer_info[$key]['offer_sale'] = round($value->offer_sale);
 
-
-            //前五个offer销售占比
-            if ($offer_sale_top5 == 0) {
-                $top5offer_percent = 0;
+                    if ($value->offer_sale !== 0) {
+                        $offer_info[$key]['offer_pencent'] = round($value->offer_sale / $total_offer_revenue * 100, 2);
+                    } else {
+                        $offer_info[$key]['offer_pencent'] = 0;
+                    }
+                }
             } else {
-                $top5offer_percent = round($offer_sale_top5 / $total_country_sale, 2);
+                $offer_info = [];
             }
 
-
-            //前五个offer销售总次数
-            $total_offer_count = DB::table('offer_logs')
-                ->where('status', 2)
-                ->where('created_at', '>', date('2022-01-01 00:00:00'))->where('created_at', '<=', date('Y-m-t 23:59:59'))
-                ->select(DB::raw('count(id) as offer_count'), 'offer_id')
-                ->groupBy('offer_id')
-                ->orderByDesc('offer_count')
-                ->limit(5)
-                ->get()
-                ->toArray();
-
-            $offer_count_list = array_column($total_offer_count, 'offer_count');
-            $offer_sale_top5count = array_sum($offer_count_list);
-
-
-            $data['top5country_percent'] = $top5country_percent;
-            $data['top5country_count'] = $country_sale_top5;
-            $data['top5offer_percent'] = $top5offer_percent;
-            $data['top5offer_count'] = $offer_sale_top5count;
+            $top5offer_percent = array_column($offer_info, 'offer_pencent');
+            $top5offer_count = array_column($offer_info, 'offer_sale');
+            $top5offer_name = array_column($offer_info, 'offer_name');
 
             $data = [
-                'percentage' => [33.673469387755105, 16.3265306122449, 11.224489795918368, 5.1020408163265305, 5.1020408163265305],
-                'positions' => ['0' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '1' => ['latLng' => [30.9, 35.2], 'name' => 'Israel'], '2' => ['latLng' => [60.2, -107.7], 'name' => 'Canada'], '3' => ['latLng' => [50.8, 10.1], 'name' => 'Germany'], '4' => ['latLng' => [54.3, -1.9]]],
-                'values' => [33, 16, 11, 5, 5]
+                'array_percent_done' => [
+                    'vals' => $top5offer_percent,
+                    'names' => $top5offer_name,
+                ],
+
+                'array_counts' => $top5offer_count
             ];
         }
+
 
         // last_sales
         if ($step == 'last_sales') {
@@ -320,7 +349,6 @@ class HomeController extends Controller
                 ->limit(5)
                 ->get()->toArray();
 
-
             $data = '';
             foreach ($offer_info as $key => $value) {
 
@@ -331,13 +359,9 @@ class HomeController extends Controller
                         <div class="second_row_table table_content_top" style="width:44%; display: inline-block;">
                              ' . $value->offer_name . '</div>
                         <div class="last_row_table table_content_top bold text-success" style="width:8%; display: inline-block; text-align: center;">
-                             $ ' . round($value->revenue,2) . '</div>';
-
+                             $ ' . round($value->revenue, 2) . '</div>';
             }
-
-
         }
-
 
         return response()->json($data);
     }
@@ -439,7 +463,33 @@ class HomeController extends Controller
         $geos = [
             'percentage' => $country_percent,
 
-            'positions' => ['0' => ['latLng' => [40.2, -107.7], 'name' => 'United States'], '1' => ['latLng' => [30.9, 35.2], 'name' => 'Israel'], '2' => ['latLng' => [60.2, -107.7], 'name' => 'Canada'], '3' => ['latLng' => [50.8, 10.1], 'name' => 'Germany'], '4' => ['latLng' => [54.3, -1.9], 'name' => 'United Kingdom'], '5' => ['latLng' => [-26.2, 137.7], 'name' => 'Australia'], '6' => ['latLng' => [46.8, 2.9], 'name' => 'France'], '7' => ['latLng' => [-38.1, -65.4], 'name' => 'Argentina'], '8' => ['latLng' => [46.9, 7.9], 'name' => 'Switzerland'], '9' => ['latLng' => [47.2, 19.2], 'name' => 'Hungary'], '10' => ['latLng' => [-42.2, 172.7], 'name' => 'New Zealand'], '11' => ['latLng' => [-19.62, 46.68], 'name' => 'Madagascar'], '12' => ['latLng' => [18.4, -66.6], 'name' => 'Puerto Rico'], '13' => ['latLng' => [9.9, -83.8], 'name' => 'Costa Rica'], '14' => ['latLng' => [4.1, -74.1], 'name' => 'Colombia'], '15' => ['latLng' => [45.4, 16.2], 'name' => 'Croatia'], '16' => ['latLng' => [45.7, 24.5], 'name' => 'Romania'], '17' => ['latLng' => [-21.62, 54.18], 'name' => 'Reunion'], '18' => ['latLng' => [40.2, -4.2], 'name' => 'Spain'], '19' => ['latLng' => [49.85, 5.9], 'name' => 'Luxembourg'], '20' => ['latLng' => [16.4, -61.6], 'name' => 'Antigua and Barbuda'], '21' => ['latLng' => [52.42, 5.58], 'name' => 'Belgium'], '22' => ['latLng' => [14, -61.1], 'name' => 'Martinique']],
+            'positions' => [
+                '0' => ['latLng' => [40.2, -107.7], 'name' => 'United States'],
+                '1' => ['latLng' => [30.9, 35.2], 'name' => 'Israel'],
+                '2' => ['latLng' => [60.2, -107.7], 'name' => 'Canada'],
+                '3' => ['latLng' => [50.8, 10.1], 'name' => 'Germany'],
+                '4' => ['latLng' => [54.3, -1.9], 'name' => 'United Kingdom'],
+                '5' => ['latLng' => [-26.2, 137.7], 'name' => 'Australia'],
+                '6' => ['latLng' => [46.8, 2.9], 'name' => 'France'],
+                '7' => ['latLng' => [-38.1, -65.4], 'name' => 'Argentina'],
+                '8' => ['latLng' => [46.9, 7.9], 'name' => 'Switzerland'],
+                '9' => ['latLng' => [47.2, 19.2], 'name' => 'Hungary'],
+                '10' => ['latLng' => [-42.2, 172.7], 'name' => 'New Zealand'],
+                '11' => ['latLng' => [-19.62, 46.68], 'name' => 'Madagascar'],
+                '12' => ['latLng' => [18.4, -66.6], 'name' => 'Puerto Rico'],
+                '13' => ['latLng' => [9.9, -83.8], 'name' => 'Costa Rica'],
+                '14' => ['latLng' => [4.1, -74.1], 'name' => 'Colombia'],
+                '15' => ['latLng' => [45.4, 16.2], 'name' => 'Croatia'],
+                '16' => ['latLng' => [45.7, 24.5], 'name' => 'Romania'],
+                '17' => ['latLng' => [-21.62, 54.18], 'name' => 'Reunion'],
+                '18' => ['latLng' => [40.2, -4.2], 'name' => 'Spain'],
+                '19' => ['latLng' => [49.85, 5.9], 'name' => 'Luxembourg'],
+                '20' => ['latLng' => [16.4, -61.6], 'name' => 'Antigua and Barbuda'],
+                '21' => ['latLng' => [52.42, 5.58], 'name' => 'Belgium'],
+                '22' => ['latLng' => [14, -61.1], 'name' => 'Martinique']
+            ],
+
+
             'values' => [33, 16, 11, 5, 5, 4, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         ];
 
@@ -448,7 +498,7 @@ class HomeController extends Controller
             ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
             ->where('log.status', 2)
             ->where('log.created_at', '>', date('2022-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
-            ->select(DB::raw('count(log.id) as offer_count'), 'log.offer_id')
+            ->select(DB::raw('count(log.id) as offer_count'), 'log.offer_id','o.offer_name','o.short_name')
             ->groupBy('log.offer_id')
             ->orderByDesc('offer_count')
             ->get()
@@ -459,15 +509,15 @@ class HomeController extends Controller
         if (!empty($total_offer_count)) {
 
             foreach ($total_offer_count as $key => $value) {
-                $total_offer_count[$key]->offer_name = Offer::where('id', $value->offer_id)->value('offer_name');
-                $total_offer_count[$key]->short_name = Offer::where('id', $value->offer_id)->value('short_name');
 
-                if($total_count==0){
+                if ($total_count == 0) {
                     $total_offer_count[$key]->percent = 0;
-                }else{
+                } else {
                     $total_offer_count[$key]->percent = round($value->offer_count / $total_count * 100, 2);
                 }
             }
+
+//            print_r($total_offer_count);exit;
 
             $array_counts = array_column($total_offer_count, 'offer_count');
             $short_name = array_column($total_offer_count, 'short_name');
@@ -483,6 +533,10 @@ class HomeController extends Controller
             $offer_percent = [];
         }
 
+//        print_r($offer_ids);exit;
+
+
+
         $offers['array_counts'] = $array_counts;
         $offers['array_percent_done'] = [
             'db_names' => $short_name,
@@ -496,11 +550,13 @@ class HomeController extends Controller
         ];
 
 
+        $short_name_list = array_slice($offer_ids, 0, 3);
 
-      $short_name_list = array_slice($offer_ids, 0, 3);
+//        print_r($short_name_list);exit;
+
 
         $top_3_country_offers = [];
-        foreach ($short_name_list as $key=>$value){
+        foreach ($short_name_list as $key => $value) {
 
 //            print_r($value);exit;
 
@@ -517,14 +573,32 @@ class HomeController extends Controller
                 ->toArray();
 
 
-           $short_name = Offer::where('id',$value)->value('short_name');
+//            $short_name = Offer::find($value)->toArray();
 
-            if(!empty($total_country_list)){
-                $top_3_country_offers[$short_name]['names'] =  array_column($total_country_list, 'country');
+            $offer_info =   DB::table('offers')->where('id',$value)->get();
+
+            if(!empty($offer_info)){
+                $offer_info = $offer_info->first();
+//                print_r($offer_info);exit;
+
+                $short_name =$offer_info->short_name;
             }else{
+                $offer_info = [];
+                $short_name = '';
+            }
+
+//            print_r("<pre/>");
+//            print_r($offer_info);exit;
+
+            if (!empty($total_country_list)) {
+                $top_3_country_offers[$short_name]['names'] = array_column($total_country_list, 'country');
+            } else {
                 $top_3_country_offers[$short_name]['names'] = '';
             }
+
         }
+
+//        print_r($top_3_country_offers);exit;
 
         $data['geos'] = $geos;
         $data['offers'] = $offers;
