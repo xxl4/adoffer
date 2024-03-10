@@ -715,15 +715,6 @@ class IntelligenceController extends AdminController
     protected function form()
     {
         $form = new Form(new Offer());
-//        $data = Category::get()->toArray();
-
-//        foreach ($data as $item) {
-//            $_item = $item["id"];
-//            $_item1 = $item["category_name"];
-//            $arr[$_item] = $_item1;
-//        }
-
-//        $form->multipleSelect('cate_id', __('Offer Category'))->options($arr)->required();
 
         $form->multipleSelect('cate_id', __('Offer Category'))->options(Category::all()->pluck('category_name', 'id'));
 

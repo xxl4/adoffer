@@ -47,6 +47,7 @@ Route::group([
     $router->resource('delivery', 'DeliveryController')->names('admin.Delivery');
     $router->resource('category', 'CategoryController')->names('admin.Category');
     $router->resource('products_feed', 'ProductFeedController')->names('admin.ProductFeed');
+    $router->resource('message', 'MessageController')->names('admin.Message');
 
 
     $router->get('intelligence/echat', "IntelligenceController@echat")->name('admin.intelligence');

@@ -290,6 +290,22 @@ class TestsController extends AdminController
 
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
         $net_id = $currentUser->id; // 输出当前用户名称
+
+
+        $roles = $currentUser->roles; // 获取当前用户的角色集合
+        $role = '';
+        foreach ($roles as $role) {
+            $role = $role->id;
+        }
+
+        if(!Admin::user()->isAdministrator()){
+//            $where['admin_roles_id'] = $role;
+            $whereRole = "FIND_IN_SET($role, o.admin_roles_id)";
+        }else{
+            $whereRole = '1=1';
+        }
+
+
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
         $country = $request->input('geos');
@@ -324,18 +340,18 @@ class TestsController extends AdminController
                 $query->whereIn('offer_id', $offer);
             }];
         }
-        if ($net_id !== 1 && $net_id !== 2) {
-            $where[] = ['admin_id', '=', $net_id];
-        }
+
 
 
 
 //        DB::connection()->enableQueryLog();
 
         //查询当前月的销售金额记录并按数量降序排列
-        $offer_sale = OfferLog::whereBetween('created_at', [$startDate, $endDate])
+        $offer_sale =  OfferLog::whereBetween('offer_logs.created_at', [$startDate, $endDate])
+            ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
+            ->whereRaw($whereRole)
             ->where($where)
-            ->select(DB::raw('SUM(revenue) as total_sales'), DB::raw('count(id) as total_count'), DB::raw('DATE(created_at) as sale_date'))
+            ->select(DB::raw('SUM(offer_logs.revenue) as total_sales'), DB::raw('count(offer_logs.id) as total_count'), DB::raw('DATE(offer_logs.created_at) as sale_date'))
             ->groupBy('sale_date')
             ->get()
             ->toArray();
@@ -349,16 +365,22 @@ class TestsController extends AdminController
         $total_count = array_column($offer_sale, 'total_count');
 
         //排名前三的offer
-        $offer_count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
+        $offer_count =  OfferLog::whereBetween('offer_logs.created_at', [$startDate, $endDate])
+            ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
+            ->whereRaw($whereRole)
+            ->where('offer_logs.status',2)
             ->where($where)
-            ->select(DB::raw('count(id) as total_quantity'), DB::raw('sum(revenue) as total_revenue'), 'offer_id')
-            ->groupBy('offer_id')
+            ->select(DB::raw('count(offer_logs.id) as total_quantity'), DB::raw('sum(offer_logs.revenue) as total_revenue'), 'offer_logs.offer_id')
+            ->groupBy('offer_logs.offer_id')
             ->orderByDesc('total_quantity')
             ->take(3)
             ->get()
             ->toArray();
 
-        $count = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)->count();
+        $count = OfferLog::whereBetween('offer_logs.created_at', [$startDate, $endDate])
+            ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
+            ->whereRaw($whereRole)
+            ->where('offer_logs.status',2)->count();
 
 
         $percent = 0;
@@ -378,19 +400,22 @@ class TestsController extends AdminController
         }, $offer_count);
 
         $processedRevenue = array_map(function($item) {
-            return ['name' => $item['offer_name'], 'value' => $item['total_revenue']];
+            return ['name' => $item['offer_name'], 'value' => round($item['total_revenue'],2)];
         }, $offer_count);
 
 
         $processedPercent = array_map(function($item) {
-            return ['name' => $item['offer_name'], 'value' => $item['percent']];
+            return ['name' => $item['offer_name'], 'value' => round($item['percent'],2)];
         }, $offer_count);
 
         $html_data = $this->html($offer_count);
 
 
-        $topProducts = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)->select('offer_id', DB::raw('SUM(revenue) as total_sales'))
-            ->groupBy('offer_id')
+        $topProducts = OfferLog::whereBetween('offer_logs.created_at', [$startDate, $endDate])
+            ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
+            ->whereRaw($whereRole)
+            ->where('offer_logs.status',2)->select('offer_logs.offer_id', DB::raw('SUM(offer_logs.revenue) as total_sales'))
+            ->groupBy('offer_logs.offer_id')
             ->orderByDesc('total_sales')
             ->take(3)
             ->get()->toArray();
@@ -405,11 +430,14 @@ class TestsController extends AdminController
             }
 
 
-            $topByCountry = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
-                ->whereIn('offer_id', explode(',', trim($offer_ids, ',')))
+            $topByCountry = OfferLog::whereBetween('offer_logs.created_at', [$startDate, $endDate])
+                ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
+                ->whereRaw($whereRole)
+                ->where('offer_logs.status',2)
+                ->whereIn('offer_logs.offer_id', explode(',', trim($offer_ids, ',')))
                 ->where($where)
-                ->select('country_id', DB::raw('SUM(revenue) as country_total_sales'), DB::raw('Count(id) as country_total_count'))
-                ->groupBy('country_id')
+                ->select('offer_logs.country_id', DB::raw('SUM(offer_logs.revenue) as country_total_sales'), DB::raw('Count(offer_logs.id) as country_total_count'))
+                ->groupBy('offer_logs.country_id')
                 ->orderByDesc('country_total_sales')
                 ->take(10)
                 ->get()->toArray();
@@ -426,12 +454,15 @@ class TestsController extends AdminController
             foreach ($topByCountry as $k => $v) {
 
                 //前十个国家中，前三个商品在所在国家中所占的比例
-                $offer_detail = OfferLog::whereBetween('created_at', [$startDate, $endDate])->where('status',2)
-                    ->whereIn('offer_id', explode(',', trim($offer_ids, ',')))
-                    ->where('country_id',$v['country_id'])
+                $offer_detail = OfferLog::whereBetween('offer_logs.created_at', [$startDate, $endDate])
+                    ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
+                    ->whereRaw($whereRole)
+                    ->where('offer_logs.status',2)
+                    ->whereIn('offer_logs.offer_id', explode(',', trim($offer_ids, ',')))
+                    ->where('offer_logs.country_id',$v['country_id'])
                     ->where($where)
-                    ->select('offer_id', DB::raw('SUM(revenue) as country_total_sales'), DB::raw('COUNT(id) as country_total_count'))
-                    ->groupBy('offer_id')
+                    ->select('offer_logs.offer_id', DB::raw('SUM(offer_logs.revenue) as country_total_sales'), DB::raw('COUNT(offer_logs.id) as country_total_count'))
+                    ->groupBy('offer_logs.offer_id')
                     ->orderByDesc('country_total_sales')
                     ->get()->toArray();
 

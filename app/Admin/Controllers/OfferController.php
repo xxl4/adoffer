@@ -136,6 +136,7 @@ class OfferController extends AdminController
     {
         Admin::disablePjax();
 
+//        echo 123;exit;
 
         $data = [];
 
@@ -246,12 +247,20 @@ class OfferController extends AdminController
             $role = $role->id;
         }
 
+//echo 123;exit;
 
         $where = [];
         $user_id = Admin::user()->id;
-//        if (!Admin::user()->isAdministrator()) {
+
+        if(!Admin::user()->isAdministrator()){
 //            $where['admin_roles_id'] = $role;
-//        }
+            $whereRole = "FIND_IN_SET($role, offers.admin_roles_id)";
+        }else{
+            $whereRole = '1=1';
+        }
+
+
+
 
         $step = $request->input("step");
 
@@ -279,8 +288,12 @@ class OfferController extends AdminController
             $offers = [];
 
             $items = Offer::where($where)
-                ->whereRaw("FIND_IN_SET($role, admin_roles_id)")
-                ->get()->toArray();
+
+//                ->whereRaw("FIND_IN_SET($role, admin_roles_id)")
+
+                ->whereRaw($whereRole)
+                ->get()
+                ->toArray();
 
 
 //            print_r("<pre/>");
@@ -399,7 +412,31 @@ class OfferController extends AdminController
 
         $currentUser = auth()->user();
         $admin_id = $currentUser->id; // 输出当前用户名称
-        $track_info = Offer::where('id', $offer_id)->first()->toArray();
+
+        $roles = $currentUser->roles; // 获取当前用户的角色集合
+
+
+        $role = '';
+        foreach ($roles as $role) {
+            $role = $role->id;
+        }
+
+
+        $where = [];
+        $user_id = Admin::user()->id;
+
+        if(!Admin::user()->isAdministrator()){
+//            $where['admin_roles_id'] = $role;
+            $whereRole = "FIND_IN_SET($role, offers.admin_roles_id)";
+        }else{
+            $whereRole = '1=1';
+        }
+
+
+
+        $track_info = Offer::where('id', $offer_id)
+            ->whereRaw($whereRole)
+            ->first()->toArray();
 
         if (!empty($track_info)) {
 
@@ -512,6 +549,14 @@ class OfferController extends AdminController
             $role = $role->id;
         }
 
+        if(!Admin::user()->isAdministrator()){
+//            $where['admin_roles_id'] = $role;
+            $whereRole = "FIND_IN_SET($role, o.admin_roles_id)";
+        }else{
+            $whereRole = '1=1';
+        }
+
+
         $where = [];
         $step = $request->input("step");
         $options = $request->input("options");
@@ -542,7 +587,7 @@ class OfferController extends AdminController
             $offer_sale = OfferLog::whereBetween('offer_logs.created_at', [$startDate, $endDate])
                 ->leftJoin('geos AS g', 'offer_logs.country_id', '=', 'g.id')
                 ->leftJoin('offers as o','offer_logs.offer_id','=','o.id')
-                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->whereRaw($whereRole)
                 ->where($where)
                 ->where('offer_logs.status',2)
                 ->select(DB::raw('SUM(offer_logs.revenue) as total_sales'), 'offer_logs.offer_id')
@@ -557,7 +602,7 @@ class OfferController extends AdminController
 
             $offer_log_count = OfferLog::whereBetween('offer_logs.created_at', [$startDate, $endDate])
                 ->leftJoin('offers as o','offer_logs.offer_id','=','o.id')
-                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->whereRaw($whereRole)
                 ->where('offer_logs.status',2)
                 ->where($where)
                 ->sum('offer_logs.revenue');
@@ -592,6 +637,8 @@ class OfferController extends AdminController
             $offer_count = OfferLog::whereBetween('offer_logs.created_at', [$startDate, $endDate])
                 ->leftJoin('offers as o','offer_logs.offer_id','=','o.id')
                 ->where($where)->where('offer_logs.status',2)
+                ->whereRaw($whereRole)
+
                 ->select(DB::raw('count(offer_logs.id) as total_quantity'), 'offer_logs.offer_id')
                 ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->groupBy('offer_logs.offer_id')
@@ -605,11 +652,7 @@ class OfferController extends AdminController
 
             foreach ($offer_count as $key => $value) {
                 $offer_count[$key]['short_name'] = Offer::where('id', $value['offer_id'])->value('short_name');
-
-
                 $offer_count[$key]['offer_name'] = Offer::where('id', $value['offer_id'])->value('offer_name');
-
-
                 if($total_count==0){
                     $offer_count[$key]['offer_percent'] = "0%";
                 }else{
@@ -662,7 +705,9 @@ class OfferController extends AdminController
                 ->where('log.created_at', '>', $start)
                 ->where('log.created_at', '<=', $end)
                 ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
-                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+//                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->whereRaw($whereRole)
+
                 ->where($where)
                 ->select(DB::raw('count(log.id) as offer_total'), 'log.country_id')
                 ->groupBy('log.country_id')
@@ -726,7 +771,9 @@ class OfferController extends AdminController
                 ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
                 ->where('log.created_at', '>', date('Y-m-d 00:00:00',strtotime('-7 days')))
                 ->where('log.created_at', '<=', date('Y-m-d 23:59:59'))
-                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+//                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->whereRaw($whereRole)
+
                 ->where('status', 2)
                 ->count();
 
@@ -737,7 +784,9 @@ class OfferController extends AdminController
                 ->where('log.created_at', '>', date('Y-m-d 00:00:00',strtotime('-7 days')))
                 ->where('log.created_at', '<=', date('Y-m-d 23:59:59'))
                 ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
-                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->whereRaw($whereRole)
+
+//                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->select(DB::raw('count(log.id) as offer_total'), 'o.short_name')
                 ->groupBy('o.short_name')
                 ->orderByDesc('offer_total')
@@ -745,13 +794,14 @@ class OfferController extends AdminController
                 ->get()
                 ->first();
 
-//            print_r($offer_top);exit;
+//            var_dump($offer_top);exit;
 
             if(!empty($offer_top)){
                 $offer_name = $offer_top->short_name;
                 $percent =round($offer_top->offer_total /$total_count,2);
             }else{
                 $percent = 0;
+                $offer_name = [];
             }
 
 //            $percent = round(/$total_count)
@@ -1143,9 +1193,17 @@ class OfferController extends AdminController
             $role = $role->id;
         }
 
+        if(!Admin::user()->isAdministrator()){
+//            $where['admin_roles_id'] = $role;
+            $whereRole = "FIND_IN_SET($role, admin_roles_id)";
+        }else{
+            $whereRole = '1=1';
+        }
+
+
         $track_cate = OfferTracksCates::whereIn('id', $offer['track_cate_id'])->select('id', 'track_cate')->get()->toArray();
         $delivery_info = Delivery::where('status', 1)
-            ->whereRaw("FIND_IN_SET($role, admin_roles_id)")
+            ->whereRaw($whereRole)
             ->get()->toArray();
 
 //        var_dump($delivery_info);exit;
@@ -1180,7 +1238,7 @@ class OfferController extends AdminController
 
         $offer['track_list'] = $finalArray;
         $offer['offersDomain'] = Delivery::where('status', 1)
-            ->whereRaw("FIND_IN_SET($role, admin_roles_id)")
+            ->whereRaw($whereRole)
             ->get()->toArray();
 
 
