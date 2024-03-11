@@ -38,6 +38,9 @@ class OfferController extends Controller
         Log::info($token);
         Log::info("生成唯一字符串");
 
+
+//        print_r($_SERVER);exit;
+
         try {
             $current_url = $this->getpageurl();
             $current_url = parse_url($current_url);
@@ -51,7 +54,6 @@ class OfferController extends Controller
 
             $clickid = isset($paramsArray['clickid']) ? $paramsArray['clickid'] : null;        //获取clickid
 
-            $APP_URL = $_SERVER['APP_URL'];
             $REQUEST_URI = !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
 
 
@@ -66,6 +68,36 @@ class OfferController extends Controller
 
             //查询到链接关联到的落地页
 
+
+            $agent = new Agent();
+            $device = $agent->device();// 系统信息,浏览器引擎  (Ubuntu, Windows, OS X, ...)
+            $languages = $agent->languages();
+            Log::info($languages);
+            $lang = !empty($languages) ? $languages[0] : null;
+
+            $agent->browser();
+            $browser = $agent->browser();// 获取浏览器
+            $browser_version = $agent->version($browser);// 获取浏览器版本
+            $platform = $agent->platform();// 获取系统
+            $version = $agent->version($platform);// 获取系统版本
+
+            // 是否是安卓设备
+            $isAndroidOS = $agent->isAndroidOS();
+            //是否是Nexus 系列
+            $isNexus = $agent->isNexus();
+            // 是否是Safari浏览器
+            $isSafari = $agent->isSafari();
+            // 是否是机器人
+            $isRobot = $agent->isRobot();
+            // 是否是桌面设备
+            $isDesktop = $agent->isDesktop();
+            // 是否是平板设备
+            $isTablet = $agent->isTablet();
+            // 移动设备
+            $isMobile = $agent->isMobile();
+
+
+
             if (!empty($res)) {
 
                 Log::info($admin_id);
@@ -79,6 +111,21 @@ class OfferController extends Controller
                 $insert['admin_id'] = $admin_id;
                 $insert['clickid'] = $clickid;
                 $insert['ip'] = $ip;
+
+                $insert['isAndroidOS'] = $isAndroidOS == true ? $isAndroidOS : false;
+                $insert['isNexus'] = $isNexus === true ? $isNexus : false;
+                $insert['isSafari'] = $isSafari === true ? $isSafari : false;
+                $insert['isRobot'] = $isRobot === true ? $isRobot : false;
+                $insert['isDesktop'] = $isDesktop === true ? $isDesktop : false;
+                $insert['isTablet'] = $isTablet === true ? $isTablet : false;
+                $insert['isMobile'] = $isMobile === true ? $isMobile : false;
+                $insert['referer'] = !empty($referer) ? $referer : 0;
+                $insert['lang'] = !empty($lang) ? $lang : 0;
+                $insert['device'] = !empty($device) ? $device : 0;
+                $insert['browser'] = !empty($browser) ? $browser : 0;
+                $insert['browser_version'] = !empty($browser_version) ? $browser_version : 0;
+                $insert['platform'] = !empty($platform) ? $platform : 0;
+                $insert['platform_version'] = !empty($version) ? $version : 0;
 
 
                 $insert['created_at'] = date('Y-m-d H:i:s');
@@ -121,7 +168,9 @@ class OfferController extends Controller
 
         try {
             $referrer = $request->header('referer');
-            $referer = $request->headers->get('referer');
+
+
+  /*          $referer = $request->headers->get('referer');
             $agent = new Agent();
             $device = $agent->device();// 系统信息,浏览器引擎  (Ubuntu, Windows, OS X, ...)
             $languages = $agent->languages();
@@ -133,7 +182,6 @@ class OfferController extends Controller
             $browser_version = $agent->version($browser);// 获取浏览器版本
             $platform = $agent->platform();// 获取系统
             $version = $agent->version($platform);// 获取系统版本
-
 
             // 是否是安卓设备
             $isAndroidOS = $agent->isAndroidOS();
@@ -150,9 +198,13 @@ class OfferController extends Controller
             // 移动设备
             $isMobile = $agent->isMobile();
 
+            */
+
             $refer = $request->input('refer');
 
+
             Log::info($refer);
+
             Log::info("回收token");
 
             $revenue = $request->input('revenue');
@@ -189,7 +241,7 @@ class OfferController extends Controller
             $insert_data['revenue'] = !empty($revenue) ? $revenue : 0;
             $insert_data['currency_code'] = !empty($currency_code) ? $currency_code : 0;
 
-
+/*
             $insert_data['isAndroidOS'] = $isAndroidOS == true ? $isAndroidOS : false;
             $insert_data['isNexus'] = $isNexus === true ? $isNexus : false;
             $insert_data['isSafari'] = $isSafari === true ? $isSafari : false;
@@ -204,11 +256,16 @@ class OfferController extends Controller
             $insert_data['browser_version'] = !empty($browser_version) ? $browser_version : 0;
             $insert_data['platform'] = !empty($platform) ? $platform : 0;
             $insert_data['platform_version'] = !empty($version) ? $version : 0;
+            */
+
+
             $insert_data['created_at'] = date('Y-m-d H:i:s');
             $insert_data['country_id'] = !empty($country_id) ? $country_id : 0;
             $insert_data['token'] = $refer;
             $insert_data['status'] = !empty($res) ? 2 : 1;
             $insert_data['token_time'] = !empty($res) ? $res->created_at : null;
+
+
 
 
             $insert_data['clickid'] = !empty($res) ? $res->clickid : '';
