@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Models\Geos;
 use App\Models\Locations;
+use App\Models\Message;
 use App\Models\Offer;
 use App\Models\OfferLog;
 use App\Http\Controllers\Controller;
@@ -210,10 +211,13 @@ class HomeController extends Controller
 
                 }
             }
-
-
         }
 
+      $message_list = Message::all()->toArray();
+
+//        print_r($message_list);exit;
+
+        $data['message_list'] = $message_list;
         $data['offer_last_week'] = $offer_last_week;
 
 //        print_r("<pre/>");

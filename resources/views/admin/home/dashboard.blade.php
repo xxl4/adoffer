@@ -120,15 +120,16 @@
                                 <div hidden id="href_map"></div>
                                 <div class="m-t-40">
                                     <div class="widget-stats">
-                                        <div class="wrapper"> <span class="item-title">Overall Sales</span> <span class="item-count animate-number semi-bold all_peyout" data-animation-duration="700">0</span>
+                                        <div class="wrapper"  style="background-color: #222d32!important;"> <span class="item-title">Overall Sales</span> <span
+                                                class="item-count animate-number semi-bold all_peyout" data-animation-duration="700">0</span>
                                         </div>
                                     </div>
                                     <div class="widget-stats">
-                                        <div class="wrapper"> <span class="item-title">Today’s Sales</span> <span class="item-count animate-number semi-bold day_peyout" data-animation-duration="700">0</span>
+                                        <div class="wrapper" style="background-color: #222d32!important;"> <span class="item-title">Today’s Sales</span> <span class="item-count animate-number semi-bold day_peyout" data-animation-duration="700">0</span>
                                         </div>
                                     </div>
                                     <div class="widget-stats hidden-sm">
-                                        <div class="wrapper last"> <span class="item-title">Monthly Sales</span> <span class="item-count animate-number semi-bold month_peyout" data-animation-duration="700">0</span>
+                                        <div class="wrapper last" style="background-color: #222d32!important;"> <span class="item-title">Monthly Sales</span> <span class="item-count animate-number semi-bold month_peyout" data-animation-duration="700">0</span>
                                         </div>
                                     </div>
                                     <div class="progress transparent progress-small no-radius m-t-20" style="width:90%">
@@ -194,10 +195,15 @@
                             </div> -->
                             <h5><span class="semi-bold">NOTIFICATIONS</span></h5>
                             <div class="m-t-20">
-                                <div class="scroll-wrapper dashboard_note scrollbar-dynamic" style="position: relative; height: 363px;"><div class="dashboard_note scrollbar-dynamic scroll-content scroll-scrollx_visible scroll-scrolly_visible" style="margin-bottom: -17px; margin-right: -17px; height: 380px;">
+                                <div class="scroll-wrapper dashboard_note scrollbar-dynamic" style="position: relative; height: 363px;">
+                                    <div class="dashboard_note scrollbar-dynamic scroll-content scroll-scrollx_visible scroll-scrolly_visible" style="margin-bottom: -17px; margin-right: -17px; height: 380px;">
+
+
                                         <div class="notification-messages read notify-preview-item" data-message_id="3500">
                                             <div class="notification_data">
                                                 <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
+
+
                                                 <div class="message-wrapper">
                                                     <div class="heading"> Easy Wins with Lower CPA Offers: Give It A Shot </div>
                                                     <div class="description"> <p style="margin-left:0px; margin-right:0px; text-align:start">Dear M4TRIX Affiliates,</p>
@@ -231,10 +237,15 @@
                                                         <p style="margin-left:0px; margin-right:0px; text-align:start"><strong>M4TRIX | Tank</strong></p>
                                                     </div>
                                                 </div>
+
+
+
+
                                                 <div class="date pull-right"> 2024-03-01 00:02:17 </div>
                                                 <div class="clearfix"></div>
                                             </div>
-                                        </div>									<div class="notification-messages info notify-preview-item" data-message_id="3498">
+                                        </div>
+                                        <div class="notification-messages info notify-preview-item" data-message_id="3498">
                                             <div class="notification_data">
                                                 <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                                 <div class="message-wrapper">
@@ -269,7 +280,8 @@
                                                 <div class="date pull-right"> 2024-02-23 06:27:01 </div>
                                                 <div class="clearfix"></div>
                                             </div>
-                                        </div>									<div class="notification-messages info notify-preview-item" data-message_id="3494">
+                                        </div>
+                                        <div class="notification-messages info notify-preview-item" data-message_id="3494">
                                             <div class="notification_data">
                                                 <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                                 <div class="message-wrapper">
@@ -310,7 +322,8 @@
                                                 <div class="date pull-right"> 2024-02-16 05:57:45 </div>
                                                 <div class="clearfix"></div>
                                             </div>
-                                        </div>									<div class="notification-messages info notify-preview-item" data-message_id="3491">
+                                        </div>
+                                        <div class="notification-messages info notify-preview-item" data-message_id="3491">
                                             <div class="notification_data">
                                                 <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                                 <div class="message-wrapper">
@@ -345,7 +358,8 @@
                                                 <div class="date pull-right"> 2024-02-09 06:08:31 </div>
                                                 <div class="clearfix"></div>
                                             </div>
-                                        </div>									<div class="notification-messages info notify-preview-item" data-message_id="3489">
+                                        </div>
+                                        <div class="notification-messages info notify-preview-item" data-message_id="3489">
                                             <div class="notification_data">
                                                 <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                                 <div class="message-wrapper">
@@ -380,7 +394,8 @@
                                                 <div class="date pull-right"> 2024-02-02 07:51:29 </div>
                                                 <div class="clearfix"></div>
                                             </div>
-                                        </div>									<div class="notification-messages info notify-preview-item" data-message_id="3486">
+                                        </div>
+                                        <div class="notification-messages info notify-preview-item" data-message_id="3486">
                                             <div class="notification_data">
                                                 <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                                 <div class="message-wrapper">
@@ -425,7 +440,8 @@
                                                 <div class="date pull-right"> 2024-01-26 04:13:52 </div>
                                                 <div class="clearfix"></div>
                                             </div>
-                                        </div>									<div class="notification-messages info notify-preview-item" data-message_id="3481">
+                                        </div>
+                                        <div class="notification-messages info notify-preview-item" data-message_id="3481">
                                             <div class="notification_data">
                                                 <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                                 <div class="message-wrapper">
@@ -484,7 +500,8 @@
                                                 <div class="date pull-right"> 2024-01-19 09:15:33 </div>
                                                 <div class="clearfix"></div>
                                             </div>
-                                        </div>									<div class="notification-messages info notify-preview-item" data-message_id="3479">
+                                        </div>
+                                        <div class="notification-messages info notify-preview-item" data-message_id="3479">
                                             <div class="notification_data">
                                                 <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                                 <div class="message-wrapper">
@@ -539,7 +556,8 @@
                                                 <div class="date pull-right"> 2024-01-12 07:15:18 </div>
                                                 <div class="clearfix"></div>
                                             </div>
-                                        </div>									<div class="notification-messages info notify-preview-item" data-message_id="3475">
+                                        </div>
+                                        <div class="notification-messages info notify-preview-item" data-message_id="3475">
                                             <div class="notification_data">
                                                 <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                                 <div class="message-wrapper">
@@ -598,7 +616,8 @@
                                                 <div class="date pull-right"> 2024-01-05 05:02:05 </div>
                                                 <div class="clearfix"></div>
                                             </div>
-                                        </div>									<div class="notification-messages info notify-preview-item" data-message_id="3472">
+                                        </div>
+                                        <div class="notification-messages info notify-preview-item" data-message_id="3472">
                                             <div class="notification_data">
                                                 <div class="user-profile"> <img src="/images/users_profile/37200_8.jpg" alt="" data-src="/images/users_profile/37200_8.jpg" data-src-retina="/images/users_profile/37200_8.jpg" width="35" height="35"> </div>
                                                 <div class="message-wrapper">
@@ -627,7 +646,13 @@
                                                 <div class="date pull-right"> 2024-01-01 04:09:52 </div>
                                                 <div class="clearfix"></div>
                                             </div>
-                                        </div>							</div><div class="scroll-element scroll-x scroll-scrollx_visible scroll-scrolly_visible"><div class="scroll-element_outer">    <div class="scroll-element_size"></div>    <div class="scroll-element_track"></div>    <div class="scroll-bar" style="width: 87px; left: 0px;"></div></div></div><div class="scroll-element scroll-y scroll-scrollx_visible scroll-scrolly_visible"><div class="scroll-element_outer">    <div class="scroll-element_size"></div>    <div class="scroll-element_track"></div>    <div class="scroll-bar" style="height: 163px; top: 135.971px;"></div></div></div></div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="scroll-element scroll-x scroll-scrollx_visible scroll-scrolly_visible"><div class="scroll-element_outer">    <div class="scroll-element_size"></div>    <div class="scroll-element_track"></div>    <div class="scroll-bar" style="width: 87px; left: 0px;"></div></div></div><div class="scroll-element scroll-y scroll-scrollx_visible scroll-scrolly_visible"><div class="scroll-element_outer">    <div class="scroll-element_size"></div>    <div class="scroll-element_track"></div>    <div class="scroll-bar" style="height: 163px; top: 135.971px;"></div></div></div></div>
                             </div>
                             <div class="text-center m-t-10">
                                 <a href="?id=account_notifications">See All</a>
