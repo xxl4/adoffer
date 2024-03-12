@@ -484,6 +484,14 @@ class HomeController extends Controller
             $top5offer_count = array_column($offer_info, 'offer_sale');
             $top5offer_name = array_column($offer_info, 'offer_name');
 
+
+//            print_r($top5offer_percent);exit;
+
+            if(empty($top5offer_percent)){
+                $top5offer_percent = '';
+            }
+
+
             $data = [
                 'array_percent_done' => [
                     'vals' => $top5offer_percent,
