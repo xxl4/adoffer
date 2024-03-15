@@ -63,6 +63,7 @@ class OfferController extends Controller
             $res = DB::table('offer_tracks as o')
                 ->join('land_pages as l', 'o.land_id', '=', 'l.id')
                 ->where('o.id', $track_id)
+                ->where('o.offer_id', $offer_id)
                 ->select('o.track_link', 'l.land_link')
                 ->get()->first();
 

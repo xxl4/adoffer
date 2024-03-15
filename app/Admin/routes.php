@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Routing\Router;
+use App\Admin\Forms\Setting;
 
 Admin::routes();
 
@@ -31,6 +32,11 @@ Route::group([
     $router->post('offers/offer', "OfferController@offer")->name('admin.offer.offer');
     $router->post('offers/intelligence', "OfferController@intelligence")->name('admin.offer.intelligence');
     $router->resource('offer', 'OfferController')->names('admin.Offer');
+
+//    $router->any('offer/register', 'OfferController@register')->names('admin.offer.register');
+    $router->any('offers/register', "OfferController@register")->name('admin.offer.register');
+
+
     //$router->resource('product/show', 'ProductController')->names('admin.Product');
 
     $router->get('product/show', "ProductController@show")->name('admin.product');
@@ -85,6 +91,8 @@ Route::group([
     $router->get('intelligences/offerPie', "IntelligencesController@offerPie")->name('admin.Intelligences');
     $router->get('intelligences/countryPie', "IntelligencesController@countryPie")->name('admin.Intelligences');
     $router->post('intelligences/query', 'IntelligencesController@query')->name('admin.query');
+
+//    $router->get('form', Setting::class);
 
 
 });

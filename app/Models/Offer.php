@@ -117,6 +117,18 @@ class Offer extends Model
         return $date->format('Y-m-d H:i:s');
 
     }
+    public function getTrackContentAttribute($value)
+    {
+        return array_values(json_decode($value, true) ?: []);
+    }
+    public function getCreativeContentAttribute($value)
+    {
+        return array_values(json_decode($value, true) ?: []);
+    }
 
+    public function getOffersDomainAttribute($value)
+    {
+        return array_values(json_decode($value, true) ?: []);
+    }
 
 }
