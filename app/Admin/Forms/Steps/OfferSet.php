@@ -109,9 +109,8 @@ class OfferSet extends StepForm
 
                 $offer_track = DB::table('offer_tracks')->where('offer_id',$offer_id)->get()->toArray();
 
-//                var_dump(empty($request_info['track']['track_content']));exit;
 
-                if(!empty($request_info['track']['track_content'])){
+                if(!empty($request_info['track']['track_content']) || empty($request_info['track']['track_content']['new_1']['tab'])){
 
                     sort($request_info['track']['track_content']);
 
