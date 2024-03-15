@@ -14,6 +14,7 @@ use App\Models\OfferTracks;
 use App\Models\OfferTracksCate;
 use App\Models\OfferTracksCates;
 use App\Models\ProductsFeed;
+use App\Models\TabType;
 use App\Models\TagsModel;
 use App\Models\TrackLists;
 use Encore\Admin\Auth\Database\Role;
@@ -1026,6 +1027,8 @@ class OfferController extends AdminController
 
       $track_content =  OfferTracks::where('offer_id',$offer['id'])->get()->toArray();
 
+
+//      print_r($track_content);exit;
       if(!empty($track_content)){
           $result = $this->mergeArraysByFieldValue($track_content, 'tab',$admin_id);
       }else{
@@ -1265,8 +1268,7 @@ class OfferController extends AdminController
 
 
         $form->table('track_content', __('Track Content'), function ($table) {
-            $table->select('tab')->options(['Check Out' => 'Check Out', 'Land Page' => 'Land Page', 'Product' =>
-                'Product']);
+            $table->select('tab')->options(TabType::all()->pluck('tab_name', 'tab_name'))->required();
             $table->text('track_name');
             $table->text('land_link');
 
@@ -1287,26 +1289,34 @@ class OfferController extends AdminController
         $form->multipleSelect('admin_roles_id', __('Roles'))->options(Role::all()->pluck('name', 'id'))->required();
         $form->saving(function (Form $form) {
            $offer_id = $form->model()->id;
-            $track_content = $form->model()->track_content;
+            $track_content = $form->track_content;
 
-            sort($track_content);
+            if(!empty($track_content)){
 
-            $track_list = [];
-            foreach ($track_content as $x=>$y){
+                sort($track_content);
+                $track_list = [];
+                foreach ($track_content as $x=>$y){
 
-                $track_list[$x]['tab'] =$y['tab'];
-                $track_list[$x]['track_name'] =$y['track_name'];
-                $track_list[$x]['land_page'] =$y['land_link'];
-                $track_list[$x]['offer_id'] =$offer_id;
-                $track_list[$x]['random'] =uniqid();
-                $track_list[$x]['created_at'] =date('Y-m-d H:i:s');
+                    $track_list[$x]['tab'] =$y['tab'];
+                    $track_list[$x]['track_name'] =$y['track_name'];
+                    $track_list[$x]['land_page'] =$y['land_link'];
+                    $track_list[$x]['offer_id'] =$offer_id;
+                    $track_list[$x]['random'] =uniqid();
+                    $track_list[$x]['created_at'] =date('Y-m-d H:i:s');
+
+
+//                  $tracnk_info = OfferTracks::where('land_page',$y['land_link'])->get()->first();
+
+
+                }
+
+
+                $res1 = OfferTracks::where('offer_id',$offer_id)->delete();
+                $res = OfferTracks::insert($track_list);
+
 
             }
 
-
-            DB::table('offer_tracks')->where('offer_id',$offer_id)->delete();
-
-            $res = DB::table('offer_tracks')->insert($track_list);
 
         });
         return $form;
