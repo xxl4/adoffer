@@ -1026,7 +1026,11 @@ class OfferController extends AdminController
 
       $track_content =  OfferTracks::where('offer_id',$offer['id'])->get()->toArray();
 
-        $result = $this->mergeArraysByFieldValue($track_content, 'tab',$admin_id);
+      if(!empty($track_content)){
+          $result = $this->mergeArraysByFieldValue($track_content, 'tab',$admin_id);
+      }else{
+          $result = [];
+      }
 
 
 
