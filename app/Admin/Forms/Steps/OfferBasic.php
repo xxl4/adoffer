@@ -3,6 +3,7 @@
 namespace App\Admin\Forms\Steps;
 
 //use App\Admin\Repositories\Image;
+use App\Models\Category;
 use App\Models\Geos;
 use Encore\Admin\Form;
 use Encore\Admin\Widgets\StepForm;
@@ -36,21 +37,11 @@ class OfferBasic extends StepForm
 
         $res = [];
         $data = $request->all();
-
-
-//        print_r(gettype($data['image']));exit;
-//        print_r(session()->all('steps'));exit;
-
-//        print_r(Session::get('steps', []));exit;
-
        $steps = Session::get('steps', []);
 
-
-//       var_dump(strlen($data['image']));exit;
         if(!isset($data['image']) && !empty($steps['basic']['image'])){
             $data['image'] =$steps['basic']['image'];
         }
-
 
         if(gettype($data['image'])=='object'){
             $data['image'] = ltrim($this->store($data['image']),'public');
@@ -119,12 +110,7 @@ class OfferBasic extends StepForm
         $this->listbox('accepted_area', __('Accepted Area'))->options(Geos::all()->pluck('country', 'id'))->required();
 
 
-        $this->table('category', __('Category'), function ($table) {
-
-            $table->text('category_name');
-            $table->collapsed(true);
-
-        });
+        $this->multipleSelect('cate_id', __('Category'))->options(Category::all()->pluck('category_name', 'id'))->required();
 
 
 

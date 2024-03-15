@@ -39,13 +39,13 @@ class OfferSet extends StepForm
 //        var_dump($this->clear());exit;
 
             $cate_ids = '';
-            if(isset($request_info['basic']['category']) && !empty($request_info['basic']['category'])){
-                $category = $request_info['basic']['category'];
-                foreach ($category as $key => $value) {
-                    $category_id = Category::insertGetId(['category_name' => $value['category_name']]);
-                    $cate_ids .= $category_id . ',';
-                }
-            }
+//            if(isset($request_info['basic']['category']) && !empty($request_info['basic']['category'])){
+//                $category = $request_info['basic']['category'];
+//                foreach ($category as $key => $value) {
+//                    $category_id = Category::insertGetId(['category_name' => $value['category_name']]);
+//                    $cate_ids .= $category_id . ',';
+//                }
+//            }
 
         $track_content_info = '';
         if(isset($request_info['track']['track_content']) && !empty($request_info['track']['track_content'])){
@@ -78,7 +78,8 @@ class OfferSet extends StepForm
             $basic_info['offer_status'] = $request_info['basic']['offer_status'];
             $basic_info['des'] = $request_info['basic']['des'];
             $basic_info['accepted_area'] = trim(implode(',', $request_info['basic']['accepted_area']), ',');
-            $basic_info['cate_id'] = trim($cate_ids, ',');
+            $basic_info['cate_id'] = $request_info['basic']['cate_id'];;
+//        trim($cate_ids, ',');
 
             $basic_info['image'] = $request_info['basic']['image'];
 

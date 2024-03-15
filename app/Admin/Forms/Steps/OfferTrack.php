@@ -37,7 +37,7 @@ class OfferTrack extends StepForm
         $this->textarea('track_des', __('Track Des'));
 
         $this->table('track_content', __('Track Content'), function ($table) {
-            $table->select('tab')->options(TabType::all()->pluck('tab_name', 'tab_name'))->required();
+            $table->select('tab')->options(TabType::all()->pluck('tab_name', 'tab_name'))->required()->Width(50);
              $table->text('track_name');
              $table->url('land_link');
 
