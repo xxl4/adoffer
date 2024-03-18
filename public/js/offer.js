@@ -295,7 +295,7 @@ var ofer_functions = {
 					'<table class="table table-striped table-flip-scroll cf">'+
 					'<thead class="cf"><tr><th>'+offer_previev+'</th>'+
 					'<th>Payout</th><th>Status</th></tr>'+
-					'</thead><tbody><tr><td width = "55%">'+curent_offer['show_name']+'</td>'+
+					'</thead><tbody><tr><td width = "55%"><strong>'+curent_offer['show_name']+'</strong></td>'+
 					'<td width="25%">'+ (curent_offer.payout_percent ? curent_offer.payout_percent + '%' : '$' + curent_offer.payout) + ' '+curent_offer.per_act+'</td>'+
 					'<td width="20%"><span class="label label-'+ofer_functions.offer_colors[curent_offer.status]+'">'+curent_offer.status+'</span></span>'+
 					'</td></tr></tbody></table></div></div>'+

@@ -59,7 +59,7 @@ class OfferSet extends StepForm
             } else {
                 $request_info['basic']['offer_status'] = 0;
             }
-
+/*
             $offer = Offer::orderBy('id','desc')->select('id')->get()->first();
 
             if(!empty($offer)){
@@ -68,11 +68,11 @@ class OfferSet extends StepForm
             }else{
                 $offer_name_id = 1;
             }
-
+*/
 
             $basic_info = [];
             $basic_info['short_name'] = $request_info['basic']['offer_name'];
-            $basic_info['offer_name'] = $offer_name_id.'-'.$request_info['basic']['offer_name'] . '-All Languages';
+            $basic_info['offer_name'] = $request_info['basic']['offer_name'];
             $basic_info['main_country'] = $request_info['basic']['main_country'];
             $basic_info['offer_price'] = $request_info['basic']['offer_price'];
             $basic_info['offer_status'] = $request_info['basic']['offer_status'];
