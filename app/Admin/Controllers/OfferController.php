@@ -447,8 +447,8 @@ class OfferController extends AdminController
      */
     protected function geo($accepted_area)
     {
-        $data = Geos::whereIn('id', $accepted_area)->get('country')->toArray();
-        $data = array_column($data, 'country');
+        $data = Geos::whereIn('id', $accepted_area)->get('full_country_name_en')->toArray();
+        $data = array_column($data, 'full_country_name_en');
         return $data;
 
     }
