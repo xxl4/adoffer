@@ -987,7 +987,7 @@ class OfferController extends AdminController
                 ->get()->toArray();
 
             $delivery_link = !empty($delivery_info[0]['delivery_link']) ? $delivery_info[0]['delivery_link'] : '';
-            $param = '/api/offers/jump?admin_id=' . $admin_id .  '&offer_id=' . $item['offer_id'] . '&track_id=' . $item['id'];
+            $param = '/api/offer/jump?admin_id=' . $admin_id .  '&offer_id=' .$item['id'] . '&track_id=' .  $item['offer_id'];
             $item['track_link'] = $delivery_link . $param;
 
             // 将当前数组添加到对应的键名下
