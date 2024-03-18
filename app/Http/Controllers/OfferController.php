@@ -151,8 +151,12 @@ class OfferController extends Controller
                     header("Location: $land_page"); //跳转到落地页
                     exit;
                 } else {
-                    return $this->showMsg('1002', 'error');
+                    Log::error('点击无效');
+                    return $this->showMsg('1002', '点击无效');
                 }
+            }else{
+                Log::error('链接不存在');
+                return $this->showMsg('1002', '链接不存在');
             }
         } catch (\Exception $exception) {
             Log::error('跳转错误' . $exception->getMessage());
