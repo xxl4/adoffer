@@ -78,7 +78,12 @@ class OfferSet extends StepForm
             $basic_info['offer_status'] = $request_info['basic']['offer_status'];
             $basic_info['des'] = $request_info['basic']['des'];
             $basic_info['accepted_area'] = trim(implode(',', $request_info['basic']['accepted_area']), ',');
-            $basic_info['cate_id'] = $request_info['basic']['cate_id'];;
+
+
+            $basic_info['cate_id'] =  trim(implode(',', $request_info['basic']['cate_id']), ',');
+
+
+
 //        trim($cate_ids, ',');
 
             $basic_info['image'] = $request_info['basic']['image'];
@@ -100,6 +105,9 @@ class OfferSet extends StepForm
 
 //            print_r($request_info['track']['track_content']);exit;
 
+
+
+//            print_r($basic_info);exit;
 
             $offer_id = Offer::insertGetId($basic_info);
 
