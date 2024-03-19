@@ -1291,30 +1291,77 @@ class OfferController extends AdminController
            $offer_id = $form->model()->id;
             $track_content = $form->track_content;
 
+
+
+            $track_info = OfferTracks::where('offer_id',$offer_id)->get()->toArray();
+
+            if(!empty($track_info)){
+                $old_track = [];
+                foreach ($track_info as $key=>$value){
+                    $old_track[$key]['land_link'] = $value['land_page'];
+                    $old_track[$key]['tab'] = $value['tab'];
+                    $old_track[$key]['offer_id'] = $offer_id;
+                }
+            }else{
+                $old_track = [];
+            }
+
+
+            if(!empty($track_info)) {
+                $new_track = [];
+                foreach ($track_content as $k => $v) {
+                    $new_track[$k]['land_link'] = $v['land_link'];
+                    $new_track[$k]['tab'] = $v['tab'];
+                    $new_track[$k]['offer_id'] = $offer_id;
+                }
+            }else{
+                $new_track = [];
+            }
+
+            $ids1 = array_column($old_track, 'land_link');
+            $ids2 = array_column($new_track, 'land_link');
+
+            // 使用 array_diff() 函数比较两个数组的差异
+            $diff = array_diff($ids1, $ids2);
+
+
+
+
             if(!empty($track_content)){
 
                 sort($track_content);
                 $track_list = [];
                 foreach ($track_content as $x=>$y){
 
-                    $track_list[$x]['tab'] =$y['tab'];
-                    $track_list[$x]['track_name'] =$y['track_name'];
-                    $track_list[$x]['land_page'] =$y['land_link'];
-                    $track_list[$x]['offer_id'] =$offer_id;
-                    $track_list[$x]['random'] =uniqid();
-                    $track_list[$x]['created_at'] =date('Y-m-d H:i:s');
 
 
-//                  $tracnk_info = OfferTracks::where('land_page',$y['land_link'])->get()->first();
+                  $track_info = OfferTracks::where('land_page',$y['land_link'])->where('offer_id',$offer_id)->get()->first();
 
+                    if(!empty($track_info)){
 
+                        $track_info = OfferTracks::where('land_page',$y['land_link'])->where('offer_id',$offer_id)
+                            ->update(['track_name'=>$y['track_name'],'tab'=>$y['tab'],'land_page'=>$y['land_link'],'updated_at'=>date('Y-m-d H:i:s')]);
+
+                    }else{
+
+                        $res = OfferTracks::insert(['track_name'=>$y['track_name'],'offer_id'=>$offer_id,'tab'=>$y['tab'],
+                            'land_page'=>$y['land_link'],'created_at'=>date('Y-m-d H:i:s')]);
+
+                    }
                 }
 
+            }else{
 
                 $res1 = OfferTracks::where('offer_id',$offer_id)->delete();
-                $res = OfferTracks::insert($track_list);
+            }
+
+            if(!empty($diff)){
 
 
+
+                foreach ($diff as $x=>$y){
+                    OfferTracks::where('offer_id',$offer_id)->where('land_page',$y)->delete();
+                }
             }
 
 
