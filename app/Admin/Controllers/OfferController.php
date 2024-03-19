@@ -1307,7 +1307,7 @@ class OfferController extends AdminController
             }
 
 
-            if(!empty($track_info)) {
+            if(!empty($track_content)) {
                 $new_track = [];
                 foreach ($track_content as $k => $v) {
                     $new_track[$k]['land_link'] = $v['land_link'];
@@ -1356,9 +1356,6 @@ class OfferController extends AdminController
             }
 
             if(!empty($diff)){
-
-
-
                 foreach ($diff as $x=>$y){
                     OfferTracks::where('offer_id',$offer_id)->where('land_page',$y)->delete();
                 }
