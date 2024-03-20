@@ -179,43 +179,8 @@ class OfferController extends Controller
 
         try {
             $referrer = $request->header('referer');
-
-
-  /*          $referer = $request->headers->get('referer');
-            $agent = new Agent();
-            $device = $agent->device();// 系统信息,浏览器引擎  (Ubuntu, Windows, OS X, ...)
-            $languages = $agent->languages();
-            Log::info($languages);
-            $lang = !empty($languages) ? $languages[0] : null;
-
-            $agent->browser();
-            $browser = $agent->browser();// 获取浏览器
-            $browser_version = $agent->version($browser);// 获取浏览器版本
-            $platform = $agent->platform();// 获取系统
-            $version = $agent->version($platform);// 获取系统版本
-
-            // 是否是安卓设备
-            $isAndroidOS = $agent->isAndroidOS();
-            //是否是Nexus 系列
-            $isNexus = $agent->isNexus();
-            // 是否是Safari浏览器
-            $isSafari = $agent->isSafari();
-            // 是否是机器人
-            $isRobot = $agent->isRobot();
-            // 是否是桌面设备
-            $isDesktop = $agent->isDesktop();
-            // 是否是平板设备
-            $isTablet = $agent->isTablet();
-            // 移动设备
-            $isMobile = $agent->isMobile();
-
-            */
-
             $refer = $request->input('refer');
-
-
             Log::info($refer);
-
             Log::info("回收token");
 
             $revenue = $request->input('revenue');
@@ -224,13 +189,14 @@ class OfferController extends Controller
 
             $res = Db::table('track_lists as o')->where('o.random', $refer)->get()->first();
 
-
             if (!empty($res)) {
                 $ip = $res->ip;
 
                 if (!empty($ip)) {
                     $country_res = geoip($res->ip)->toArray();//根据ip获取国家
-                    $country_id = Geos::where('country', $country_res['country'])->value('id');//获取国家id
+
+                    $country_id = Geos::where('country_iso_code', $country_res['iso_code'])->value('id');//获取国家id
+
                 } else {
                     $ip = null;
                     $country_id = null;
@@ -240,9 +206,7 @@ class OfferController extends Controller
                 $ip = null;
                 $country_id = null;
             }
-
-
-
+            
             $insert_data = [];
             $insert_data['offer_id'] = !empty($res->offer_id) ? $res->offer_id : 0;
             $insert_data['track_id'] = !empty($res->track_id) ? $res->track_id : 0;
@@ -252,22 +216,6 @@ class OfferController extends Controller
             $insert_data['revenue'] = !empty($revenue) ? $revenue : 0;
             $insert_data['currency_code'] = !empty($currency_code) ? $currency_code : 0;
 
-/*
-            $insert_data['isAndroidOS'] = $isAndroidOS == true ? $isAndroidOS : false;
-            $insert_data['isNexus'] = $isNexus === true ? $isNexus : false;
-            $insert_data['isSafari'] = $isSafari === true ? $isSafari : false;
-            $insert_data['isRobot'] = $isRobot === true ? $isRobot : false;
-            $insert_data['isDesktop'] = $isDesktop === true ? $isDesktop : false;
-            $insert_data['isTablet'] = $isTablet === true ? $isTablet : false;
-            $insert_data['isMobile'] = $isMobile === true ? $isMobile : false;
-            $insert_data['referer'] = !empty($referer) ? $referer : 0;
-            $insert_data['lang'] = !empty($lang) ? $lang : 0;
-            $insert_data['device'] = !empty($device) ? $device : 0;
-            $insert_data['browser'] = !empty($browser) ? $browser : 0;
-            $insert_data['browser_version'] = !empty($browser_version) ? $browser_version : 0;
-            $insert_data['platform'] = !empty($platform) ? $platform : 0;
-            $insert_data['platform_version'] = !empty($version) ? $version : 0;
-            */
 
 
             $insert_data['created_at'] = date('Y-m-d H:i:s');
@@ -282,14 +230,7 @@ class OfferController extends Controller
             $insert_data['clickid'] = !empty($res) ? $res->clickid : '';
             $insert_data['clickid_time'] = !empty($res) ? $res->created_at : null;
 
-
-//        print_r($insert_data);
-//        exit;
-
             $insert = OfferLog::insertGetId($insert_data);
-
-//        var_dump($insert);exit;
-
 
             if (isset($res) && !empty($res->clickid)) {
                 $info = $this->post("https://track.heomai2021.com/click.php?cnv_id=" . $res->clickid . "&payout=" . $revenue);
