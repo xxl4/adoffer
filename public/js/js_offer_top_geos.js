@@ -197,7 +197,7 @@ var top_geos = {
 
 
         var filter = {};
-      filter['offers'] = [offer];
+        filter['offers'] = [offer];
         filter['offer_id'] = [offer_id];
 
         var options ={

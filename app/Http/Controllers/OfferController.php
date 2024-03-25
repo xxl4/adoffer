@@ -255,7 +255,7 @@ class OfferController extends Controller
 
                 foreach ($list as $key => $value) {
 
-                    
+
                     $country_res = geoip($value['ip'])->toArray();//根据ip获取国家
                     $country_id = Geos::where('country_iso_code', $country_res['iso_code'])->value('id');//获取国家id
                     if (!empty($country_id)) {
