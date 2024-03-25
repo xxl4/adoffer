@@ -9,7 +9,7 @@
         "encore/laravel-admin": "1.*",
         "geoip2/geoip2": "~2.0",
         "guzzlehttp/guzzle": "^7.2",
-        "intervention/image": "3.2.3",
+        "intervention/image": "3.5.1",
         "jenssegers/agent": "^2.6",
         "laravel-admin-ext/chartjs": "^1.0",
         "laravel/framework": "^9.19",
