@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use app\admin\model\Admin;
 use App\Models\Geos;
 use App\Models\Item;
@@ -102,7 +103,6 @@ class OfferController extends Controller
             $isMobile = $agent->isMobile();
 
 
-
             if (!empty($res)) {
 
                 Log::info($admin_id);
@@ -154,7 +154,7 @@ class OfferController extends Controller
                     Log::error('点击无效');
                     return $this->showMsg('1002', '点击无效');
                 }
-            }else{
+            } else {
                 Log::error('链接不存在');
                 return $this->showMsg('1002', '链接不存在');
             }
@@ -178,7 +178,7 @@ class OfferController extends Controller
 
 
         try {
-            $referrer = $request->header('referer');
+
             $refer = $request->input('refer');
             Log::info($refer);
             Log::info("回收token");
@@ -191,22 +191,10 @@ class OfferController extends Controller
 
             if (!empty($res)) {
                 $ip = $res->ip;
-
-                if (!empty($ip)) {
-                    $country_res = geoip($res->ip)->toArray();//根据ip获取国家
-
-                    $country_id = Geos::where('country_iso_code', $country_res['iso_code'])->value('id');//获取国家id
-
-                } else {
-                    $ip = null;
-                    $country_id = null;
-                }
-
             } else {
                 $ip = null;
-                $country_id = null;
             }
-            
+
             $insert_data = [];
             $insert_data['offer_id'] = !empty($res->offer_id) ? $res->offer_id : 0;
             $insert_data['track_id'] = !empty($res->track_id) ? $res->track_id : 0;
@@ -217,18 +205,16 @@ class OfferController extends Controller
             $insert_data['currency_code'] = !empty($currency_code) ? $currency_code : 0;
 
 
-
             $insert_data['created_at'] = date('Y-m-d H:i:s');
-            $insert_data['country_id'] = !empty($country_id) ? $country_id : 0;
+            $insert_data['country_id'] = 0;
             $insert_data['token'] = $refer;
             $insert_data['status'] = !empty($res) ? 2 : 1;
             $insert_data['token_time'] = !empty($res) ? $res->created_at : null;
 
 
-
-
             $insert_data['clickid'] = !empty($res) ? $res->clickid : '';
             $insert_data['clickid_time'] = !empty($res) ? $res->created_at : null;
+
 
             $insert = OfferLog::insertGetId($insert_data);
 
@@ -239,6 +225,7 @@ class OfferController extends Controller
                 Log::info('推送BM');
                 Log::info($info1);
             }
+
 
             if ($insert > 0) {
                 return $this->showMsg('1001', 'success');
@@ -255,8 +242,33 @@ class OfferController extends Controller
     }
 
 
-    //美元是基础，汇率换算，
+    /**
+     *定时获取国家
+     */
+    public function country()
+    {
 
+        try {
+            $list = OfferLog::where('status', 2)->where('country_id', 0)->whereNotNull('ip')->limit(50)->get()->toArray();
+
+            if (!empty($list)) {
+
+                foreach ($list as $key => $value) {
+
+                    
+                    $country_res = geoip($value['ip'])->toArray();//根据ip获取国家
+                    $country_id = Geos::where('country_iso_code', $country_res['iso_code'])->value('id');//获取国家id
+                    if (!empty($country_id)) {
+                        OfferLog::where('id', $value['id'])->update(['country_id' => $country_id]);
+                    }
+                }
+            }
+        } catch (\Exception $exception) {
+
+            Log::error('ip定时获取国家错误' . $exception->getMessage());
+            return ['status' => '1002', 'msg' => $exception->getMessage(), 'data' => null];
+        }
+    }
 
     protected function post($url)
     {// 初始化 curl
