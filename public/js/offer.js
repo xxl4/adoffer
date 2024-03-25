@@ -277,11 +277,12 @@ var ofer_functions = {
 					'</div>'+
 					'</div>';
 
-					write_offer = '<div class="col-md-12 accord" data-offer_db="'+curent_offer['name']+'"><ul class="nav nav-tabs" role="tablist">'+
+					write_offer = '<div class="col-md-12 accord" data-offer_id="'+curent_offer.id+'" data-offer_db="'+curent_offer['name']+'"><ul class="nav nav-tabs" role="tablist">'+
 					'<li class="active"><a href="#tab'+key+'Offer" role="tab" data-toggle="tab">Summary</a></li>'+
 					'<li><a href="#tab'+key+'Description" role="tab" data-toggle="tab">Description</a></li>'+
 					'<li><a href="#tab'+key+'Geos" role="tab" data-toggle="tab">Accepted Geos</a></li>'+
-					'<li><a href="#tab'+key+'Top_Geos" class="tab_top_geo" role="tab" data-toggle="tab">Top Geos</a></li>'+
+					'<li><a href="#tab'+key+'Top_Geos" class="tab_top_geo" role="tab" data-toggle="tab"  data-offer-id="'+curent_offer.id+'">Top' +
+                        ' Geos</a></li>'+
 					'<li><a href="#tab'+key+'Tracking" role="tab" data-toggle="tab">Tracking Links</a></li>'+
 					// '<li><a href="#tab'+key+'ProductsFeed" role="tab" data-toggle="tab">Products Data Feed</a></li>'+
 					'<li><a href="#tab'+key+'Creative" role="tab" data-toggle="tab">Creatives</a></li>'+
@@ -305,11 +306,12 @@ var ofer_functions = {
 					'</div></div></div><div class="tab-pane" id="tab'+key+'Geos">'+
 					'<div class="row"><div class="col-md-12"><p>'+geo_description+'</p>'+
 					'<p>'+geo+'</p>'+
-					'</div></div></div><div class="tab-pane top_geos_tab" id="tab'+key+'Top_Geos">'+
-					'<div class="row"><div class="col-md-12">'+
-					'<div class="top_geos_graph">'+write_time_selectors+'</div>'+
+					'</div></div></div><div class="tab-pane top_geos_tab" id="tab'+key+'Top_Geos"  data-offer-id="'+curent_offer.id+'">'+
+					'<div class="row"   data-offer-id="'+curent_offer.id+'"><div class="col-md-12"  data-offer-id="'+curent_offer.id+'">'+
+					'<div class="top_geos_graph"   data-offer-id="'+curent_offer.id+'">'+write_time_selectors+'</div>'+
 					'</div></div>'+
-					'<div class="wait_loader"><img src="/assets/plugins/Mapplic/mapplic/images/squares-preloader-gif.svg" alt=""></div>'+
+					'<div class="wait_loader"   data-offer-id="'+curent_offer.id+'"><img' +
+                        ' src="/assets/plugins/Mapplic/mapplic/images/squares-preloader-gif.svg" alt=""></div>'+
 					'</div>'+
 					curent_offer.htmlTrackingLinks+
 					curent_offer.htmlProductsDataFeed+

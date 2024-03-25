@@ -740,6 +740,11 @@ class OfferController extends AdminController
             $start = date('Y-m-d 00:00:00', strtotime($options['start']));
             $end = date('Y-m-d 23:59:59', strtotime($options['end']));
             $short_name = $options['filter']['offers'];
+            $offer_id = $options['filter']['offer_id'];
+
+
+//            print_r($start);exit;
+
             if(!empty($short_name)){
 //                $where['o.short_name'] = $short_name;
                 $where[] = [function ($query) use ($short_name) {
@@ -747,11 +752,23 @@ class OfferController extends AdminController
                 }];
             }
 
+            if(!empty($offer_id)){
+                $where[] = [function ($query) use ($offer_id) {
+                    $query->whereIn('o.id', $offer_id);
+                }];
+            }
+
+
+
+//            print_r($options);exit;
+
 //            Db::enableQueryLog();
 
 
             $offer_top = DB::table('offer_logs AS log')
                 ->where('log.status', 2)
+                ->where('log.country_id','<>', 0)
+
                 ->where('log.created_at', '>', $start)
                 ->where('log.created_at', '<=', $end)
                 ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
@@ -800,7 +817,7 @@ class OfferController extends AdminController
 //            $data['names'] = [0=>"Israel",1=>"United States"];
 //            $data['vals'] = [31,19];
 
-            $data['iso'] = ['荷兰' => "GB",'null'=>"123"];
+//            $data['iso'] = ['荷兰' => "GB",'null'=>"123"];
             $data['names'] = $names;
 
             if(!empty($vals)){
