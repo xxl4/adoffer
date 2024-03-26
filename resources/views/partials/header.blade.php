@@ -1,8 +1,9 @@
 <!-- Main Header -->
+
 <header class="main-header">
 
     <!-- Logo -->
-    <a href="{{ admin_url('/') }}" class="logo" style="position: fixed">
+    <a href="{{ admin_url('/') }}" class="logo" style="position: fixed;border-right:unset;">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini">{!! config('admin.logo-mini', config('admin.name')) !!}</span>
         <!-- logo for regular state and mobile devices -->
@@ -10,7 +11,7 @@
     </a>
 
     <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top" role="navigation" style="height: 50px">
+    <nav class="navbar navbar-static-top" role="navigation" style="height: 50px;margin-left:300px!important;">
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>

@@ -53,7 +53,7 @@
 
 {{--    </section>--}}
 
-    <section class="content">
+    <section class="content" style="padding-left: 80px">
 
         @include('admin::partials.alerts')
         @include('admin::partials.exception')
