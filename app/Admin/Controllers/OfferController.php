@@ -740,7 +740,9 @@ class OfferController extends AdminController
             $start = date('Y-m-d 00:00:00', strtotime($options['start']));
             $end = date('Y-m-d 23:59:59', strtotime($options['end']));
             $short_name = $options['filter']['offers'];
-            $offer_id = $options['filter']['offer_id'];
+
+
+//            $offer_id = $options['filter']['offer_id'];
 
 
 //            print_r($start);exit;
@@ -752,7 +754,11 @@ class OfferController extends AdminController
                 }];
             }
 
-            if(!empty($offer_id)){
+            if(isset($options['filter']['offer_id']) && !empty($options['filter']['offer_id'])){
+
+                            $offer_id = $options['filter']['offer_id'];
+
+
                 $where[] = [function ($query) use ($offer_id) {
                     $query->whereIn('o.id', $offer_id);
                 }];
