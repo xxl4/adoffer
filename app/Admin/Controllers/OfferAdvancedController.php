@@ -54,6 +54,8 @@ class OfferAdvancedController extends AdminController
                 $filter->like('geos.country','Country');
             });
 
+            $filter->equal('status')->select(['1' => '其他订单','2'=>'系统订单']);
+
 
             $filter->between('created_at', 'created_at')->datetime();
 
@@ -71,9 +73,9 @@ class OfferAdvancedController extends AdminController
 
 
 
-            $filter->column(1/2, function ($filter) {
-                $filter->like('token','Token');
-            });
+//            $filter->column(1/2, function ($filter) {
+//                $filter->like('token','Token');
+//            });
             $filter->expand();
         });
 
