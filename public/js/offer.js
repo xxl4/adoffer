@@ -3,6 +3,9 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+
+
+
 var ofer_functions = {
 	ofers_data: '',
 	full_return_data: [],
@@ -40,6 +43,9 @@ var ofer_functions = {
 		if(network){
 			options['network_name'] = network;
 		}
+
+        console.log('选项11',options)
+
 		$.ajax({
 			method: 'post',
 			url: window.domain + '/offers/offer',
@@ -136,7 +142,11 @@ var ofer_functions = {
 			}
 		}
 
+
+
 		function offer_to_show(key, curent_offer, network, selectedGeo, offerNamePart){
+
+
 			if(curent_offer.name){
 				var geo = '';
 				var geo_selected = false;
@@ -151,6 +161,9 @@ var ofer_functions = {
 						}
 					});
 				}
+
+                console.log('国家集合',curent_offer)
+
 				if(Array.isArray(selectedGeo)){
 					$.each(selectedGeo, function(i,e){
 						if(curent_offer.data.geo){
@@ -462,7 +475,13 @@ $(document).ready(function(){
 
 $(function(){
 	console.log("offer js");
-	ofer_functions.init();
-	user_tracking.work_on_tracking('us');
-	ofer_functions.offer_tracking_change();
+	ofer_functions.init()
+    console.log("offer js1");
+
+    user_tracking.work_on_tracking('us')
+    console.log("offer js2");
+
+    ofer_functions.offer_tracking_change()
+    console.log("offer js3");
+
 });
