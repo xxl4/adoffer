@@ -484,7 +484,7 @@
                                 <table class="show_result table table-striped table-flip-scroll cf" id="example2">
 
                                     <table class="table no-more-tables offer_table">
-                                        <thead>
+                                        <thead  id="html_data11">
                                         <tr>
                                             <th style="width:20%" class="text-center">DATE</th>
                                             <th style="width:20%" class="text-center">OFFER</th>
