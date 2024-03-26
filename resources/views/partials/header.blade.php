@@ -11,7 +11,7 @@
     </a>
 
     <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top" role="navigation" style="height: 50px;margin-left:300px!important;">
+    <nav class="navbar navbar-static-top" role="navigation" style="height: 50px;">
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>

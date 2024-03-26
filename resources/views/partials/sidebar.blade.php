@@ -1,4 +1,4 @@
-<aside class="main-sidebar" style="position: fixed;width: 300px!important;">
+<aside class="main-sidebar" style="position: fixed;">
 
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
