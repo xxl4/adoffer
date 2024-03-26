@@ -702,8 +702,11 @@ class OfferController extends AdminController
             $total_count = OfferLog::where('status',2)->count();
 
             foreach ($offer_count as $key => $value) {
-                $offer_count[$key]['short_name'] = DB::table('offers')->where('id',$value['offer_id'])->value('short_name');
-                $offer_count[$key]['offer_name'] = DB::table('offers')->where('id',$value['offer_id'])->value('offer_name');
+                $short_name = DB::table('offers')->where('id',$value['offer_id'])->value('short_name');
+                $offer_count[$key]['short_name'] = $value['offer_id'].'-'.$short_name;
+                $offer_name = DB::table('offers')->where('id',$value['offer_id'])->value('offer_name');
+                $offer_count[$key]['offer_name'] =  $value['offer_id'].'-'.$offer_name;
+
                 if($total_count==0){
                     $offer_count[$key]['offer_percent'] = "0%";
                 }else{
