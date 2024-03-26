@@ -159,7 +159,7 @@
                     <select class="select2_geos select2-hidden-accessible" name="offer_geos" id="offer_geos" multiple="" tabindex="-1" aria-hidden="true">
 
                         @foreach ($data['geos_list'] as $key=>$item)
-                            <option value="{{$item['country']}}">{{$item['country']}}</option>
+                            <option value="{{$item['full_country_name_en']}}">{{$item['country']}}</option>
                         @endforeach
 
                         <!--

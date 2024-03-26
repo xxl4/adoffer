@@ -162,9 +162,10 @@ var ofer_functions = {
 					});
 				}
 
-                console.log('国家集合',curent_offer)
+                console.log('国家选择',selectedGeo)
 
-				if(Array.isArray(selectedGeo)){
+
+                if(Array.isArray(selectedGeo)){
 					$.each(selectedGeo, function(i,e){
 						if(curent_offer.data.geo){
 							if(curent_offer.data.geo.indexOf( e ) != -1){
@@ -176,7 +177,10 @@ var ofer_functions = {
 					geo_selected = true;
 				}
 
-				if(offerNamePart){
+                console.log('国家集合',curent_offer.data.geo)
+
+
+                if(offerNamePart){
 					if(curent_offer.show_name.toLowerCase().indexOf(offerNamePart) !== -1){
 						ofer_filter = true;
 					}
