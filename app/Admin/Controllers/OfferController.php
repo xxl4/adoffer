@@ -688,7 +688,6 @@ class OfferController extends AdminController
                 ->leftJoin('offers as o','offer_logs.offer_id','=','o.id')
                 ->where($where)->where('offer_logs.status',2)
                 ->whereRaw($whereRole)
-
                 ->select(DB::raw('count(offer_logs.id) as total_quantity'), 'offer_logs.offer_id')
                 ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
                 ->groupBy('offer_logs.offer_id')
@@ -697,20 +696,28 @@ class OfferController extends AdminController
                 ->get()
                 ->toArray();
 
+//            var_dump($offer_count);
+
 
             $total_count = OfferLog::where('status',2)->count();
 
             foreach ($offer_count as $key => $value) {
-                $offer_count[$key]['short_name'] = Offer::where('id', $value['offer_id'])->value('short_name');
-                $offer_count[$key]['offer_name'] = Offer::where('id', $value['offer_id'])->value('offer_name');
+                $offer_count[$key]['short_name'] = DB::table('offers')->where('id',$value['offer_id'])->value('short_name');
+                $offer_count[$key]['offer_name'] = DB::table('offers')->where('id',$value['offer_id'])->value('offer_name');
                 if($total_count==0){
                     $offer_count[$key]['offer_percent'] = "0%";
                 }else{
                     $offer_count[$key]['offer_percent'] = round($value['total_quantity'] / $total_count * 100);
 
                 }
-            }
 
+
+//                print_r($offer_count[$key]['short_name']);
+
+            }
+//            exit;
+
+//            print_r($offer_count);exit;
 
             $short_name = array_column($offer_count, 'short_name');
             $offer_name = array_column($offer_count, 'offer_name');
@@ -756,9 +763,7 @@ class OfferController extends AdminController
 
             if(isset($options['filter']['offer_id']) && !empty($options['filter']['offer_id'])){
 
-                            $offer_id = $options['filter']['offer_id'];
-
-
+                $offer_id = $options['filter']['offer_id'];
                 $where[] = [function ($query) use ($offer_id) {
                     $query->whereIn('o.id', $offer_id);
                 }];
