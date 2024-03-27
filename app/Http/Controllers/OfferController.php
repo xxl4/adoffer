@@ -172,7 +172,7 @@ class OfferController extends Controller
                 ];
 
                 return response()->json($data);
-                
+
             }
         } catch (\Exception $exception) {
             Log::error('跳转错误' . $exception->getMessage());
@@ -317,12 +317,10 @@ class OfferController extends Controller
                       $offer_info = DB::table('offers')->where('id',$value['offer_id'])->select('id','offer_name')
                           ->get()->first();
 
-
-
                         $param = '/api/offers/jump?admin_id=1&offer_id=' . $value['offer_id'] . '&track_id=' . $value['id'];
                         $formal_url = 'https://clicks.btkua.com' . $param;
 
-                        $formal_url = "https://clicks.btkua.com/api/offers/jump?admin_id=1&offer_id=90&track_id=10000";
+//                        $formal_url = "https://clicks.btkua.com/api/offers/jump?admin_id=1&offer_id=90&track_id=10000";
 
 
                         $data = $this->curl_get_request($formal_url,'','GET');
@@ -336,7 +334,7 @@ class OfferController extends Controller
                                 .$offer_info->offer_name,'text');
 
 
-                            exit;
+//                            exit;
 
 
                         }
