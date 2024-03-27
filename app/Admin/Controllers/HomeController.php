@@ -35,19 +35,26 @@ class HomeController extends Controller
 
        $admin_id = $currentUser->id;
 
+//                    print_r("<pre/>");
+
+//        print_r($roles);exit;
+
+        $role_name = $currentUser->roles[0]->name;
+
+//        print_r($roleName);exit;
 
 
         $role = '';
         foreach ($roles as $role) {
-//            $role = $role->id;
-            $role_name = $role->name;
+            $role = $role->id;
+//            $role_name = $role->name;
 
 //            print_r("<pre/>");
 //            print_r($role_name);exit;
 
         }
 //        print_r("<pre/>");
-//        print_r($role_name);exit;
+//        print_r($admin_id);exit;
 
 
         if(!Admin::user()->isAdministrator() && $role_name!=='manage'){
@@ -88,7 +95,7 @@ class HomeController extends Controller
         $queryLog = DB::getQueryLog();
 
 //        print_r("<pre/>");
-//        print_r($queryLog);exit;
+//        print_r($data['total_sale'] );exit;
 
         //当天的销量
         $data['today_sale'] = OfferLog::where('offer_logs.status', 2)
@@ -272,7 +279,7 @@ class HomeController extends Controller
         $data['offer_last_week'] = $offer_last_week;
 
 //        print_r("<pre/>");
-//        print_r($offer_last_week);exit;
+//        print_r($data);exit;
 //        echo 123;exit;
 
         return $content
@@ -307,17 +314,28 @@ class HomeController extends Controller
         $admin_id = $currentUser->id; // 输出当前用户名称
         $roles = $currentUser->roles; // 获取当前用户的角色集合
 
+        $role_name = $currentUser->roles[0]->name;
 
         $role = '';
         foreach ($roles as $role) {
             $role = $role->id;
+//            $role_name = $role->name;
+
+
         }
 
-        if(!Admin::user()->isAdministrator()){
-//            $where['admin_roles_id'] = $role;
+        if(!Admin::user()->isAdministrator() && $role_name!=='manage'){
             $whereRole = "FIND_IN_SET($role, o.admin_roles_id)";
+
+            $offer_admin = [['offer_logs.admin_id','=',$admin_id]];
+            $offer_admin1 = [['log.admin_id','=',$admin_id]];
+
+
         }else{
+
             $whereRole = '1=1';
+            $offer_admin = [['offer_logs.admin_id','<>',0]];
+            $offer_admin1 = [['log.admin_id','<>',0]];
         }
 
 
@@ -330,7 +348,9 @@ class HomeController extends Controller
 
             ->where('offer_logs.created_at', '>', date('2022-01-01 00:00:00'))
             ->where('offer_logs.created_at', '<=', date('Y-m-t 23:59:59'))
-            ->whereRaw($whereRole)
+//            ->whereRaw($whereRole)
+
+            ->where($offer_admin)
             ->sum('offer_logs.revenue');
 
         $data = [];
@@ -340,19 +360,20 @@ class HomeController extends Controller
             $data = [];
             $data['all_count'] = OfferLog::where('offer_logs.status', 2)
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
-                ->whereRaw($whereRole)
+//                ->whereRaw($whereRole)
 
-                //                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
-                ->whereRaw($whereRole)
+//                ->whereRaw($whereRole)
+                ->where($offer_admin)
+
                 ->groupBy('offer_logs.offer_id')
                 ->count();
 
             $all_peyout_price = OfferLog::where('offer_logs.status', 2)
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
-                ->whereRaw($whereRole)
+//                ->whereRaw($whereRole)
 
                 //                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
-                ->whereRaw($whereRole)
+                ->where($offer_admin)
 
                 ->sum('offer_logs.revenue');
             $data['all_peyout_price'] = round($all_peyout_price, 2);
@@ -360,11 +381,11 @@ class HomeController extends Controller
 
             $data['day_peyout'] = OfferLog::where('offer_logs.status', 2)
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
-                ->whereRaw($whereRole)
+                ->where($offer_admin)
 
                 //                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
 
-                ->whereRaw($whereRole)
+//                ->whereRaw($whereRole)
 
                 ->where('offer_logs.created_at', '>', date('Y-m-d 00:00:00'))
                 ->where('offer_logs.created_at', '<=', date('Y-m-d 23:59:59'))
@@ -373,8 +394,9 @@ class HomeController extends Controller
             $day_peyout_price = OfferLog::where('offer_logs.status', 2)
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
 //                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
+                ->where($offer_admin)
 
-                ->whereRaw($whereRole)
+//                ->whereRaw($whereRole)
 
                 ->where('offer_logs.created_at', '>', date('Y-m-d 00:00:00'))
                 ->where('offer_logs.created_at', '<=', date('Y-m-d 23:59:59'))
@@ -387,7 +409,8 @@ class HomeController extends Controller
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
 //                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
 
-                ->whereRaw($whereRole)
+//                ->whereRaw($whereRole)
+                ->where($offer_admin)
 
 
                 ->where('offer_logs.created_at', '>', date('Y-m-1 00:00:00'))
@@ -397,7 +420,9 @@ class HomeController extends Controller
             $month_peyout_price = OfferLog::where('offer_logs.status', 2)
                 ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
 //                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
-                ->whereRaw($whereRole)
+//                ->whereRaw($whereRole)
+                ->where($offer_admin)
+
 
                 ->where('offer_logs.created_at', '>', date('Y-m-1 00:00:00'))
                 ->where('offer_logs.created_at', '<=', date('Y-m-t 23:59:59'))
@@ -452,7 +477,9 @@ class HomeController extends Controller
                 ->leftJoin('geos AS g', 'log.country_id', '=', 'g.id')
                 ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
 //                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
-                ->whereRaw($whereRole)
+//                ->whereRaw($whereRole)
+                ->where($offer_admin1)
+
 
                 ->select(DB::raw('sum(log.revenue) as country_sale'), 'log.country_id', 'g.country')
                 ->groupBy('country_id')
@@ -506,7 +533,9 @@ class HomeController extends Controller
                 ->where('log.created_at', '<=', date('Y-m-d 23:59:59'))
                 ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
 //                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
-                ->whereRaw($whereRole)
+//                ->whereRaw($whereRole)
+                ->where($offer_admin1)
+
                 ->select(DB::raw('sum(log.revenue) as offer_sale'), 'log.offer_id', 'o.short_name as offer_name')
                 ->groupBy('log.offer_id')
                 ->orderByDesc('offer_sale')
@@ -562,7 +591,10 @@ class HomeController extends Controller
                 ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
 //                ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
 
-                ->whereRaw($whereRole)
+//                ->whereRaw($whereRole)
+
+                ->where($offer_admin1)
+
 
                 ->select('log.created_at', 'o.offer_name', 'log.revenue')
                 ->orderByDesc('created_at')
@@ -661,17 +693,28 @@ class HomeController extends Controller
         $admin_id = $currentUser->id; // 输出当前用户名称
         $roles = $currentUser->roles; // 获取当前用户的角色集合
 
+        $role_name = $currentUser->roles[0]->name;
 
         $role = '';
         foreach ($roles as $role) {
             $role = $role->id;
+//            $role_name = $role->name;
+
+
         }
 
-        if(!Admin::user()->isAdministrator()){
-//            $where['admin_roles_id'] = $role;
+        if(!Admin::user()->isAdministrator() && $role_name!=='manage'){
             $whereRole = "FIND_IN_SET($role, o.admin_roles_id)";
+
+            $offer_admin = [['offer_logs.admin_id','=',$admin_id]];
+            $offer_admin1 = [['log.admin_id','=',$admin_id]];
+
+
         }else{
+
             $whereRole = '1=1';
+            $offer_admin = [['offer_logs.admin_id','<>',0]];
+            $offer_admin1 = [['log.admin_id','<>',0]];
         }
 
         //全部销量
@@ -679,8 +722,8 @@ class HomeController extends Controller
 
             ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
 //            ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
-            ->whereRaw($whereRole)
-
+//            ->whereRaw($whereRole)
+            ->where($offer_admin1)
             ->where('log.created_at', '>', date('2022-01-01 00:00:00'))
             ->where('log.created_at', '<=', date('Y-m-t 23:59:59'))
             ->where('status', 2)->count();
@@ -689,7 +732,9 @@ class HomeController extends Controller
         $total_country_count = DB::table('offer_logs as log')
             ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
 //            ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
-            ->whereRaw($whereRole)
+//            ->whereRaw($whereRole)
+            ->where($offer_admin1)
+
 
             ->where('log.status', 2)
             ->where('log.created_at', '>', date('2022-01-01 00:00:00'))
@@ -748,7 +793,9 @@ class HomeController extends Controller
         $total_offer_count = DB::table('offer_logs as log')
             ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
 //            ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
-            ->whereRaw($whereRole)
+//            ->whereRaw($whereRole)
+            ->where($offer_admin1)
+
 
             ->where('log.status', 2)
             ->where('log.created_at', '>', date('2022-01-01 00:00:00'))
@@ -818,7 +865,9 @@ class HomeController extends Controller
                     ->leftJoin('geos AS g', 'log.country_id', '=', 'g.id')
                     ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
 //                    ->whereRaw("FIND_IN_SET($role, o.admin_roles_id)")
-                    ->whereRaw($whereRole)
+//                    ->whereRaw($whereRole)
+                    ->where($offer_admin1)
+
 
                     ->where('log.offer_id', $value)
                     ->where('log.status', 2)
