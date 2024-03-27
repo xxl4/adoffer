@@ -12,6 +12,7 @@ use App\Models\OfferTracks;
 use App\Models\TrackList;
 use App\Models\TrackLists;
 use GeoIp2\Model\Country;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -153,7 +154,13 @@ class OfferController extends Controller
                     exit;
                 } else {
                     Log::error('点击无效');
-                    return $this->showMsg('1002', '点击无效');
+
+                    $data = [
+                        'msg' => '点击无效',
+                        'status'=>'1002',
+                    ];
+                    return response()->json($data);
+
                 }
             } else {
                 Log::error('链接不存在');
@@ -161,13 +168,11 @@ class OfferController extends Controller
 
                 $data = [
                     'msg' => '链接不存在',
-                    'status'=>'1001',
+                    'status'=>'1002',
                 ];
 
                 return response()->json($data);
-
-
-                return $this->showMsg('1002', '链接不存在');
+                
             }
         } catch (\Exception $exception) {
             Log::error('跳转错误' . $exception->getMessage());
@@ -302,40 +307,46 @@ class OfferController extends Controller
         $list = OfferTracks::all();
 
         try {
-
-
             // 检查是否有记录
             if (!$list->isEmpty()) {
-
                 $list = $list->toArray();
-                $deliver_list = Delivery::where('status', 1)->get()->toArray();
-                foreach ($deliver_list as $k => $v) {
+
                     foreach ($list as $value) {
 
+
+                      $offer_info = DB::table('offers')->where('id',$value['offer_id'])->select('id','offer_name')
+                          ->get()->first();
+
+
+
                         $param = '/api/offers/jump?admin_id=1&offer_id=' . $value['offer_id'] . '&track_id=' . $value['id'];
-                        $formal_url = 'http://clicks.btkua.com' . $param;
+                        $formal_url = 'https://clicks.btkua.com' . $param;
 
-                        $formal_url = 'http://127.0.0.1:8000' . $param;
-
-
-//                        echo $formal_url;exit;
-
-                        $formal_url = "http://clicks.btkua.com/api/offers/jump?admin_id=1&offer_id=90&track_id=100";
+                        $formal_url = "https://clicks.btkua.com/api/offers/jump?admin_id=1&offer_id=90&track_id=10000";
 
 
-                        $data = $this->curl_get_request($formal_url);
+                        $data = $this->curl_get_request($formal_url,'','GET');
+                        $data = json_decode($data,true);
 
-
-//                        $data = file_get_contents($formal_url);
-
-                        var_dump($data);exit;
-
+//                        var_dump($data['status']=='1001');exit;
 
                         if ($data['status'] == '1002') {
-                            Log::error($data['message']);
+
+                            $this->send($data['msg'].'<br>offer_id:'.$offer_info->id.';<br>offer_name:'
+                                .$offer_info->offer_name,'text');
+
+
+                            exit;
+
+
                         }
-                    }
+
+
+
+//                        print_r($value);
                 }
+
+
             }
         } catch (\Exception $exception) {
             Log::error('监控错误' . $exception->getMessage());
@@ -344,37 +355,56 @@ class OfferController extends Controller
     }
 
 
-   public function curl_get_request($url)
+   public function curl_get_request($url,$array,$method)
     {
 
 
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 5,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'get',
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_SSL_VERIFYHOST => false,
+        $ch = curl_init();//初始化curl
 
-    ));
+        if($method=="POST"){//4.post方式的时候添加数据
+            curl_setopt($ch,CURLOPT_POSTFIELDS,$array);
+        }
+
+        curl_setopt($ch, CURLOPT_URL, $url);//设置url属性
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $output = curl_exec($ch);//获取数据
+        curl_close($ch);//关闭curl
 
 
-        $response = curl_exec($curl);
+//        print_r(curl_getinfo($ch));exit;
 
-//        print_r(curl_getinfo($curl));exit;
+        return $output;
+    }
 
-        curl_close($curl);
 
-//        $data = "curl Error:" . curl_error($curl);
 
-//        Log::info($data);
-        echo $response;
+    public function send($text,$msgtype="text") {
 
+        $url = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=8c08b9ca-a604-47da-9168-4013856e5f78';
+//        var_dump($url);exit;
+        if(empty($url)) return false;
+        echo $url."\r\n";
+
+        $argc = [];
+        $argc['msgtype'] = $msgtype;
+        $argc['text'] = [
+            'content' => $text
+        ];
+        $header = [];
+        $header[] = "Content-Type:application/json";
+        $argc = json_encode($argc);
+      $res = $this->curl_get_request($url,$argc,'POST');
+
+
+        return false;
+
+        //var_dump($response, $argc);
     }
 
 
