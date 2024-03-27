@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use app\admin\model\Admin;
+use App\Models\Delivery;
 use App\Models\Geos;
 use App\Models\Item;
 use App\Models\Models\Offer;
@@ -156,6 +157,16 @@ class OfferController extends Controller
                 }
             } else {
                 Log::error('链接不存在');
+
+
+                $data = [
+                    'msg' => '链接不存在',
+                    'status'=>'1001',
+                ];
+
+                return response()->json($data);
+
+
                 return $this->showMsg('1002', '链接不存在');
             }
         } catch (\Exception $exception) {
@@ -255,7 +266,6 @@ class OfferController extends Controller
 
                 foreach ($list as $key => $value) {
 
-
                     $country_res = geoip($value['ip'])->toArray();//根据ip获取国家
                     $country_id = Geos::where('country_iso_code', $country_res['iso_code'])->value('id');//获取国家id
                     if (!empty($country_id)) {
@@ -279,6 +289,91 @@ class OfferController extends Controller
         $output = curl_exec($ch);//获取数据
         curl_close($ch);//关闭curl
         return $output;
+
+    }
+
+
+    /**
+     *检测追踪链接
+     */
+    public function offerTrack()
+    {
+
+        $list = OfferTracks::all();
+
+        try {
+
+
+            // 检查是否有记录
+            if (!$list->isEmpty()) {
+
+                $list = $list->toArray();
+                $deliver_list = Delivery::where('status', 1)->get()->toArray();
+                foreach ($deliver_list as $k => $v) {
+                    foreach ($list as $value) {
+
+                        $param = '/api/offers/jump?admin_id=1&offer_id=' . $value['offer_id'] . '&track_id=' . $value['id'];
+                        $formal_url = 'http://clicks.btkua.com' . $param;
+
+                        $formal_url = 'http://127.0.0.1:8000' . $param;
+
+
+//                        echo $formal_url;exit;
+
+                        $formal_url = "http://clicks.btkua.com/api/offers/jump?admin_id=1&offer_id=90&track_id=100";
+
+
+                        $data = $this->curl_get_request($formal_url);
+
+
+//                        $data = file_get_contents($formal_url);
+
+                        var_dump($data);exit;
+
+
+                        if ($data['status'] == '1002') {
+                            Log::error($data['message']);
+                        }
+                    }
+                }
+            }
+        } catch (\Exception $exception) {
+            Log::error('监控错误' . $exception->getMessage());
+        }
+
+    }
+
+
+   public function curl_get_request($url)
+    {
+
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 5,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'get',
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
+
+    ));
+
+
+        $response = curl_exec($curl);
+
+//        print_r(curl_getinfo($curl));exit;
+
+        curl_close($curl);
+
+//        $data = "curl Error:" . curl_error($curl);
+
+//        Log::info($data);
+        echo $response;
 
     }
 

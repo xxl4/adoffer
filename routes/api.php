@@ -24,6 +24,8 @@ Route::get('offers/callBack', [OfferController::class, 'callBack']);
 Route::get('offers/distribute', [OfferController::class, 'distribute']);
 Route::get('call/info', [CallController::class, 'info']);
 Route::get('offers/country', [OfferController::class, 'country']);
+Route::any('offers/offerTrack', [OfferController::class, 'offerTrack']);
+
 
 
 
