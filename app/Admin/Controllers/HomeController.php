@@ -32,30 +32,63 @@ class HomeController extends Controller
         $currentUser = auth()->user(); // 获取当前登录用户的模型对象
         $roles = $currentUser->roles; // 获取当前用户的角色集合
 
+
+       $admin_id = $currentUser->id;
+
+
+
         $role = '';
         foreach ($roles as $role) {
-            $role = $role->id;
-        }
+//            $role = $role->id;
+            $role_name = $role->name;
 
-        if(!Admin::user()->isAdministrator()){
+//            print_r("<pre/>");
+//            print_r($role_name);exit;
+
+        }
+//        print_r("<pre/>");
+//        print_r($role_name);exit;
+
+
+        if(!Admin::user()->isAdministrator() && $role_name!=='manage'){
             $whereRole = "FIND_IN_SET($role, o.admin_roles_id)";
+
+            $offer_admin = [['offer_logs.admin_id','=',$admin_id]];
+            $offer_admin1 = [['log.admin_id','=',$admin_id]];
+
+
         }else{
+
             $whereRole = '1=1';
+            $offer_admin = [['offer_logs.admin_id','<>',0]];
+            $offer_admin1 = [['log.admin_id','<>',0]];
+
+
         }
 
+
+
+//        print_r($offer_admin);exit;
 
         $data = [];
         //总销量
 
 
-        DB::enableQueryLog();
+//        DB::enableQueryLog();
+
+//        print_r($offer_admin);exit;
 
         $data['total_sale'] = OfferLog::where('offer_logs.status', 2)
             ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
-            ->whereRaw($whereRole)
+//            ->whereRaw($whereRole)
+            ->where($offer_admin)
+
             ->sum('offer_logs.revenue');
 
+        $queryLog = DB::getQueryLog();
 
+//        print_r("<pre/>");
+//        print_r($queryLog);exit;
 
         //当天的销量
         $data['today_sale'] = OfferLog::where('offer_logs.status', 2)
@@ -63,7 +96,9 @@ class HomeController extends Controller
 
             ->where('offer_logs.created_at', '>', date('Y-m-d 00:00:00'))
             ->where('offer_logs.created_at', '<=', date('Y-m-d 23:59:59'))
-            ->whereRaw($whereRole)
+//            ->whereRaw($whereRole)
+            ->where($offer_admin)
+
             ->sum('offer_logs.revenue');
         //当月的销量
         $data['month_sale'] = OfferLog::where('offer_logs.status', 2)
@@ -71,13 +106,17 @@ class HomeController extends Controller
 
             ->where('offer_logs.created_at', '>', date('Y-m-1 00:00:00'))
             ->where('offer_logs.created_at', '<=', date('Y-m-t 23:59:59'))
-            ->whereRaw($whereRole)
+//            ->whereRaw($whereRole)
+            ->where($offer_admin)
+
             ->sum('offer_logs.revenue');
         //最近五个销售offer
         $data['offer_info'] = DB::table('offer_logs AS log')
             ->where('log.status', 2)
+            ->where($offer_admin1)
+
             ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
-            ->whereRaw($whereRole)
+//            ->whereRaw($whereRole)
             ->select('log.created_at', 'o.offer_name', 'log.revenue')
             ->orderByDesc('log.created_at')
             ->limit(5)
@@ -86,7 +125,8 @@ class HomeController extends Controller
         //当天销量最多的国家数组以及占比百分比
         $country_top = DB::table('offer_logs AS log')
             ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
-            ->whereRaw($whereRole)
+//            ->whereRaw($whereRole)
+            ->where($offer_admin1)
 
             ->where('log.status', 2)
             ->where('log.created_at', '>', date('Y-m-d 00:00:00'))
@@ -107,10 +147,13 @@ class HomeController extends Controller
         }
 
         //当天销量最多的offer数组以及占比百分比
-        $offer_top = DB::table('offer_logs AS log')->where('log.status', 2)->where('log.created_at', '>', date('2023-01-01 00:00:00'))->where('log.created_at', '<=', date('Y-m-d 23:59:59'))
+        $offer_top = DB::table('offer_logs AS log')->where('log.status', 2)
+            ->where('log.created_at', '>', date('2023-01-01 00:00:00'))
+            ->where('log.created_at', '<=', date('Y-m-d 23:59:59'))
             ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
             ->select(DB::raw('sum(log.revenue) as offer_total'), 'log.offer_id', 'o.offer_name')
-            ->whereRaw($whereRole)
+//            ->whereRaw($whereRole)
+            ->where($offer_admin1)
 
             ->groupBy('log.offer_id')
             ->orderByDesc('offer_total')
@@ -136,7 +179,8 @@ class HomeController extends Controller
             ->where('log.created_at', '<=', $lastEndDate)
             ->leftJoin('geos AS g', 'log.country_id', '=', 'g.id')
             ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
-            ->whereRaw($whereRole)
+//            ->whereRaw($whereRole)
+            ->where($offer_admin1)
 
             ->select(DB::raw('sum(log.revenue) as country_total'), 'log.country_id', 'country')
             ->groupBy('country_id')
@@ -149,7 +193,10 @@ class HomeController extends Controller
             ->where('log.status', 2)
             ->where('log.created_at', '>', $lastStartDate)
             ->where('log.created_at', '<=', $lastEndDate)
-            ->whereRaw($whereRole)
+//            ->whereRaw($whereRole)
+
+            ->where($offer_admin1)
+
 
             ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
             ->select(DB::raw('count((log.offer_id)) as offer_count'), 'log.offer_id')
@@ -166,7 +213,10 @@ class HomeController extends Controller
             ->where('log.status', 2)
             ->where('log.created_at', '>', $lastStartDate)
             ->where('log.created_at', '<=', $lastEndDate)
-            ->whereRaw($whereRole)
+//            ->whereRaw($whereRole)
+
+            ->where($offer_admin1)
+
 
             ->leftJoin('offers AS o', 'log.offer_id', '=', 'o.id')
             ->select(DB::raw('sum(log.revenue) as offer_total'), 'log.offer_id', 'o.offer_name')
@@ -184,7 +234,8 @@ class HomeController extends Controller
                 $country_list = OfferLog::where('offer_id', $value->offer_id)
                     ->leftJoin('offers AS o', 'offer_logs.offer_id', '=', 'o.id')
 
-                    ->whereRaw($whereRole)
+//                    ->whereRaw($whereRole)
+                    ->where($offer_admin)
 
                     ->select(DB::raw('sum(offer_logs.revenue) as offer_total'), 'offer_logs.country_id')
                     ->groupBy('offer_logs.country_id')
@@ -213,7 +264,7 @@ class HomeController extends Controller
             }
         }
 
-        $message_list = Message::all()->toArray();
+      $message_list = Message::all()->toArray();
 
 //        print_r($message_list);exit;
 
