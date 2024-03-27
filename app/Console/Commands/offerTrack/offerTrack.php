@@ -54,25 +54,38 @@ class offerTrack extends Command
 
 //                        $formal_url = "https://clicks.btkua.com/api/offers/jump?admin_id=1&offer_id=90&track_id=10000";
 
-
+//                    echo '456-'.$value['offer_id'];
                     $data = $this->curl_get_request($formal_url,'','GET');
-                    $data = json_decode($data,true);
+
+                    Log::info(!empty($data));
+
+
+
+                    if(!empty($data)){
+                        Log::info('返回状态1122');
+                        $data = json_decode($data,true);
+
+//                        echo '123-'.$formal_url.',';
+
+                        Log::info('返回状态链接：'.$formal_url);
+
+                        if ($data['status'] == '1002') {
+
+                            $this->send($data['msg'].'<br>offer_id:'.$offer_info->id.';<br>offer_name:'
+                                .$offer_info->offer_name,'text');
+
+                        }
+
+
+                    }
+
 
 //                        var_dump($data['status']=='1001');exit;
 
 
                     Log::info('返回状态11');
 
-                    if ($data['status'] == '1002') {
 
-                        $this->send($data['msg'].'<br>offer_id:'.$offer_info->id.';<br>offer_name:'
-                            .$offer_info->offer_name,'text');
-
-
-//                            exit;
-
-
-                    }
 
 
 
